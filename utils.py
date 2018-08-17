@@ -8,27 +8,51 @@ Created on Thu Aug  9 15:49:17 2018
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from torchvision.datasets import CIFAR10
 from torchvision.transforms import transforms
 from torch.utils.data.dataset import random_split
+from torchvision.datasets import CIFAR10, ImageFolder
 
 
 # DATASET 
 # -------
 
 # Define images preprocessing steps
-normalize = transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))
-transforms = transforms.Compose([
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomCrop((32, 32), padding=4), 
-        transforms.ToTensor(), 
-        normalize])
+def transformations(dataset, subset=None):
+    
+    if dataset == 'CIFAR10':
+        ''' Image processing for CIFAR-10 '''
+        normalize = transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))
+        transformations = transforms.Compose([
+                transforms.RandomHorizontalFlip(),
+                transforms.RandomCrop((32, 32), padding=4), 
+                transforms.ToTensor(), 
+                normalize])
 
+    if dataset == 'ImageNet':
+        ''' Image processing for ImageNet '''
+        assert subset is not None, 'Choose transformations for Train set or Test set'
+        normalize = transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        
+        if subset == 'train':
+            transformations = transforms.Compose([
+                    transforms.RandomResizedCrop(224),
+                    transforms.RandomHorizontalFlip(),
+                    transforms.ToTensor(),
+                    normalize])
+    
+        if subset == 'test':
+            transformations = transforms.Compose([
+                    transforms.Resize(256),
+                    transforms.CenterCrop(224),
+                    transforms.ToTensor(),
+                    normalize])
+        
+    return transformations
 
 # Load Dataset
 def load_dataset(data_path, dataset: str, comments: bool = True):
     
-    assert os.path.exists(data_path), 'Datafolder not found'
+    assert os.path.exists(data_path), 'General data folder not found'
     def dataset_info(train_dataset, valid_dataset, test_dataset, name):
         
         from beautifultable import BeautifulTable as BT
@@ -43,20 +67,24 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
         table.append_row(['Test Images', len(test_dataset)])
         table.append_row(['Classes', classes])
         print(table)
-        
+
+    root = os.path.join(data_path, dataset)  
+    assert os.path.exists(root), 'Not found folder for this particular dataset'      
+    
     if dataset == 'CIFAR10':
-        transform = transforms
-        root = os.path.join(data_path, 'CIFAR10')
-        
+        transform = transformations(dataset)
         train_dataset = CIFAR10(root = root, download = True, train = True, transform = transform)
         test_dataset  = CIFAR10(root = root, download = False, train = False, transform = transform)
+    
+    if dataset == 'ImageNet':
+        train_dataset = ImageFolder(root = root, transform = transformations(dataset, 'train'))
+        train_dataset = ImageFolder(root = root, transform = transformations(dataset, 'test'))
     
     
     len_ = len(train_dataset)
     train_dataset, valid_dataset = random_split(train_dataset, [round(len_*0.9), round(len_*0.1)])
     if comments: dataset_info(train_dataset, valid_dataset, test_dataset, name=dataset)
     return train_dataset, valid_dataset, test_dataset
-
 
 
 # Plot and save output figures
