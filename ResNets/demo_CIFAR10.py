@@ -151,8 +151,7 @@ optimizer = optim.SGD(model.parameters(), lr=learning_rate,
 
 singleModel.train()
 single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, train_loader,
-                                    n_epochs, n_iters, save, createlog, None, 
-                                    print_every, save_frequency)
+                                    n_epochs, n_iters, save, createlog, None, print_every, save_frequency)
 
 figures(single_history, singleModel.name, 'CIFAR10', path_to_figures, draws, save)
 if save: single_history.to_csv(os.path.join(path_to_outputs, singleModel.name + '.csv'))
@@ -164,8 +163,7 @@ ensemble_history = []
 for model in ensemble:
     model.train()
     model_history, model_time = train('CIFAR10', model, optimizer, criterion, train_loader, 
-                                      n_epochs, n_iters, save, createlog, None, 
-                                      print_every, save_frequency)
+                                      n_epochs, n_iters, save, createlog, None, print_every, save_frequency)
     ensemble_history.append((model_history, model_time))
 
 for i, model in enumerate(ensemble):  

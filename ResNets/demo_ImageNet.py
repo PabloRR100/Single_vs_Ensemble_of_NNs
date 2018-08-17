@@ -46,10 +46,10 @@ from utils import load_dataset, count_parameters, figures
 save = False                # Activate results saving 
 test = True                 # Activate test to run few iterations per epoch       
 draws = False               # Activate showing the figures
-save_every = 1              # After how many epochs save stats
 print_every = 2             # After how many epochs print stats
 comments = True             # Activate printing comments
 createlog = False           # Activate option to save the logs in .txt
+save_frequency = 1          # After how many epochs save stats
 ensemble_type = 'Big'       # Single model big 
 #ensemble_type = 'Huge'     # Single model huge
 
@@ -152,8 +152,7 @@ optimizer = optim.SGD(model.parameters(), lr=learning_rate,
 
 singleModel.train()
 single_history, single_time = train('ImageNet', singleModel, optimizer, criterion, train_loader,
-                                    n_epochs, n_iters, save, createlog, logpath=None, 
-                                    print_every, save_frequency)
+                                    n_epochs, n_iters, save, createlog, None, print_every, save_frequency)
 
 figures(single_history, singleModel.name, 'ImageNet', path_to_figures, draws, save)
 if save: single_history.to_csv(os.path.join(path_to_outputs, singleModel.name + '.csv'))
@@ -165,8 +164,7 @@ ensemble_history = []
 for model in ensemble:
     model.train()
     model_history, model_time = train('ImageNet', model, optimizer, criterion, train_loader, 
-                                      n_epochs, n_iters, save, createlog, logpath=None, 
-                                      print_every=print_every, save_frequency=save_every)
+                                      n_epochs, n_iters, save, createlog, None, print_every, save_frequency)
     ensemble_history.append((model_history, model_time))
     
     figures(model_history, model.name, 'ImageNet', path_to_figures, draws, save)
