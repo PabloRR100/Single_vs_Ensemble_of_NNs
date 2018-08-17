@@ -21,15 +21,14 @@ def time(start):
     return hours, minutes
 
 
-def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, 
+def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save=False,
           createlog=False, logpath=None, print_every=2, save_frequency=1, test=True):
     
-#    debugging = True
     if test: 
-        epochs = 4
-        trainloader = islice(trainloader, 4)
+        epochs = 2
+        trainloader = islice(trainloader, 2)
     
-    if createlog:        
+    if save and createlog:        
         logfile = model.name + '.txt'
         logfile = os.path.join(logpath, logfile)
         f = open(logfile)
@@ -79,14 +78,14 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters,
                 
                 print('\n' + stats)
                 if createlog: f.write(stats + '\n')
-                
+        
         total_time.append(time(start))        
-        if save_frequency is not None and epoch % save_frequency == 0:
+        print('Epoch: {} Time: {} hours {} minutes'.format(epoch+1, time(start)[0], time(start)[1]))                
+        
+        if save and (save_frequency is not None and epoch % save_frequency == 0):
             torch.save(model.state_dict(), os.path.join('./models', '%s-%d.pkl' % (model.name, epoch))) 
-            
-    print('Epoch: {} Time: {} hours {} minutes'.format(epoch, time(start)[0], time(start)[1]))
-    
-    if createlog: f.close()             
+
+    if save and createlog: f.close()             
 
     train_history = pd.DataFrame(np.array([total_loss, total_acc]).T, columns=['Loss', 'Accuracy'])
     return train_history, total_time

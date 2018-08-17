@@ -8,6 +8,7 @@ Created on Thu Aug  9 15:31:56 2018
 
 
 import os
+import pandas as pd
 import multiprocessing
 from beautifultable import BeautifulTable as BT
 
@@ -43,11 +44,13 @@ from utils import load_dataset, count_parameters, figures
 
 ''' CONFIGURATION '''
 
+save = False                # Activate results saving 
 test = True                 # Activate test to run few iterations per epoch       
 draws = False               # Activate showing the figures
-save_every = 1              # After how many epochs save stats
 print_every = 2             # After how many epochs print stats
 comments = True             # Activate printing comments
+createlog = False           # Activate option to save the logs in .txt
+save_frequency = 1          # After how many epochs save stats
 ensemble_type = 'Big'       # Single model big 
 #ensemble_type = 'Huge'     # Single model huge
 
@@ -88,7 +91,7 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
 # 2 - Import the ResNet
 # ---------------------
 
-from resnetsCIFAR10 import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
+from resnets_CIFAR10 import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
 
 resnet20 = ResNet20()
 resnet32 = ResNet32()
@@ -148,11 +151,11 @@ optimizer = optim.SGD(model.parameters(), lr=learning_rate,
 
 singleModel.train()
 single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, train_loader,
-                                    n_epochs, n_iters, createlog=False, logpath=None, 
-                                    print_every=print_every, save_frequency=save_every)
+                                    n_epochs, n_iters, save, createlog, None, 
+                                    print_every, save_frequency)
 
-figures(single_history, singleModel.name, 'CIFAR10', path_to_figures, draws)
-single_history.to_csv(os.path.join(path_to_outputs, singleModel.name + '.csv'))
+figures(single_history, singleModel.name, 'CIFAR10', path_to_figures, draws, save)
+if save: single_history.to_csv(os.path.join(path_to_outputs, singleModel.name + '.csv'))
 
 
 # Ensemble individuals
@@ -161,14 +164,14 @@ ensemble_history = []
 for model in ensemble:
     model.train()
     model_history, model_time = train('CIFAR10', model, optimizer, criterion, train_loader, 
-                                      n_epochs, n_iters, createlog=False, logpath=None, 
-                                      print_every=print_every, save_frequency=save_every)
+                                      n_epochs, n_iters, save, createlog, None, 
+                                      print_every, save_frequency)
     ensemble_history.append((model_history, model_time))
 
 for i, model in enumerate(ensemble):  
     model_history, model_time = ensemble_history[i]
-    figures(model_history, model.name, 'CIFAR10', path_to_figures, draws)
-    model_history.to_csv(os.path.join(path_to_outputs, model.name + '.csv'))
+    figures(model_history, model.name, 'CIFAR10', path_to_figures, draws, save)
+    if save: model_history.to_csv(os.path.join(path_to_outputs, model.name + '.csv'))
 
 
 

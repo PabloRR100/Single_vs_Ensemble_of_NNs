@@ -88,8 +88,8 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
 
 
 # Plot and save output figures
-def figures(data, name, dataset_name, path, draws):
-        
+def figures(data, name, dataset_name, path, draws, save):
+      
     # Loss evolution
     image_file = 'baseline_' + name + '_' + dataset_name + '_training_loss.png'
     image_file = os.path.join(path, image_file)
@@ -97,7 +97,7 @@ def figures(data, name, dataset_name, path, draws):
     plt.title('Loss Evolution')
     plt.plot(data['Loss'], 'r-', label='Training')
     plt.legend()
-    plt.savefig(image_file)
+    if save: plt.savefig(image_file)
     if draws: plt.show()
     
     # Accuracy evolution
@@ -107,7 +107,7 @@ def figures(data, name, dataset_name, path, draws):
     plt.title('Accuracy Evolution')
     plt.plot(data['Accuracy'], 'r-', label='Training')
     plt.legend()
-    plt.savefig(image_file)
+    if save: plt.savefig(image_file)
     if draws: plt.show()
     
             
