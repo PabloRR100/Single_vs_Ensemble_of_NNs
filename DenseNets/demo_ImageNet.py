@@ -6,12 +6,10 @@ Created on Thu Aug  9 15:31:56 2018
 @title: Deep DenseNet vs Shallow DenseNets Ensemble on ImageNet
 """
 
-root = '/Users/pabloruizruiz/Harvard/Single_Ensembles/DenseNets'
-
-
 import os
 import multiprocessing
 from beautifultable import BeautifulTable as BT
+
 
 import torch
 import torch.nn as nn
@@ -20,20 +18,29 @@ from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
-os.chdir(root)
-path_to_logs = os.path.join(root, 'logs')
-path_to_data = os.path.join(root, '../data')
-path_to_output = os.path.join(root, 'outputs')
-path_to_figures = os.path.join(path_to_output, 'figures')
 
 import sys
 sys.path.append('..')
+data = '/Users/pabloruizruiz/Harvard/Single_Ensembles/data'
+root = '/Users/pabloruizruiz/Harvard/Single_Ensembles/DenseNets'
+results = '/Users/pabloruizruiz/Harvard/Single_Ensembles/results'
+
+os.chdir(root)
+path_to_data = data
+path_to_logs = os.path.join(results, 'logs', 'resnets')
+path_to_figures = os.path.join(results, 'figures', 'resnets')
+path_to_outputs = os.path.join(results, 'dataframes', 'resnets')
+
+
+import warnings
+warnings.filterwarnings("ignore")
 from utils import load_dataset, count_parameters, figures
 
 
 
 ''' CONFIGURATION '''
 
+test = True                 # Activate test to run few iterations per epoch       
 draws = False               # Activate showing the figures
 save_every = 1              # After how many epochs save stats
 print_every = 2             # After how many epochs print stats
@@ -141,7 +148,7 @@ single_history, single_time = train(singleModel, optimizer, criterion, train_loa
                                     print_every=print_every, save_frequency=save_every)
 
 figures(single_history, singleModel.name, 'ImageNet', path_to_figures, draws)
-single_history.to_csv(os.path.join(path_to_output, singleModel.name + '.csv'))
+single_history.to_csv(os.path.join(path_to_outputs, singleModel.name + '.csv'))
 
 
 
@@ -156,7 +163,7 @@ for model in ensemble:
     ensemble_history.append((model_history, model_time))
     
     figures(model_history, model.name, 'ImageNet', path_to_figures, draws)
-    model_history.to_csv(os.path.join(path_to_output, model.name + '.csv'))
+    model_history.to_csv(os.path.join(path_to_outputs, model.name + '.csv'))
 
 
 
