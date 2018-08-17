@@ -6,8 +6,6 @@ Created on Thu Aug  9 15:31:56 2018
 @title: Deep ResNets vs Shallow ResNets Ensemble on CIFAR-10
 """
 
-root = '/Users/pabloruizruiz/Harvard/Single_Ensembles/ResNets'
-
 
 import os
 import multiprocessing
@@ -20,14 +18,19 @@ from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
-os.chdir(root)
-path_to_logs = os.path.join(root, 'logs')
-path_to_data = os.path.join(root, '../data')
-path_to_output = os.path.join(root, 'outputs')
-path_to_figures = os.path.join(path_to_output, 'figures')
 
 import sys
 sys.path.append('..')
+data = '/Users/pabloruizruiz/Harvard/Single_Ensembles/data'
+root = '/Users/pabloruizruiz/Harvard/Single_Ensembles/ResNets'
+results = '/Users/pabloruizruiz/Harvard/Single_Ensembles/results'
+
+
+os.chdir(root)
+path_to_data = data
+path_to_logs = os.path.join(results, 'logs', 'resnets')
+path_to_figures = os.path.join(results, 'figures', 'resnets')
+
 from utils import load_dataset, count_parameters, figures
 
 
