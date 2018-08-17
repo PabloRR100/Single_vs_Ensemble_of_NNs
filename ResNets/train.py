@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime 
 from torch.autograd import Variable
-
+from itertools import islice
 
 now = datetime.now
 def time(start):
@@ -22,9 +22,12 @@ def time(start):
 
 
 def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, 
-          createlog=False, logpath=None, print_every=2, save_frequency=1):
+          createlog=False, logpath=None, print_every=2, save_frequency=1, test=True):
     
-    debugging = True
+#    debugging = True
+    if test: 
+        epochs = 4
+        trainloader = islice(trainloader, 4)
     
     if createlog:        
         logfile = model.name + '.txt'
@@ -49,7 +52,7 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters,
         
         for i, (images, labels) in enumerate(trainloader):
             
-            i += 1; j += 1
+            j += 1
             images = Variable(images)
             labels = Variable(labels)
             
@@ -77,9 +80,6 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters,
                 print('\n' + stats)
                 if createlog: f.write(stats + '\n')
                 
-            if debugging and i > 3: break # To track training
-
-        if debugging and epoch > 4: break
         total_time.append(time(start))        
         if save_frequency is not None and epoch % save_frequency == 0:
             torch.save(model.state_dict(), os.path.join('./models', '%s-%d.pkl' % (model.name, epoch))) 
