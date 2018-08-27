@@ -39,7 +39,16 @@ print(scripts, sys.stdout)
 print(results, sys.stdout)
 print(data_path, sys.stdout)
 
-#exit()
+f = open(os.path.join(root, 'test.txt'), 'w+')
+f.write(root)
+f.write(scripts)
+f.write(results)
+f.write(data_path)
+f.close()
+
+
+exit()
+
 
 assert os.path.exists(root), 'Root folder not found'
 assert os.path.exists(scripts), 'Scripts folder not found'
