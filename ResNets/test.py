@@ -7,7 +7,7 @@ from torch.autograd import Variable
 
 def test(dataset, singleModel, ensemble, test_loader, logpath, save):
     
-    print('Calculating test accuracy...', sys.stdout)
+    print('\n Calculating test accuracy... \n', sys.stdout)
     # Log config 
     
     assert os.path.exists(logpath), 'Error: path to save test logs not found'
@@ -65,6 +65,11 @@ def test(dataset, singleModel, ensemble, test_loader, logpath, save):
         f.write('Single model accuracy {}%'.format(100 * correct / total))
         f.close()
            
+        
+        
+        
+        
+        
         
         
 ''' 

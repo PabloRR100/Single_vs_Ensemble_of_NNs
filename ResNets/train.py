@@ -21,7 +21,9 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
           logpath=None, save_frequency=1, test=True):
     
     stats_every = 1
+    print('\n Training... \n', sys.stdout)
     
+    # test: reduce the training for testing purporse
     if test: 
         epochs = 5
         trainloader = islice(trainloader, 1)
@@ -53,7 +55,7 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
         
         for i, (images, labels) in enumerate(trainloader):
             
-            j += 1
+            j += 1 # for printing
             images = Variable(images)
             labels = Variable(labels)
             
@@ -83,7 +85,7 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
             if save: f.write(stats + '\n')
         
         total_time.append(time(start))        
-        print('Epoch: {} Time: {} hours {} minutes'.\
+        print('\n Epoch: {} Time: {} hours {} minutes'.\
               format(epoch+1, time(start)[0], time(start)[1]), sys.stdout)                
         
         if save and (save_frequency is not None and epoch % save_frequency == 0):

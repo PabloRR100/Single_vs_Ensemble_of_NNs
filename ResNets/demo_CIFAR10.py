@@ -23,7 +23,13 @@ import sys
 sys.path.append('..')
 
 
-''' DEFININTION OF PATHS '''
+'''
+DEFININTION OF PATHS 
+--------------------
+Define all the paths to load / save files
+Ensure all those paths are correctly defined before moving on
+'''
+
 scripts = os.getcwd()
 root = os.path.abspath(os.path.join(scripts, '../'))
 results = os.path.abspath(os.path.join(root, 'results'))
@@ -54,7 +60,12 @@ from utils import load_dataset, count_parameters, figures
 
 
 
-''' CONFIGURATION '''
+''' 
+CONFIGURATION 
+-------------
+
+Catch from the parser all the parameters to define the training
+'''
 from parser import args
 
 save = args.save
@@ -93,6 +104,9 @@ cuda = torch.cuda.is_available()
 n_workers = multiprocessing.cpu_count()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
+print(('Cuda: ', str(cuda)), sys.stdout)
+print(('Cores: ', str(n_workers)), sys.stdout)
+print(('Device: ', str(device)), sys.stdout)
 
 
 

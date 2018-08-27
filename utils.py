@@ -26,6 +26,7 @@ def count_parameters(model):
 # -------
 
 # Define images preprocessing steps
+    
 def transformations(dataset, subset=None):
     
     if dataset == 'CIFAR10':
@@ -59,6 +60,7 @@ def transformations(dataset, subset=None):
     return transformations
 
 # Load Dataset
+    
 def load_dataset(data_path, dataset: str, comments: bool = True):
     
     assert os.path.exists(data_path), errors['Exists data folder']
@@ -97,9 +99,11 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
 
 
 # Plot and save output figures
+    
 def figures(data, name, dataset_name, path, draws, save):
       
     # Loss evolution
+    
     image_file = 'baseline_' + name + '_' + dataset_name + '_training_loss.png'
     image_file = os.path.join(path, image_file)
     plt.figure()
@@ -110,6 +114,7 @@ def figures(data, name, dataset_name, path, draws, save):
     if draws: plt.show()
     
     # Accuracy evolution
+    
     plt.figure()
     image_file = 'baseline_' + name + '_' + dataset_name + '_training_accuracy.png'
     image_file = os.path.join(path, image_file)
