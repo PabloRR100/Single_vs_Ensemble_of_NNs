@@ -23,7 +23,7 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
     stats_every = 1
     
     if test: 
-        epochs = 2
+        epochs = 5
         trainloader = islice(trainloader, 1)
     
     # Logs config

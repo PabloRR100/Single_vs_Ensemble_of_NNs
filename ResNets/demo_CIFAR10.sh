@@ -20,11 +20,11 @@ source activate pytorch
 # --------------
 
 # Big Ensemble
-python demo_CIFAR10.py -n ResNet --save True --test True --comments True --draws False --ensembleSize Big --dataset CIFAR10 
+python demo_CIFAR10.py -n ResNet --save True --test True --comments True --draws True --ensembleSize Big --dataset CIFAR10 
  
 
 # Huge Ensemble
-python demo_CIFAR10.py -n ResNet --save True --test True --comments True --draws False --ensembleSize Huge --dataset CIFAR10 
+# python demo_CIFAR10.py -n ResNet --save True --test True --comments True --draws False --ensembleSize Huge --dataset CIFAR10 
 
  
 # DenseNet CIFAR10
