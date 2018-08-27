@@ -1,11 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Aug  9 15:49:17 2018
-@author: pabloruizruiz
-"""
 
 import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 from torchvision.transforms import transforms
@@ -73,14 +68,14 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
         if hasattr(test_dataset, 'classes'): classes = len(test_dataset.classes)
         elif hasattr(test_dataset, 'labels'): classes = len(np.unique(test_dataset.labels))
         elif hasattr(test_dataset, 'test_labels'): classes = len(np.unique(test_dataset.test_labels))
-        else: print('Classes not detected in the dataset')
+        else: print('Classes not detected in the dataset', sys.stdout)
         
         table = BT()
         table.append_row(['Train Images', len(train_dataset.indices)])
         table.append_row(['Valid Images', len(valid_dataset.indices)])
         table.append_row(['Test Images', len(test_dataset)])
         table.append_row(['Classes', classes])
-        print(table)
+        print(table, sys.stdout)
 
     root = os.path.join(data_path, dataset)  
     assert os.path.exists(root), errors['Exists particular data folder']      

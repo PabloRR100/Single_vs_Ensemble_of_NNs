@@ -17,5 +17,15 @@ module load cuda/9.0-fasrc02            # Load Cuda
 source activate pytorch
 
 # ResNet CIFAR10
+# --------------
+
+# Big Ensemble
 python demo_CIFAR10.py -n ResNet --save True --test True --comments True --draws False --ensembleSize Big --dataset CIFAR10 
  
+
+# Huge Ensemble
+python demo_CIFAR10.py -n ResNet --save True --test True --comments True --draws False --ensembleSize Huge --dataset CIFAR10 
+
+ 
+# DenseNet CIFAR10
+# ----------------

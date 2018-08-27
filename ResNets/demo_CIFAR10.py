@@ -34,6 +34,11 @@ path_to_models = os.path.join(results, 'models', 'resnets')
 path_to_figures = os.path.join(results, 'figures', 'resnets')
 path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
 
+print(root, sys.stdout)
+print(scripts, sys.stdout)
+print(results, sys.stdout)
+print(data_path, sys.stdout)
+
 assert os.path.exists(root), 'Root folder not found'
 assert os.path.exists(scripts), 'Scripts folder not found'
 assert os.path.exists(results), 'Results folder not found'
