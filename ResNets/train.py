@@ -20,7 +20,6 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
           logpath=None, save_frequency=1, test=True):
     
     stats_every = 1
-    print('\n Training... \n')
     
     # test: reduce the training for testing purporse
     if test: 

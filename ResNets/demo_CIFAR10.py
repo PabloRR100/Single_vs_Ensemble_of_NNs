@@ -6,7 +6,6 @@ Created on Thu Aug  9 15:31:56 2018
 @title: Deep ResNets vs Shallow ResNets Ensemble on CIFAR-10
 """
 
-
 import os
 import multiprocessing
 from beautifultable import BeautifulTable as BT
@@ -30,6 +29,8 @@ Define all the paths to load / save files
 Ensure all those paths are correctly defined before moving on
 '''
 
+print('DEFINITION OF PATHS')
+print('-------------------')
 scripts = os.getcwd()
 root = os.path.abspath(os.path.join(scripts, '../'))
 results = os.path.abspath(os.path.join(root, 'results'))
@@ -58,7 +59,10 @@ assert os.path.exists(path_to_dataframes), 'Dataframes folder not found'
 import warnings
 warnings.filterwarnings("ignore")
 from utils import blank, load_dataset, count_parameters, figures
-bl = blank();
+bl = blank(); 
+
+bl
+bl
 
 
 ''' 
@@ -67,6 +71,9 @@ CONFIGURATION
 
 Catch from the parser all the parameters to define the training
 '''
+print('CONFIGURATION')
+print('-------------'); bl
+
 from parser import args
 
 save = args.save
@@ -109,10 +116,15 @@ print('Cuda: ', str(cuda))
 print('Device: ', str(device))
 print('Cores: ', str(n_workers))
 
+bl
+bl
 
 
 # 1 - Import the Dataset
 # ----------------------
+
+print('IMPORTING DATA')
+print('--------------'); bl
 
 train_set, valid_set, test_set = load_dataset(data_path, 'CIFAR10', comments=comments)
 
@@ -127,11 +139,15 @@ valid_loader = DataLoader(dataset = valid_set.dataset,
 test_loader = DataLoader(dataset = test_set, batch_size = 1,
                                shuffle = False, num_workers=n_workers)
 
-
+bl
+bl
 
 
 # 2 - Import the ResNet
 # ---------------------
+
+print('IMPORTING MODELS')
+print('----------------'); bl
 
 from resnets_CIFAR10 import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
 
@@ -178,10 +194,15 @@ for i in range(ensemble_size):
 singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 
 
+bl
+bl
 
 
 # 3 - Train ResNet
 # ----------------
+
+print('TRAINING')
+print('--------'); bl
 
 from train import train
 train_log = os.path.join(path_to_logs, 'train')
@@ -215,10 +236,15 @@ for i, model in enumerate(ensemble):
     if save: model_history.to_csv(os.path.join(path_to_dataframes, model.name + '.csv'))
 
 
+bl
+bl
 
 
 # 4 - Evaluate Models
 # -------------------
+    
+print('TESTING')
+print('-------'); bl
 
 from test import test
 test_log = os.path.join(path_to_logs, 'test')    

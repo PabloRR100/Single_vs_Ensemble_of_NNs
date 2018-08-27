@@ -6,7 +6,6 @@ from torch.autograd import Variable
 
 def test(dataset, singleModel, ensemble, test_loader, logpath, save):
     
-    print('\n Calculating test accuracy... \n')
     # Log config 
     
     assert os.path.exists(logpath), 'Error: path to save test logs not found'
