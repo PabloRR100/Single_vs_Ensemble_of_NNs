@@ -8,7 +8,6 @@ Created on Thu Aug  9 15:31:56 2018
 
 
 import os
-import pandas as pd
 import multiprocessing
 from beautifultable import BeautifulTable as BT
 
@@ -16,23 +15,33 @@ from beautifultable import BeautifulTable as BT
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
 
 import sys
 sys.path.append('..')
-data = '/Users/pabloruizruiz/Harvard/Single_Ensembles/data'
-root = '/Users/pabloruizruiz/Harvard/Single_Ensembles/ResNets'
-results = '/Users/pabloruizruiz/Harvard/Single_Ensembles/results'
 
-os.chdir(root)
-path_to_data = data
-path_to_logs = os.path.join(results, 'logs', 'resnets')
-path_to_figures = os.path.join(results, 'figures', 'resnets')
-path_to_outputs = os.path.join(results, 'dataframes', 'resnets')
 
+''' DEFININTION OF PATHS '''
+scripts = os.getcwd()
+root = os.path.abspath(os.path.join(scripts, '../'))
+results = os.path.abspath(os.path.join(root, 'results'))
+data_path = os.path.abspath(os.path.join(root, '../datasets'))
+
+path_to_logs = os.path.join(results, 'logs')
+path_to_models = os.path.join(results, 'models')
+path_to_figures = os.path.join(results, 'figures')
+path_to_dataframes = os.path.join(results, 'dataframes')
+
+assert os.path.exists(root), 'Root folder not found'
+assert os.path.exists(scripts), 'Scripts folder not found'
+assert os.path.exists(results), 'Results folder not found'
+assert os.path.exists(data_path), 'Data folder not found'
+assert os.path.exists(path_to_logs), 'Logs folder not found'
+assert os.path.exists(path_to_models), 'Models folder not found'
+assert os.path.exists(path_to_figures), 'Figure folder not found'
+assert os.path.exists(path_to_dataframes), 'Dataframes folder not found'
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -40,9 +49,21 @@ from utils import load_dataset, count_parameters, figures
 
 
 
-
-
 ''' CONFIGURATION '''
+#from parser import args
+#
+#save = args.save
+#name = args.name
+#test = args.test
+#draws = args.draws
+#dataset = 'CIFAR10'
+#comments = args.comments
+#
+#ensemble_type = args.ensembleSize
+#
+#n_iters = args.iterations
+#batch_size = args.batch_size
+#learning_rate = args.learning_rate
 
 save = False                # Activate results saving 
 test = True                 # Activate test to run few iterations per epoch       
@@ -53,13 +74,13 @@ createlog = False           # Activate option to save the logs in .txt
 save_frequency = 1          # After how many epochs save stats
 ensemble_type = 'Big'       # Single model big 
 #ensemble_type = 'Huge'     # Single model huge
+learning_rate = 0.1
+batch_size = 128
+n_iters = 64000
 
 momentum = 0.9
 weight_decay = 1e-4
-learning_rate = 0.1
 
-batch_size = 128
-n_iters = 64000
 n_epochs = int(n_iters / batch_size)
 
 cuda = torch.cuda.is_available()
@@ -72,7 +93,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # 1 - Import the Dataset
 # ----------------------
 
-train_set, valid_set, test_set = load_dataset(path_to_data, 'CIFAR10', comments=comments)
+train_set, valid_set, test_set = load_dataset(data_path, 'CIFAR10', comments=comments)
 
 train_loader = DataLoader(dataset = train_set.dataset, 
                                sampler=SubsetRandomSampler(train_set.indices),
@@ -142,6 +163,7 @@ singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 # ----------------
 
 from train import train
+train_log = os.path.join(path_to_logs, 'train')
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=learning_rate, 
                       momentum=momentum, weight_decay=weight_decay)
@@ -154,7 +176,7 @@ single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion
                                     n_epochs, n_iters, save, createlog, None, print_every, save_frequency)
 
 figures(single_history, singleModel.name, 'CIFAR10', path_to_figures, draws, save)
-if save: single_history.to_csv(os.path.join(path_to_outputs, singleModel.name + '.csv'))
+if save: single_history.to_csv(os.path.join(path_to_dataframes, singleModel.name + '.csv'))
 
 
 # Ensemble individuals
@@ -169,7 +191,7 @@ for model in ensemble:
 for i, model in enumerate(ensemble):  
     model_history, model_time = ensemble_history[i]
     figures(model_history, model.name, 'CIFAR10', path_to_figures, draws, save)
-    if save: model_history.to_csv(os.path.join(path_to_outputs, model.name + '.csv'))
+    if save: model_history.to_csv(os.path.join(path_to_dataframes, model.name + '.csv'))
 
 
 
@@ -177,58 +199,83 @@ for i, model in enumerate(ensemble):
 # 4 - Evaluate Models
 # -------------------
 
-# Big Single Model
-    
-singleModel.eval()
-total, correct = 0,0
-with torch.no_grad():
-    
-    for i, (images, labels) in enumerate(test_loader):
-        
-        images = Variable(images)
-        labels = Variable(labels)
-        
-        outputs = singleModel(images)
-        
-        _, preds = outputs.max(1)
-        total += outputs.size(0)
-        correct += int(sum(preds == labels))
-        
-        if (i % 50 == 0 and (i < 100 or (i > 1000 and i < 1050))) or i % 1000 == 0:
-            print('Image [{}/{}]. Total correct {}'.format(i,len(test_set),correct))                
-    
-    print('Accuracy of the network on the {} test images: {}%'.format(len(test_set), (100 * correct / total)))
-     
-        
-# Ensemble Model
-    
-total, correct = 0,0
-with torch.no_grad():
-    
-    for i, (images, labels) in enumerate(test_loader):
-        
-        #images, labels = test_set[0]
-        images = Variable(images)
-        labels = Variable(torch.tensor(labels))        
-        
-        outputs = []
-        for model in ensemble:
-            
-            model.eval()
-            output = model(images)
-            outputs.append(output)
-            
-        outputs = torch.mean(torch.stack(outputs), dim=0)
-            
-        _, preds = outputs.max(1)
-        total += outputs.size(0)
-        correct += int(sum(preds == labels))
-        
-        if (i % 50 == 0 and (i < 100 or (i > 1000 and i < 1050))) or i % 1000 == 0:
-            print('Image [{}/{}]. Total correct {}'.format(i,len(test_set),correct))                
-            
-    print('Accuracy of the network on the {} test images: {}%'.format(len(test_set), (100 * correct / total)))
-        
-        
+from test import test
+test_log = os.path.join(path_to_logs, 'test')    
+
+test('CIFAR10', singleModel, ensemble, test_loader, test_log)
+
+
 exit()
 
+
+
+#singleModel.eval()
+#total, correct = 0,0
+#with torch.no_grad():
+#    
+#    for i, (images, labels) in enumerate(test_loader):
+#        
+#        images = Variable(images)
+#        labels = Variable(labels)
+#        
+#        outputs = singleModel(images)
+#        
+#        _, preds = outputs.max(1)
+#        total += outputs.size(0)
+#        correct += int(sum(preds == labels))
+#        
+#        if (i % 50 == 0 and (i < 100 or (i > 1000 and i < 1050))) or i % 1000 == 0:
+#            print('Image [{}/{}]. Total correct {}'.format(i,len(test_set),correct))                
+#    
+#    print('Accuracy of the network on the {} test images: {}%'.format(len(test_set), (100 * correct / total)))
+#     
+#        
+## Ensemble Model
+#    
+#total, correct = 0,0
+#with torch.no_grad():
+#    
+#    for i, (images, labels) in enumerate(test_loader):
+#        
+#        #images, labels = test_set[0]
+#        images = Variable(images)
+#        labels = Variable(torch.tensor(labels))        
+#        
+#        outputs = []
+#        for model in ensemble:
+#            
+#            model.eval()
+#            output = model(images)
+#            outputs.append(output)
+#            
+#        outputs = torch.mean(torch.stack(outputs), dim=0)
+#            
+#        _, preds = outputs.max(1)
+#        total += outputs.size(0)
+#        correct += int(sum(preds == labels))
+#        
+#        if (i % 50 == 0 and (i < 100 or (i > 1000 and i < 1050))) or i % 1000 == 0:
+#            print('Image [{}/{}]. Total correct {}'.format(i,len(test_set),correct))                
+#            
+#    print('Accuracy of the network on the {} test images: {}%'.format(len(test_set), (100 * correct / total)))
+
+
+# BACKUP CODE
+
+#save = False                # Activate results saving 
+#test = True                 # Activate test to run few iterations per epoch       
+#draws = False               # Activate showing the figures
+#print_every = 2             # After how many epochs print stats
+#comments = True             # Activate printing comments
+#createlog = False           # Activate option to save the logs in .txt
+#save_frequency = 1          # After how many epochs save stats
+#ensemble_type = 'Big'       # Single model big 
+##ensemble_type = 'Huge'     # Single model huge
+#
+#momentum = 0.9
+#weight_decay = 1e-4
+#learning_rate = 0.1
+#
+#batch_size = 128
+#n_iters = 64000
+#n_epochs = int(n_iters / batch_size)

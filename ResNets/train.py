@@ -9,9 +9,10 @@ import os
 import torch
 import numpy as np
 import pandas as pd
+from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
-from itertools import islice
+
 
 now = datetime.now
 def time(start):
@@ -28,7 +29,11 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
         epochs = 2
         trainloader = islice(trainloader, 2)
     
+    # Logs config
+    
     if save and createlog:        
+        
+        assert os.path.exists(logpath), 'Error: path to save train logs not found'
         logfile = model.name + '.txt'
         logfile = os.path.join(logpath, logfile)
         f = open(logfile)
@@ -77,7 +82,8 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
                         epoch, epochs, j, iters, round(loss.item(), 2), accuracy)
                 
                 print('\n' + stats)
-                if createlog: f.write(stats + '\n')
+            
+            if createlog: f.write(stats + '\n')
         
         total_time.append(time(start))        
         print('Epoch: {} Time: {} hours {} minutes'.format(epoch+1, time(start)[0], time(start)[1]))                
