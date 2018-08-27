@@ -1,13 +1,12 @@
 
 import os
-import sys
 import torch 
 from torch.autograd import Variable
 
 
 def test(dataset, singleModel, ensemble, test_loader, logpath, save):
     
-    print('\n Calculating test accuracy... \n', sys.stdout)
+    print('\n Calculating test accuracy... \n')
     # Log config 
     
     assert os.path.exists(logpath), 'Error: path to save test logs not found'
@@ -34,6 +33,7 @@ def test(dataset, singleModel, ensemble, test_loader, logpath, save):
             correct += int(sum(preds == labels))
             
     if save: 
+        print('Single model accuracy {}%'.format(100 * correct / total))
         f.write('Single model accuracy {}%'.format(100 * correct / total))
         f.close()
         
@@ -62,8 +62,11 @@ def test(dataset, singleModel, ensemble, test_loader, logpath, save):
             correct += int(sum(preds == labels))
      
     if save: 
-        f.write('Single model accuracy {}%'.format(100 * correct / total))
+        print('Ensemble accuracy {}%'.format(100 * correct / total))
+        f.write('Ensemble accuracy {}%'.format(100 * correct / total))
         f.close()
+    
+
            
         
         

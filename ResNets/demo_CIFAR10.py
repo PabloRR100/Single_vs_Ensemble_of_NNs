@@ -40,13 +40,11 @@ path_to_models = os.path.join(results, 'models', 'resnets')
 path_to_figures = os.path.join(results, 'figures', 'resnets')
 path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
 
-print(root, sys.stdout)
-print(scripts, sys.stdout)
-print(results, sys.stdout)
-print(data_path, sys.stdout)
+print('Root path: ', root)
+print('Script path: ', scripts)
+print('Result path: ', results)
+print('DataFolder path: ', data_path)
 
-
-#exit()
 
 assert os.path.exists(root), 'Root folder not found'
 assert os.path.exists(scripts), 'Scripts folder not found'
@@ -59,8 +57,8 @@ assert os.path.exists(path_to_dataframes), 'Dataframes folder not found'
 
 import warnings
 warnings.filterwarnings("ignore")
-from utils import load_dataset, count_parameters, figures
-
+from utils import blank, load_dataset, count_parameters, figures
+bl = blank();
 
 
 ''' 
@@ -85,7 +83,7 @@ batch_size = args.batch_size
 learning_rate = args.learning_rate
 save_frequency = args.save_frequency
 
-# Backup code to debug from python shell - no parser
+## Backup code to debug from python shell - no parser
 #save = False                # Activate results saving 
 #test = True                 # Activate test to run few iterations per epoch       
 #draws = False               # Activate showing the figures
@@ -107,9 +105,9 @@ cuda = torch.cuda.is_available()
 n_workers = multiprocessing.cpu_count()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-print(('Cuda: ', str(cuda)), sys.stdout)
-print(('Cores: ', str(n_workers)), sys.stdout)
-print(('Device: ', str(device)), sys.stdout)
+print('Cuda: ', str(cuda))
+print('Device: ', str(device))
+print('Cores: ', str(n_workers))
 
 
 
@@ -157,7 +155,7 @@ table.append_row(['ResNset32', *parameters(resnet32)])
 table.append_row(['ResNset44', *parameters(resnet44)])
 table.append_row(['ResNset56', *parameters(resnet56)])
 table.append_row(['ResNset110', *parameters(resnet110)])
-if comments: print(table, sys.stdout)
+if comments: bl; print(table)
 
 
 # Apply constraint - Parameters constant

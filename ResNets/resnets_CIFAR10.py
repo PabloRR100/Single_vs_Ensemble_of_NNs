@@ -192,10 +192,6 @@ def ResNet56(**kwargs):
 def ResNet110(**kwargs):
     return ResNet(name = 'ResNet110', depth = 110, **kwargs)
 
-#def ResNet164(**kwargs):
-#    return ResNet(name = 'ResNet164', depth = 164, num_classes=10, block=Bottleneck)
-#resnet164 = ResNet164()
-
 
 if __name__ == '__main__':
 
