@@ -16,6 +16,6 @@ module load cuda/9.0-fasrc02            # Load Cuda
 # Activate Environment
 source activate pytorch
 
-# Test cuda available
-python cuda_test.py
+# ResNet CIFAR10
+python demo_CIFAR10.py -n ResNet --save True --test True --comments True --draws False --ensembleSize Big --dataset CIFAR10 
  
