@@ -29,10 +29,10 @@ root = os.path.abspath(os.path.join(scripts, '../'))
 results = os.path.abspath(os.path.join(root, 'results'))
 data_path = os.path.abspath(os.path.join(root, '../datasets'))
 
-path_to_logs = os.path.join(results, 'logs')
-path_to_models = os.path.join(results, 'models')
-path_to_figures = os.path.join(results, 'figures')
-path_to_dataframes = os.path.join(results, 'dataframes')
+path_to_logs = os.path.join(results, 'logs', 'resnets')
+path_to_models = os.path.join(results, 'models', 'resnets')
+path_to_figures = os.path.join(results, 'figures', 'resnets')
+path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
 
 assert os.path.exists(root), 'Root folder not found'
 assert os.path.exists(scripts), 'Scripts folder not found'
@@ -68,7 +68,6 @@ from utils import load_dataset, count_parameters, figures
 save = False                # Activate results saving 
 test = True                 # Activate test to run few iterations per epoch       
 draws = False               # Activate showing the figures
-print_every = 2             # After how many epochs print stats
 comments = True             # Activate printing comments
 createlog = False           # Activate option to save the logs in .txt
 save_frequency = 1          # After how many epochs save stats
@@ -173,7 +172,7 @@ optimizer = optim.SGD(model.parameters(), lr=learning_rate,
 
 singleModel.train()
 single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, train_loader,
-                                    n_epochs, n_iters, save, createlog, None, print_every, save_frequency)
+                                    n_epochs, n_iters, save, train_log, save_frequency)
 
 figures(single_history, singleModel.name, 'CIFAR10', path_to_figures, draws, save)
 if save: single_history.to_csv(os.path.join(path_to_dataframes, singleModel.name + '.csv'))
@@ -185,7 +184,7 @@ ensemble_history = []
 for model in ensemble:
     model.train()
     model_history, model_time = train('CIFAR10', model, optimizer, criterion, train_loader, 
-                                      n_epochs, n_iters, save, createlog, None, print_every, save_frequency)
+                                      n_epochs, n_iters, save, train_log, save_frequency)
     ensemble_history.append((model_history, model_time))
 
 for i, model in enumerate(ensemble):  
@@ -202,7 +201,7 @@ for i, model in enumerate(ensemble):
 from test import test
 test_log = os.path.join(path_to_logs, 'test')    
 
-test('CIFAR10', singleModel, ensemble, test_loader, test_log)
+test('CIFAR10', singleModel, ensemble, test_loader, test_log, save)
 
 
 exit()

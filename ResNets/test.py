@@ -6,14 +6,15 @@ import torch
 from torch.autograd import Variable
 
 
-def test(dataset, singleModel, ensemble, test_loader, logpath):
+def test(dataset, singleModel, ensemble, test_loader, logpath, save):
     
+    print('Calculating test accuracy...')
     # Log config 
     
-    assert os.path.exists(logpath), 'Error: path to save train logs not found'
+    assert os.path.exists(logpath), 'Error: path to save test logs not found'
     logfile = 'test_' + singleModel.name + '.txt'
     logfile = os.path.join(logpath, logfile)
-    f = open(logfile)
+    if save: f = open(logfile, 'w+')
     
     
     # Single Network Performance
@@ -33,8 +34,9 @@ def test(dataset, singleModel, ensemble, test_loader, logpath):
             total += outputs.size(0)
             correct += int(sum(preds == labels))
             
-    f.write('Single model accuracy {}%'.format(100 * correct / total))
-    f.close()
+    if save: 
+        f.write('Single model accuracy {}%'.format(100 * correct / total))
+        f.close()
         
     
     # Ensemble Model
@@ -59,7 +61,8 @@ def test(dataset, singleModel, ensemble, test_loader, logpath):
             _, preds = outputs.max(1)
             total += outputs.size(0)
             correct += int(sum(preds == labels))
-            
-    f.write('Single model accuracy {}%'.format(100 * correct / total))
-    f.close()
+     
+    if save: 
+        f.write('Single model accuracy {}%'.format(100 * correct / total))
+        f.close()
            

@@ -23,15 +23,17 @@ def time(start):
 
 
 def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save=False,
-          createlog=False, logpath=None, print_every=2, save_frequency=1, test=True):
+          logpath=None, save_frequency=1, test=True):
+    
+    stats_every = 1
     
     if test: 
         epochs = 2
-        trainloader = islice(trainloader, 2)
+        trainloader = islice(trainloader, 1)
     
     # Logs config
     
-    if save and createlog:        
+    if save:        
         
         assert os.path.exists(logpath), 'Error: path to save train logs not found'
         logfile = model.name + '.txt'
@@ -76,14 +78,14 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
             total_acc.append(accuracy)
             total_loss.append(round(loss.item(), 3))
             
-            if j % print_every == 0:
+            if j % stats_every == 0:
                 
                 stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}'.format(
                         epoch, epochs, j, iters, round(loss.item(), 2), accuracy)
                 
                 print('\n' + stats)
             
-            if createlog: f.write(stats + '\n')
+            if save: f.write(stats + '\n')
         
         total_time.append(time(start))        
         print('Epoch: {} Time: {} hours {} minutes'.format(epoch+1, time(start)[0], time(start)[1]))                
@@ -91,7 +93,7 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
         if save and (save_frequency is not None and epoch % save_frequency == 0):
             torch.save(model.state_dict(), os.path.join('./models', '%s-%d.pkl' % (model.name, epoch))) 
 
-    if save and createlog: f.close()             
+    if save: f.close()             
 
     train_history = pd.DataFrame(np.array([total_loss, total_acc]).T, columns=['Loss', 'Accuracy'])
     return train_history, total_time
