@@ -45,6 +45,9 @@ print(scripts, sys.stdout)
 print(results, sys.stdout)
 print(data_path, sys.stdout)
 
+
+#exit()
+
 assert os.path.exists(root), 'Root folder not found'
 assert os.path.exists(scripts), 'Scripts folder not found'
 assert os.path.exists(results), 'Results folder not found'
