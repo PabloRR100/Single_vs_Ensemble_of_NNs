@@ -1,11 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Aug  9 16:35:14 2018
-@author: pabloruizruiz
-"""
 
 import os
+import sys
 import torch
 import numpy as np
 import pandas as pd
@@ -83,12 +78,13 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
                 stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}'.format(
                         epoch, epochs, j, iters, round(loss.item(), 2), accuracy)
                 
-                print('\n' + stats)
+                print('\n' + stats, sys.stdout)
             
             if save: f.write(stats + '\n')
         
         total_time.append(time(start))        
-        print('Epoch: {} Time: {} hours {} minutes'.format(epoch+1, time(start)[0], time(start)[1]))                
+        print('Epoch: {} Time: {} hours {} minutes'.\
+              format(epoch+1, time(start)[0], time(start)[1]), sys.stdout)                
         
         if save and (save_frequency is not None and epoch % save_frequency == 0):
             torch.save(model.state_dict(), os.path.join('./models', '%s-%d.pkl' % (model.name, epoch))) 

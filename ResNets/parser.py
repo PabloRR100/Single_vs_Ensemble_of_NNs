@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Aug  3 11:03:03 2018
-@author: pabloruizruiz
-"""
 
 import argparse
 
@@ -72,5 +66,9 @@ parser.add_argument('-lr', '--learning_rate',
 parser.add_argument('-bs', '--batch_size', 
                     type=int, default=128, 
                     help='Int: Training batch size')
+
+parser.add_argument('-sf', '--save_frequency', 
+                    type=int, default=1, 
+                    help='Int: Model parameters saving frequency ')
 
 args = parser.parse_args()

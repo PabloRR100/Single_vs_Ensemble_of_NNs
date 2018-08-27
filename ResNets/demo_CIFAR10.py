@@ -50,32 +50,33 @@ from utils import load_dataset, count_parameters, figures
 
 
 ''' CONFIGURATION '''
-#from parser import args
-#
-#save = args.save
-#name = args.name
-#test = args.test
-#draws = args.draws
-#dataset = 'CIFAR10'
-#comments = args.comments
-#
-#ensemble_type = args.ensembleSize
-#
-#n_iters = args.iterations
-#batch_size = args.batch_size
-#learning_rate = args.learning_rate
+from parser import args
 
-save = False                # Activate results saving 
-test = True                 # Activate test to run few iterations per epoch       
-draws = False               # Activate showing the figures
-comments = True             # Activate printing comments
-createlog = False           # Activate option to save the logs in .txt
-save_frequency = 1          # After how many epochs save stats
-ensemble_type = 'Big'       # Single model big 
-#ensemble_type = 'Huge'     # Single model huge
-learning_rate = 0.1
-batch_size = 128
-n_iters = 64000
+save = args.save
+name = args.name
+test = args.test
+draws = args.draws
+dataset = 'CIFAR10'
+comments = args.comments
+
+ensemble_type = args.ensembleSize
+
+n_iters = args.iterations
+batch_size = args.batch_size
+learning_rate = args.learning_rate
+save_frequency = args.save_frequency
+
+#save = False                # Activate results saving 
+#test = True                 # Activate test to run few iterations per epoch       
+#draws = False               # Activate showing the figures
+#comments = True             # Activate printing comments
+#createlog = False           # Activate option to save the logs in .txt
+#save_frequency = 1          # After how many epochs save stats
+#ensemble_type = 'Big'       # Single model big 
+##ensemble_type = 'Huge'     # Single model huge
+#learning_rate = 0.1
+#batch_size = 128
+#n_iters = 64000
 
 momentum = 0.9
 weight_decay = 1e-4
@@ -133,7 +134,7 @@ table.append_row(['ResNset32', *parameters(resnet32)])
 table.append_row(['ResNset44', *parameters(resnet44)])
 table.append_row(['ResNset56', *parameters(resnet56)])
 table.append_row(['ResNset110', *parameters(resnet110)])
-if comments: print(table)
+if comments: print(table, sys.stdout)
 
 
 # Apply constraint - Parameters constant
@@ -205,76 +206,3 @@ test('CIFAR10', singleModel, ensemble, test_loader, test_log, save)
 
 
 exit()
-
-
-
-#singleModel.eval()
-#total, correct = 0,0
-#with torch.no_grad():
-#    
-#    for i, (images, labels) in enumerate(test_loader):
-#        
-#        images = Variable(images)
-#        labels = Variable(labels)
-#        
-#        outputs = singleModel(images)
-#        
-#        _, preds = outputs.max(1)
-#        total += outputs.size(0)
-#        correct += int(sum(preds == labels))
-#        
-#        if (i % 50 == 0 and (i < 100 or (i > 1000 and i < 1050))) or i % 1000 == 0:
-#            print('Image [{}/{}]. Total correct {}'.format(i,len(test_set),correct))                
-#    
-#    print('Accuracy of the network on the {} test images: {}%'.format(len(test_set), (100 * correct / total)))
-#     
-#        
-## Ensemble Model
-#    
-#total, correct = 0,0
-#with torch.no_grad():
-#    
-#    for i, (images, labels) in enumerate(test_loader):
-#        
-#        #images, labels = test_set[0]
-#        images = Variable(images)
-#        labels = Variable(torch.tensor(labels))        
-#        
-#        outputs = []
-#        for model in ensemble:
-#            
-#            model.eval()
-#            output = model(images)
-#            outputs.append(output)
-#            
-#        outputs = torch.mean(torch.stack(outputs), dim=0)
-#            
-#        _, preds = outputs.max(1)
-#        total += outputs.size(0)
-#        correct += int(sum(preds == labels))
-#        
-#        if (i % 50 == 0 and (i < 100 or (i > 1000 and i < 1050))) or i % 1000 == 0:
-#            print('Image [{}/{}]. Total correct {}'.format(i,len(test_set),correct))                
-#            
-#    print('Accuracy of the network on the {} test images: {}%'.format(len(test_set), (100 * correct / total)))
-
-
-# BACKUP CODE
-
-#save = False                # Activate results saving 
-#test = True                 # Activate test to run few iterations per epoch       
-#draws = False               # Activate showing the figures
-#print_every = 2             # After how many epochs print stats
-#comments = True             # Activate printing comments
-#createlog = False           # Activate option to save the logs in .txt
-#save_frequency = 1          # After how many epochs save stats
-#ensemble_type = 'Big'       # Single model big 
-##ensemble_type = 'Huge'     # Single model huge
-#
-#momentum = 0.9
-#weight_decay = 1e-4
-#learning_rate = 0.1
-#
-#batch_size = 128
-#n_iters = 64000
-#n_epochs = int(n_iters / batch_size)
