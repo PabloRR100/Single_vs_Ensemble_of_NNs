@@ -39,7 +39,7 @@ print(scripts, sys.stdout)
 print(results, sys.stdout)
 print(data_path, sys.stdout)
 
-f = open(os.path.join(root, 'test.txt'), 'w+')
+f = open(os.path.join(scripts, 'test.txt'), 'w+')
 f.write(root)
 f.write(scripts)
 f.write(results)
