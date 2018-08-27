@@ -13,6 +13,20 @@ from torch.utils.data.dataset import random_split
 from torchvision.datasets import CIFAR10, ImageFolder
 
 
+# Errors dictionary
+errors = {
+        'Ensure subset': 'Choose transformations for Train set or Test set',
+        'Exists data folder': 'General data folder not found',
+        'Exists particular data folder': 'Not found folder for this particular dataset',
+        }
+
+
+# Count parameters of a model 
+
+def count_parameters(model):
+    ''' Count the parameters of a model '''
+    return sum(p.numel() for p in model.parameters())
+
 # DATASET 
 # -------
 
@@ -30,7 +44,7 @@ def transformations(dataset, subset=None):
 
     if dataset == 'ImageNet':
         ''' Image processing for ImageNet '''
-        assert subset is not None, 'Choose transformations for Train set or Test set'
+        assert subset is not None, errors['Ensure subset']
         normalize = transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
         
         if subset == 'train':
@@ -52,7 +66,7 @@ def transformations(dataset, subset=None):
 # Load Dataset
 def load_dataset(data_path, dataset: str, comments: bool = True):
     
-    assert os.path.exists(data_path), 'General data folder not found'
+    assert os.path.exists(data_path), errors['Exists data folder']
     def dataset_info(train_dataset, valid_dataset, test_dataset, name):
         
         from beautifultable import BeautifulTable as BT
@@ -69,7 +83,7 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
         print(table)
 
     root = os.path.join(data_path, dataset)  
-    assert os.path.exists(root), 'Not found folder for this particular dataset'      
+    assert os.path.exists(root), errors['Exists particular data folder']      
     
     if dataset == 'CIFAR10':
         transform = transformations(dataset)
@@ -111,10 +125,7 @@ def figures(data, name, dataset_name, path, draws, save):
     if draws: plt.show()
     
             
-        
-def count_parameters(model):
-    ''' Count the parameters of a model '''
-    return sum(p.numel() for p in model.parameters())
+    
 
 
 
