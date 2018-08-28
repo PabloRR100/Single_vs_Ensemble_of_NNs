@@ -8,12 +8,9 @@
 #SBATCH -p serial_requeue   # Partition to submit to
 
 # Testing mode - quickly allocation of resources
-
-#SBATCH --mem=100         
+#SBATCH --mem=3200          # Memory pool for all cores (see also --mem-per-cpu)
 
 # Uncomment to full power
-
-# #SBATCH --mem=1000          # Memory pool for all cores (see also --mem-per-cpu)
 # #SBATCH --gres=gpu:8        # Activate n GPU (let's say 8)
 
 #SBATCH -o myoutput_%j.out  # File to which STDOUT will be written, %j inserts jobid
