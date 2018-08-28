@@ -82,7 +82,7 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
         table.append_row(['Valid Images', len(valid_dataset.indices)])
         table.append_row(['Test Images', len(test_dataset)])
         table.append_row(['Classes', classes])
-        print(table, sys.stdout)
+        print(table)
 
     root = os.path.join(data_path, dataset)  
     assert os.path.exists(root), errors['Exists particular data folder']      
