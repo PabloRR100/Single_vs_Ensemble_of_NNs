@@ -78,9 +78,6 @@ paths = {
 bl
 bl
 
-print('Reached 01')
-exit()
-
 
 ''' 
 CONFIGURATION 
@@ -142,6 +139,9 @@ print('Cores: ', str(n_workers))
 
 bl
 bl
+
+print('Reached 01')
+exit()
 
 
 # 1 - Import the Dataset
