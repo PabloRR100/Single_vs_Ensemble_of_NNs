@@ -61,8 +61,8 @@ assert os.path.exists(path_to_dataframes), 'Dataframes folder not found'
 
 import warnings
 warnings.filterwarnings("ignore")
-from utils import blank, load_dataset, count_parameters, figures
-bl = blank(); 
+from utils import load_dataset, count_parameters, figures
+bl = print('\n') 
 
 paths = {
         'root': root, 
@@ -217,9 +217,6 @@ singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 
 bl
 bl
-
-print('Reached')
-exit()
 
 
 # 3 - Train ResNet
