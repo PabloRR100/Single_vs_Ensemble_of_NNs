@@ -16,8 +16,8 @@ def time(start):
     return hours, minutes
 
 
-def train(dataset, model, optimizer, criterion, dataloader, epochs, iters, 
-          save, paths, save_frequency=1, test=True):
+def train(dataset, model, optimizer, criterion, device, dataloader, 
+          epochs, iters, save, paths, save_frequency=1, test=True):
     
     stats_every = 1
     logpath = paths['logs']['train']
@@ -59,6 +59,9 @@ def train(dataset, model, optimizer, criterion, dataloader, epochs, iters,
             j += 1 # for printing
             images = Variable(images)
             labels = Variable(labels)
+            
+            images = images.to(device)
+            labels = labels.to(device)
             
             model.zero_grad()
             outputs = model(images)

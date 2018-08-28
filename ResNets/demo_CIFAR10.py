@@ -49,6 +49,10 @@ print('Script path: ', scripts)
 print('Result path: ', results)
 print('DataFolder path: ', data_path)
 
+
+exit()
+
+
 assert os.path.exists(root), 'Root folder not found'
 assert os.path.exists(scripts), 'Scripts folder not found'
 assert os.path.exists(results), 'Results folder not found'
@@ -124,6 +128,7 @@ n_epochs = int(n_iters / batch_size)
 cuda = torch.cuda.is_available()
 n_workers = multiprocessing.cpu_count()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
+# To move tensors to GPU if CUDA is available
 
 for arg in vars(args):
     print(arg, getattr(args, arg), type(arg))
@@ -216,8 +221,6 @@ singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 bl
 bl
 
-exit()
-
 # 3 - Train ResNet
 # ----------------
 
@@ -233,7 +236,8 @@ optimizer = optim.SGD(model.parameters(), lr=learning_rate,
 # Big Single Model
 
 singleModel.train()
-single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, train_loader,
+singleModel.to(device)
+single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, device, train_loader,
                                     n_epochs, n_iters, save, paths, save_frequency, testing)
 
 figures(single_history, singleModel.name, 'CIFAR10', paths['figures'], draws, save)
@@ -245,7 +249,8 @@ if save: single_history.to_csv(os.path.join(paths['dataframes'], singleModel.nam
 ensemble_history = []
 for model in ensemble:
     model.train()
-    model_history, model_time = train('CIFAR10', model, optimizer, criterion, train_loader, 
+    model.to(device)
+    model_history, model_time = train('CIFAR10', model, optimizer, criterion, device, train_loader, 
                                       n_epochs, n_iters, save, paths, save_frequency, testing)
     ensemble_history.append((model_history, model_time))
 
@@ -266,7 +271,7 @@ print('TESTING')
 print('-------'); bl
 
 from test import test
-test('CIFAR10', singleModel, ensemble, test_loader, paths, save)
+test('CIFAR10', singleModel, ensemble, device, test_loader, paths, save)
 
 
 exit()

@@ -4,7 +4,7 @@ import torch
 from torch.autograd import Variable
 
 
-def test(dataset, singleModel, ensemble, dataloader, paths, save):
+def test(dataset, singleModel, ensemble, device, dataloader, paths, save):
     
     
     # Log config 
@@ -19,6 +19,7 @@ def test(dataset, singleModel, ensemble, dataloader, paths, save):
     # Single Network Performance
     
     singleModel.eval()
+    singleModel.to(device)
     total, correct = 0,0
     with torch.no_grad():
         
@@ -53,6 +54,7 @@ def test(dataset, singleModel, ensemble, dataloader, paths, save):
             for model in ensemble:
                 
                 model.eval()
+                model.to(device)
                 output = model(images)
                 outputs.append(output)
                 
