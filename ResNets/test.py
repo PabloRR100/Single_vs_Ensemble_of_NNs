@@ -4,12 +4,14 @@ import torch
 from torch.autograd import Variable
 
 
-def test(dataset, singleModel, ensemble, test_loader, logpath, save):
+def test(dataset, singleModel, ensemble, dataloader, paths, save):
+    
     
     # Log config 
     
+    logpath = paths['logs']['test']
     assert os.path.exists(logpath), 'Error: path to save test logs not found'
-    logfile = 'test_' + singleModel.name + '.txt'
+    logfile = + singleModel.name + '_test_accuracy.txt'
     logfile = os.path.join(logpath, logfile)
     if save: f = open(logfile, 'w+')
     
@@ -20,7 +22,7 @@ def test(dataset, singleModel, ensemble, test_loader, logpath, save):
     total, correct = 0,0
     with torch.no_grad():
         
-        for i, (images, labels) in enumerate(test_loader):
+        for i, (images, labels) in enumerate(dataloader):
             
             images = Variable(images)
             labels = Variable(labels)
@@ -42,7 +44,7 @@ def test(dataset, singleModel, ensemble, test_loader, logpath, save):
     total, correct = 0,0
     with torch.no_grad():
         
-        for i, (images, labels) in enumerate(test_loader):
+        for i, (images, labels) in enumerate(dataloader):
             
             images = Variable(images)
             labels = Variable(torch.tensor(labels))        
@@ -81,7 +83,7 @@ singleModel.eval()
 total, correct = 0,0
 with torch.no_grad():
     
-    for i, (images, labels) in enumerate(test_loader):
+    for i, (images, labels) in enumerate(dataloader):
         
         images = Variable(images)
         labels = Variable(labels)
@@ -103,7 +105,7 @@ with torch.no_grad():
 total, correct = 0,0
 with torch.no_grad():
     
-    for i, (images, labels) in enumerate(test_loader):
+    for i, (images, labels) in enumerate(dataloader):
         
         #images, labels = test_set[0]
         images = Variable(images)

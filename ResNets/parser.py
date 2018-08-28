@@ -27,7 +27,7 @@ parser.add_argument('-s', '--save',
 parser.add_argument('-n', '--name', 
                     help='Name of the file to save the outputs')
 
-parser.add_argument('-t', '--test', 
+parser.add_argument('-t', '--testing', 
                     type=str2bool, default=False,
                     help='Activate test mode to train only few interations')
 

@@ -16,26 +16,29 @@ def time(start):
     return hours, minutes
 
 
-def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save=False,
-          logpath=None, save_frequency=1, test=True):
+def train(dataset, model, optimizer, criterion, dataloader, epochs, iters, 
+          save, paths, save_frequency=1, test=True):
     
     stats_every = 1
+    logpath = paths['logs']['train']
+    modelpath = paths['models']
     
     # test: reduce the training for testing purporse
     if test: 
+        print('training in test mode')
         epochs = 5
-        trainloader = islice(trainloader, 1)
+        dataloader = islice(dataloader, 2)
     
     # Logs config
     
     if save:        
         
-        assert os.path.exists(logpath), 'Error: path to save train logs not found'
+        assert os.path.exists(logpath), 'Error: path to save training logs not found'
         logfile = model.name + '.txt'
         logfile = os.path.join(logpath, logfile)
-        f = open(logfile)
+        f = open(logfile, 'w+')
     
-    j = 0           # Iteration controler  
+    j = 0 # Iteration controler  
     total_time = []
     total_loss = []
     total_acc = []
@@ -51,7 +54,7 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
             for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
             for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
         
-        for i, (images, labels) in enumerate(trainloader):
+        for i, (images, labels) in enumerate(dataloader):
             
             j += 1 # for printing
             images = Variable(images)
@@ -87,11 +90,9 @@ def train(dataset, model, optimizer, criterion, trainloader, epochs, iters, save
               format(epoch+1, time(start)[0], time(start)[1]))                
         
         if save and (save_frequency is not None and epoch % save_frequency == 0):
-            torch.save(model.state_dict(), os.path.join('./models', '%s-%d.pkl' % (model.name, epoch))) 
+            torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (model.name, epoch))) 
 
     if save: f.close()             
 
     train_history = pd.DataFrame(np.array([total_loss, total_acc]).T, columns=['Loss', 'Accuracy'])
     return train_history, total_time
-
-

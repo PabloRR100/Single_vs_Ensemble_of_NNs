@@ -41,11 +41,13 @@ path_to_models = os.path.join(results, 'models', 'resnets')
 path_to_figures = os.path.join(results, 'figures', 'resnets')
 path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
 
+train_log = os.path.join(path_to_logs, 'train')
+test_log = os.path.join(path_to_logs, 'test')
+
 print('Root path: ', root)
 print('Script path: ', scripts)
 print('Result path: ', results)
 print('DataFolder path: ', data_path)
-
 
 assert os.path.exists(root), 'Root folder not found'
 assert os.path.exists(scripts), 'Scripts folder not found'
@@ -60,6 +62,17 @@ import warnings
 warnings.filterwarnings("ignore")
 from utils import blank, load_dataset, count_parameters, figures
 bl = blank(); 
+
+paths = {
+        'root': root, 
+        'script': scripts,
+        'data': data_path,
+        'resulsts': results,
+        'logs': {'train': train_log, 'test': test_log}, 
+        'models': path_to_models,
+        'figures': path_to_figures,
+        'dataframes': path_to_dataframes
+        }
 
 bl
 bl
@@ -78,9 +91,9 @@ from parser import args
 
 save = args.save
 name = args.name
-test = args.test
 draws = args.draws
 dataset = 'CIFAR10'
+testing = args.testing
 comments = args.comments
 
 ensemble_type = args.ensembleSize
@@ -111,6 +124,12 @@ n_epochs = int(n_iters / batch_size)
 cuda = torch.cuda.is_available()
 n_workers = multiprocessing.cpu_count()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+for arg in vars(args):
+    print(arg, getattr(args, arg), type(arg))
+
+bl
+bl
 
 print('Cuda: ', str(cuda))
 print('Device: ', str(device))
@@ -205,7 +224,6 @@ print('TRAINING')
 print('--------'); bl
 
 from train import train
-train_log = os.path.join(path_to_logs, 'train')
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=learning_rate, 
                       momentum=momentum, weight_decay=weight_decay)
@@ -215,10 +233,10 @@ optimizer = optim.SGD(model.parameters(), lr=learning_rate,
 
 singleModel.train()
 single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, train_loader,
-                                    n_epochs, n_iters, save, train_log, save_frequency)
+                                    n_epochs, n_iters, save, paths, save_frequency, testing)
 
-figures(single_history, singleModel.name, 'CIFAR10', path_to_figures, draws, save)
-if save: single_history.to_csv(os.path.join(path_to_dataframes, singleModel.name + '.csv'))
+figures(single_history, singleModel.name, 'CIFAR10', paths['figures'], draws, save)
+if save: single_history.to_csv(os.path.join(paths['dataframes'], singleModel.name + '.csv'))
 
 
 # Ensemble individuals
@@ -227,13 +245,13 @@ ensemble_history = []
 for model in ensemble:
     model.train()
     model_history, model_time = train('CIFAR10', model, optimizer, criterion, train_loader, 
-                                      n_epochs, n_iters, save, train_log, save_frequency)
+                                      n_epochs, n_iters, save, paths, save_frequency, testing)
     ensemble_history.append((model_history, model_time))
 
 for i, model in enumerate(ensemble):  
     model_history, model_time = ensemble_history[i]
-    figures(model_history, model.name, 'CIFAR10', path_to_figures, draws, save)
-    if save: model_history.to_csv(os.path.join(path_to_dataframes, model.name + '.csv'))
+    figures(model_history, model.name, 'CIFAR10', paths['figures'], draws, save)
+    if save: model_history.to_csv(os.path.join(paths['dataframes'], model.name + '.csv'))
 
 
 bl
@@ -247,9 +265,7 @@ print('TESTING')
 print('-------'); bl
 
 from test import test
-test_log = os.path.join(path_to_logs, 'test')    
-
-test('CIFAR10', singleModel, ensemble, test_loader, test_log, save)
+test('CIFAR10', singleModel, ensemble, test_loader, paths, save)
 
 
 exit()
