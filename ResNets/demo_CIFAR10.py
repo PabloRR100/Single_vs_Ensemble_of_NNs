@@ -50,9 +50,6 @@ print('Result path: ', results)
 print('DataFolder path: ', data_path)
 
 
-exit()
-
-
 assert os.path.exists(root), 'Root folder not found'
 assert os.path.exists(scripts), 'Scripts folder not found'
 assert os.path.exists(results), 'Results folder not found'
@@ -80,6 +77,9 @@ paths = {
 
 bl
 bl
+
+print('Reached 01')
+exit()
 
 
 ''' 
