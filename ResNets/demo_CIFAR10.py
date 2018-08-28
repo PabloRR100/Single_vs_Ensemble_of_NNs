@@ -216,6 +216,7 @@ singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 bl
 bl
 
+exit()
 
 # 3 - Train ResNet
 # ----------------
