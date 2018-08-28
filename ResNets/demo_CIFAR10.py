@@ -164,11 +164,6 @@ bl
 bl
 
 
-print('Reached 01')
-exit()
-
-
-
 # 2 - Import the ResNet
 # ---------------------
 
@@ -222,6 +217,10 @@ singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 
 bl
 bl
+
+print('Reached')
+exit()
+
 
 # 3 - Train ResNet
 # ----------------
