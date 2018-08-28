@@ -92,7 +92,7 @@ from parser import args
 save = args.save
 name = args.name
 draws = args.draws
-dataset = 'CIFAR10'
+dataset = args.dataset
 testing = args.testing
 comments = args.comments
 
