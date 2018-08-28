@@ -11,7 +11,7 @@
 #SBATCH --mem=3200          # Memory pool for all cores (see also --mem-per-cpu)
 
 # Uncomment to full power
-# #SBATCH --gres=gpu:8        # Activate n GPU (let's say 8)
+#SBATCH --gres=gpu:8        # Activate n GPU (let's say 8)
 
 #SBATCH -o myoutput_%j.out  # File to which STDOUT will be written, %j inserts jobid
 #SBATCH -e myerrors_%j.err  # File to which STDERR will be written, %j inserts jobid
