@@ -140,9 +140,6 @@ print('Cores: ', str(n_workers))
 bl
 bl
 
-print('Reached 01')
-exit()
-
 
 # 1 - Import the Dataset
 # ----------------------
@@ -165,6 +162,11 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
 
 bl
 bl
+
+
+print('Reached 01')
+exit()
+
 
 
 # 2 - Import the ResNet
