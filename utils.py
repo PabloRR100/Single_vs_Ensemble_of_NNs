@@ -8,11 +8,6 @@ from torch.utils.data.dataset import random_split
 from torchvision.datasets import CIFAR10, ImageFolder
 
 
-# Print blanks
-def blank(): 
-    print('\n')
-
-
 # Errors dictionary
 errors = {
         'Ensure subset': 'Choose transformations for Train set or Test set',
