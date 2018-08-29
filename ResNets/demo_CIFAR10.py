@@ -122,10 +122,13 @@ weight_decay = 1e-4
 
 n_epochs = int(n_iters / batch_size)
 
+# GPU if CUDA is available
 cuda = torch.cuda.is_available()
 n_workers = multiprocessing.cpu_count()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-# To move tensors to GPU if CUDA is available
+gpus = True if torch.cuda.device_count() > 1 else False
+mem = False if device == 'cpu' else True
+
 
 for arg in vars(args):
     print(arg, getattr(args, arg), type(arg))
@@ -136,6 +139,7 @@ bl
 print('Cuda: ', str(cuda))
 print('Device: ', str(device))
 print('Cores: ', str(n_workers))
+print('GPUs available: ', str(torch.cuda.device_count()))
 
 bl
 bl
@@ -150,15 +154,18 @@ print('--------------'); bl
 train_set, valid_set, test_set = load_dataset(data_path, 'CIFAR10', comments=comments)
 
 train_loader = DataLoader(dataset = train_set.dataset, 
-                               sampler=SubsetRandomSampler(train_set.indices),
-                               batch_size = batch_size, num_workers=n_workers)
+                          sampler=SubsetRandomSampler(train_set.indices),
+                          batch_size = batch_size, num_workers=n_workers,
+                          pin_memory = mem)
 
 valid_loader = DataLoader(dataset = valid_set.dataset, 
-                               sampler=SubsetRandomSampler(valid_set.indices),
-                               batch_size = batch_size, num_workers=n_workers)
+                          sampler=SubsetRandomSampler(valid_set.indices),
+                          batch_size = batch_size, num_workers=n_workers,
+                          pin_memory = mem)
 
 test_loader = DataLoader(dataset = test_set, batch_size = 1,
-                               shuffle = False, num_workers=n_workers)
+                         shuffle = False, num_workers=n_workers, pin_memory = mem)
+
 
 bl
 bl
@@ -233,20 +240,28 @@ optimizer = optim.SGD(model.parameters(), lr=learning_rate,
 
 # Big Single Model
 
+name = singleModel.name
 singleModel.train()
+if gpus: 
+    singleModel = nn.DataParallel(singleModel)
 singleModel.to(device)
+
 single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, device, train_loader,
                                     n_epochs, n_iters, save, paths, save_frequency, testing)
 
-figures(single_history, singleModel.name, 'CIFAR10', paths['figures'], draws, save)
+figures(single_history, name, 'CIFAR10', paths['figures'], draws, save)
 if save: single_history.to_csv(os.path.join(paths['dataframes'], singleModel.name + '.csv'))
 
 
 # Ensemble individuals
 
+names = []
 ensemble_history = []
 for model in ensemble:
+    names.append(model.name)
     model.train()
+    if gpus: 
+        model = nn.DataParallel(model)
     model.to(device)
     model_history, model_time = train('CIFAR10', model, optimizer, criterion, device, train_loader, 
                                       n_epochs, n_iters, save, paths, save_frequency, testing)
@@ -254,7 +269,7 @@ for model in ensemble:
 
 for i, model in enumerate(ensemble):  
     model_history, model_time = ensemble_history[i]
-    figures(model_history, model.name, 'CIFAR10', paths['figures'], draws, save)
+    figures(model_history, names[i], 'CIFAR10', paths['figures'], draws, save)
     if save: model_history.to_csv(os.path.join(paths['dataframes'], model.name + '.csv'))
 
 
