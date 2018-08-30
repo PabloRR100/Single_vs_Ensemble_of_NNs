@@ -1,4 +1,5 @@
 """
+
 @title: ResNet in PyTorch for CIFAR-10
 
 References:
@@ -18,15 +19,17 @@ The first layer is 3×3 convolutions. Then we use a stack of 6n layers with
 3×3 convolutions on the feature maps of sizes {32, 16, 8} respectively,
 with 2n layers for each feature map size.
 
-The numbers of filters are {16, 32, 64} respectively.
 
-The subsampling is performed by convolutions with a stride of 2.
+- The numbers of filters are {16, 32, 64} respectively.
 
-The network ends with a global average pooling, a 10-way fully-connected layer, and softmax.
+- The subsampling is performed by convolutions with a stride of 2.
 
-There are totally 6n+2 stacked weighted layers
+- The network ends with a global average pooling, a 10-way fully-connected layer, and softmax.
 
-    * expansion: # n_output_channels / n_input channels
+- There are totally 6n+2 stacked weighted layers
+
+    (*) Expansion: # n_output_channels / n_input channels
+
 """
 
 

@@ -1,5 +1,7 @@
 
 import os
+import gc
+import sys
 import torch
 import numpy as np
 import pandas as pd
@@ -7,9 +9,11 @@ from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
+# from gpu_profile import gpu_profile
 
 now = datetime.now
 def time(start):
+    
     elapsed = (now() - start).total_seconds()
     hours =  int(elapsed/3600)
     minutes = round((elapsed/3600 - hours)*60, 2)
@@ -24,9 +28,10 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
     modelpath = paths['models']
     
     # test: reduce the training for testing purporse
+    
     if test: 
-        print('training in test mode')
         epochs = 5
+        print('training in test mode')
         dataloader = islice(dataloader, 2)
     
     # Logs config
@@ -70,6 +75,13 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
             loss = criterion(outputs, labels)            
             loss.backward()
             optimizer.step()
+            
+#            gpu_profile(frame=sys._getframe(), event='line', arg=None)
+
+#            print('\n Printing allocated tensors')            
+#            for obj in gc.get_objects():
+#                if torch.is_tensor(obj) or (hasattr(obj, 'data') and torch.is_tensor(obj.data)):
+#                    print(type(obj), obj.size())
             
             correct, total = 0, 0
             total += outputs.size(0)

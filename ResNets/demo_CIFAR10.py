@@ -10,16 +10,20 @@ import os
 import multiprocessing
 from beautifultable import BeautifulTable as BT
 
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
-
 import sys
 sys.path.append('..')
+
+os.environ['CUDA_VISIBLE_DEVICES']='2'
+os.environ['GPU_DEBUG']='2'
+
+from gpu_profile import gpu_profile
+sys.settrace(gpu_profile)
 
 
 '''
@@ -43,6 +47,7 @@ path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
 
 train_log = os.path.join(path_to_logs, 'train')
 test_log = os.path.join(path_to_logs, 'test')
+
 
 print('Root path: ', root)
 print('Script path: ', scripts)
@@ -107,7 +112,7 @@ print('-------------'); bl
 # Backup code to debug from python shell - no parser
 save = False                # Activate results saving 
 draws = False               # Activate showing the figures
-testing = False             # Activate test to run few iterations per epoch       
+testing = True             # Activate test to run few iterations per epoch       
 comments = True             # Activate printing comments
 createlog = False           # Activate option to save the logs in .txt
 save_frequency = 1          # After how many epochs save stats
@@ -130,8 +135,8 @@ gpus = True if torch.cuda.device_count() > 1 else False
 mem = False if device == 'cpu' else True
 
 
-for arg in vars(args):
-    print(arg, getattr(args, arg), type(arg))
+#for arg in vars(args):
+#    print(arg, getattr(args, arg), type(arg))
 
 bl
 bl
