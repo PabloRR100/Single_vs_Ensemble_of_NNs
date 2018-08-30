@@ -5,10 +5,10 @@
 #SBATCH -n 1                # Number of cores
 #SBATCH -N 1                # Ensure that all cores are on one machine
 #SBATCH -t 0-00:10          # Runtime in D-HH:MM, minimum of 10 minutes
-#SBATCH -p serial_requeue   # Partition to submit to
+#SBATCH -p gpu   # Partition to submit to
 
 # Testing mode - quickly allocation of resources
-#SBATCH --mem=3200          # Memory pool for all cores (see also --mem-per-cpu)
+#SBATCH --mem=30000          # Memory pool for all cores (see also --mem-per-cpu)
 
 # Uncomment to full power
 #SBATCH --gres=gpu:8        # Activate n GPU (let's say 8)
@@ -22,7 +22,7 @@ module load cuda/9.0-fasrc02 cudnn/7.0_cuda9.0-fasrc01
 
 # Activate Environment
 
-source activate pytorch
+source activate torch37
 
 
 
