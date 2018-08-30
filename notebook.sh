@@ -1,5 +1,6 @@
 #!/bin/bash
 
+chmod 777 notebook.sh
 module load Anaconda3/5.0.1-fasrc02
 
 if [ $1 == 'cuda80' ]
