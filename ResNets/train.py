@@ -9,7 +9,9 @@ from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
-# from gpu_profile import gpu_profile
+import operator as op
+from functools import reduce
+#from gpu_profile import gpu_profile
 
 now = datetime.now
 def time(start):
@@ -78,11 +80,10 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
             
 #            gpu_profile(frame=sys._getframe(), event='line', arg=None)
 
-#            print('\n Printing allocated tensors')            
-#            for obj in gc.get_objects():
-#                if torch.is_tensor(obj) or (hasattr(obj, 'data') and torch.is_tensor(obj.data)):
-#                    print(type(obj), obj.size())
-            
+            for obj in gc.get_objects():
+                if torch.is_tensor(obj) or (hasattr(obj, 'data') and torch.is_tensor(obj.data)):
+                    print(reduce(op.mul, obj.size()) if len(obj.size()) > 0 else 0, type(obj), obj.size())
+
             correct, total = 0, 0
             total += outputs.size(0)
             correct += int(sum(predictions == labels)) 

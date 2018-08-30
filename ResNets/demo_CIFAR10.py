@@ -19,8 +19,8 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import sys
 sys.path.append('..')
 
-os.environ['CUDA_VISIBLE_DEVICES']='2'
-os.environ['GPU_DEBUG']='2'
+os.environ['CUDA_VISIBLE_DEVICES']='8'
+os.environ['GPU_DEBUG']='8'
 
 from gpu_profile import gpu_profile
 sys.settrace(gpu_profile)
@@ -93,34 +93,34 @@ Catch from the parser all the parameters to define the training
 print('CONFIGURATION')
 print('-------------'); bl
 
-#from parser import args
-#
-#save = args.save
-#name = args.name
-#draws = args.draws
-#dataset = args.dataset
-#testing = args.testing
-#comments = args.comments
-#
-#ensemble_type = args.ensembleSize
-#
-#n_iters = args.iterations
-#batch_size = args.batch_size
-#learning_rate = args.learning_rate
-#save_frequency = args.save_frequency
+from parser import args
 
-# Backup code to debug from python shell - no parser
-save = False                # Activate results saving 
-draws = False               # Activate showing the figures
-testing = True             # Activate test to run few iterations per epoch       
-comments = True             # Activate printing comments
-createlog = False           # Activate option to save the logs in .txt
-save_frequency = 1          # After how many epochs save stats
-ensemble_type = 'Big'       # Single model big 
-#ensemble_type = 'Huge'     # Single model huge
-learning_rate = 0.1
-batch_size = 128
-n_iters = 64000
+save = args.save
+name = args.name
+draws = args.draws
+dataset = args.dataset
+testing = args.testing
+comments = args.comments
+
+ensemble_type = args.ensembleSize
+
+n_iters = args.iterations
+batch_size = args.batch_size
+learning_rate = args.learning_rate
+save_frequency = args.save_frequency
+
+## Backup code to debug from python shell - no parser
+#save = False                # Activate results saving 
+#draws = False               # Activate showing the figures
+#testing = True             # Activate test to run few iterations per epoch       
+#comments = True             # Activate printing comments
+#createlog = False           # Activate option to save the logs in .txt
+#save_frequency = 1          # After how many epochs save stats
+#ensemble_type = 'Big'       # Single model big 
+##ensemble_type = 'Huge'     # Single model huge
+#learning_rate = 0.1
+#batch_size = 128
+#n_iters = 64000
 
 momentum = 0.9
 weight_decay = 1e-4
