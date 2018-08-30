@@ -12,6 +12,9 @@ elif [ $1 == 'cuda90' ]
 then
   module load cuda/9.0-fasrc02 cudnn/7.0_cuda9.0-fasrc01
   source activate torch37
+else
+  echo NOT ENVIRONMENT LOADED
+  exit 1
 fi
 
 # Output information
