@@ -166,9 +166,10 @@ class ResNet(nn.Module):
 
 
     def forward(self, x, print_sizes=False):
-
+        
+        print('Sizes of the tensors inside each node: \n')
         if print_sizes:
-            print("\tIn Model: input size", x.size())
+            print("\t In Model: input size", x.size())
         
         x = self.relu(self.bn(self.conv(x)))    # 32x32
         
@@ -181,7 +182,7 @@ class ResNet(nn.Module):
         x  = self.fc(x)                         # Dense
         
         if print_sizes:
-            print("\tIn Model: output size", x.size())
+            print("\t In Model: output size", x.size())
             
         return x
 

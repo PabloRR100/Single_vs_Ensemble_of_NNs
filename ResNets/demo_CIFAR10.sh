@@ -5,7 +5,7 @@
 #SBATCH -n 1                # Number of cores
 #SBATCH -N 1                # Ensure that all cores are on one machine
 #SBATCH -t 0-00:10          # Runtime in D-HH:MM, minimum of 10 minutes
-#SBATCH -p gpu   # Partition to submit to
+#SBATCH -p gpu_requeue      # Partition to submit to
 
 # Testing mode - quickly allocation of resources
 #SBATCH --mem=30000          # Memory pool for all cores (see also --mem-per-cpu)
@@ -18,17 +18,30 @@
 
 module load git/2.17.0-fasrc01          # Load Git
 module load Anaconda3/5.0.1-fasrc02     # Load Anaconda
-module load cuda/9.0-fasrc02 cudnn/7.0_cuda9.0-fasrc01
 
-# Activate Environment
+# Pass the CUDA version as argument
+if [ $1 == 'cuda80' ]
+then
+  echo Activating environment cuda8
+  module load cuda/8.0.61-fasrc01 cudnn/6.0_cuda8.0-fasrc01
+  source activate cuda8
 
-source activate torch37
+elif [ $1 == 'cuda90' ]
+then
+  echo Activating environment torch37
+  module load cuda/9.0-fasrc02 cudnn/7.0_cuda9.0-fasrc01
+  source activate torch37
 
+else
+  echo NOT ENVIRONMENT LOADED
+  exit 1
+fi
 
 
 # ResNet CIFAR10
 # --------------
 
 # Big Ensemble
+# if [$2 == 'big']
 python demo_CIFAR10.py --name ResNet --save True --testing False --comments True --draws False --ensembleSize Big --dataset CIFAR10 
  

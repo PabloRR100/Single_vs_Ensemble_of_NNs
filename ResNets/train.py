@@ -1,7 +1,5 @@
 
 import os
-import gc
-import sys
 import torch
 import numpy as np
 import pandas as pd
@@ -9,9 +7,6 @@ from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
-import operator as op
-from functools import reduce
-#from gpu_profile import gpu_profile
 
 now = datetime.now
 def time(start):
@@ -63,6 +58,7 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
         
         for i, (images, labels) in enumerate(dataloader):
             
+            print('Forward pass')
             j += 1 # for printing
             images = Variable(images)
             labels = Variable(labels)
@@ -74,15 +70,16 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
             outputs = model(images)
             scores, predictions = torch.max(outputs.data, 1)
             
+            print('Memory checkpoint')
+            print(os.system('free -m -h'))
+            
+            print('Backward pass')
             loss = criterion(outputs, labels)            
             loss.backward()
             optimizer.step()
-            
-#            gpu_profile(frame=sys._getframe(), event='line', arg=None)
 
-            for obj in gc.get_objects():
-                if torch.is_tensor(obj) or (hasattr(obj, 'data') and torch.is_tensor(obj.data)):
-                    print(reduce(op.mul, obj.size()) if len(obj.size()) > 0 else 0, type(obj), obj.size())
+            print('Memory checkpoint')
+            print(os.system('free -m -h'))
 
             correct, total = 0, 0
             total += outputs.size(0)

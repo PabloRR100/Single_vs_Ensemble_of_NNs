@@ -19,12 +19,6 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import sys
 sys.path.append('..')
 
-os.environ['CUDA_VISIBLE_DEVICES']='8'
-os.environ['GPU_DEBUG']='8'
-
-from gpu_profile import gpu_profile
-sys.settrace(gpu_profile)
-
 
 '''
 DEFININTION OF PATHS 
