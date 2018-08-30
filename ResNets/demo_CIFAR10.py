@@ -7,8 +7,11 @@ Created on Thu Aug  9 15:31:56 2018
 """
 
 import os
+import sys
+sys.path.append('..')
 import multiprocessing
 from beautifultable import BeautifulTable as BT
+
 
 import torch
 import torch.nn as nn
@@ -16,66 +19,12 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
-import sys
-sys.path.append('..')
 
-
-'''
-DEFININTION OF PATHS 
---------------------
-Define all the paths to load / save files
-Ensure all those paths are correctly defined before moving on
-'''
-
-print('DEFINITION OF PATHS')
-print('-------------------')
-scripts = os.getcwd()
-root = os.path.abspath(os.path.join(scripts, '../'))
-results = os.path.abspath(os.path.join(root, 'results'))
-data_path = os.path.abspath(os.path.join(root, '../datasets'))
-
-path_to_logs = os.path.join(results, 'logs', 'resnets')
-path_to_models = os.path.join(results, 'models', 'resnets')
-path_to_figures = os.path.join(results, 'figures', 'resnets')
-path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
-
-train_log = os.path.join(path_to_logs, 'train')
-test_log = os.path.join(path_to_logs, 'test')
-
-
-print('Root path: ', root)
-print('Script path: ', scripts)
-print('Result path: ', results)
-print('DataFolder path: ', data_path)
-
-
-assert os.path.exists(root), 'Root folder not found'
-assert os.path.exists(scripts), 'Scripts folder not found'
-assert os.path.exists(results), 'Results folder not found'
-assert os.path.exists(data_path), 'Data folder not found'
-assert os.path.exists(path_to_logs), 'Logs folder not found'
-assert os.path.exists(path_to_models), 'Models folder not found'
-assert os.path.exists(path_to_figures), 'Figure folder not found'
-assert os.path.exists(path_to_dataframes), 'Dataframes folder not found'
-
+bl = print('\n') 
 import warnings
 warnings.filterwarnings("ignore")
 from utils import load_dataset, count_parameters, figures
-bl = print('\n') 
 
-paths = {
-        'root': root, 
-        'script': scripts,
-        'data': data_path,
-        'resulsts': results,
-        'logs': {'train': train_log, 'test': test_log}, 
-        'models': path_to_models,
-        'figures': path_to_figures,
-        'dataframes': path_to_dataframes
-        }
-
-bl
-bl
 
 
 ''' 
@@ -135,13 +84,70 @@ mem = False if device == 'cpu' else True
 bl
 bl
 
-print('Cuda: ', str(cuda))
-print('Device: ', str(device))
-print('Cores: ', str(n_workers))
-print('GPUs available: ', str(torch.cuda.device_count()))
+table = BT()
+table.append_row(['Python Interpreter', os.system('which python')])
+table.append_row(['Python Version', os.system('python -V')])
+table.append_row(['Memory check (MBs)', os.system('free -m -h')])
+table.append_row(['Cuda', str(cuda)])
+table.append_row(['Device', str(device)])
+table.append_row(['Cores', str(n_workers)])
+table.append_row(['GPUs', str(torch.cuda.device_count())])
+print(table)
 
 bl
 bl
+
+
+'''
+DEFININTION OF PATHS 
+--------------------
+Define all the paths to load / save files
+Ensure all those paths are correctly defined before moving on
+'''
+
+print('DEFINITION OF PATHS')
+print('-------------------')
+scripts = os.getcwd()
+root = os.path.abspath(os.path.join(scripts, '../'))
+results = os.path.abspath(os.path.join(root, 'results'))
+data_path = os.path.abspath(os.path.join(root, '../datasets'))
+
+path_to_logs = os.path.join(results, 'logs', 'resnets')
+path_to_models = os.path.join(results, 'models', 'resnets')
+path_to_figures = os.path.join(results, 'figures', 'resnets')
+path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
+
+train_log = os.path.join(path_to_logs, 'train')
+test_log = os.path.join(path_to_logs, 'test')
+
+print('Root path: ', root)
+print('Script path: ', scripts)
+print('Result path: ', results)
+print('DataFolder path: ', data_path)
+
+assert os.path.exists(root), 'Root folder not found'
+assert os.path.exists(scripts), 'Scripts folder not found'
+assert os.path.exists(results), 'Results folder not found'
+assert os.path.exists(data_path), 'Data folder not found'
+assert os.path.exists(path_to_logs), 'Logs folder not found'
+assert os.path.exists(path_to_models), 'Models folder not found'
+assert os.path.exists(path_to_figures), 'Figure folder not found'
+assert os.path.exists(path_to_dataframes), 'Dataframes folder not found'
+
+paths = {
+        'root': root, 
+        'script': scripts,
+        'data': data_path,
+        'resulsts': results,
+        'logs': {'train': train_log, 'test': test_log}, 
+        'models': path_to_models,
+        'figures': path_to_figures,
+        'dataframes': path_to_dataframes
+        }
+
+bl
+bl
+
 
 
 # 1 - Import the Dataset
