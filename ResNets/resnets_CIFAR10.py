@@ -162,8 +162,11 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
 
-    def forward(self, x):
+    def forward(self, x, print_sizes=False):
 
+        if print_sizes:
+            print("\tIn Model: input size", x.size())
+        
         x = self.relu(self.bn(self.conv(x)))    # 32x32
         
         x = self.layer1(x)                      # 32x32
@@ -173,6 +176,10 @@ class ResNet(nn.Module):
         x = self.avgpool(x)                     # 1x1
         x = self.flatten(x)                     # Flatten
         x  = self.fc(x)                         # Dense
+        
+        if print_sizes:
+            print("\tIn Model: output size", x.size())
+            
         return x
 
 
