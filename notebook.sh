@@ -16,6 +16,7 @@ then
   source activate torch37
 else
   echo Environment not found
+  echo Please, rememeber to insert env as parameter
   echo Aborting...
   exit 1
 fi
