@@ -16,7 +16,7 @@ elif [ $2 == 'cuda90' ]
 then
   echo Activating environment torch37...
   module load cuda/9.0-fasrc02 cudnn/7.0_cuda9.0-fasrc01
-  ENV="torch37"
+  CONDA="torch37"
 
 else
   echo Environment not found
