@@ -3,6 +3,9 @@
 module load git/2.17.0-fasrc01
 module load Anaconda3/5.0.1-fasrc02
 
+echo type: $1
+echo cuda: $2
+
 if [ $2 == 'cuda80' ]
 then
   echo Activating environment cuda8...
