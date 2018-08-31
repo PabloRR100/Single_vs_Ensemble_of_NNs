@@ -26,16 +26,20 @@ else
 fi
 
 # Output information
-source activate $CONDA
-which python
-python -V
+manage_env () {
+  source activate $CONDA
+  which python
+  python -V
+}
 
 # Launch notebook
 if [ $1 == 'notebook' ]
 then
+  manage_env
   echo Loading Jupyer Notebook ...
   jupyter notebook --port 8899
 else
+  manage_env
   echo Loading Jupyter Lab ...
   jupyter lab --port 8899
 fi
