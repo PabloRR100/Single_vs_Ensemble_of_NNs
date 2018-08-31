@@ -83,15 +83,16 @@ mem = False if device == 'cpu' else True
 
 bl
 bl
-
+sys
 table = BT()
-table.append_row(['Python Interpreter', os.system('which python')])
+table.append_row(['Python Interpreter', os.system("which python")])
 table.append_row(['Python Version', os.system('python -V')])
 table.append_row(['Memory check (MBs)', os.system('free -m -h')])
 table.append_row(['Cuda', str(cuda)])
 table.append_row(['Device', str(device)])
 table.append_row(['Cores', str(n_workers)])
 table.append_row(['GPUs', str(torch.cuda.device_count())])
+
 print(table)
 
 bl
