@@ -72,7 +72,8 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
             scores, predictions = torch.max(outputs.data, 1)
             
             print('Memory checkpoint')
-            print(os.system('free -m -h'))
+            print(os.system('!free -m -h'))
+            
             
             print('Backward pass')
             loss = criterion(outputs, labels)            
