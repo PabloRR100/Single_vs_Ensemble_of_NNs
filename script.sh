@@ -28,13 +28,11 @@ then
   echo Activating environment cuda8...
   module load cuda/8.0.61-fasrc01 cudnn/6.0_cuda8.0-fasrc01
   CONDA="cuda8"
-
 elif [ $1 == 'cuda90' ]
-thens
+then
   echo Activating environment torch37...
   module load cuda/9.0-fasrc02 cudnn/7.0_cuda9.0-fasrc01
   CONDA="torch37"
-
 else
   echo Environment not found
   echo Please, rememeber to insert env as parameter
