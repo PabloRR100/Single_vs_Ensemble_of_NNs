@@ -11,7 +11,7 @@ def test(dataset, singleModel, ensemble, device, dataloader, paths, save):
     
     logpath = paths['logs']['test']
     assert os.path.exists(logpath), 'Error: path to save test logs not found'
-    logfile = + singleModel.name + '_test_accuracy.txt'
+    logfile = singleModel.name + '_test_accuracy.txt'
     logfile = os.path.join(logpath, logfile)
     if save: f = open(logfile, 'w+')
     
