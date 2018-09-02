@@ -6,7 +6,7 @@ import pandas as pd
 from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
-
+from memory_profiler import profile
 
 now = datetime.now
 def time(start):
@@ -17,6 +17,7 @@ def time(start):
     return hours, minutes
 
 
+@profile
 def train(dataset, model, optimizer, criterion, device, dataloader, 
           epochs, iters, save, paths, save_frequency=1, test=True):
     

@@ -36,7 +36,7 @@ manage_env () {
 if [ $1 == 'notebook' ]
 then
   manage_env
-  echo Loading Jupyer Notebook ...
+  echo Loading Jupyter Notebook ...
   jupyter notebook --port 8899
 else
   manage_env

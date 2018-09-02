@@ -239,6 +239,7 @@ print('TRAINING')
 print('--------'); bl
 
 from train import train
+
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=learning_rate, 
                       momentum=momentum, weight_decay=weight_decay)
