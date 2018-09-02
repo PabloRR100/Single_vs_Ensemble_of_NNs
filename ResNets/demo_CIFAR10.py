@@ -7,8 +7,6 @@ Created on Thu Aug  9 15:31:56 2018
 """
 
 import os
-import sys
-sys.path.append('..')
 import multiprocessing
 from beautifultable import BeautifulTable as BT
 
@@ -23,6 +21,10 @@ from torch.utils.data.sampler import SubsetRandomSampler
 bl = print('\n') 
 import warnings
 warnings.filterwarnings("ignore")
+
+
+import sys
+sys.path.append('..')
 from utils import load_dataset, count_parameters, figures
 
 
