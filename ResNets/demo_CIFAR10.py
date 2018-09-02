@@ -78,8 +78,8 @@ gpus = True if torch.cuda.device_count() > 1 else False
 mem = False if device == 'cpu' else True
 
 
-#for arg in vars(args):
-#    print(arg, getattr(args, arg), type(arg))
+for arg in vars(args):
+    print(arg, getattr(args, arg), type(arg))
 
 bl
 bl
@@ -92,12 +92,11 @@ table.append_row(['Cuda', str(cuda)])
 table.append_row(['Device', str(device)])
 table.append_row(['Cores', str(n_workers)])
 table.append_row(['GPUs', str(torch.cuda.device_count())])
-
+table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
 print(table)
 
 bl
 bl
-
 
 '''
 DEFININTION OF PATHS 
@@ -157,7 +156,7 @@ bl
 print('IMPORTING DATA')
 print('--------------'); bl
 
-train_set, valid_set, test_set = load_dataset(data_path, 'CIFAR10', comments=comments)
+train_set, valid_set, test_set = load_dataset(data_path, dataset, comments=comments)
 
 train_loader = DataLoader(dataset = train_set.dataset, 
                           sampler=SubsetRandomSampler(train_set.indices),

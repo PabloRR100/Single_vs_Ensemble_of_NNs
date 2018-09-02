@@ -33,7 +33,8 @@ then
   source activate torch37
 
 else
-  echo NOT ENVIRONMENT LOADED
+  echo ENVIRONMENT NOT LOADED
+  echo Exiting...
   exit 1
 fi
 
@@ -43,5 +44,7 @@ fi
 
 # Big Ensemble
 # if [$2 == 'big']
+
+
 python demo_CIFAR10.py --name ResNet --save True --testing False --comments True --draws False --ensembleSize Big --dataset CIFAR10 
  
