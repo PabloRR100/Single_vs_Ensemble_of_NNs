@@ -72,6 +72,7 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
         elif hasattr(test_dataset, 'test_labels'): classes = len(np.unique(test_dataset.test_labels))
         else: print('Classes not detected in the dataset', sys.stdout)
         
+        print('Loading dataset: ', name)
         table = BT()
         table.append_row(['Train Images', len(train_dataset.indices)])
         table.append_row(['Valid Images', len(valid_dataset.indices)])
@@ -89,7 +90,13 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
     
     if dataset == 'ImageNet':
         train_dataset = ImageFolder(root = root, transform = transformations(dataset, 'train'))
-        train_dataset = ImageFolder(root = root, transform = transformations(dataset, 'test'))
+        test_dataset  = ImageFolder(root = root, transform = transformations(dataset, 'test'))
+        
+    if dataset == 'fruits-360-small':
+        transform = transformations('CIFAR10')
+        
+        train_dataset = ImageFolder(root=os.path.join(root, 'Training'), transform=transform)
+        test_dataset  = ImageFolder(root=os.path.join(root, 'Validation'), transform=transform)
     
     
     len_ = len(train_dataset)
