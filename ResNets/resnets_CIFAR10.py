@@ -165,7 +165,7 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
 
-    def forward(self, x, print_sizes=False):
+    def forward(self, x, print_sizes=True):
         
         print('Sizes of the tensors inside each node: \n')
         if print_sizes:

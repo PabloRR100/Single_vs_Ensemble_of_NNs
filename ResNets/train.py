@@ -59,7 +59,7 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
         
         for i, (images, labels) in enumerate(dataloader):
             
-            print('Forward pass')
+            print('** Forward pass **')
             j += 1 # for printing
             images = Variable(images)
             labels = Variable(labels)
@@ -75,7 +75,7 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
             print(os.system('free -m -h'))
             
             
-            print('Backward pass')
+            print('** Backward pass ** ')
             loss = criterion(outputs, labels)            
             loss.backward()
             optimizer.step()

@@ -29,6 +29,11 @@ sys.path.append('ResNets')
 from utils import load_dataset, count_parameters, figures
 
 
+import warnings
+warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", ImportWarning)
+warnings.filterwarnings("ignore", DeprecationWarning)
+
 
 ''' 
 CONFIGURATION 
