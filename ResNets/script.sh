@@ -91,6 +91,7 @@ END
 
 if [ $# -lt 2 ]
 then
+  echo [Error]: Missing arguments
   echo
   echo 2 arguments required:
   echo
