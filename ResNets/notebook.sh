@@ -26,7 +26,7 @@ then
 
     echo
     echo Please, insert mode. Insert [1 / 2]
-    echo Options: [1] Notebook, [2] Lab
+    echo Options: [1] notebook, [2] lab
     read mode
 
     if [ $mode -gt 0 ] && [ $mode -lt 3 ]
@@ -39,6 +39,13 @@ then
     fi
 
   done
+
+  if [ $mode == 1 -o $mode == 'notebook' ]
+  then
+    mode="notebook"
+  else
+    mode="lab"
+  fi
 
   check=0
   while [ $check -lt 1 ]
