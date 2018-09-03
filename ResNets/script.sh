@@ -82,6 +82,7 @@ fi
 set $cuda $testing
 
 echo
+echo
 echo Settings:
 echo cuda: $1
 echo testing: $2

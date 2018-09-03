@@ -76,6 +76,9 @@ then
 
 fi
 
+echo
+echo
+echo Settings:
 echo mode: $mode
 echo cuda: $cuda
 
