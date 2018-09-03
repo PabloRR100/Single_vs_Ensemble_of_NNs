@@ -16,7 +16,6 @@
 #SBATCH -o myoutput_%j.out  # File to which STDOUT will be written, %j inserts jobid
 #SBATCH -e myerrors_%j.err  # File to which STDERR will be written, %j inserts jobid
 
-
 module load git/2.17.0-fasrc01
 module load Anaconda3/5.0.1-fasrc02
 
