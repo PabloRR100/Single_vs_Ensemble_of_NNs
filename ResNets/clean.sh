@@ -8,4 +8,4 @@ find . -type f -name slurm\* -exec rm {} \;
 
 rm test.txt
 
-
+exit

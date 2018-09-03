@@ -118,3 +118,5 @@ echo Loading Script...
 
 python demo_CIFAR10.py --name ResNet --save False --testing $2 --comments True --draws False --ensembleSize Big --dataset fruits-360-small
 # python demo_CIFAR10.py --name  --save True --﻿testing False --comments True --draws False --ensembleSize Big --dataset CIFAR10
+
+exit

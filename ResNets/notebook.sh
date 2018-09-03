@@ -119,3 +119,5 @@ else
   echo Loading Jupyter Lab ...
   jupyter lab --port 8899
 fi
+
+exit
