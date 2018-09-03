@@ -19,6 +19,7 @@
 module load git/2.17.0-fasrc01
 module load Anaconda3/5.0.1-fasrc02
 
+: <<'END'
 # Check arguments have been passed
 if [ $# -lt 2 ]
 then
@@ -86,7 +87,20 @@ echo
 echo Settings:
 echo cuda: $1
 echo testing: $2
+END
 
+if [ $# -lt 2 ]
+then
+  echo
+  echo 2 arguments required:
+  echo
+  echo Cuda version
+  echo Options: [1] cuda80, [2] cuda90
+  echo
+  echo Testing mode
+  echo Options: [1] True, [2] False
+  exit
+fi
 
 if [ $1 == 'cuda80' ]
 then
