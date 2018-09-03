@@ -8,6 +8,13 @@ from datetime import datetime
 from torch.autograd import Variable
 from memory_profiler import profile
 
+
+import warnings
+warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", 'ImportWarning')
+warnings.filterwarnings("ignore", 'DeprecationWarning')
+
+
 now = datetime.now
 def time(start):
     
