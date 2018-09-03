@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Confuguration for multiple GPU on a single Machine
+
+#SBATCH -p gpu_requeue      # Partition to submit to
+#SBATCH -t 0-00:30          # Runtime in D-HH:MM, minimum of 10 minutes
+#SBATCH --mem=30000          # Memory pool for all cores (see also --mem-per-cpu)
+#SBATCH --gres=gpu:2        # Activate n GPU (let's say 8)
+
+#SBATCH --tunnel 8899:8899  # Open tunnel Compute_Host - Login_Host
+
+#SBATCH -o myoutput_%j.out  # File to which STDOUT will be written, %j inserts jobid
+#SBATCH -e myerrors_%j.err  # File to which STDERR will be written, %j inserts jobid
+
+
 module load git/2.17.0-fasrc01
 module load Anaconda3/5.0.1-fasrc02
 
