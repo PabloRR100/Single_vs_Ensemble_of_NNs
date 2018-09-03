@@ -127,11 +127,6 @@ path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
 train_log = os.path.join(path_to_logs, 'train')
 test_log = os.path.join(path_to_logs, 'test')
 
-print('Root path: ', root)
-print('Script path: ', scripts)
-print('Result path: ', results)
-print('DataFolder path: ', data_path)
-
 assert os.path.exists(root), 'Root folder not found'
 assert os.path.exists(scripts), 'Scripts folder not found'
 assert os.path.exists(results), 'Results folder not found'
@@ -140,6 +135,13 @@ assert os.path.exists(path_to_logs), 'Logs folder not found'
 assert os.path.exists(path_to_models), 'Models folder not found'
 assert os.path.exists(path_to_figures), 'Figure folder not found'
 assert os.path.exists(path_to_dataframes), 'Dataframes folder not found'
+
+print('Paths Validated')
+print('---------------')
+print('Root path: ', root)
+print('Script path: ', scripts)
+print('Result path: ', results)
+print('DataFolder path: ', data_path)
 
 paths = {
         'root': root, 
