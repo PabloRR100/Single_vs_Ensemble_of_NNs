@@ -25,6 +25,7 @@ warnings.filterwarnings("ignore")
 
 import sys
 sys.path.append('..')
+sys.path.append('ResNets')
 from utils import load_dataset, count_parameters, figures
 
 
