@@ -19,8 +19,22 @@
 module load git/2.17.0-fasrc01
 module load Anaconda3/5.0.1-fasrc02
 
+
+# Check arguments have been passed
+
+if [ $# -gt 1 ]
+then
+  echo ">1 args supplied"
+else
+  echo "<2 args supplied"  
+fi
+
+
+: <<'END'
+
 echo cuda: $1
 echo testing: $2
+
 
 if [ $1 == 'cuda80' ]
 then
@@ -53,3 +67,4 @@ echo Loading Script...
 python demo_CIFAR10.py --name ResNet --save False --testing False --comments True --draws False --ensembleSize Big --dataset fruits-360-small
 # python demo_CIFAR10.py --name  --save True --﻿testing False --comments True --draws False --ensembleSize Big --dataset CIFAR10 
 
+END

@@ -18,11 +18,6 @@ from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
 
-bl = print('\n') 
-import warnings
-warnings.filterwarnings("ignore")
-
-
 import sys
 sys.path.append('..')
 sys.path.append('ResNets')
@@ -33,6 +28,9 @@ import warnings
 warnings.filterwarnings("ignore")
 warnings.filterwarnings("ignore", 'ImportWarning')
 warnings.filterwarnings("ignore", 'DeprecationWarning')
+
+
+bl = print('\n') 
 
 
 ''' 
@@ -88,6 +86,7 @@ mem = False if device == 'cpu' else True
 
 for arg in vars(args):
     print(arg, getattr(args, arg), type(arg))
+
 
 bl
 bl
@@ -156,6 +155,7 @@ paths = {
 bl
 bl
 
+exit()
 
 
 # 1 - Import the Dataset
