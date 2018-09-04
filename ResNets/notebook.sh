@@ -76,12 +76,6 @@ then
 
 fi
 
-echo
-echo
-echo Settings:
-echo mode: $mode
-echo cuda: $cuda
-
 if [ $cuda == 'cuda80' ]
 then
   echo Activating environment cuda8...
@@ -107,6 +101,12 @@ manage_env () {
   which python
   python -V
 }
+
+echo
+echo
+echo Settings:
+echo mode: $mode
+echo cuda: $cuda
 
 # Launch notebook
 if [ $mode == 'notebook' ]
