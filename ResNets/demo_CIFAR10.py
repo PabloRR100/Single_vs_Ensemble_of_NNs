@@ -257,8 +257,8 @@ optimizer = optim.SGD(model.parameters(), lr=learning_rate,
 
 name = singleModel.name
 singleModel.train()
-if gpus: 
-    singleModel = nn.DataParallel(singleModel)
+#if gpus: 
+#    singleModel = nn.DataParallel(singleModel)
 singleModel.to(device)
 
 single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, device, train_loader,
@@ -275,8 +275,8 @@ ensemble_history = []
 for model in ensemble:
     names.append(model.name)
     model.train()
-    if gpus: 
-        model = nn.DataParallel(model)
+#    if gpus: 
+#        model = nn.DataParallel(model)
     model.to(device)
     model_history, model_time = train('CIFAR10', model, optimizer, criterion, device, train_loader, 
                                       n_epochs, n_iters, save, paths, save_frequency, testing)
