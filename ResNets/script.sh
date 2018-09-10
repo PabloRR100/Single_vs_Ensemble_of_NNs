@@ -4,14 +4,14 @@
 
 #SBATCH -n 1                # Number of cores
 #SBATCH -N 1                # Ensure that all cores are on one machine
-#SBATCH -t 0-00:30          # Runtime in D-HH:MM, minimum of 10 minutes
-#SBATCH -p gpu_requeue      # Partition to submit to
+#SBATCH -t 0-06:00          # Runtime in D-HH:MM, minimum of 10 minutes
+#SBATCH -p bigmem      # Partition to submit to
 
 # Testing mode - quickly allocation of resources
-#SBATCH --mem=30000          # Memory pool for all cores (see also --mem-per-cpu)
+#SBATCH --mem=512000          # Memory pool for all cores (see also --mem-per-cpu)
 
 # Uncomment to full power
-#SBATCH --gres=gpu:2        # Activate n GPU (let's say 8)
+# SBATCH --gres=gpu:2        # Activate n GPU (let's say 8)
 
 #SBATCH -o myoutput_%j.out  # File to which STDOUT will be written, %j inserts jobid
 #SBATCH -e myerrors_%j.err  # File to which STDERR will be written, %j inserts jobid
