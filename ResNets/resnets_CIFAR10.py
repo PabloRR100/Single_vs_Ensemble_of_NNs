@@ -123,7 +123,7 @@ class ResNet(nn.Module):
         n = (depth - 2) // 6
 
         self.name = name
-        #block = BasicBlock
+        block = BasicBlock
         self.inplanes = 16
         fmaps = [16, 32, 64] # CIFAR10
 
@@ -165,10 +165,10 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
 
-    def forward(self, x, print_sizes=True):
+    def forward(self, x, print_sizes=False):
         
-        print('Sizes of the tensors inside each node: \n')
         if print_sizes:
+            print('Sizes of the tensors inside each node: \n')
             print("\t In Model: input size", x.size())
         
         x = self.relu(self.bn(self.conv(x)))    # 32x32
@@ -206,6 +206,8 @@ def ResNet110(**kwargs):
 
 if __name__ == '__main__':
 
+    import sys
+    sys.path.append('..')
     from utils import count_parameters
     from beautifultable import BeautifulTable as BT
 
