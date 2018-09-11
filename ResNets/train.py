@@ -60,8 +60,15 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
             (dataset == 'ImageNet' and (epoch == 30 or epoch == 60)):  
             ## TODO: change this to match paper, change lr when error plateas
                 
-            for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
-            for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
+            print('Learning rate escheduler')
+            for p in optimizer.param_groups: 
+                prev_lr = p['lr']
+                p['lr'] = prev_lr / 10
+                print('Previous lr = {}. New lr = {}'.format(prev_lr, p['lr']))
+            for p in optimizer.param_groups:
+                prev_lr = p['lr']
+                p['lr'] = prev_lr / 10
+                print('Previous lr = {}. New lr = {}'.format(prev_lr, p['lr']))
         
         for i, (images, labels) in enumerate(dataloader):
             

@@ -40,34 +40,38 @@ Catch from the parser all the parameters to define the training
 print('CONFIGURATION')
 print('-------------'); bl
 
-from parser import args
+#from parser import args
+#
+#save = args.save
+#name = args.name
+#draws = args.draws
+#dataset = args.dataset
+#testing = args.testing
+#comments = args.comments
+#
+#ensemble_type = args.ensembleSize
+#
+#n_iters = args.iterations
+#batch_size = args.batch_size
+#learning_rate = args.learning_rate
+#save_frequency = args.save_frequency
 
-save = args.save
-name = args.name
-draws = args.draws
-dataset = args.dataset
-testing = args.testing
-comments = args.comments
+#for arg in vars(args):
+#    print(arg, getattr(args, arg), type(arg))
 
-ensemble_type = args.ensembleSize
 
-n_iters = args.iterations
-batch_size = args.batch_size
-learning_rate = args.learning_rate
-save_frequency = args.save_frequency
-
-## Backup code to debug from python shell - no parser
-#save = False                # Activate results saving 
-#draws = False               # Activate showing the figures
-#testing = True             # Activate test to run few iterations per epoch       
-#comments = True             # Activate printing comments
-#createlog = False           # Activate option to save the logs in .txt
-#save_frequency = 1          # After how many epochs save stats
-#ensemble_type = 'Big'       # Single model big 
-##ensemble_type = 'Huge'     # Single model huge
-#learning_rate = 0.1
-#batch_size = 128
-#n_iters = 64000
+# Backup code to debug from python shell - no parser
+save = False                # Activate results saving 
+draws = False               # Activate showing the figures
+testing = True             # Activate test to run few iterations per epoch       
+comments = True             # Activate printing comments
+createlog = False           # Activate option to save the logs in .txt
+save_frequency = 1          # After how many epochs save stats
+ensemble_type = 'Big'       # Single model big 
+#ensemble_type = 'Huge'     # Single model huge
+learning_rate = 0.1
+batch_size = 128
+n_iters = 64000
 
 momentum = 0.9
 weight_decay = 1e-4
@@ -80,10 +84,6 @@ n_workers = multiprocessing.cpu_count()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 gpus = True if torch.cuda.device_count() > 1 else False
 mem = False if device == 'cpu' else True
-
-
-for arg in vars(args):
-    print(arg, getattr(args, arg), type(arg))
 
 bl
 bl
@@ -161,6 +161,7 @@ bl
 print('IMPORTING DATA')
 print('--------------'); bl
 
+dataset = 'CIFAR10'
 train_set, valid_set, test_set = load_dataset(data_path, dataset, comments=comments)
 
 train_loader = DataLoader(dataset = train_set.dataset, 
@@ -253,14 +254,14 @@ optimizer = optim.SGD(model.parameters(), lr=learning_rate,
 
 name = singleModel.name
 singleModel.train()
-#if gpus: 
-#    singleModel = nn.DataParallel(singleModel)
+if gpus: 
+    singleModel = nn.DataParallel(singleModel)
 singleModel.to(device)
 
 single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, device, train_loader,
                                     n_epochs, n_iters, save, paths, save_frequency, testing)
 
-figures(single_history, name, 'CIFAR10', paths['figures'], draws, save)
+#figures(single_history, name, 'CIFAR10', paths['figures'], draws, save)
 if save: single_history.to_csv(os.path.join(paths['dataframes'], singleModel.name + '.csv'))
 
 
@@ -271,8 +272,8 @@ ensemble_history = []
 for model in ensemble:
     names.append(model.name)
     model.train()
-#    if gpus: 
-#        model = nn.DataParallel(model)
+    if gpus: 
+        model = nn.DataParallel(model)
     model.to(device)
     model_history, model_time = train('CIFAR10', model, optimizer, criterion, device, train_loader, 
                                       n_epochs, n_iters, save, paths, save_frequency, testing)
@@ -280,7 +281,7 @@ for model in ensemble:
 
 for i, model in enumerate(ensemble):  
     model_history, model_time = ensemble_history[i]
-    figures(model_history, names[i], 'CIFAR10', paths['figures'], draws, save)
+    #figures(model_history, names[i], 'CIFAR10', paths['figures'], draws, save)
     if save: model_history.to_csv(os.path.join(paths['dataframes'], model.name + '.csv'))
 
 
