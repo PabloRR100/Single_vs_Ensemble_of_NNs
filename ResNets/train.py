@@ -10,9 +10,7 @@ from torch.autograd import Variable
 
 
 import warnings
-warnings.filterwarnings("ignore")
-warnings.filterwarnings("ignore", 'ImportWarning')
-warnings.filterwarnings("ignore", 'DeprecationWarning')
+warnings.filterwarnings('ignore', 'always')
 
 
 now = datetime.now
