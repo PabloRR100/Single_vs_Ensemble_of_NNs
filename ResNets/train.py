@@ -88,13 +88,10 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
             total_acc.append(accuracy)
             total_loss.append(round(loss.item(), 3))
             
-            if j % stats_every == 0:
-                
-                stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}'.format(
+            stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}'.format(
                         epoch, epochs, j, iters, round(loss.item(), 2), accuracy)
-                
-                print('\n' + stats)
             
+            if j % stats_every == 0: print('\n' + stats)
             if save: f.write(stats + '\n')
         
         total_time.append(time(start))        
