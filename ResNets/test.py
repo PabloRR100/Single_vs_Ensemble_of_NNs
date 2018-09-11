@@ -4,14 +4,14 @@ import torch
 from torch.autograd import Variable
 
 
-def test(dataset, singleModel, ensemble, device, dataloader, paths, save):
+def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
     
     
     # Log config 
     
     logpath = paths['logs']['test']
     assert os.path.exists(logpath), 'Error: path to save test logs not found'
-    logfile = singleModel.name + '_test_accuracy.txt'
+    logfile = name + '_test_accuracy.txt'
     logfile = os.path.join(logpath, logfile)
     if save: f = open(logfile, 'w+')
     

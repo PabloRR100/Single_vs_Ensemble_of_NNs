@@ -266,7 +266,7 @@ single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion
                                     n_epochs, n_iters, save, paths, save_frequency, testing)
 
 #figures(single_history, name, 'CIFAR10', paths['figures'], draws, save)
-if save: single_history.to_csv(os.path.join(paths['dataframes'], singleModel.name + '.csv'))
+if save: single_history.to_csv(os.path.join(paths['dataframes'], name + '.csv'))
 
 
 # Ensemble individuals
@@ -286,7 +286,7 @@ for model in ensemble:
 for i, model in enumerate(ensemble):  
     model_history, model_time = ensemble_history[i]
     #figures(model_history, names[i], 'CIFAR10', paths['figures'], draws, save)
-    if save: model_history.to_csv(os.path.join(paths['dataframes'], model.name + '.csv'))
+    if save: model_history.to_csv(os.path.join(paths['dataframes'], name[i] + '.csv'))
 
 
 bl

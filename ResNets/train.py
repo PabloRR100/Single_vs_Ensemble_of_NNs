@@ -23,7 +23,7 @@ def time(start):
 
 
 #@profile
-def train(dataset, model, optimizer, criterion, device, dataloader, 
+def train(dataset, name, model, optimizer, criterion, device, dataloader, 
           epochs, iters, save, paths, save_frequency=1, test=True):
     
     stats_every = 100
@@ -104,7 +104,7 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
               format(epoch+1, time(start)[0], time(start)[1]))                
         
         if save and (save_frequency is not None and epoch % save_frequency == 0):
-            torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (model.name, epoch))) 
+            torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
 
     if save: f.close()             
 
