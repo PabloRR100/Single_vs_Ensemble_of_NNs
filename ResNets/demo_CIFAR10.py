@@ -262,7 +262,7 @@ if gpus:
     singleModel = nn.DataParallel(singleModel)
 singleModel.to(device)
 
-single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, device, train_loader,
+single_history, single_time = train(dataset, name, singleModel, optimizer, criterion, device, train_loader,
                                     n_epochs, n_iters, save, paths, save_frequency, testing)
 
 #figures(single_history, name, 'CIFAR10', paths['figures'], draws, save)
@@ -279,7 +279,7 @@ for model in ensemble:
     if gpus: 
         model = nn.DataParallel(model)
     model.to(device)
-    model_history, model_time = train('CIFAR10', model, optimizer, criterion, device, train_loader, 
+    model_history, model_time = train(dataset, name, model, optimizer, criterion, device, train_loader, 
                                       n_epochs, n_iters, save, paths, save_frequency, testing)
     ensemble_history.append((model_history, model_time))
 
