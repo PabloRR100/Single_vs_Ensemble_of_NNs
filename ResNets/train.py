@@ -103,7 +103,7 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
         
         total_time.append(time(start))        
         print('\n Epoch: {} Time (epoch/total): {} hours {} minutes / {} hours {} minutes'. \
-              format(epoch+1, time(start)[0], time(start(start)[1]), time(estart)[0], time(estart(estart)[1])))                
+              format(epoch+1, time(start)[0], time(start)[1]), time(estart)[0], time(estart)[1])               
         
         if save and (save_frequency is not None and epoch % save_frequency == 0):
             torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
