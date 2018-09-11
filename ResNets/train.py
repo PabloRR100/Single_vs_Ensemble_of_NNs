@@ -41,7 +41,7 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
     if save:        
         
         assert os.path.exists(logpath), 'Error: path to save training logs not found'
-        logfile = model.name + '.txt'
+        logfile = name + '.txt'
         logfile = os.path.join(logpath, logfile)
         f = open(logfile, 'w+')
     
