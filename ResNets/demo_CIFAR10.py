@@ -25,9 +25,7 @@ from utils import load_dataset, count_parameters, figures
 
 
 import warnings
-warnings.filterwarnings("ignore")
-warnings.filterwarnings("ignore", 'ImportWarning')
-warnings.filterwarnings("ignore", 'DeprecationWarning')
+warnings.filterwarnings("always")
 
 
 bl = print('\n') 
@@ -86,7 +84,6 @@ mem = False if device == 'cpu' else True
 
 for arg in vars(args):
     print(arg, getattr(args, arg), type(arg))
-
 
 bl
 bl
