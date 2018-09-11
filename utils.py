@@ -10,6 +10,7 @@ from torchvision.datasets import CIFAR10, ImageFolder
 
 
 # Errors dictionary
+
 errors = {
         'Ensure subset': 'Choose transformations for Train set or Test set',
         'Exists data folder': 'General data folder not found',

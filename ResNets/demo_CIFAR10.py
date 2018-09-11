@@ -264,12 +264,8 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate, 
                       momentum=momentum, weight_decay=weight_decay)
 
-single_history, single_time = train(dataset, name, singleModel, optimizer, criterion, device, train_loader,
-                                    n_epochs, n_iters, save, paths, save_frequency, testing)
-
-#figures(single_history, name, 'CIFAR10', paths['figures'], draws, save)
-if save: single_history.to_csv(os.path.join(paths['dataframes'], name + '.csv'))
-
+single_history, single_time = train(name, singleModel, optimizer, criterion, 
+                                    device, train_loader, n_epochs, n_iters)
 
 # Ensemble individuals
 
@@ -281,17 +277,14 @@ for model in ensemble:
                       momentum=momentum, weight_decay=weight_decay)
     
     model.train()    
-    model_history, model_time = train(dataset, name, model, optimizer, criterion, device, train_loader, 
-                                      n_epochs, n_iters, save, paths, save_frequency, testing)
+    model_history, model_time = train(name, model, optimizer, criterion, device, 
+                                      train_loader, n_epochs, n_iters)
     
     ensemble_history.append((model_history, model_time))
 
 for i, model in enumerate(ensemble):  
     
     model_history, model_time = ensemble_history[i]
-    #figures(model_history, names[i], 'CIFAR10', paths['figures'], draws, save)
-    if save: model_history.to_csv(os.path.join(paths['dataframes'], name[i] + '.csv'))
-
 
 bl
 bl
