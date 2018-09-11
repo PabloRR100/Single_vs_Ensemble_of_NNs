@@ -19,7 +19,6 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
     # Single Network Performance
     
     singleModel.eval()
-    singleModel.to(device)
     total, correct = 0,0
     with torch.no_grad():
         
@@ -33,6 +32,10 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             _, preds = outputs.max(1)
             total += outputs.size(0)
             correct += int(sum(preds == labels))
+            
+            test_loss += loss.item()
+            progress_bar(i, len(dataloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
+                % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
             
     if save: 
         print('Single model accuracy {}%'.format(100 * correct / total))
@@ -54,7 +57,6 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             for model in ensemble:
                 
                 model.eval()
-                model.to(device)
                 output = model(images)
                 outputs.append(output)
                 
