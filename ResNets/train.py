@@ -26,6 +26,7 @@ def time(start):
 def train(dataset, name, model, optimizer, criterion, device, dataloader, 
           epochs, iters, save, paths, save_frequency=1, test=True):
     
+    model.train()
     stats_every = 100
     logpath = paths['logs']['train']
     modelpath = paths['models']
@@ -101,8 +102,8 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
             if save: f.write(stats + '\n')
         
         total_time.append(time(start))        
-        print('\n Epoch: {} Time (epoch/total): {} hours {} minutes / {} hours {} minutes'''.\
-              format(epoch+1, time(start)[0], time(estart(start)[1]), time(e_start)[0], time(estart(e_start)[1])))                
+        print('\n Epoch: {} Time (epoch/total): {} hours {} minutes / {} hours {} minutes'. \
+              format(epoch+1, time(start)[0], time(start(start)[1]), time(estart)[0], time(estart(estart)[1])))                
         
         if save and (save_frequency is not None and epoch % save_frequency == 0):
             torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 

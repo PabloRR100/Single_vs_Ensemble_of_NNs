@@ -220,17 +220,26 @@ singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110()
 ensemble_size = round(count_parameters(singleModel) / small)
 
 
+# Construct the single model
+singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
+
+name = singleModel.name
+singleModel.to(device)
+if gpus: singleModel = nn.DataParallel(singleModel)
+
+
 # Construct the ensemble
 
+names = []
 ensemble = []
-
 for i in range(ensemble_size):
-    model = ResNet20()
-    model.name = model.name + '_' + str(i+1)
-    ensemble.append(model)
-
     
-singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
+    model = ResNet20()
+    names.append(model.name + '_' + str(i+1))
+    
+    model.to(device)
+    if gpus: model = nn.DataParallel(model)
+    ensemble.append(model)
 
 
 bl
@@ -248,19 +257,12 @@ time.sleep(2) # Just to read the term
 
 
 from train import train
-
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=learning_rate, 
-                      momentum=momentum, weight_decay=weight_decay)
-
 
 # Big Single Model
 
-name = singleModel.name
-singleModel.train()
-if gpus: 
-    singleModel = nn.DataParallel(singleModel)
-singleModel.to(device)
+optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate, 
+                      momentum=momentum, weight_decay=weight_decay)
 
 single_history, single_time = train(dataset, name, singleModel, optimizer, criterion, device, train_loader,
                                     n_epochs, n_iters, save, paths, save_frequency, testing)
@@ -274,16 +276,18 @@ if save: single_history.to_csv(os.path.join(paths['dataframes'], name + '.csv'))
 names = []
 ensemble_history = []
 for model in ensemble:
-    names.append(model.name)
-    model.train()
-    if gpus: 
-        model = nn.DataParallel(model)
-    model.to(device)
+    
+    optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate, 
+                      momentum=momentum, weight_decay=weight_decay)
+    
+    model.train()    
     model_history, model_time = train(dataset, name, model, optimizer, criterion, device, train_loader, 
                                       n_epochs, n_iters, save, paths, save_frequency, testing)
+    
     ensemble_history.append((model_history, model_time))
 
 for i, model in enumerate(ensemble):  
+    
     model_history, model_time = ensemble_history[i]
     #figures(model_history, names[i], 'CIFAR10', paths['figures'], draws, save)
     if save: model_history.to_csv(os.path.join(paths['dataframes'], name[i] + '.csv'))
@@ -300,7 +304,7 @@ print('TESTING')
 print('-------'); bl
 
 from test import test
-test('CIFAR10', singleModel, ensemble, device, test_loader, paths, save)
+test('CIFAR10', singleModel, name, ensemble, device, test_loader, paths, save)
 
 
 exit()
