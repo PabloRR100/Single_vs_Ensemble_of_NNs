@@ -29,7 +29,8 @@ parser.add_argument('-n', '--name',
 
 parser.add_argument('-t', '--testing', 
                     type=str2bool, default=False,
-                    help='Activate test mode to train only few interations')
+                    help='Activate test mode to train only few interations',
+                    default=False)
 
 parser.add_argument('-c', '--comments', 
                     type=str2bool, default=False,
@@ -51,7 +52,7 @@ parser.add_argument('-d', '--dataset',
                     type=str, default='CIFAR10', help=msd)
 
 parser.add_argument('-e', '--epochs', 
-                    type=int, default=2, 
+                    type=int, default=300, 
                     help='Int: Epochs for training')
 
 parser.add_argument('-i', '--iterations', 

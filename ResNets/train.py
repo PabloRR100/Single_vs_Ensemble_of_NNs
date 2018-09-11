@@ -28,7 +28,7 @@ def time(start):
 def train(dataset, model, optimizer, criterion, device, dataloader, 
           epochs, iters, save, paths, save_frequency=1, test=True):
     
-    stats_every = 1
+    stats_every = 1000
     logpath = paths['logs']['train']
     modelpath = paths['models']
     
