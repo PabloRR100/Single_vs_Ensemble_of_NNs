@@ -6,7 +6,7 @@ import pandas as pd
 from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
-from memory_profiler import profile
+#from memory_profiler import profile
 
 
 import warnings
@@ -24,7 +24,7 @@ def time(start):
     return hours, minutes
 
 
-@profile
+#@profile
 def train(dataset, model, optimizer, criterion, device, dataloader, 
           epochs, iters, save, paths, save_frequency=1, test=True):
     
@@ -33,14 +33,13 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
     modelpath = paths['models']
     
     # test: reduce the training for testing purporse
-    
     if test: 
+        
         epochs = 5
         print('training in test mode')
-        dataloader = islice(dataloader, 2)
+        # dataloader = islice(dataloader, 2)
     
     # Logs config
-    
     if save:        
         
         assert os.path.exists(logpath), 'Error: path to save training logs not found'
@@ -66,7 +65,6 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
         
         for i, (images, labels) in enumerate(dataloader):
             
-            print('** Forward pass **')
             j += 1 # for printing
             images = Variable(images)
             labels = Variable(labels)
@@ -77,18 +75,10 @@ def train(dataset, model, optimizer, criterion, device, dataloader,
             model.zero_grad()
             outputs = model(images)
             scores, predictions = torch.max(outputs.data, 1)
-            
-            print('Memory checkpoint')
-            print(os.system('free -m -h'))
-            
-            
-            print('** Backward pass ** ')
+        
             loss = criterion(outputs, labels)            
             loss.backward()
             optimizer.step()
-
-            print('Memory checkpoint')
-            print(os.system('free -m -h'))
 
             correct, total = 0, 0
             total += outputs.size(0)
