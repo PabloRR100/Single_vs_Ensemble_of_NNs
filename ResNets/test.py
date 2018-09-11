@@ -4,22 +4,11 @@ import torch
 from torch.autograd import Variable
 
 
-def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
+def test(dataset, name, singleModel, ensemble, device, dataloader, best_acc):
     
-    
-    # Log config 
-    
-    logpath = paths['logs']['test']
-    assert os.path.exists(logpath), 'Error: path to save test logs not found'
-    logfile = name + '_test_accuracy.txt'
-    logfile = os.path.join(logpath, logfile)
-    if save: f = open(logfile, 'w+')
-    
-    
-    # Single Network Performance
-    
+    # Single Network Performance    
+    total, correct = 0,0    
     singleModel.eval()
-    total, correct = 0,0
     with torch.no_grad():
         
         for i, (images, labels) in enumerate(dataloader):
@@ -33,7 +22,6 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             total += outputs.size(0)
             correct += int(sum(preds == labels))
             
-            test_loss += loss.item()
             progress_bar(i, len(dataloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
                 % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
             

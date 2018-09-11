@@ -1,17 +1,9 @@
 
-import os
-import torch
-import numpy as np
-import pandas as pd
-from datetime import datetime 
-from torch.autograd import Variable
-
 import sys
 sys.path.append('..')
+from datetime import datetime 
 from utils import progress_bar
-
-import warnings
-warnings.filterwarnings('ignore', 'always')
+from torch.autograd import Variable
 
 now = datetime.now
 def time(start):
@@ -22,27 +14,9 @@ def time(start):
     return hours, minutes
 
 
-def train(dataset, name, model, optimizer, criterion, device, dataloader, 
-          epochs, iters, save, paths, save_frequency=1, test=True):
+def train(model, optimizer, criterion, device, dataloader, epochs, iters):
     
     model.train()
-#    logpath = paths['logs']['train']
-#    modelpath = paths['models']
-#    
-#    # test: reduce the training for testing purporse
-#    if test: 
-#        
-#        epochs = 5
-#        print('training in test mode')
-#        # dataloader = islice(dataloader, 2)
-#    
-#    # Logs config
-#    if save:        
-#        
-#        assert os.path.exists(logpath), 'Error: path to save training logs not found'
-#        logfile = name + '.txt'
-#        logfile = os.path.join(logpath, logfile)
-#        f = open(logfile, 'w+')
     
     j = 0 
     train_loss = 0
@@ -57,7 +31,8 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
         
         for i, (images, labels) in enumerate(dataloader):
             
-            j += 1 # for printing
+            j += 1
+            
             images = Variable(images)
             labels = Variable(labels)
             
@@ -84,10 +59,3 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
             progress_bar(i, len(dataloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
             % (train_loss/(i+1), accuracy, correct, total))
         
-#        if save and (save_frequency is not None and epoch % save_frequency == 0):
-#            torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
-#
-#    if save: f.close()             
-#
-#    train_history = pd.DataFrame(np.array([total_loss, total_acc]).T, columns=['Loss', 'Accuracy'])
-#    return train_history, total_time
