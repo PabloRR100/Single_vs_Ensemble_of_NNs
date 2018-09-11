@@ -244,7 +244,7 @@ print('--------'); bl
 
 import time
 print('Preparing environment...')
-time.slee(2) # Just to read the term
+time.sleep(2) # Just to read the term
 
 
 from train import train
