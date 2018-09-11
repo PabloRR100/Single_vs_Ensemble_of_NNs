@@ -21,11 +21,11 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import sys
 sys.path.append('..')
 sys.path.append('ResNets')
-from utils import load_dataset, count_parameters, figures
-
+sys.stdout = open('demo.txt', 'w+')
 
 import warnings
 warnings.filterwarnings("always")
+from utils import load_dataset, count_parameters
 
 
 bl = print('\n') 
@@ -264,7 +264,7 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate, 
                       momentum=momentum, weight_decay=weight_decay)
 
-single_history, single_time = train(name, singleModel, optimizer, criterion, 
+single_history, single_time = train(singleModel, optimizer, criterion, 
                                     device, train_loader, n_epochs, n_iters)
 
 # Ensemble individuals
@@ -277,7 +277,7 @@ for model in ensemble:
                       momentum=momentum, weight_decay=weight_decay)
     
     model.train()    
-    model_history, model_time = train(name, model, optimizer, criterion, device, 
+    model_history, model_time = train(model, optimizer, criterion, device, 
                                       train_loader, n_epochs, n_iters)
     
     ensemble_history.append((model_history, model_time))
