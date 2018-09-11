@@ -236,12 +236,16 @@ singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 bl
 bl
 
-
 # 3 - Train ResNet
 # ----------------
 
 print('TRAINING')
 print('--------'); bl
+
+import time
+print('Preparing environment...')
+time.slee(2) # Just to read the term
+
 
 from train import train
 
