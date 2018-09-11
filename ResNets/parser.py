@@ -21,17 +21,15 @@ parser = argparse.ArgumentParser(description='Evaluate importance of depth, widt
 # General parameters
 
 parser.add_argument('-s', '--save', 
-                    type=str2bool, default=False,
-                    help='Activate save the outputs of the script',
-                    default=True)
+                    type=str2bool, default=True,
+                    help='Activate save the outputs of the script',)
 
 parser.add_argument('-n', '--name', 
                     help='Name of the file to save the outputs')
 
 parser.add_argument('-t', '--testing', 
                     type=str2bool, default=False,
-                    help='Activate test mode to train only few interations',
-                    default=False)
+                    help='Activate test mode to train only few interations')
 
 parser.add_argument('-c', '--comments', 
                     type=str2bool, default=False,
