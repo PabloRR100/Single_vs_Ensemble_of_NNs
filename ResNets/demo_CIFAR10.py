@@ -90,11 +90,10 @@ for arg in vars(args):
 
 bl
 bl
-sys
+
 table = BT()
-table.append_row(['Python Interpreter', os.system("which python")])
-table.append_row(['Python Version', os.system('python -V')])
-table.append_row(['Memory check (MBs)', os.system('free -m -h')])
+table.append_row(['Python Version', sys.version])
+table.append_row(['PyTorch Version', torch.__version__])
 table.append_row(['Cuda', str(cuda)])
 table.append_row(['Device', str(device)])
 table.append_row(['Cores', str(n_workers)])
