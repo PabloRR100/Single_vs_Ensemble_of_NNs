@@ -22,7 +22,8 @@ parser = argparse.ArgumentParser(description='Evaluate importance of depth, widt
 
 parser.add_argument('-s', '--save', 
                     type=str2bool, default=False,
-                    help='Activate save the outputs of the script')
+                    help='Activate save the outputs of the script',
+                    default=True)
 
 parser.add_argument('-n', '--name', 
                     help='Name of the file to save the outputs')
