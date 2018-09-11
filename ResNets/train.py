@@ -90,12 +90,12 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
             correct, total = 0, 0
             total += outputs.size(0)
             correct += int(sum(predictions == labels)) 
-            accuracy = round(correct / total, 3)
+            accuracy = round(correct / total * 100, 2)
             
             total_acc.append(accuracy)
             total_loss.append(round(loss.item(), 3))
             
-            stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}'.format(
+            stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(
                         epoch, epochs, j, iters, round(loss.item(), 2), accuracy)
             
             if j % stats_every == 0: print('\n' + stats)
