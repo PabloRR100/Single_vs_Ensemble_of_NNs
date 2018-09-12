@@ -267,7 +267,7 @@ optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate,
 
 print('Training Single Model' )
 single_history, single_time = train(dataset, name, singleModel, optimizer, criterion, device, train_loader,
-                                    n_epochs, n_iters, save, paths, save_frequency, testing)
+                                    valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing)
 
 figures(single_history, name, dataset, paths['figures'], draws, save)
 if save: single_history.to_csv(os.path.join(paths['dataframes'], name + '.csv'))
