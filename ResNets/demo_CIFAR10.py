@@ -95,7 +95,7 @@ bl
 bl
 
 table = BT()
-table.append_row(['Python Version', sys.version])
+table.append_row(['Python Version', sys.version[:5]])
 table.append_row(['PyTorch Version', torch.__version__])
 table.append_row(['Cuda', str(cuda)])
 table.append_row(['Device', str(device)])
@@ -267,7 +267,7 @@ optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate,
 
 print('Training Single Model' )
 single_history, single_time = train(dataset, name, singleModel, optimizer, criterion, device, train_loader,
-                                    n_epochs, n_iters, save, paths, save_frequency, testing)
+                                    valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing)
 
 figures(single_history, name, dataset, paths['figures'], draws, save)
 if save: single_history.to_csv(os.path.join(paths['dataframes'], name + '.csv'))
@@ -284,7 +284,7 @@ for i, model in enumerate(ensemble):
     
     model.train()    
     model_history, model_time = train(dataset, name, model, optimizer, criterion, device, train_loader, 
-                                      n_epochs, n_iters, save, paths, save_frequency, testing)
+                                      valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing)
     
     ensemble_history.append((model_history, model_time))
 

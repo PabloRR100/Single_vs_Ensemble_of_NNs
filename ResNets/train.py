@@ -1,9 +1,9 @@
 
 import os
+import glob
 import torch
 import numpy as np
 import pandas as pd
-from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
@@ -15,8 +15,8 @@ def time(start):
     minutes = round((elapsed/3600 - hours)*60, 2)
     return hours, minutes
 
-def train(dataset, name, model, optimizer, criterion, device, dataloader, 
-          epochs, iters, save, paths, save_frequency=1, test=True):
+def train(dataset, name, model, optimizer, criterion, device, trainloader, validloader,
+          epochs, iters, save, paths, save_frequency=1, test=True, validate=True):
     
     import warnings
     warnings.filterwarnings('always')
@@ -24,17 +24,15 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
     warnings.filterwarnings('ignore', 'ImportWarning')
     warnings.filterwarnings('ignore', 'DeprecationWarning')
 
+    best_acc = 0
+
     model.train()
-    stats_every = 1
     logpath = paths['logs']['train']
     modelpath = paths['models']
     
-    # test: reduce the training for testing purporse
-    if test: 
-        
-        epochs = 1
+    if test:         
+        epochs = 3
         print('training in test mode')
-        # dataloader = islice(dataloader, 2)
     
     # Logs config
     if save:        
@@ -52,23 +50,12 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
     start = now()
     for epoch in range(1, epochs+1):
         
-#        estart = now()
         # Scheduler for learning rate        
-        if (dataset == 'CIFAR10' and (j == 32000 or j == 48000)) or \
-            (dataset == 'ImageNet' and (epoch == 30 or epoch == 60)):  
-            ## TODO: change this to match paper, change lr when error plateas
-                
-            print('Learning rate escheduler')
-            for p in optimizer.param_groups: 
-                prev_lr = p['lr']
-                p['lr'] = prev_lr / 10
-                print('Previous lr = {}. New lr = {}'.format(prev_lr, p['lr']))
-            for p in optimizer.param_groups:
-                prev_lr = p['lr']
-                p['lr'] = prev_lr / 10
-                print('Previous lr = {}. New lr = {}'.format(prev_lr, p['lr']))
+        if (j == 32000 or j == 48000):  
+            for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
         
-        for i, (images, labels) in enumerate(dataloader):
+        # Training
+        for i, (images, labels) in enumerate(trainloader):
             
             j += 1 # for printing
             images = Variable(images)
@@ -92,21 +79,40 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
             
             total_acc.append(accuracy)
             total_loss.append(round(loss.item(), 3))
-            
-            stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(
-                        epoch, epochs, j, iters, round(loss.item(), 2), accuracy)
-            
-            if j % stats_every == 0: print('\n' + stats)
-            if save: f.write(stats + '\n')
+
+        stats = [epoch, epochs, j, iters, round(loss.item(), 2), accuracy]
+        print('\nEpoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stats))    
         
+        # Validation
+        if validate:
+            
+            print('Entering validation')
+            for k, (images, labels) in enumerate(validloader):
+            
+                images = Variable(images)
+                labels = Variable(labels)
+                
+                images = images.to(device)
+                labels = labels.to(device)
+                
+                outputs = model(images)
+                
+                _, preds = outputs.max(1)
+                total += outputs.size(0)
+                correct += int(sum(preds == labels))
+                acc = 100 * correct / total
+                
+                if acc > best_acc:
+                    models = glob.glob(os.path.join(modelpath, '*.pkl'))
+                    for m in models:
+                        os.remove(m)
+                    torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
+                    best_acc = acc
+            
+        if save: f.write(stats + '\n')        
         total_time.append(time(start))
-#        print('\n\nEpoch time: {} hours {} minutes'.format(time(start)[0], time(start)[1]))
-#        print('Total time: {} hours {} minutes \n\n'.format(time(estart)[0], time(estart)[1]))
-        
-        if save and (save_frequency is not None and epoch % save_frequency == 0):
-            torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
-
+            
     if save: f.close()             
-
+    
     train_history = pd.DataFrame(np.array([total_loss, total_acc]).T, columns=['Loss', 'Accuracy'])
     return train_history, total_time
