@@ -55,7 +55,7 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
     for epoch in range(epochs):
         
         print('Epoch ', epoch)
-        estart = now()
+#        estart = now()
         # Scheduler for learning rate        
         if (dataset == 'CIFAR10' and (j == 32000 or j == 48000)) or \
             (dataset == 'ImageNet' and (epoch == 30 or epoch == 60)):  
@@ -103,8 +103,8 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
             if save: f.write(stats + '\n')
         
         total_time.append(time(start))
-        print('Epoch time: {} hours {} minutes'.format(time(start)[0], time(start)[1]))
-        print('Total time: {} hours {} minutes'.format(time(estart)[0], time(estart)[1]))
+#        print('Epoch time: {} hours {} minutes'.format(time(start)[0], time(start)[1]))
+#        print('Total time: {} hours {} minutes'.format(time(estart)[0], time(estart)[1]))
         
         if save and (save_frequency is not None and epoch % save_frequency == 0):
             torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 

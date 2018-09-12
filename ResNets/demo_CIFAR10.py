@@ -78,6 +78,7 @@ for arg in vars(args):
 #n_iters = 64000
 ########################################################
 
+
 momentum = 0.9
 weight_decay = 1e-4
 
