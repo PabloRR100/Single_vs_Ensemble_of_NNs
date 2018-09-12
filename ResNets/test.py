@@ -3,6 +3,12 @@ import os
 import torch 
 from torch.autograd import Variable
 
+import warnings
+warnings.filterwarnings('always')
+warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore', 'ImportWarning')
+warnings.filterwarnings('ignore', 'DeprecationWarning')
+
 
 def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
     
