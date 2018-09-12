@@ -46,7 +46,6 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
     if save: 
         print('Single model accuracy {}%'.format(100 * correct / total))
         f.write('Single model accuracy {}%'.format(100 * correct / total))
-        f.close()
         
     
     # Ensemble Model

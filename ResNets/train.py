@@ -50,9 +50,8 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
     total_acc = []
     
     start = now()
-    for epoch in range(epochs):
+    for epoch in range(1, epochs+1):
         
-        print('Epoch ', epoch)
 #        estart = now()
         # Scheduler for learning rate        
         if (dataset == 'CIFAR10' and (j == 32000 or j == 48000)) or \
@@ -101,8 +100,8 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
             if save: f.write(stats + '\n')
         
         total_time.append(time(start))
-#        print('Epoch time: {} hours {} minutes'.format(time(start)[0], time(start)[1]))
-#        print('Total time: {} hours {} minutes'.format(time(estart)[0], time(estart)[1]))
+#        print('\n\nEpoch time: {} hours {} minutes'.format(time(start)[0], time(start)[1]))
+#        print('Total time: {} hours {} minutes \n\n'.format(time(estart)[0], time(estart)[1]))
         
         if save and (save_frequency is not None and epoch % save_frequency == 0):
             torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
