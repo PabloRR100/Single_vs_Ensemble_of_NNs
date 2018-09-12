@@ -2,6 +2,12 @@
 import torch 
 from torch.autograd import Variable
 
+import warnings
+warnings.filterwarnings('always')
+warnings.filterwarnings('ignore', 'ImportWarning')
+warnings.filterwarnings('ignore', 'DeprecationWarning')
+
+
 
 def test(dataset, name, singleModel, ensemble, device, dataloader, best_acc):
     

@@ -9,6 +9,12 @@ from torch.utils.data.dataset import random_split
 from torchvision.datasets import CIFAR10, ImageFolder
 
 
+import warnings
+warnings.filterwarnings('always')
+warnings.filterwarnings('ignore', 'ImportWarning')
+warnings.filterwarnings('ignore', 'DeprecationWarning')
+
+
 # Errors dictionary
 
 errors = {

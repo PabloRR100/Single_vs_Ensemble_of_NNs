@@ -5,6 +5,12 @@ from datetime import datetime
 from utils import progress_bar
 from torch.autograd import Variable
 
+import warnings
+warnings.filterwarnings('always')
+warnings.filterwarnings('ignore', 'ImportWarning')
+warnings.filterwarnings('ignore', 'DeprecationWarning')
+
+
 now = datetime.now
 def time(start):
     
