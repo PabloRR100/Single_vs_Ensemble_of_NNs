@@ -262,13 +262,10 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Big Single Model
 
-import time
-print('Preparing environment...')
-time.sleep(2) # Just to read the term
-
 optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate, 
                       momentum=momentum, weight_decay=weight_decay)
 
+print('Training Single Model' )
 single_history, single_time = train(dataset, name, singleModel, optimizer, criterion, device, train_loader,
                                     n_epochs, n_iters, save, paths, save_frequency, testing)
 
@@ -280,8 +277,9 @@ if save: single_history.to_csv(os.path.join(paths['dataframes'], name + '.csv'))
 
 names = []
 ensemble_history = []
-for model in ensemble:
+for i, model in enumerate(ensemble):
     
+    print('Training individual {}/{} of the Ensemble'.format(i, len(ensemble)))
     optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate, 
                       momentum=momentum, weight_decay=weight_decay)
     
