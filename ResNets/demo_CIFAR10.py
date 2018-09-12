@@ -262,15 +262,18 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Big Single Model
 
-optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate, 
-                      momentum=momentum, weight_decay=weight_decay)
+optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
 print('Training Single Model' )
-single_history, single_time = train(dataset, name, singleModel, optimizer, criterion, device, train_loader,
-                                    valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing)
+params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
 
-figures(single_history, name, dataset, paths['figures'], draws, save)
-if save: single_history.to_csv(os.path.join(paths['dataframes'], name + '.csv'))
+train_history, valid_history, timer = train(*params)
+
+figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
+figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
+if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
+if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name + '.csv'))
 
 
 # Ensemble individuals
@@ -279,20 +282,22 @@ ensemble_history = []
 for i, model in enumerate(ensemble):
     
     print('Training individual {}/{} of the Ensemble'.format(i, len(ensemble)))
-    optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate, 
-                      momentum=momentum, weight_decay=weight_decay)
+    optimizer = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
+    params = [dataset, name, model, optimizer, criterion, device, train_loader, 
+              valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
     
     model.train()    
-    model_history, model_time = train(dataset, name, model, optimizer, criterion, device, train_loader, 
-                                      valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing)
-    
-    ensemble_history.append((model_history, model_time))
+    train_history, valid_history, timer = train(*params)
+    ensemble_history.append((train_history, valid_history, timer))
 
 for i, model in enumerate(ensemble):  
     
-    model_history, model_time = ensemble_history[i]
-    figures(model_history, names[i], dataset, paths['figures'], draws, save)
-    if save: model_history.to_csv(os.path.join(paths['dataframes'], name[i] + '.csv'))
+    train_history, valid_history, model_time = ensemble_history[i]
+    figures(train_history, 'train_' +  names[i], dataset, paths['figures'], draws, save)
+    figures(valid_history, 'valid_' + names[i], dataset, paths['figures'], draws, save)
+    
+    if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name[i] + '.csv'))
+    if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name[i] + '.csv'))
 
 
 bl
