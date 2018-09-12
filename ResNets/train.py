@@ -4,7 +4,6 @@ import glob
 import torch
 import numpy as np
 import pandas as pd
-from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
@@ -88,6 +87,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         # Validation
         if validate:
             
+            print('Entering validation')
             for k, (images, labels) in enumerate(validloader):
             
                 images = Variable(images)
