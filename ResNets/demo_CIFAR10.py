@@ -63,6 +63,7 @@ for arg in vars(args):
     print(arg, getattr(args, arg), type(arg))
 
 
+########################################################
 ## Backup code to debug from python shell - no parser
 #save = False                # Activate results saving 
 #draws = False               # Activate showing the figures
@@ -75,6 +76,7 @@ for arg in vars(args):
 #learning_rate = 0.1
 #batch_size = 128
 #n_iters = 64000
+########################################################
 
 momentum = 0.9
 weight_decay = 1e-4
