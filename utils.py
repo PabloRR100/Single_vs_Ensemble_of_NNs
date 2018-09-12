@@ -1,14 +1,18 @@
 
+
 import os
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
-plt.use('Agg') # Do not show figures
 
 
 from torchvision.transforms import transforms
 from torch.utils.data.dataset import random_split
 from torchvision.datasets import CIFAR10, ImageFolder
+
+
+import matplotlib
+matplotlib.use('Agg') # Do not show figures
 
 
 import warnings
