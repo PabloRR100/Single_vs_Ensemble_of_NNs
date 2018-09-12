@@ -25,7 +25,10 @@ from utils import load_dataset, count_parameters, figures
 
 
 import warnings
-warnings.filterwarnings("always")
+warnings.filterwarnings('always')
+warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore', 'ImportWarning')
+warnings.filterwarnings('ignore', 'DeprecationWarning')
 
 
 bl = print('\n') 
@@ -251,15 +254,14 @@ bl
 print('TRAINING')
 print('--------'); bl
 
-import time
-print('Preparing environment...')
-time.sleep(2) # Just to read the term
-
-
 from train import train
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Big Single Model
+
+import time
+print('Preparing environment...')
+time.sleep(2) # Just to read the term
 
 optimizer = optim.SGD(singleModel.parameters(), lr=learning_rate, 
                       momentum=momentum, weight_decay=weight_decay)

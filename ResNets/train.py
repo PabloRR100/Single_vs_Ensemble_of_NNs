@@ -6,11 +6,13 @@ import pandas as pd
 from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
-#from memory_profiler import profile
 
 
 import warnings
-warnings.filterwarnings('ignore', 'always')
+warnings.filterwarnings('always')
+warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore', 'ImportWarning')
+warnings.filterwarnings('ignore', 'DeprecationWarning')
 
 
 now = datetime.now
@@ -21,13 +23,11 @@ def time(start):
     minutes = round((elapsed/3600 - hours)*60, 2)
     return hours, minutes
 
-
-#@profile
 def train(dataset, name, model, optimizer, criterion, device, dataloader, 
           epochs, iters, save, paths, save_frequency=1, test=True):
     
     model.train()
-    stats_every = 100
+    stats_every = 1
     logpath = paths['logs']['train']
     modelpath = paths['models']
     
