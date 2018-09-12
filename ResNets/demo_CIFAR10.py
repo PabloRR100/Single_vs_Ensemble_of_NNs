@@ -21,7 +21,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import sys
 sys.path.append('..')
 sys.path.append('ResNets')
-# sys.stdout = open('demo.txt', 'w+')
+sys.stdout = open('demo.txt', 'w+')
 
 
 import warnings

@@ -1,0 +1,50 @@
+
+
+CONFIGURATION
+-------------
+save True <class 'str'>
+name None <class 'str'>
+testing True <class 'str'>
+comments False <class 'str'>
+draws False <class 'str'>
+ensembleSize Big <class 'str'>
+dataset CIFAR10 <class 'str'>
+epochs 300 <class 'str'>
+iterations 64000 <class 'str'>
+learning_rate 0.1 <class 'str'>
+batch_size 128 <class 'str'>
+save_frequency 1 <class 'str'>
++-----------------+------------------------------------------------------------+
+| Python Version  | 3.6.6 |Anaconda, Inc.| (default, Jun 28 2018, 11:07:29) 
+[ |
+|                 | GCC 4.2.1 Compatible Clang 4.0.1 (tags/RELEASE_401/final)] |
++-----------------+------------------------------------------------------------+
+| PyTorch Version |                           0.4.1                            |
++-----------------+------------------------------------------------------------+
+|      Cuda       |                           False                            |
++-----------------+------------------------------------------------------------+
+|     Device      |                            cpu                             |
++-----------------+------------------------------------------------------------+
+|      Cores      |                             8                              |
++-----------------+------------------------------------------------------------+
+|      GPUs       |                             0                              |
++-----------------+------------------------------------------------------------+
+|  CUDNN Enabled  |                            True                            |
++-----------------+------------------------------------------------------------+
+DEFINITION OF PATHS
+-------------------
+Paths Validated
+---------------
+Root path:  /Users/pabloruizruiz/Harvard/Single_Ensembles
+Script path:  /Users/pabloruizruiz/Harvard/Single_Ensembles/ResNets
+Result path:  /Users/pabloruizruiz/Harvard/Single_Ensembles/results
+DataFolder path:  /Users/pabloruizruiz/Harvard/datasets
+IMPORTING DATA
+--------------
+Files already downloaded and verified
+IMPORTING MODELS
+----------------
+TRAINING
+--------
+Preparing environment...
+ [>................................................................]  Step: 11s579ms | Tot: 0ms | Loss: 2.582 | Acc: 8.590% (11/128) 1/352 
