@@ -34,6 +34,9 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             images = Variable(images)
             labels = Variable(labels)
             
+            images = images.to(device)
+            labels = labels.to(device)
+            
             outputs = singleModel(images)
             
             _, preds = outputs.max(1)
@@ -54,13 +57,15 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
         for i, (images, labels) in enumerate(dataloader):
             
             images = Variable(images)
-            labels = Variable(torch.tensor(labels))        
+            labels = Variable(labels)        
+            
+            images = images.to(device)
+            labels = labels.to(device)
             
             outputs = []
             for model in ensemble:
                 
                 model.eval()
-                model.to(device)
                 output = model(images)
                 outputs.append(output)
                 
@@ -74,14 +79,7 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
         print('Ensemble accuracy {}%'.format(100 * correct / total))
         f.write('Ensemble accuracy {}%'.format(100 * correct / total))
         f.close()
-    
 
-           
-        
-        
-        
-        
-        
         
         
 ''' 

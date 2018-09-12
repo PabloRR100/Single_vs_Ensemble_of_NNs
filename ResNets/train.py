@@ -7,14 +7,6 @@ from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
-
-import warnings
-warnings.filterwarnings('always')
-warnings.filterwarnings('ignore')
-warnings.filterwarnings('ignore', 'ImportWarning')
-warnings.filterwarnings('ignore', 'DeprecationWarning')
-
-
 now = datetime.now
 def time(start):
     
@@ -26,6 +18,12 @@ def time(start):
 def train(dataset, name, model, optimizer, criterion, device, dataloader, 
           epochs, iters, save, paths, save_frequency=1, test=True):
     
+    import warnings
+    warnings.filterwarnings('always')
+    warnings.filterwarnings('ignore')
+    warnings.filterwarnings('ignore', 'ImportWarning')
+    warnings.filterwarnings('ignore', 'DeprecationWarning')
+
     model.train()
     stats_every = 1
     logpath = paths['logs']['train']
