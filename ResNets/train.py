@@ -34,7 +34,7 @@ def train(dataset, name, model, optimizer, criterion, device, dataloader,
     # test: reduce the training for testing purporse
     if test: 
         
-        epochs = 5
+        epochs = 1
         print('training in test mode')
         # dataloader = islice(dataloader, 2)
     

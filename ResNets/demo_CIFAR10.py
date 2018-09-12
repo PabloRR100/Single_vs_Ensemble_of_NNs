@@ -307,7 +307,7 @@ print('TESTING')
 print('-------'); bl
 
 from test import test
-test('CIFAR10', singleModel, name, ensemble, device, test_loader, paths, save)
+test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
 
 
 exit()
