@@ -284,7 +284,7 @@ for i, model in enumerate(ensemble):
     
     model.train()    
     model_history, model_time = train(dataset, name, model, optimizer, criterion, device, train_loader, 
-                                      n_epochs, n_iters, save, paths, save_frequency, testing)
+                                      valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing)
     
     ensemble_history.append((model_history, model_time))
 
