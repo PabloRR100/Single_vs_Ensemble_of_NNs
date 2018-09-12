@@ -269,7 +269,7 @@ print('Training Single Model' )
 single_history, single_time = train(dataset, name, singleModel, optimizer, criterion, device, train_loader,
                                     n_epochs, n_iters, save, paths, save_frequency, testing)
 
-#figures(single_history, name, 'CIFAR10', paths['figures'], draws, save)
+figures(single_history, name, 'CIFAR10', paths['figures'], draws, save)
 if save: single_history.to_csv(os.path.join(paths['dataframes'], name + '.csv'))
 
 
@@ -292,7 +292,7 @@ for i, model in enumerate(ensemble):
 for i, model in enumerate(ensemble):  
     
     model_history, model_time = ensemble_history[i]
-    #figures(model_history, names[i], 'CIFAR10', paths['figures'], draws, save)
+    figures(model_history, names[i], 'CIFAR10', paths['figures'], draws, save)
     if save: model_history.to_csv(os.path.join(paths['dataframes'], name[i] + '.csv'))
 
 
