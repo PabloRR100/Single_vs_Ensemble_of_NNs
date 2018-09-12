@@ -27,7 +27,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     best_acc = 0
 
     model.train()
-    stats_every = 1
     logpath = paths['logs']['train']
     modelpath = paths['models']
     
@@ -80,10 +79,9 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             
             total_acc.append(accuracy)
             total_loss.append(round(loss.item(), 3))
-            
-        stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(
-                    epoch, epochs, j, iters, round(loss.item(), 2), accuracy)
-        print('\n' + stats)    
+
+        stats = [epoch, epochs, j, iters, round(loss.item(), 2), accuracy]
+        print('\nEpoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stats))    
         
         # Validation
         if validate:
@@ -110,9 +108,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
                     torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
                     best_acc = acc
             
-#        if j % stats_every == 0: print('\n' + stats)
-        if save: f.write(stats + '\n')
-        
+        if save: f.write(stats + '\n')        
         total_time.append(time(start))
             
     if save: f.close()             
