@@ -4,7 +4,7 @@
 import matplotlib
 matplotlib.use('agg') 
 
-u
+
 import os
 import sys
 import numpy as np
