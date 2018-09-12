@@ -95,7 +95,7 @@ bl
 bl
 
 table = BT()
-table.append_row(['Python Version', sys.version])
+table.append_row(['Python Version', sys.version[:5]])
 table.append_row(['PyTorch Version', torch.__version__])
 table.append_row(['Cuda', str(cuda)])
 table.append_row(['Device', str(device)])

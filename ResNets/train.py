@@ -103,8 +103,9 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
                 acc = 100 * correct / total
                 
                 if acc > best_acc:
-                    m = glob.glob(os.path.join(modelpath, '*.pkl'))
-                    os.remove(m)
+                    models = glob.glob(os.path.join(modelpath, '*.pkl'))
+                    for m in models:
+                        os.remove(m)
                     torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
                     best_acc = acc
             
