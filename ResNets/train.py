@@ -81,9 +81,10 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             total_acc.append(accuracy)
             total_loss.append(round(loss.item(), 3))
             
-            stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(
-                        epoch, epochs, j, iters, round(loss.item(), 2), accuracy)
-            
+        stats = 'Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(
+                    epoch, epochs, j, iters, round(loss.item(), 2), accuracy)
+        print('\n' + stats)    
+        
         # Validation
         if validate:
             
@@ -111,8 +112,8 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
                     best_acc = acc
 
             
-            if j % stats_every == 0: print('\n' + stats)
-            if save: f.write(stats + '\n')
+#        if j % stats_every == 0: print('\n' + stats)
+        if save: f.write(stats + '\n')
         
         total_time.append(time(start))
             
