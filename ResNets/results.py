@@ -55,18 +55,22 @@ class Results(object):
         return print(table)
         
     def append_loss(self, m, v, subset: str):
-
+        
         if subset == 'train':
-            if m:
-                self.train_loss['m' + str(m)].append(v)
-            else:
-                self.train_loss['ensemble'].append(v)
+            # ensemble
+            if not m: self.train_loss['ensemble'].append(v)
+            # single model
+            elif m == 1: self.train_loss.append(v)             
+            # individual learner
+            else: self.train_loss['m' + str(m)].append(v)                        
         
         elif subset == 'valid':
-            if m:
-                self.valid_loss['m' + str(m)].append(v)
-            else:
-                self.valid_loss['ensemble'].append(v)
+            # ensemble
+            if not m: self.valid_loss['ensemble'].append(v)
+            # single model
+            elif m == 1: self.valid_loss.append(v)             
+            # individual learner
+            else: self.valid_loss['m' + str(m)].append(v)            
         
         else: 
             print('Subset must be train or valid!')
@@ -76,24 +80,22 @@ class Results(object):
     def append_accy(self, m, v, subset: str):
         
         if subset == 'train':
-            if m:
-                self.train_accy['m' + str(m)].append(v)
-            else:
-                self.train_accy['ensemble'].append(v)
-        
+            # ensemble
+            if not m: self.train_accy['ensemble'].append(v)
+            # single model
+            elif m == 1: self.train_accy.append(v)             
+            # individual learner
+            else: self.train_accy['m' + str(m)].append(v)  
+
         elif subset == 'valid':
-            if m:
-                self.valid_accy['m' + str(m)].append(v)
-            else:
-                self.valid_accy['ensemble'].append(v)
+                        # ensemble
+            if not m: self.valid_accy['ensemble'].append(v)
+            # single model
+            elif m == 1: self.valid_accy.append(v)             
+            # individual learner
+            else: self.valid_accy['m' + str(m)].append(v)  
         
         else: 
             print('Subset must be train or valid!')
             print('Exiting..')
             exit()
-
-    
-        
-#        
-#len(ensemble)
-#results = Results(ensemble)

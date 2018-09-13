@@ -298,6 +298,7 @@ results = train_ensemble(*params)
 with open('results_Single_Model.pkl', 'wb') as result:
     pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
 
+
 #figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
 #figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
 #if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
@@ -335,6 +336,7 @@ with open('results_Single_Model.pkl', 'wb') as result:
 #from test import test
 #test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
 
+results.show()
 
 exit()
 
