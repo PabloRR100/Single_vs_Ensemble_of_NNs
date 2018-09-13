@@ -37,23 +37,13 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     results = Results(models)
     
     avoidWarnings()
-#    logpath = paths['logs']['train']
     modelpath = paths['models']
 
     # Testing mode
     if test:         
-        epochs = 3
+        epochs = 2
         print('training in test mode')
-        
-#    # Logs config
-#    if save:         
-#        
-#        assert os.path.exists(logpath), 'Error: path to save training logs not found'
-#        logfile = names + '.txt'
-#        logfile = os.path.join(logpath, logfile)
-#        f = open(logfile, 'w+')
-
-    
+            
     start = now()
     for epoch in range(1, epochs+1):
                 
@@ -72,7 +62,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
                 # Scheduler for learning rate        
                 if (j == 32000 or j == 48000):  
-                    for p in optimizers[m].param_groups: p['lr'] = p['lr'] / 10
+                    for p in optimizers[n].param_groups: p['lr'] = p['lr'] / 10
 
                 # Individual forward pass
                 
@@ -162,11 +152,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     # Store results for this individual
                     results.append_loss(n, lss, 'valid')
                     results.append_accy(n, acc, 'valid')
-                    
-                    # Individual backwad pass                           # How does loss.backward wicho model is?
-                    loss.backward()
-                    optimizers[m].step()
-                    
+                                        
                     stat = [n+1, epoch, epochs, j, iters]
                     stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
                     print(stats)                    
@@ -204,11 +190,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     torch.save(m.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (names[i], epoch))) 
                 best_acc = acc
                 
-#        if save: f.write(stats + '\n')        
         timer.append(time(start))
-            
-#    if save: f.close()             
-    
+        
         # DECIDE IF RETURN RESULTS OR CONVERT TO DATAFRAME HERE TO CREATE THE PLOTS
 #    train_history = pd.DataFrame(np.array([train_loss, train_accy]).T, columns=['Loss', 'Accuracy'])
 #    valid_history = pd.DataFrame(np.array([valid_loss, valid_accy]).T, columns=['Loss', 'Accuracy'])
