@@ -60,8 +60,26 @@ batch_size = args.batch_size
 learning_rate = args.learning_rate
 save_frequency = args.save_frequency
 
-args.iterations, args.epochs, args.batch_size = def_training(n_iters, n_epochs, batch_size)
-n_iters, n_epochs, batch_size = args.iterations, args.epochs, args.batch_size
+if args.name is None: args.name = 'ResNet'
+# Sanity check for epochs - batch size - iterations
+n_iters, n_epochs, batch_size = def_training(n_iters, n_epochs, batch_size)
+
+# Display config to run file
+table = BT()
+table.append_row(['Save', str(args.save)])
+table.append_row(['Name', str(args.name)])
+table.append_row(['Draws', str(args.draws)])
+table.append_row(['Testing', str(args.testing)])
+table.append_row(['Comments', str(args.comments)])
+table.append_row(['Ensemble size', str(args.ensembleSize)])
+table.append_row(['-------------', '-------------'])
+table.append_row(['Epochs', n_epochs])
+table.append_row(['Iterations', n_iters])
+table.append_row(['Batch Size', batch_size])
+table.append_row(['Learning Rate', str(args.learning_rate)])
+print(table)
+
+exit()
 
 table = BT()
 for arg in vars(args):
