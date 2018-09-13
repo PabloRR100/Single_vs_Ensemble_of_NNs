@@ -68,7 +68,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             labels = labels.to(device)
             
             outputs = []
-            for m in models:
+            for n, m in enumerate(models):
                 
                 # Scheduler for learning rate        
                 if (j == 32000 or j == 48000):  
@@ -93,12 +93,16 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 acc = round(accuracy * 100, 2)
             
                 # Store results for this individual
-                results.append_loss(m, lss, 'train')
-                results.append_accy(m, acc, 'train')
+                results.append_loss(n, lss, 'train')
+                results.append_accy(n, acc, 'train')
+                
+                stat = [epoch, epochs, j, iters, n]
+                stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Model: {}%'.format(*stat)
+                print(stats)      
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 loss.backward()
-                optimizers[m].step()
+                optimizers[n].step()
                 
             # Ensemble foward pass
             
@@ -139,7 +143,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 labels = labels.to(device)
                 
                 outputs = []
-                for m in models:
+                for n, m in enumerate(models):
             
                     m.zero_grad()
                     output = m(images)
@@ -156,14 +160,14 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     acc = round(accuracy * 100, 2)
                 
                     # Store results for this individual
-                    results.append_loss(m, lss, 'valid')
-                    results.append_accy(m, acc, 'valid')
+                    results.append_loss(n, lss, 'valid')
+                    results.append_accy(n, acc, 'valid')
                     
                     # Individual backwad pass                           # How does loss.backward wicho model is?
                     loss.backward()
                     optimizers[m].step()
                     
-                    stat = [epoch, epochs, j, iters, m]
+                    stat = [epoch, epochs, j, iters, n]
                     stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Model: {}%'.format(*stat)
                     print(stats)                    
             
