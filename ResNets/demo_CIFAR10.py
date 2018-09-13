@@ -295,7 +295,7 @@ params = [dataset, name, [singleModel], optimizers, criterion, device, train_loa
 results, timer = train(*params)
 
 results = train_ensemble(*params)
-with open('results_Single_Model.pkl', 'wb') as result:
+with open('Results_Single_Model.pkl', 'wb') as result:
     pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
 
 
@@ -305,25 +305,24 @@ with open('results_Single_Model.pkl', 'wb') as result:
 #if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name + '.csv'))
 
 
-## Ensemble Model
-#
-#print('Starting Ensemble Training...')
-#from train_ensemble import train as train_ensemble
-#
-#params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
-#          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
-#    
-#results = train_ensemble(*params)
-#with open('results.pkl', 'wb') as result:
-#    pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
-#
-#bl
-#bl
-#
-#
-## Training figures
-#with open('results.pkl', 'rb') as input:
-#    results = pickle.load(input)
+# Ensemble Model
+
+print('Starting Ensemble Training...')
+
+params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
+          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+    
+results = train_ensemble(*params)
+with open('Results_Ensemble_Models.pkl', 'wb') as result:
+    pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
+
+bl
+bl
+
+
+# Training figures
+with open('results.pkl', 'rb') as input:
+    results = pickle.load(input)
 
 
 #
