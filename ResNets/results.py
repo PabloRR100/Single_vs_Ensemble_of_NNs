@@ -7,22 +7,37 @@ class Results(object):
         
         self.m = len(models)
         
-        # Store per epoch training data
-        self.train_loss = dict()
-        self.train_accy = dict()
-
-        self.valid_loss = dict()
-        self.valid_accy = dict()
-        
-        # Store per iteration training data
-        self.global_train_loss = dict()
-        self.global_train_accy = dict()
-         
-        self.global_valid_loss = dict()
-        self.global_valid_accy = dict()
+        # In case of a single model
+        if self.m == 1:
+            
+            self.train_loss = list()
+            self.train_accy = list()
+            
+            self.valid_loss = list()
+            self.valid_accy = list()
+            
+            self.global_train_loss = list()
+            self.global_train_accy = list()
+             
+            self.global_valid_loss = list()
+            self.global_valid_accy = list()
         
         # In case of an ensemble
-        if self.m > 1:
+        else:
+            
+            # Store per epoch training data
+            self.train_loss = dict()
+            self.train_accy = dict()
+    
+            self.valid_loss = dict()
+            self.valid_accy = dict()
+            
+            # Store per iteration training data
+            self.global_train_loss = dict()
+            self.global_train_accy = dict()
+             
+            self.global_valid_loss = dict()
+            self.global_valid_accy = dict()
                         
             for i in range(1, 1 + self.m):
                 name = 'm' + str(i)
@@ -50,20 +65,6 @@ class Results(object):
             self.global_valid_loss['ensemble'] = list()
             self.global_valid_accy['ensemble'] = list()
             
-        # In case of a single model
-        else:
-            
-            self.train_loss = list()
-            self.train_accy = list()
-            
-            self.valid_loss = list()
-            self.valid_accy = list()
-            
-            self.global_train_loss = list()
-            self.global_train_accy = list()
-             
-            self.global_valid_loss = list()
-            self.global_valid_accy = list()
             
     def show(self):
         
@@ -83,9 +84,9 @@ class Results(object):
                                   len(self.train_loss[name]), len(self.valid_loss[name]),
                                   len(self.global_train_loss[name]), len(self.global_valid_loss[name])])
             
-                table.append_row(['Ensemble', 
-                                 len(self.train_loss['ensemble']), len(self.valid_loss['ensemble']),
-                                 len(self.global_train_loss['ensemble']), len(self.global_valid_loss['ensemble'])])
+            table.append_row(['Ensemble', 
+                             len(self.train_loss['ensemble']), len(self.valid_loss['ensemble']),
+                             len(self.global_train_loss['ensemble']), len(self.global_valid_loss['ensemble'])])
         print(table)
         
     def append_loss(self, v, subset: str, m=None):
