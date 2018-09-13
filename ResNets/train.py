@@ -143,7 +143,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         stats = [epoch, epochs, j, iters, lss, acc]
         print('\n Valid: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stats))    
         
-        if save: f.write(stats + '\n')        
+        if save: f.write(*stats + '\n')        
         timer.append(time(start))
             
     if save: f.close()             

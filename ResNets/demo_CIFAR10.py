@@ -40,7 +40,7 @@ CONFIGURATION
 
 Catch from the parser all the parameters to define the training
 '''
-print('CONFIGURATION')
+print('\n\nCONFIGURATION')
 print('-------------'); bl
 
 from parser import args
@@ -119,7 +119,7 @@ table.append_row(['Device', str(device)])
 table.append_row(['Cores', str(n_workers)])
 table.append_row(['GPUs', str(torch.cuda.device_count())])
 table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
-print('COMPUTING CONFIG')
+print('\n\nCOMPUTING CONFIG')
 print('----------------')
 print(table)
 
@@ -210,7 +210,7 @@ bl
 # 2 - Import the ResNet
 # ---------------------
 
-print('IMPORTING MODELS')
+print('\n\nIMPORTING MODELS')
 print('----------------'); bl
 
 from resnets_CIFAR10 import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
@@ -273,7 +273,7 @@ bl
 # 3 - Train ResNet
 # ----------------
 
-print('TRAINING')
+print('\n\nTRAINING')
 print('--------'); bl
 
 from train import train
@@ -326,7 +326,7 @@ bl
 # 4 - Evaluate Models
 # -------------------
     
-print('TESTING')
+print('\n\nTESTING')
 print('-------'); bl
 
 from test import test
