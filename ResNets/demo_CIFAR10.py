@@ -281,7 +281,7 @@ print('\n\nTRAINING')
 print('--------'); bl
 
 from train import train
-from train_ensemble import train_ensemble
+from train_ensemble import train as train_ensemble
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Big Single Model
