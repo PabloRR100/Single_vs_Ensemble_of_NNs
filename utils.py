@@ -74,7 +74,7 @@ def def_training(n_iters, n_epochs, batch_size):
     
     else:
         
-        if n_epochs is not None and n_iters is not 64000:
+        if n_iters is not 64000:
         
             batch_size = n_iters / n_epochs        
             error = errors['training']['batch_size']
@@ -83,7 +83,8 @@ def def_training(n_iters, n_epochs, batch_size):
                 exit()            
             batch_size = int(batch_size)
             
-        elif n_epochs is not None and batch_size is not 182:
+        else:
+            
             n_iters = int(n_epochs * batch_size)
 
 
