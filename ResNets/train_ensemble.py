@@ -2,8 +2,6 @@
 import os
 import glob
 import torch
-import numpy as np
-import pandas as pd
 from results import Results
 from datetime import datetime 
 from torch.autograd import Variable
@@ -192,8 +190,4 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
         timer.append(time(start))
         
-        # DECIDE IF RETURN RESULTS OR CONVERT TO DATAFRAME HERE TO CREATE THE PLOTS
-#    train_history = pd.DataFrame(np.array([train_loss, train_accy]).T, columns=['Loss', 'Accuracy'])
-#    valid_history = pd.DataFrame(np.array([valid_loss, valid_accy]).T, columns=['Loss', 'Accuracy'])
-#    return train_history, valid_history, timer
-    return results
+    return results, timer
