@@ -79,12 +79,6 @@ table.append_row(['Batch Size', batch_size])
 table.append_row(['Learning Rate', str(args.learning_rate)])
 print(table)
 
-table = BT()
-for arg in vars(args):
-    table.append_row([arg, str(getattr(args, arg))])
-if comments: print(table)
-
-exit()
 
 ########################################################
 ## Backup code to debug from python shell - no parser
@@ -125,6 +119,8 @@ table.append_row(['Device', str(device)])
 table.append_row(['Cores', str(n_workers)])
 table.append_row(['GPUs', str(torch.cuda.device_count())])
 table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
+print('COMPUTING CONFIG')
+print('----------------')
 print(table)
 
 bl
