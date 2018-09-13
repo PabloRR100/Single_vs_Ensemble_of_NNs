@@ -286,10 +286,10 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Big Single Model
 
-optimizers = [optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)]
+optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
 print('Starting Single Model Training...' )
-params = [dataset, name, singleModel, optimizers, criterion, device, train_loader,
+params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
           valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
 
 results, timer = train(*params)
