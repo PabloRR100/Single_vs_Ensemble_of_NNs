@@ -79,8 +79,6 @@ table.append_row(['Batch Size', batch_size])
 table.append_row(['Learning Rate', str(args.learning_rate)])
 print(table)
 
-exit()
-
 table = BT()
 for arg in vars(args):
     table.append_row([arg, str(getattr(args, arg))])
