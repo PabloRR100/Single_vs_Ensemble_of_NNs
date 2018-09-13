@@ -304,7 +304,10 @@ print('Starting Ensemble Training...')
 from train_ensemble import train as train_ensemble
 
 import pickle
-results = train_ensemble(ensemble)
+params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
+          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+    
+results = train_ensemble(*params)
 with open('results.pkl', 'wb') as result:
     pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
 
