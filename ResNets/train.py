@@ -5,6 +5,7 @@ import glob
 import torch
 import numpy as np
 import pandas as pd
+from results import Results
 from datetime import datetime 
 from torch.autograd import Variable
 
@@ -31,22 +32,15 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     
     best_acc = 0
     model.train()
+    results = Results([model])
     
     avoidWarnings()
-    logpath = paths['logs']['train']
     modelpath = paths['models']
     
     # Testing mode
     if test:         
         epochs = 3
         print('training in test mode')
-    
-    # Logs config
-    if save:         
-        assert os.path.exists(logpath), 'Error: path to save training logs not found'
-        logfile = name + '.txt'
-        logfile = os.path.join(logpath, logfile)
-        f = open(logfile, 'w+')
     
     timer = []
     j = 0 # Iteration controler  
@@ -145,10 +139,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         stats = '\n Valid: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
         print(stats)
         
-        if save: f.write(stats + '\n')        
-        timer.append(time(start))
-            
-    if save: f.close()             
+    results.append_loss            
     
     train_history = pd.DataFrame(np.array([train_loss, train_accy]).T, columns=['Loss', 'Accuracy'])
     valid_history = pd.DataFrame(np.array([valid_loss, valid_accy]).T, columns=['Loss', 'Accuracy'])
