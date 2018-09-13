@@ -9,6 +9,7 @@ import os
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+from beautifultable import BeautifulTable as BT
 
 
 from torchvision.transforms import transforms
@@ -29,14 +30,62 @@ errors = {
         'Ensure subset': 'Choose transformations for Train set or Test set',
         'Exists data folder': 'General data folder not found',
         'Exists particular data folder': 'Not found folder for this particular dataset',
+        'training' : {
+                'epochs':'n_iters and batch_size must be divisible to compute the epochs',
+                'batch_size':'n_iters and n_epochs must be divisible to compute the batch size'
+                }
         }
-
-
+        
 # Count parameters of a model 
-
 def count_parameters(model):
     ''' Count the parameters of a model '''
     return sum(p.numel() for p in model.parameters())
+
+
+# EPOCHS-ITERS-BATCH_SIZE
+# -----------------------
+
+def def_training(n_iters, n_epochs, batch_size):
+    '''
+    Function to ensure the epochs, iterations and batch_sizes chosen
+    are consistent
+    '''
+    def table_stats(n_iters, n_epochs, batch_size):
+        table = BT()
+        table.append_row(['Iters', n_iters])
+        table.append_row(['Epochs', n_epochs])
+        table.append_row(['Batch size', batch_size])
+        print(table)
+    
+    def print_stats(n_iters, n_epochs, batch_size, error):
+        print('\n\nERROR IN TRAINING PARAMETERS')
+        print(error)
+        table_stats(n_iters, n_epochs, batch_size)
+        print('Exiting...')
+    
+    if n_epochs is None:
+        
+        n_epochs = n_iters / batch_size 
+        error = errors['training']['epochs']
+        if n_iters % batch_size != 0:
+            print_stats(n_iters, n_epochs, batch_size, error)
+            exit()
+        n_epochs = int(n_epochs)
+    
+    else:
+        
+        if n_epochs is not None and n_iters is not 64000:
+        
+            batch_size = n_iters / n_epochs        
+            error = errors['training']['batch_size']
+            if n_iters % n_epochs != 0:
+                print_stats(n_iters, n_epochs, batch_size, error)
+                exit()            
+            batch_size = int(batch_size)
+            
+        elif n_epochs is not None and batch_size is not 182:
+            n_iters = int(n_epochs * batch_size)
+
 
 # DATASET 
 # -------

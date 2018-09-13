@@ -21,7 +21,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import sys
 sys.path.append('..')
 sys.path.append('ResNets')
-from utils import load_dataset, count_parameters, figures
+from utils import def_training, load_dataset, count_parameters, figures
 
 
 import warnings
@@ -54,19 +54,19 @@ comments = args.comments
 
 ensemble_type = args.ensembleSize
 
-n_epochs = args.n_epochs
+n_epochs = args.epochs
 n_iters = args.iterations
 batch_size = args.batch_size
 learning_rate = args.learning_rate
 save_frequency = args.save_frequency
 
+def_training(n_iters, n_epochs, batch_size)
+
+table = BT()
 for arg in vars(args):
-    print(arg, getattr(args, arg), type(arg))
+    table.append_row([arg, str(getattr(args, arg)), type(arg)])
+print(table)
 
-
-print(n_epochs is not None)
-
-exit()
 
 ########################################################
 ## Backup code to debug from python shell - no parser
@@ -172,7 +172,7 @@ bl
 print('IMPORTING DATA')
 print('--------------'); bl
 
-dataset = 'CIFAR10'
+#dataset = 'CIFAR10'
 train_set, valid_set, test_set = load_dataset(data_path, dataset, comments=comments)
 
 train_loader = DataLoader(dataset = train_set.dataset, 
