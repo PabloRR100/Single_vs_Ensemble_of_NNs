@@ -42,9 +42,9 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             _, preds = outputs.max(1)
             total += outputs.size(0)
             correct += int(sum(preds == labels))
-            
+        
+    print('Single model accuracy {}%'.format(100 * correct / total))
     if save: 
-        print('Single model accuracy {}%'.format(100 * correct / total))
         f.write('Single model accuracy {}%'.format(100 * correct / total))
         
     
@@ -74,8 +74,8 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             total += outputs.size(0)
             correct += int(sum(preds == labels))
      
+    print('Ensemble accuracy {}%'.format(100 * correct / total))
     if save: 
-        print('Ensemble accuracy {}%'.format(100 * correct / total))
         f.write('Ensemble accuracy {}%'.format(100 * correct / total))
         f.close()
 

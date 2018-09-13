@@ -51,7 +51,7 @@ parser.add_argument('-d', '--dataset',
                     type=str, default='CIFAR10', help=msd)
 
 parser.add_argument('-e', '--epochs', 
-                    type=int, default=300, 
+                    type=int, default=None, 
                     help='Int: Epochs for training')
 
 parser.add_argument('-i', '--iterations', 

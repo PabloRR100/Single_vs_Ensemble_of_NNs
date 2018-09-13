@@ -54,6 +54,7 @@ comments = args.comments
 
 ensemble_type = args.ensembleSize
 
+n_epochs = args.n_epochs
 n_iters = args.iterations
 batch_size = args.batch_size
 learning_rate = args.learning_rate
@@ -62,6 +63,10 @@ save_frequency = args.save_frequency
 for arg in vars(args):
     print(arg, getattr(args, arg), type(arg))
 
+
+print(n_epochs is not None)
+
+exit()
 
 ########################################################
 ## Backup code to debug from python shell - no parser
