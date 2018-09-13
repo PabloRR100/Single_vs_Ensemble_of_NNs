@@ -280,7 +280,7 @@ bl
 print('\n\nTRAINING')
 print('--------'); bl
 
-#from train import train
+from train import train
 from train_ensemble import train as train_ensemble
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
@@ -292,7 +292,7 @@ print('Starting Single Model Training...' )
 params = [dataset, name, [singleModel], optimizers, criterion, device, train_loader,
           valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
 
-results, timer = train_ensemble(*params)
+results, timer = train(*params)
 
 results = train_ensemble(*params)
 with open('results_Single_Model.pkl', 'wb') as result:
