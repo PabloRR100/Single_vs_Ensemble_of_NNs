@@ -60,13 +60,15 @@ batch_size = args.batch_size
 learning_rate = args.learning_rate
 save_frequency = args.save_frequency
 
-def_training(n_iters, n_epochs, batch_size)
+args.iterations, args.epochs, args.batch_size = def_training(n_iters, n_epochs, batch_size)
+n_iters, n_epochs, batch_size = args.iterations, args.epochs, args.batch_size
 
 table = BT()
 for arg in vars(args):
-    table.append_row([arg, str(getattr(args, arg)), type(arg)])
-print(table)
+    table.append_row([arg, str(getattr(args, arg))])
+if comments: print(table)
 
+exit()
 
 ########################################################
 ## Backup code to debug from python shell - no parser

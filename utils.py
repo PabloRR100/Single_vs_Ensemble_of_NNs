@@ -74,18 +74,24 @@ def def_training(n_iters, n_epochs, batch_size):
     
     else:
         
-        if n_iters is not 64000:
-        
+        # Introduced epochs and iterations
+        if n_iters != 64000:
+            
+            print(n_iters)
+            print(n_iters == 64000)
             batch_size = n_iters / n_epochs        
             error = errors['training']['batch_size']
             if n_iters % n_epochs != 0:
                 print_stats(n_iters, n_epochs, batch_size, error)
                 exit()            
             batch_size = int(batch_size)
-            
+          
+        # Introduced epochs and batch_size
         else:
             
             n_iters = int(n_epochs * batch_size)
+            
+    return n_iters, n_epochs, batch_size
 
 
 # DATASET 
