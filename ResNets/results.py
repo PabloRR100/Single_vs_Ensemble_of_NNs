@@ -1,4 +1,6 @@
 
+from beautifultable import BeautifulTable as BT
+
 class Results(object):
     
     def __init__(self, models):
@@ -26,6 +28,31 @@ class Results(object):
             
             self.valid_loss['ensemble'] = list()
             self.valid_accy['ensemble'] = list()
+            
+        else:
+            
+            self.train_loss = list()
+            self.train_accy = list()
+            
+            self.valid_loss = list()
+            self.valid_accy = list()
+            
+    def show(self):
+        
+        table = BT()
+        table.append_row(['Model', 'Train', 'Valid'])
+        
+        if self.m == 1:
+            table.append_row(['Single Deep', len(self.train_loss), len(self.train_loss)])
+        
+        else:
+            for i in range(self.m):
+                name = 'm' + str(i+1)
+                table.append_row(['Individual {}'.format(i+1), 
+                                  len(self.train_loss[name]), len(self.valid_loss[name])])
+            table.append_row(['Ensemble', 
+                                 len(self.train_loss['ensemble']), len(self.valid_loss['ensemble'])])
+        return print(table)
         
     def append_loss(self, m, v, subset: str):
 
