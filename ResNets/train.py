@@ -101,8 +101,9 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         train_loss.append(lss)
         train_accy.append(acc)
         
-        stats = [epoch, epochs, j, iters, lss, acc]
-        print('\n Train: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stats))   
+        stat = [epoch, epochs, j, iters, lss, acc]
+        stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+        print(stats)
         
         # Validation
         if validate:
@@ -140,10 +141,11 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         valid_loss.append(round(loss.item(), 3))
         valid_accy.append(round(accuracy * 100, 2))
         
-        stats = [epoch, epochs, j, iters, lss, acc]
-        print('\n Valid: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stats))    
+        stat = [epoch, epochs, j, iters, lss, acc]
+        stats = '\n Valid: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+        print(stats)
         
-        if save: f.write(*stats + '\n')        
+        if save: f.write(stats + '\n')        
         timer.append(time(start))
             
     if save: f.close()             
