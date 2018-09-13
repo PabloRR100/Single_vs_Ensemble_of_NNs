@@ -81,8 +81,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 acc = round(accuracy * 100, 2)
             
                 # Store results for this individual
-                results.append_global_loss(n+1, lss, 'train')
-                results.append_global_accy(n+1, acc, 'train')
+                results.append_global_loss(lss, 'train', n+1)
+                results.append_global_accy(acc, 'train', n+1)
                 
                 stat = [n+1, epoch, epochs, j, iters]
                 stats = '\n Train Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
@@ -109,8 +109,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             acc = round(accuracy * 100, 2)
             
             # Store results for Ensemble
-            results.append_loss(None, lss, 'train')
-            results.append_accy(None, acc, 'train')
+            results.append_loss(lss, 'train', None)
+            results.append_accy(acc, 'train', None)
             
             # Print results
             stat = [epoch, epochs, j, iters, lss, acc]
@@ -165,8 +165,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             acc = round(accuracy * 100, 2)
             
             # Store results for Ensemble
-            results.append_loss(None, lss, 'valid')
-            results.append_accy(None, acc, 'valid')
+            results.append_loss(lss, 'valid', None)
+            results.append_accy(acc, 'valid', None)
             
             # Print results
             stat = [epoch, epochs, j, iters, lss, acc]
