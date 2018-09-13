@@ -281,7 +281,7 @@ if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name 
 ensemble_history = []
 for i, model in enumerate(ensemble):
     
-    print('Training individual {}/{} of the Ensemble'.format(i, len(ensemble)))
+    print('Training individual {}/{} of the Ensemble'.format(i+1, len(ensemble)))
     optimizer = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
     params = [dataset, name, model, optimizer, criterion, device, train_loader, 
               valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
