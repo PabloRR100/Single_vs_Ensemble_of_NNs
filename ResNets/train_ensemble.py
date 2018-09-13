@@ -183,7 +183,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             if acc > best_acc:
                 
                 prev_models = glob.glob(os.path.join(modelpath, '*.pkl'))
-                for o in prev_models:
+                for p in prev_models:
                     os.remove(p)
                     
                 for i, m in enumerate(models):                    
