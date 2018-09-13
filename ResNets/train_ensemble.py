@@ -83,8 +83,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 acc = round(accuracy * 100, 2)
             
                 # Store results for this individual
-                results.append_loss(n, lss, 'train')
-                results.append_accy(n, acc, 'train')
+                results.append_loss(n+1, lss, 'train')
+                results.append_accy(n+1, acc, 'train')
                 
                 stat = [n+1, epoch, epochs, j, iters]
                 stats = '\n Train Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
@@ -150,8 +150,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     acc = round(accuracy * 100, 2)
                 
                     # Store results for this individual
-                    results.append_loss(n, lss, 'valid')
-                    results.append_accy(n, acc, 'valid')
+                    results.append_loss(n+1, lss, 'valid')
+                    results.append_accy(n+1, acc, 'valid')
                                         
                     stat = [n+1, epoch, epochs, j, iters]
                     stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)

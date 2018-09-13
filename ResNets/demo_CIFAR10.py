@@ -7,6 +7,7 @@ Created on Thu Aug  9 15:31:56 2018
 """
 
 import os
+import pickle
 import multiprocessing
 from beautifultable import BeautifulTable as BT
 
@@ -314,6 +315,12 @@ with open('results.pkl', 'wb') as result:
 bl
 bl
 
+
+# Training figures
+with open('results.pkl', 'rb') as input:
+    results = pickle.load(input)
+
+
 #
 ## 4 - Evaluate Models
 ## -------------------
@@ -326,3 +333,5 @@ bl
 
 
 exit()
+
+
