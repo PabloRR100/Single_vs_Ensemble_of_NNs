@@ -139,8 +139,12 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         stats = '\n Valid: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
         print(stats)
         
-    results.append_loss(train_loss,)
+    results.append_loss(train_loss, subset='train')
+    results.append_accy(train_accy, subset='train')
+    results.append_loss(valid_loss, subset='valid')
+    results.append_accy(valid_accy, subset='valid')
     
-    train_history = pd.DataFrame(np.array([train_loss, train_accy]).T, columns=['Loss', 'Accuracy'])
-    valid_history = pd.DataFrame(np.array([valid_loss, valid_accy]).T, columns=['Loss', 'Accuracy'])
-    return train_history, valid_history, timer
+    return results, timer
+#    train_history = pd.DataFrame(np.array([train_loss, train_accy]).T, columns=['Loss', 'Accuracy'])
+#    valid_history = pd.DataFrame(np.array([valid_loss, valid_accy]).T, columns=['Loss', 'Accuracy'])
+#    return train_history, valid_history, timer

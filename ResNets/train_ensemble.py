@@ -81,8 +81,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 acc = round(accuracy * 100, 2)
             
                 # Store results for this individual
-                results.append_loss(n+1, lss, 'train')
-                results.append_accy(n+1, acc, 'train')
+                results.append_global_loss(n+1, lss, 'train')
+                results.append_global_accy(n+1, acc, 'train')
                 
                 stat = [n+1, epoch, epochs, j, iters]
                 stats = '\n Train Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)

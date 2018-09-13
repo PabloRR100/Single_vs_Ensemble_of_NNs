@@ -285,18 +285,18 @@ from train_ensemble import train as train_ensemble
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Big Single Model
-
-optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
-
-print('Starting Single Model Training...' )
-params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
-
-results, timer = train(*params)
-
-results = train_ensemble(*params)
-with open('Results_Single_Model.pkl', 'wb') as result:
-    pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
+#
+#optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
+#
+#print('Starting Single Model Training...' )
+#params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+#          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+#
+#results, timer = train(*params)
+#
+#results = train_ensemble(*params)
+#with open('Results_Single_Model.pkl', 'wb') as result:
+#    pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
 
 
 #figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
