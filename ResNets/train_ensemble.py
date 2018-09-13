@@ -96,8 +96,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 results.append_loss(n, lss, 'train')
                 results.append_accy(n, acc, 'train')
                 
-                stat = [epoch, epochs, j, iters, n]
-                stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Model: {}%'.format(*stat)
+                stat = [n+1, epoch, epochs, j, iters]
+                stats = '\n Train Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
                 print(stats)      
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
@@ -126,7 +126,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             
             # Print results
             stat = [epoch, epochs, j, iters, lss, acc]
-            stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+            stats = '\n Train Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
             print(stats)
             
         
@@ -167,8 +167,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     loss.backward()
                     optimizers[m].step()
                     
-                    stat = [epoch, epochs, j, iters, n]
-                    stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Model: {}%'.format(*stat)
+                    stat = [n+1, epoch, epochs, j, iters]
+                    stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
                     print(stats)                    
             
             # Ensemble foward pass
@@ -190,7 +190,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             
             # Print results
             stat = [epoch, epochs, j, iters, lss, acc]
-            stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+            stats = '\n Valid Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
             print(stats)
                 
             # Save model and delete previous if it is the best
