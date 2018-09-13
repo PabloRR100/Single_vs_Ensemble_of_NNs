@@ -257,10 +257,13 @@ if gpus: singleModel = nn.DataParallel(singleModel)
 
 names = []
 ensemble = []
+optimizers = []
 for i in range(ensemble_size):
     
     model = ResNet20()
     names.append(model.name + '_' + str(i+1))
+    params = [optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)]
+    optimizers.append(*params)
     
     model.to(device)
     if gpus: model = nn.DataParallel(model)
@@ -276,61 +279,47 @@ bl
 print('\n\nTRAINING')
 print('--------'); bl
 
-from train import train
+#from train import train
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Big Single Model
 
-optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
+#optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
+#
+#print('Starting Single Model Training...' )
+#params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+#          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+#
+#train_history, valid_history, timer = train(*params)
+#
+#figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
+#figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
+#if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
+#if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name + '.csv'))
+#
 
-print('Training Single Model' )
-params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+# Ensemble Model
 
-train_history, valid_history, timer = train(*params)
+print('Starting Ensemble Training...')
+from train_ensemble import train as train_ensemble
 
-figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
-figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
-if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
-if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name + '.csv'))
-
-
-# Ensemble individuals
-
-ensemble_history = []
-for i, model in enumerate(ensemble):
-    
-    print('Training individual {}/{} of the Ensemble'.format(i+1, len(ensemble)))
-    optimizer = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
-    params = [dataset, name, model, optimizer, criterion, device, train_loader, 
-              valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
-    
-    model.train()    
-    train_history, valid_history, timer = train(*params)
-    ensemble_history.append((train_history, valid_history, timer))
-
-for i, model in enumerate(ensemble):  
-    
-    train_history, valid_history, model_time = ensemble_history[i]
-    figures(train_history, 'train_' +  names[i], dataset, paths['figures'], draws, save)
-    figures(valid_history, 'valid_' + names[i], dataset, paths['figures'], draws, save)
-    
-    if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name[i] + '.csv'))
-    if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name[i] + '.csv'))
-
+import pickle
+results = train_ensemble(ensemble)
+with open('results.pkl', 'wb') as result:
+    pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
 
 bl
 bl
 
-
-# 4 - Evaluate Models
-# -------------------
-    
-print('\n\nTESTING')
-print('-------'); bl
-
-from test import test
-test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+#
+## 4 - Evaluate Models
+## -------------------
+#    
+#print('\n\nTESTING')
+#print('-------'); bl
+#
+#from test import test
+#test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
 
 
 exit()
