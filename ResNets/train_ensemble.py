@@ -3,6 +3,7 @@ import os
 import glob
 import torch
 from results import Results
+from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
@@ -41,6 +42,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     if test:         
         epochs = 2
         print('training in test mode')
+        trainloader = islice(trainloader, 2)
+        validloader = islice(validloader, 2)
             
     start = now()
     for epoch in range(1, epochs+1):

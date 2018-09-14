@@ -10,17 +10,16 @@ class Results(object):
         # In case of a single model
         if self.m == 1:
             
+            # Store per epoch training data
             self.train_loss = list()
             self.train_accy = list()
             
             self.valid_loss = list()
             self.valid_accy = list()
             
+            # Store per iteration training data
             self.global_train_loss = list()
             self.global_train_accy = list()
-             
-            self.global_valid_loss = list()
-            self.global_valid_accy = list()
         
         # In case of an ensemble
         else:
@@ -35,9 +34,6 @@ class Results(object):
             # Store per iteration training data
             self.global_train_loss = dict()
             self.global_train_accy = dict()
-             
-            self.global_valid_loss = dict()
-            self.global_valid_accy = dict()
                         
             for i in range(1, 1 + self.m):
                 name = 'm' + str(i)
@@ -49,9 +45,6 @@ class Results(object):
                 
                 self.global_train_loss[name] = list()
                 self.global_train_accy[name] = list()
-                 
-                self.global_valid_loss[name] = list()
-                self.global_valid_accy[name] = list()
                 
             self.train_loss['ensemble'] = list()
             self.train_accy['ensemble'] = list()
@@ -61,32 +54,27 @@ class Results(object):
             
             self.global_train_loss['ensemble'] = list()
             self.global_train_accy['ensemble'] = list()
-             
-            self.global_valid_loss['ensemble'] = list()
-            self.global_valid_accy['ensemble'] = list()
             
             
     def show(self):
         
         print('Lenght of results collected')
         table = BT()
-        table.append_row(['Model', 'Per iteration Train', 'Per iteration Valid',
+        table.append_row(['Model', 'Per iteration Train',
                           'Per epoch Train', 'Per epoch Valid'])
         
         if self.m == 1:
-            table.append_row(['Single Deep', len(self.train_loss), len(self.valid_loss),
-                              len(self.global_train_loss), len(self.global_valid_loss)])
+            table.append_row(['Single Deep', len(self.train_loss), 
+                              len(self.valid_loss), len(self.global_train_loss)])
         
         else:
             for i in range(self.m):
                 name = 'm' + str(i+1)
-                table.append_row(['Individual {}'.format(i+1), 
-                                  len(self.train_loss[name]), len(self.valid_loss[name]),
-                                  len(self.global_train_loss[name]), len(self.global_valid_loss[name])])
+                table.append_row(['Individual {}'.format(i+1), len(self.train_loss[name]), 
+                                  len(self.valid_loss[name]), len(self.global_train_loss[name])])
             
-            table.append_row(['Ensemble', 
-                             len(self.train_loss['ensemble']), len(self.valid_loss['ensemble']),
-                             len(self.global_train_loss['ensemble']), len(self.global_valid_loss['ensemble'])])
+            table.append_row(['Ensemble', len(self.train_loss['ensemble']), 
+                             len(self.valid_loss['ensemble']), len(self.global_train_loss['ensemble'])])
         print(table)
         
     def append_loss(self, v, subset: str, m=None):
