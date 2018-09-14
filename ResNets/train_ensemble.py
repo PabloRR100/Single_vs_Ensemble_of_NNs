@@ -95,8 +95,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 loss.backward()
                 optimizers[n].step()
                 
-            print(outputs.shape)
-            print(outputs)
+            print(len(outputs))
+            print(outputs[0].shape)
                 
             # Ensemble foward pass
             
