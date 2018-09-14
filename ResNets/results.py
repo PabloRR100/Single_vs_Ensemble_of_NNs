@@ -18,8 +18,8 @@ class Results(object):
             self.valid_accy = list()
             
             # Store per iteration training data
-            self.global_train_loss = list()
-            self.global_train_accy = list()
+            self.iter_train_loss = list()
+            self.iter_train_accy = list()
         
         # In case of an ensemble
         else:
@@ -32,8 +32,8 @@ class Results(object):
             self.valid_accy = dict()
             
             # Store per iteration training data
-            self.global_train_loss = dict()
-            self.global_train_accy = dict()
+            self.iter_train_loss = dict()
+            self.iter_train_accy = dict()
                         
             for i in range(1, 1 + self.m):
                 name = 'm' + str(i)
@@ -43,8 +43,8 @@ class Results(object):
                 self.valid_loss[name] = list()
                 self.valid_accy[name] = list()
                 
-                self.global_train_loss[name] = list()
-                self.global_train_accy[name] = list()
+                self.iter_train_loss[name] = list()
+                self.iter_train_accy[name] = list()
                 
             self.train_loss['ensemble'] = list()
             self.train_accy['ensemble'] = list()
@@ -52,8 +52,8 @@ class Results(object):
             self.valid_loss['ensemble'] = list()
             self.valid_accy['ensemble'] = list()
             
-            self.global_train_loss['ensemble'] = list()
-            self.global_train_accy['ensemble'] = list()
+            self.iter_train_loss['ensemble'] = list()
+            self.iter_train_accy['ensemble'] = list()
             
             
     def show(self):
@@ -65,16 +65,16 @@ class Results(object):
         
         if self.m == 1:
             table.append_row(['Single Deep', len(self.train_loss), 
-                              len(self.valid_loss), len(self.global_train_loss)])
+                              len(self.valid_loss), len(self.iter_train_loss)])
         
         else:
             for i in range(self.m):
                 name = 'm' + str(i+1)
                 table.append_row(['Individual {}'.format(i+1), len(self.train_loss[name]), 
-                                  len(self.valid_loss[name]), len(self.global_train_loss[name])])
+                                  len(self.valid_loss[name]), len(self.iter_train_loss[name])])
             
             table.append_row(['Ensemble', len(self.train_loss['ensemble']), 
-                             len(self.valid_loss['ensemble']), len(self.global_train_loss['ensemble'])])
+                             len(self.valid_loss['ensemble']), len(self.iter_train_loss['ensemble'])])
         print(table)
         
     def append_loss(self, v, subset: str, m=None):
@@ -123,7 +123,7 @@ class Results(object):
             print('Exiting..')
             exit()
 
-    def append_global_loss(self, v, subset: str, m=None):
+    def append_iter_loss(self, v, subset: str, m=None):
         
         if subset == 'train':
             # single model
@@ -146,23 +146,23 @@ class Results(object):
             print('Exiting..')
             exit()
         
-    def append_global_accy(self, v, subset: str, m=None):
+    def append_iter_accy(self, v, subset: str, m=None):
         
         if subset == 'train':
             # single model
-            if self.m == 1: self.global_train_accy.append(v)             
+            if self.m == 1: self.iter_train_accy.append(v)             
             # ensemble
-            elif not m: self.global_train_accy['ensemble'].append(v)
+            elif not m: self.iter_train_accy['ensemble'].append(v)
             # individual learner
-            else: self.global_train_accy['m' + str(m)].append(v)  
+            else: self.iter_train_accy['m' + str(m)].append(v)  
 
         elif subset == 'valid':
             # single model
-            if self.m == 1: self.global_valid_accy.append(v)             
+            if self.m == 1: self.iter_valid_accy.append(v)             
             # ensemble
-            elif not m: self.global_valid_accy['ensemble'].append(v)
+            elif not m: self.iter_valid_accy['ensemble'].append(v)
             # individual learner
-            else: self.global_valid_accy['m' + str(m)].append(v)  
+            else: self.iter_valid_accy['m' + str(m)].append(v)  
         
         else: 
             print('Subset must be train or valid!')

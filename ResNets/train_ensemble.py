@@ -7,13 +7,15 @@ from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
+
 def avoidWarnings():
     import warnings
     warnings.filterwarnings('always')
     warnings.filterwarnings('ignore')
     warnings.filterwarnings('ignore', 'ImportWarning')
-    warnings.filterwarnings('ignore', 'DeprecationWarning')    
-
+    warnings.filterwarnings('ignore', 'DeprecationWarning')   
+    
+    
 now = datetime.now
 def time(start):
     ''' Helper function to track time wrt an anchor'''
@@ -23,9 +25,17 @@ def time(start):
     return hours, minutes
 
 
+def print_stats(n, epoch, epochs, j, iters, subset):
+    stat = [subset, n+1, epoch, epochs, j, iters]
+    stats = '\n {} Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
+    print(stats)    
+
+
 def train(dataset, names, models, optimizers, criterion, device, trainloader, validloader,
           epochs, iters, save, paths, save_frequency=1, test=True, validate=True):
     
+    com_iter = False
+    com_epoch = False
     # Every model train mode
     for m in models: m.train()
             
@@ -49,6 +59,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     for epoch in range(1, epochs+1):
                 
         # Training
+        # --------
         for i, (images, labels) in enumerate(trainloader):
             
             j += 1 # for printing
@@ -65,7 +76,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 if (j == 32000 or j == 48000):  
                     for p in optimizers[n].param_groups: p['lr'] = p['lr'] / 10
 
-                # Individual forward pass
+                ## Individual forward pass
                 
                 # Calculate loss for individual                
                 m.zero_grad()
@@ -83,19 +94,20 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 lss = round(loss.item(), 3)
                 acc = round(accuracy * 100, 2)
             
-                # Store results for this individual
-                results.append_global_loss(lss, 'train', n+1)
-                results.append_global_accy(acc, 'train', n+1)
+                # Store iteration results for this individual
+                results.append_iter_loss(lss, 'train', n+1)
+                results.append_iter_accy(acc, 'train', n+1)
                 
-#                stat = [n+1, epoch, epochs, j, iters]
-#                stats = '\n Train Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
-#                print(stats)      
+#                if com_iter: print_stats(n+1, epoch, epochs, j, iters, 'Train')
+#                stat = [subset, n+1, epoch, epochs, j, iters]
+#                stats = '\n {} Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
+#                print(stats)  
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 loss.backward()
                 optimizers[n].step()        
                 
-            # Ensemble foward pass
+            ## Ensemble foward pass
             
             outputs = torch.mean(torch.stack(outputs), dim=0)
             
@@ -111,18 +123,30 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             lss = round(loss.item(), 3)
             acc = round(accuracy * 100, 2)
             
-            # Store results for Ensemble
-            results.append_loss(lss, 'train', None)
-            results.append_accy(acc, 'train', None)
+            # Store iteration results for Ensemble
+            results.append_iter_loss(lss, 'train', None)
+            results.append_iter_accy(acc, 'train', None)
             
-            # Print results
-            stat = [epoch, epochs, j, iters, lss, acc]
-            stats = '\n Train Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
-            print(stats)
+#            # Print results
+#            if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')
+#            stat = [epoch, epochs, j, iters, lss, acc]
+#            stats = '\n Train Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+#            print(stats)
+        
+        # Store epoch results for Ensemble
+        results.append_iter_loss(lss, 'train', None)
+        results.append_iter_accy(acc, 'train', None)
                 
+        # Print results
+        stat = [epoch, epochs, j, iters, lss, acc]
+        stats = '\n Train Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+        print(stats)
+            
         # Validation
+        # ----------
         if validate:
             
+            c = 0
             correct, total = 0, 0
             for k, (images, labels) in enumerate(validloader):
             
@@ -134,6 +158,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
                 outputs = []
                 for n, m in enumerate(models):
+                    
+                    ## Individuals foward pass
             
                     m.zero_grad()
                     output = m(images)
@@ -153,7 +179,14 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 #                    stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
 #                    print(stats)                    
                 
-                # Ensemble foward pass
+                    # Store epoch results for each model (as last iteration of that epoch)
+                    if c == len(validloader):
+                        results.append_iter_loss(lss, 'valid', n+1)
+                        results.append_iter_accy(acc, 'valid', n+1)
+                
+                
+                ## Ensemble foward pass
+                
                 outputs = torch.mean(torch.stack(outputs), dim=0)
                     
                 loss = criterion(outputs, labels)  
@@ -166,7 +199,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 lss = round(loss.item(), 3)
                 acc = round(accuracy * 100, 2)
                 
-                # Store results for Ensemble
+                # Store epoch results for Ensemble
                 results.append_loss(lss, 'valid', None)
                 results.append_accy(acc, 'valid', None)
                 

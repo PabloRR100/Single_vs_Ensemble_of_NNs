@@ -28,6 +28,8 @@ def time(start):
 def train(dataset, name, model, optimizer, criterion, device, trainloader, validloader,
           epochs, iters, save, paths, save_frequency=1, test=True, validate=True):
     
+    j = 0 
+    timer = []
     best_acc = 0
     model.train()
     results = Results([model])
@@ -41,9 +43,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         print('training in test mode')
         trainloader = islice(trainloader, 20)
         validloader = islice(validloader, 20)
-    
-    timer = []
-    j = 0 # Iteration controler
     
     start = now()
     for epoch in range(1, epochs+1):
@@ -79,8 +78,8 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             acc = round(accuracy * 100, 2)
             
             # Stores per iteration results
-            results.append_global_loss(lss, 'train')
-            results.append_global_accy(acc, 'train')
+            results.append_iter_loss(lss, 'train')
+            results.append_iter_accy(acc, 'train')
           
         # Stores per-epoch results
         results.append_loss(lss, 'train')

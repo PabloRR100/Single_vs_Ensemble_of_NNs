@@ -1,17 +1,24 @@
 
 import os
 import torch 
+from itertools import islice
 from torch.autograd import Variable
 
-import warnings
-warnings.filterwarnings('always')
-warnings.filterwarnings('ignore')
-warnings.filterwarnings('ignore', 'ImportWarning')
-warnings.filterwarnings('ignore', 'DeprecationWarning')
+#def avoidWarnings():
+#    import warnings
+#    warnings.filterwarnings('always')
+#    warnings.filterwarnings('ignore')
+#    warnings.filterwarnings('ignore', 'ImportWarning')
+#    warnings.filterwarnings('ignore', 'DeprecationWarning')    
 
 
 def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
     
+    test = True
+    # Testing mode
+    if test:         
+        print('Validating in test mode')
+        dataloader = islice(dataloader, 20)
     
     # Log config 
     

@@ -236,11 +236,13 @@ ensemble_size = round(count_parameters(singleModel) / small)
 
 
 # Construct the single model
+
 singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 
 name = singleModel.name
 singleModel.to(device)
 if gpus: singleModel = nn.DataParallel(singleModel)
+optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
 
 # Construct the ensemble
@@ -272,9 +274,9 @@ from train import train
 from train_ensemble import train as train_ensemble
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
-# Big Single Model
 
-optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
+
+# Big Single Model
 
 print('Starting Single Model Training...' )
 params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
@@ -285,6 +287,9 @@ with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
     pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
 
 results.show()
+
+
+
 
 # Ensemble Model
 
