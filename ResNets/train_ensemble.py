@@ -52,8 +52,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     if test:         
         epochs = 10
         print('training in test mode')
-        trainloader = islice(trainloader, 20)
-        validloader = islice(validloader, 20)
+        trainloader = islice(trainloader, 2)
+        validloader = islice(validloader, 2)
             
     start = now()
     for epoch in range(1, epochs+1):
@@ -104,8 +104,14 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 #                print(stats)  
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
+                
                 loss.backward()
                 optimizers[n].step()        
+            
+            # Store epoch results for this individual (as last iter)
+            results.append_loss(lss, 'train', n+1)
+            results.append_accy(acc, 'train', n+1)
+                
                 
             ## Ensemble foward pass
             
@@ -134,8 +140,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 #            print(stats)
         
         # Store epoch results for Ensemble
-        results.append_iter_loss(lss, 'train', None)
-        results.append_iter_accy(acc, 'train', None)
+        results.append_loss(lss, 'train', None)
+        results.append_accy(acc, 'train', None)
                 
         # Print results
         stat = [epoch, epochs, j, iters, lss, acc]
@@ -167,11 +173,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     # Store epoch results for each model
                     if k == 0:
                         
-                        print('Hey I got into this!')
                         loss = criterion(output, labels) 
                     
                         _, predictions = torch.max(output.data, 1)
-                        correct, total = 0, 0
                         total += output.size(0)
                         correct += int(sum(predictions == labels)) 
                         accuracy = correct / total
@@ -179,8 +183,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                         lss = round(loss.item(), 3)
                         acc = round(accuracy * 100, 2)
                     
-                        results.append_iter_loss(lss, 'valid', n+1)
-                        results.append_iter_accy(acc, 'valid', n+1)
+                        results.append_loss(lss, 'valid', n+1)
+                        results.append_accy(acc, 'valid', n+1)
                         
 #                       stat = [n+1, epoch, epochs, j, iters]
 #                       stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
@@ -195,30 +199,30 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 _, preds = outputs.max(1)
                 total += outputs.size(0)
                 correct += int(sum(preds == labels))
-                accuracy = correct / total
+                
+            accuracy = correct / total
+            lss = round(loss.item(), 3)
+            acc = round(accuracy * 100, 2)
             
-                lss = round(loss.item(), 3)
-                acc = round(accuracy * 100, 2)
+            # Store epoch results for Ensemble
+            results.append_loss(lss, 'valid', None)
+            results.append_accy(acc, 'valid', None)
+            
+            # Print results
+            stat = [epoch, epochs, j, iters, lss, acc]
+            stats = '\n Valid Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+            print(stats)
                 
-                # Store epoch results for Ensemble
-                results.append_loss(lss, 'valid', None)
-                results.append_accy(acc, 'valid', None)
+            # Save model and delete previous if it is the best
+            if acc > best_acc:
                 
-                # Print results
-                stat = [epoch, epochs, j, iters, lss, acc]
-                stats = '\n Valid Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
-                print(stats)
+                prev_models = glob.glob(os.path.join(modelpath, '*.pkl'))
+                for p in prev_models:
+                    os.remove(p)
                     
-                # Save model and delete previous if it is the best
-                if acc > best_acc:
-                    
-                    prev_models = glob.glob(os.path.join(modelpath, '*.pkl'))
-                    for p in prev_models:
-                        os.remove(p)
-                        
-                    for i, m in enumerate(models):                    
-                        torch.save(m.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (names[i], epoch))) 
-                    best_acc = acc
+                for i, m in enumerate(models):                    
+                    torch.save(m.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (names[i], epoch))) 
+                best_acc = acc
                     
         timer.append(time(start))
         

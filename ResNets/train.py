@@ -108,11 +108,12 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
                 _, preds = outputs.max(1)
                 total += outputs.size(0)
                 correct += int(sum(preds == labels))
-                accuracy = correct / total
-            
-                lss = round(loss.item(), 3)
-                acc = round(accuracy * 100, 2)
                 
+            accuracy = correct / total
+        
+            lss = round(loss.item(), 3)
+            acc = round(accuracy * 100, 2)
+            
             # Save model and delete previous if it is the best
             if acc > best_acc:
                 

@@ -10,38 +10,32 @@ class Results(object):
         # In case of a single model
         if self.m == 1:
             
-            # Store per epoch training data
+            # Store per epoch data
             self.train_loss = list()
             self.train_accy = list()
             
             self.valid_loss = list()
             self.valid_accy = list()
             
-            # Store per iteration training data
+            # Store per iteration (training) data
             self.iter_train_loss = list()
             self.iter_train_accy = list()
             
-            # Store per iteration validation data
-            self.iter_valid_loss = list()
-            self.iter_valid_accy = list()
         
         # In case of an ensemble
         else:
             
-            # Store per epoch training data
+            # Store per epoch data
             self.train_loss = dict()
             self.train_accy = dict()
     
             self.valid_loss = dict()
             self.valid_accy = dict()
             
-            # Store per iteration training data
+            # Store per iteration (training) data
             self.iter_train_loss = dict()
             self.iter_train_accy = dict()
             
-            # Store per iteration validation data
-            self.iter_valid_loss = dict()
-            self.iter_valid_accy = dict()
                         
             for i in range(1, 1 + self.m):
                 name = 'm' + str(i)
@@ -54,9 +48,6 @@ class Results(object):
                 self.iter_train_loss[name] = list()
                 self.iter_train_accy[name] = list()
                 
-                self.iter_valid_loss[name] = list()
-                self.iter_valid_accy[name] = list()
-                
             self.train_loss['ensemble'] = list()
             self.train_accy['ensemble'] = list()
             
@@ -66,16 +57,12 @@ class Results(object):
             self.iter_train_loss['ensemble'] = list()
             self.iter_train_accy['ensemble'] = list()
             
-            self.iter_valid_loss['ensemble'] = list()
-            self.iter_valid_accy['ensemble'] = list()
-            
             
     def show(self):
         
         print('Lenght of results collected')
         table = BT()
-        table.append_row(['Model', 'Per iteration Train',
-                          'Per epoch Train', 'Per epoch Valid'])
+        table.append_row(['Model', 'Epoch Train', 'Epoch Valid', 'Iter Train'])
         
         if self.m == 1:
             table.append_row(['Single Deep', len(self.train_loss), 
@@ -88,8 +75,9 @@ class Results(object):
                                   len(self.valid_loss[name]), len(self.iter_train_loss[name])])
             
             table.append_row(['Ensemble', len(self.train_loss['ensemble']), 
-                             len(self.valid_loss['ensemble']), len(self.iter_train_loss['ensemble'])])
+                              len(self.valid_loss['ensemble']), len(self.iter_train_loss['ensemble'])])
         print(table)
+        
         
     def append_loss(self, v, subset: str, m=None):
         
@@ -113,6 +101,7 @@ class Results(object):
             print('Subset must be train or valid!')
             print('Exiting..')
             exit()
+        
         
     def append_accy(self, v, subset: str, m=None):
         
@@ -139,46 +128,19 @@ class Results(object):
 
     def append_iter_loss(self, v, subset: str, m=None):
         
-        if subset == 'train':
-            # single model
-            if self.m == 1: self.train_loss.append(v)             
-            # ensemble
-            elif not m: self.train_loss['ensemble'].append(v)
-            # individual learner
-            else: self.train_loss['m' + str(m)].append(v)                        
-        
-        elif subset == 'valid':
-            # single model
-            if self.m == 1: self.valid_loss.append(v)             
-            # ensemble
-            elif not m: self.valid_loss['ensemble'].append(v)
-            # individual learner
-            else: self.valid_loss['m' + str(m)].append(v)            
-        
-        else: 
-            print('Subset must be train or valid!')
-            print('Exiting..')
-            exit()
+        # single model
+        if self.m == 1: self.iter_train_loss.append(v)             
+        # ensemble
+        elif not m: self.iter_train_loss['ensemble'].append(v)
+        # individual learner
+        else: self.iter_train_loss['m' + str(m)].append(v)                        
+
         
     def append_iter_accy(self, v, subset: str, m=None):
         
-        if subset == 'train':
-            # single model
-            if self.m == 1: self.iter_train_accy.append(v)             
-            # ensemble
-            elif not m: self.iter_train_accy['ensemble'].append(v)
-            # individual learner
-            else: self.iter_train_accy['m' + str(m)].append(v)  
-
-        elif subset == 'valid':
-            # single model
-            if self.m == 1: self.iter_valid_accy.append(v)             
-            # ensemble
-            elif not m: self.iter_valid_accy['ensemble'].append(v)
-            # individual learner
-            else: self.iter_valid_accy['m' + str(m)].append(v)  
-        
-        else: 
-            print('Subset must be train or valid!')
-            print('Exiting..')
-            exit()
+        # single model
+        if self.m == 1: self.iter_train_accy.append(v)             
+        # ensemble
+        elif not m: self.iter_train_accy['ensemble'].append(v)
+        # individual learner
+        else: self.iter_train_accy['m' + str(m)].append(v)  
