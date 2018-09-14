@@ -84,9 +84,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 results.append_global_loss(lss, 'train', n+1)
                 results.append_global_accy(acc, 'train', n+1)
                 
-                stat = [n+1, epoch, epochs, j, iters]
-                stats = '\n Train Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
-                print(stats)      
+#                stat = [n+1, epoch, epochs, j, iters]
+#                stats = '\n Train Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
+#                print(stats)      
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 loss.backward()
@@ -147,9 +147,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     lss = round(loss.item(), 3)
                     acc = round(accuracy * 100, 2)
                 
-                    stat = [n+1, epoch, epochs, j, iters]
-                    stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
-                    print(stats)                    
+#                    stat = [n+1, epoch, epochs, j, iters]
+#                    stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
+#                    print(stats)                    
             
             # Ensemble foward pass
             outputs = torch.mean(torch.stack(outputs), dim=0)

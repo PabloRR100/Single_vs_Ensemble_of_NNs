@@ -32,9 +32,6 @@ warnings.filterwarnings('ignore', 'ImportWarning')
 warnings.filterwarnings('ignore', 'DeprecationWarning')
 
 
-bl = print('\n') 
-
-
 ''' 
 CONFIGURATION 
 -------------
@@ -42,59 +39,60 @@ CONFIGURATION
 Catch from the parser all the parameters to define the training
 '''
 print('\n\nCONFIGURATION')
-print('-------------'); bl
+print('-------------')
 
-from parser import args
+#from parser import args
+#
+#save = args.save
+#name = args.name
+#draws = args.draws
+#dataset = args.dataset
+#testing = args.testing
+#comments = args.comments
+#
+#ensemble_type = args.ensembleSize
+#
+#n_epochs = args.epochs
+#n_iters = args.iterations
+#batch_size = args.batch_size
+#learning_rate = args.learning_rate
+#save_frequency = args.save_frequency
+#
+#if args.name is None: args.name = 'ResNet'
+## Sanity check for epochs - batch size - iterations
+#n_iters, n_epochs, batch_size = def_training(n_iters, n_epochs, batch_size)
+#
+## Display config to run file
+#table = BT()
+#table.append_row(['Save', str(args.save)])
+#table.append_row(['Name', str(args.name)])
+#table.append_row(['Draws', str(args.draws)])
+#table.append_row(['Testing', str(args.testing)])
+#table.append_row(['Comments', str(args.comments)])
+#table.append_row(['Ensemble size', str(args.ensembleSize)])
+#table.append_row(['-------------', '-------------'])
+#table.append_row(['Epochs', n_epochs])
+#table.append_row(['Iterations', n_iters])
+#table.append_row(['Batch Size', batch_size])
+#table.append_row(['Learning Rate', str(args.learning_rate)])
+#print(table)
+#
 
-save = args.save
-name = args.name
-draws = args.draws
-dataset = args.dataset
-testing = args.testing
-comments = args.comments
-
-ensemble_type = args.ensembleSize
-
-n_epochs = args.epochs
-n_iters = args.iterations
-batch_size = args.batch_size
-learning_rate = args.learning_rate
-save_frequency = args.save_frequency
-
-if args.name is None: args.name = 'ResNet'
-# Sanity check for epochs - batch size - iterations
-n_iters, n_epochs, batch_size = def_training(n_iters, n_epochs, batch_size)
-
-# Display config to run file
-table = BT()
-table.append_row(['Save', str(args.save)])
-table.append_row(['Name', str(args.name)])
-table.append_row(['Draws', str(args.draws)])
-table.append_row(['Testing', str(args.testing)])
-table.append_row(['Comments', str(args.comments)])
-table.append_row(['Ensemble size', str(args.ensembleSize)])
-table.append_row(['-------------', '-------------'])
-table.append_row(['Epochs', n_epochs])
-table.append_row(['Iterations', n_iters])
-table.append_row(['Batch Size', batch_size])
-table.append_row(['Learning Rate', str(args.learning_rate)])
-print(table)
-
-
-########################################################
-## Backup code to debug from python shell - no parser
-#save = False                # Activate results saving 
-#draws = False               # Activate showing the figures
-#testing = True             # Activate test to run few iterations per epoch       
-#comments = True             # Activate printing comments
-#createlog = False           # Activate option to save the logs in .txt
-#save_frequency = 1          # After how many epochs save stats
-#ensemble_type = 'Big'       # Single model big 
-##ensemble_type = 'Huge'     # Single model huge
-#learning_rate = 0.1
-#batch_size = 128
-#n_iters = 64000
-########################################################
+#######################################################
+# Backup code to debug from python shell - no parser
+save = False                # Activate results saving 
+draws = False               # Activate showing the figures
+dataset = 'CIFAR10'
+testing = True             # Activate test to run few iterations per epoch       
+comments = True             # Activate printing comments
+createlog = False           # Activate option to save the logs in .txt
+save_frequency = 1          # After how many epochs save stats
+ensemble_type = 'Big'       # Single model big 
+#ensemble_type = 'Huge'     # Single model huge
+learning_rate = 0.1
+batch_size = 128
+n_iters = 64000
+#######################################################
 
 
 momentum = 0.9
@@ -109,8 +107,6 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 gpus = True if torch.cuda.device_count() > 1 else False
 mem = False if device == 'cpu' else True
 
-bl
-bl
 
 table = BT()
 table.append_row(['Python Version', sys.version[:5]])
@@ -124,8 +120,8 @@ print('\n\nCOMPUTING CONFIG')
 print('----------------')
 print(table)
 
-bl
-bl
+
+
 
 '''
 DEFININTION OF PATHS 
@@ -176,18 +172,14 @@ paths = {
         'dataframes': path_to_dataframes
         }
 
-bl
-bl
-
 
 
 # 1 - Import the Dataset
 # ----------------------
 
 print('IMPORTING DATA')
-print('--------------'); bl
+print('--------------')
 
-#dataset = 'CIFAR10'
 train_set, valid_set, test_set = load_dataset(data_path, dataset, comments=comments)
 
 train_loader = DataLoader(dataset = train_set.dataset, 
@@ -204,15 +196,12 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
                          shuffle = False, num_workers=n_workers, pin_memory = mem)
 
 
-bl
-bl
-
 
 # 2 - Import the ResNet
 # ---------------------
 
 print('\n\nIMPORTING MODELS')
-print('----------------'); bl
+print('----------------')
 
 from resnets_CIFAR10 import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
 
@@ -236,7 +225,7 @@ table.append_row(['ResNset32', *parameters(resnet32)])
 table.append_row(['ResNset44', *parameters(resnet44)])
 table.append_row(['ResNset56', *parameters(resnet56)])
 table.append_row(['ResNset110', *parameters(resnet110)])
-if comments: bl; print(table)
+if comments: print(table)
 
 
 # Apply constraint - Parameters constant
@@ -271,14 +260,13 @@ for i in range(ensemble_size):
     ensemble.append(model)
 
 
-bl
-bl
+
 
 # 3 - Train ResNet
 # ----------------
 
 print('\n\nTRAINING')
-print('--------'); bl
+print('--------')
 
 from train import train
 from train_ensemble import train as train_ensemble
@@ -315,9 +303,6 @@ params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
 results = train_ensemble(*params)
 with open('Results_Ensemble_Models.pkl', 'wb') as result:
     pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
-
-bl
-bl
 
 
 # Training figures
