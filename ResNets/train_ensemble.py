@@ -93,10 +93,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 loss.backward()
-                optimizers[n].step()
-                
-            print(len(outputs))
-            print(outputs[0].shape)
+                optimizers[n].step()        
                 
             # Ensemble foward pass
             
@@ -122,8 +119,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             stat = [epoch, epochs, j, iters, lss, acc]
             stats = '\n Train Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
             print(stats)
-            
-        
+                
         # Validation
         if validate:
             
@@ -156,6 +152,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 #                    stat = [n+1, epoch, epochs, j, iters]
 #                    stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
 #                    print(stats)                    
+            
+            print(len(outputs))
+            print(outputs[0].shape)
             
             # Ensemble foward pass
             outputs = torch.mean(torch.stack(outputs), dim=0)
