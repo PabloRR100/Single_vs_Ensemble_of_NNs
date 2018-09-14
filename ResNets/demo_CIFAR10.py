@@ -306,11 +306,11 @@ with open('Results_Ensemble_Models.pkl', 'wb') as result:
 
 results.show()
 
-## Training figures
+# Training figures
 #with open('Results_Ensemble_Models.pkl', 'rb') as input:
-#    results = pickle.load(input)
-
-
+#    results2 = pickle.load(input)
+#
+#
 #
 ## 4 - Evaluate Models
 ## -------------------

@@ -43,18 +43,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         print('training in test mode')
     
     timer = []
-    j = 0 # Iteration controler  
-    
-    # Stores per-epoch results
-    train_loss = []
-    train_accy = []
-        
-    valid_loss = []
-    valid_accy = []
-
-    # Stores per iteration results
-    global_loss = []
-    global_accy = []
+    j = 0 # Iteration controler
     
     start = now()
     for epoch in range(1, epochs+1):
@@ -89,11 +78,13 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             lss = round(loss.item(), 3)
             acc = round(accuracy * 100, 2)
             
-            global_loss.append(lss)
-            global_accy.append(acc)
-
-        train_loss.append(lss)
-        train_accy.append(acc)
+            # Stores per iteration results
+            results.append_global_loss(lss, 'train')
+            results.append_global_accy(acc, 'train')
+          
+        # Stores per-epoch results
+        results.append_loss(lss, 'train')
+        results.append_accy(acc, 'train')
         
         stat = [epoch, epochs, j, iters, lss, acc]
         stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
@@ -132,19 +123,13 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
                 torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
                 best_acc = acc
         
-        valid_loss.append(round(loss.item(), 3))
-        valid_accy.append(round(accuracy * 100, 2))
+            results.append_loss(lss, 'valid')
+            results.append_accy(acc, 'valid')
+            
+            stat = [epoch, epochs, j, iters, lss, acc]
+            stats = '\n Valid: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+            print(stats)
+            
+        timer.append(time(start))
         
-        stat = [epoch, epochs, j, iters, lss, acc]
-        stats = '\n Valid: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
-        print(stats)
-        
-    results.append_loss(train_loss, subset='train')
-    results.append_accy(train_accy, subset='train')
-    results.append_loss(valid_loss, subset='valid')
-    results.append_accy(valid_accy, subset='valid')
-    
     return results, timer
-#    train_history = pd.DataFrame(np.array([train_loss, train_accy]).T, columns=['Loss', 'Accuracy'])
-#    valid_history = pd.DataFrame(np.array([valid_loss, valid_accy]).T, columns=['Loss', 'Accuracy'])
-#    return train_history, valid_history, timer
