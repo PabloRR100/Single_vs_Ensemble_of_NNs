@@ -25,17 +25,21 @@ def time(start):
     return hours, minutes
 
 
-def print_stats(n, epoch, epochs, j, iters, subset):
-    stat = [subset, n+1, epoch, epochs, j, iters]
-    stats = '\n {} Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
+def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
+    if n:
+        stat = [subset, n, epoch, epochs, j, iters, lss, acc]        
+        stats = '\n {} Model {}: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+    else:
+        stat = [subset, epoch, epochs, j, iters, lss, acc]        
+        stats = '\n {} Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
     print(stats)    
-
-
+    
+    
 def train(dataset, names, models, optimizers, criterion, device, trainloader, validloader,
           epochs, iters, save, paths, save_frequency=1, test=True, validate=True):
     
-#    com_iter = False
-#    com_epoch = False
+    com_iter = True
+    com_epoch = True
     # Every model train mode
     for m in models: m.train()
             
@@ -53,9 +57,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     if test:         
         epochs = 5
         print('training in test mode')
-#        trainloader = islice(trainloader, 2)
-#        validloader = islice(validloader, 2)
-#        len_ = 2
+        trainloader = islice(trainloader, 2)
+        validloader = islice(validloader, 2)
+        len_ = 2
             
     start = now()
     for epoch in range(1, epochs+1):
@@ -104,10 +108,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     # Store epoch results for this individual (as last iter)
                     results.append_loss(lss, 'train', n+1)
                     results.append_accy(acc, 'train', n+1)
-#                if com_iter: print_stats(n+1, epoch, epochs, j, iters, 'Train')
-#                stat = [subset, n+1, epoch, epochs, j, iters]
-#                stats = '\n {} Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
-#                print(stats)  
+                    
+                if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train', n+1)  
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 
@@ -135,20 +137,15 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             results.append_iter_loss(lss, 'train', None)
             results.append_iter_accy(acc, 'train', None)
             
-#            # Print results
-#            if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')
-#            stat = [epoch, epochs, j, iters, lss, acc]
-#            stats = '\n Train Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
-#            print(stats)
+            # Print results
+            if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')
         
         # Store epoch results for Ensemble
         results.append_loss(lss, 'train', None)
         results.append_accy(acc, 'train', None)
                 
         # Print results
-        stat = [epoch, epochs, j, iters, lss, acc]
-        stats = '\n Train Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
-        print(stats)
+        if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')
             
         # Validation
         # ----------
@@ -188,9 +185,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                         results.append_loss(lss, 'valid', n+1)
                         results.append_accy(acc, 'valid', n+1)
                         
-#                       stat = [n+1, epoch, epochs, j, iters]
-#                       stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
-#                       print(stats)                    
+                        if com_epoch: 
+                            print_stats(epoch, epochs, j, iters, lss, acc, 'Valid', n+1)
                     
                 ## Ensemble foward pass
                 
@@ -212,9 +208,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             results.append_accy(acc, 'valid', None)
             
             # Print results
-            stat = [epoch, epochs, j, iters, lss, acc]
-            stats = '\n Valid Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
-            print(stats)
+            if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid', n+1)
                 
             # Save model and delete previous if it is the best
             if acc > best_acc:

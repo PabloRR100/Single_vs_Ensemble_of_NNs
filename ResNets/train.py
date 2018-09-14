@@ -15,6 +15,7 @@ def avoidWarnings():
     warnings.filterwarnings('ignore', 'ImportWarning')
     warnings.filterwarnings('ignore', 'DeprecationWarning')    
 
+
 now = datetime.now
 def time(start):
     ''' Helper function to track time wrt an anchor'''
@@ -24,6 +25,13 @@ def time(start):
     return hours, minutes
 
 
+def print_stats(epoch, epochs, j, iters, lss, acc, subset):
+    
+    stat = [subset, epoch, epochs, j, iters, lss, acc]        
+    stats = '\n {}:: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+    print(stats)    
+    
+
 
 def train(dataset, name, model, optimizer, criterion, device, trainloader, validloader,
           epochs, iters, save, paths, save_frequency=1, test=True, validate=True):
@@ -32,6 +40,8 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     timer = []
     best_acc = 0
     model.train()
+    com_iter = True
+    com_epoch = True
     results = Results([model])
     
     avoidWarnings()
@@ -41,8 +51,8 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     if test:         
         epochs = 10
         print('training in test mode')
-        trainloader = islice(trainloader, 20)
-        validloader = islice(validloader, 20)
+        trainloader = islice(trainloader, 2)
+        validloader = islice(validloader, 2)
     
     start = now()
     for epoch in range(1, epochs+1):
@@ -81,9 +91,13 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             results.append_iter_loss(lss, 'train')
             results.append_iter_accy(acc, 'train')
           
+            if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
+            
         # Stores per-epoch results
         results.append_loss(lss, 'train')
         results.append_accy(acc, 'train')
+        
+        if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
         
         stat = [epoch, epochs, j, iters, lss, acc]
         stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
@@ -123,13 +137,11 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
                 torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
                 best_acc = acc
         
+            # Store per-epoch results
             results.append_loss(lss, 'valid')
             results.append_accy(acc, 'valid')
             
-            stat = [epoch, epochs, j, iters, lss, acc]
-            stats = '\n Valid: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
-            print(stats)
-            
+            if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid')              
         timer.append(time(start))
         
     return results, timer

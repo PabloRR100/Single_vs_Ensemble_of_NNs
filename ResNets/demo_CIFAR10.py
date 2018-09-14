@@ -276,17 +276,17 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 
 
-## Big Single Model
-#
-#print('Starting Single Model Training...' )
-#params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-#          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
-#
-#results, timer = train(*params)
-#with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
-#    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-#
-#results.show()
+# Big Single Model
+
+print('Starting Single Model Training...' )
+params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+
+results, timer = train(*params)
+with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
+    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+
+results.show()
 
 
 
