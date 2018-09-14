@@ -281,17 +281,10 @@ params = [dataset, name, singleModel, optimizer, criterion, device, train_loader
           valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
 
 results, timer = train(*params)
+with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
+    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
 
-results = train_ensemble(*params)
-with open('Results_Single_Model.pkl', 'wb') as result:
-    pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
-
-
-#figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
-#figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
-#if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
-#if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name + '.csv'))
-
+results.show()
 
 # Ensemble Model
 
@@ -300,17 +293,23 @@ print('Starting Ensemble Training...')
 params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
           valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
     
-results, timer = train_ensemble(*params)
-with open('Results_Ensemble_Models.pkl', 'wb') as result:
-    pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
+ens_results, ens_timer = train_ensemble(*params)
+with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
+    pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
 
-results.show()
+ens_results.show()
 
 
 
 ## Training figures
 #with open('Results_Ensemble_Models.pkl', 'rb') as input:
 #    results2 = pickle.load(input)
+#
+#figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
+#figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
+#if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
+#if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name + '.csv'))
+
 
 
 # 4 - Evaluate Models

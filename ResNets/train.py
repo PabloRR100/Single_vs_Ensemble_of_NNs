@@ -1,11 +1,9 @@
 
-
 import os
 import glob
 import torch
-import numpy as np
-import pandas as pd
 from results import Results
+from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
@@ -41,6 +39,8 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     if test:         
         epochs = 10
         print('training in test mode')
+        trainloader = islice(trainloader, 20)
+        validloader = islice(validloader, 20)
     
     timer = []
     j = 0 # Iteration controler
