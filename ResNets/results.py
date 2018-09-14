@@ -40,8 +40,8 @@ class Results(object):
             self.iter_train_accy = dict()
             
             # Store per iteration validation data
-            self.iter_train_loss = dict()
-            self.iter_train_accy = dict()
+            self.iter_valid_loss = dict()
+            self.iter_valid_accy = dict()
                         
             for i in range(1, 1 + self.m):
                 name = 'm' + str(i)
