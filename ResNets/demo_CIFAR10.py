@@ -304,10 +304,11 @@ results, timer = train_ensemble(*params)
 with open('Results_Ensemble_Models.pkl', 'wb') as result:
     pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
 
+results.show()
 
-# Training figures
-with open('results.pkl', 'rb') as input:
-    results = pickle.load(input)
+## Training figures
+#with open('Results_Ensemble_Models.pkl', 'rb') as input:
+#    results = pickle.load(input)
 
 
 #
