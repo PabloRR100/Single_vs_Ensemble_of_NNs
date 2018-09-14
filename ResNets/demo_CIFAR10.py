@@ -308,7 +308,7 @@ ens_results.show()
 
 ## Training figures
 #with open('Results_Ensemble_Models.pkl', 'rb') as input:
-#    results2 = pickle.load(input)
+#    res = pickle.load(input)
 #
 #figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
 #figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
