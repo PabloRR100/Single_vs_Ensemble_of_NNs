@@ -20,6 +20,10 @@ class Results(object):
             # Store per iteration training data
             self.iter_train_loss = list()
             self.iter_train_accy = list()
+            
+            # Store per iteration validation data
+            self.iter_valid_loss = list()
+            self.iter_valid_accy = list()
         
         # In case of an ensemble
         else:
@@ -34,6 +38,10 @@ class Results(object):
             # Store per iteration training data
             self.iter_train_loss = dict()
             self.iter_train_accy = dict()
+            
+            # Store per iteration validation data
+            self.iter_train_loss = dict()
+            self.iter_train_accy = dict()
                         
             for i in range(1, 1 + self.m):
                 name = 'm' + str(i)
@@ -46,6 +54,9 @@ class Results(object):
                 self.iter_train_loss[name] = list()
                 self.iter_train_accy[name] = list()
                 
+                self.iter_valid_loss[name] = list()
+                self.iter_valid_accy[name] = list()
+                
             self.train_loss['ensemble'] = list()
             self.train_accy['ensemble'] = list()
             
@@ -54,6 +65,9 @@ class Results(object):
             
             self.iter_train_loss['ensemble'] = list()
             self.iter_train_accy['ensemble'] = list()
+            
+            self.iter_valid_loss['ensemble'] = list()
+            self.iter_valid_accy['ensemble'] = list()
             
             
     def show(self):
