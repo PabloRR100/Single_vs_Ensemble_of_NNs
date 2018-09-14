@@ -163,29 +163,30 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     m.zero_grad()
                     output = m(images)
                     outputs.append(output)
-                    loss = criterion(output, labels) 
-                    
-                    _, predictions = torch.max(output.data, 1)
-                    correct, total = 0, 0
-                    total += output.size(0)
-                    correct += int(sum(predictions == labels)) 
-                    accuracy = correct / total
-                                    
-                    lss = round(loss.item(), 3)
-                    acc = round(accuracy * 100, 2)
-                
-#                    stat = [n+1, epoch, epochs, j, iters]
-#                    stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
-#                    print(stats)                    
-                
+                                        
                     # Store epoch results for each model (as last iteration of that epoch)
                     len_ = len(list(validloader)) if test else len(validloader)
-                    if k == len_:
-                        print(k)
+                    if k == len_-1:
+                        
+                        print('Hey I got into this!')
+                        loss = criterion(output, labels) 
+                    
+                        _, predictions = torch.max(output.data, 1)
+                        correct, total = 0, 0
+                        total += output.size(0)
+                        correct += int(sum(predictions == labels)) 
+                        accuracy = correct / total
+                                        
+                        lss = round(loss.item(), 3)
+                        acc = round(accuracy * 100, 2)
+                    
                         results.append_iter_loss(lss, 'valid', n+1)
                         results.append_iter_accy(acc, 'valid', n+1)
-                
-                
+                        
+#                       stat = [n+1, epoch, epochs, j, iters]
+#                       stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
+#                       print(stats)                    
+                    
                 ## Ensemble foward pass
                 
                 outputs = torch.mean(torch.stack(outputs), dim=0)
