@@ -300,7 +300,7 @@ print('Starting Ensemble Training...')
 params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
           valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
     
-results = train_ensemble(*params)
+results, timer = train_ensemble(*params)
 with open('Results_Ensemble_Models.pkl', 'wb') as result:
     pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
 

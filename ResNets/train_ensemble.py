@@ -152,9 +152,6 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 #                    stat = [n+1, epoch, epochs, j, iters]
 #                    stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
 #                    print(stats)                    
-            
-                print(len(outputs))
-                print(outputs[0].shape)
                 
                 # Ensemble foward pass
                 outputs = torch.mean(torch.stack(outputs), dim=0)
