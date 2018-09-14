@@ -320,13 +320,13 @@ ens_results.show()
 # 4 - Evaluate Models
 # -------------------
     
-print('\n\nTESTING')
-print('-------')
-
-from test import test
-test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
-
-results.show()
+#print('\n\nTESTING')
+#print('-------')
+#
+#from test import test
+#test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+#
+#results.show()
 
 exit()
 
