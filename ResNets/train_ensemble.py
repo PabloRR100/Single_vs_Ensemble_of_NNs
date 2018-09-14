@@ -153,42 +153,42 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 #                    stats = '\n Valid Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
 #                    print(stats)                    
             
-            print(len(outputs))
-            print(outputs[0].shape)
-            
-            # Ensemble foward pass
-            outputs = torch.mean(torch.stack(outputs), dim=0)
+                print(len(outputs))
+                print(outputs[0].shape)
                 
-            loss = criterion(outputs, labels)  
-            
-            _, preds = outputs.max(1)
-            total += outputs.size(0)
-            correct += int(sum(preds == labels))
-            accuracy = correct / total
-        
-            lss = round(loss.item(), 3)
-            acc = round(accuracy * 100, 2)
-            
-            # Store results for Ensemble
-            results.append_loss(lss, 'valid', None)
-            results.append_accy(acc, 'valid', None)
-            
-            # Print results
-            stat = [epoch, epochs, j, iters, lss, acc]
-            stats = '\n Valid Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
-            print(stats)
-                
-            # Save model and delete previous if it is the best
-            if acc > best_acc:
-                
-                prev_models = glob.glob(os.path.join(modelpath, '*.pkl'))
-                for p in prev_models:
-                    os.remove(p)
+                # Ensemble foward pass
+                outputs = torch.mean(torch.stack(outputs), dim=0)
                     
-                for i, m in enumerate(models):                    
-                    torch.save(m.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (names[i], epoch))) 
-                best_acc = acc
+                loss = criterion(outputs, labels)  
                 
+                _, preds = outputs.max(1)
+                total += outputs.size(0)
+                correct += int(sum(preds == labels))
+                accuracy = correct / total
+            
+                lss = round(loss.item(), 3)
+                acc = round(accuracy * 100, 2)
+                
+                # Store results for Ensemble
+                results.append_loss(lss, 'valid', None)
+                results.append_accy(acc, 'valid', None)
+                
+                # Print results
+                stat = [epoch, epochs, j, iters, lss, acc]
+                stats = '\n Valid Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+                print(stats)
+                    
+                # Save model and delete previous if it is the best
+                if acc > best_acc:
+                    
+                    prev_models = glob.glob(os.path.join(modelpath, '*.pkl'))
+                    for p in prev_models:
+                        os.remove(p)
+                        
+                    for i, m in enumerate(models):                    
+                        torch.save(m.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (names[i], epoch))) 
+                    best_acc = acc
+                    
         timer.append(time(start))
         
     return results, timer
