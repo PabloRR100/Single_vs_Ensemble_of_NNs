@@ -22,6 +22,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import sys
 sys.path.append('..')
 sys.path.append('ResNets')
+sys.stdout
 from utils import def_training, load_dataset, count_parameters, figures
 
 
@@ -263,8 +264,8 @@ for i in range(ensemble_size):
     
     model = ResNet20()
     names.append(model.name + '_' + str(i+1))
-    params = [optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)]
-    optimizers.append(*params)
+    params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
+    optimizers.append(params)
     
     model.to(device)
     if gpus: model = nn.DataParallel(model)
@@ -316,9 +317,15 @@ ens_results.show()
 
 
 ## Training figures
-#with open('Results_Ensemble_Models.pkl', 'rb') as input:
+#with open('Results_Single_Models.pkl', 'rb') as input:
 #    res = pickle.load(input)
 #
+#
+#with open('Results_Ensemble_Models.pkl', 'rb') as input:
+#    eres = pickle.load(input)
+#
+#
+#import pandas
 #import seaborn as sns
 #import matplotlib.pyplot as plt
 #sns.set_style("dark")
@@ -327,12 +334,24 @@ ens_results.show()
 #sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_accy))
 #
 #sns.lineplot(data=pd.DataFrame.from_dict(res.train_loss))
-#sns.lineplot(data=pd.DataFrame.from_dict(res.train_accy))
-#
 #sns.lineplot(data=pd.DataFrame.from_dict(res.valid_loss))
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(res.train_accy))
 #sns.lineplot(data=pd.DataFrame.from_dict(res.valid_accy))
-
-
+#
+#
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_loss))
+#sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_accy))
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(eres.train_loss))
+#sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_loss))
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(eres.train_accy))
+#sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_accy))
+#
+#
+#
 
 #figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
 #figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
@@ -344,13 +363,12 @@ ens_results.show()
 # 4 - Evaluate Models
 # -------------------
     
-#print('\n\nTESTING')
-#print('-------')
-#
-#from test import test
-#test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
-#
-#results.show()
+print('\n\nTESTING')
+print('-------')
+
+from test import test
+test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+
 
 exit()
 

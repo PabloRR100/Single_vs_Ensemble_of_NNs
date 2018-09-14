@@ -55,7 +55,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 
     # Testing mode
     if test:         
-        epochs = 10
+        epochs = 1
         print('training in test mode')
 #        trainloader = islice(trainloader, 10)
 #        validloader = islice(validloader, 10)

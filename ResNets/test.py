@@ -14,12 +14,12 @@ from torch.autograd import Variable
 
 def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
     
-    test = True
-    # Testing mode
-    if test:         
-        print('Validating in test mode')
-        dataloader = islice(dataloader, 20)
-    
+#    test = True
+#    # Testing mode
+#    if test:         
+#        print('Validating in test mode')
+#        dataloader = islice(dataloader, 20)
+#    
     # Log config 
     
     logpath = paths['logs']['test']
