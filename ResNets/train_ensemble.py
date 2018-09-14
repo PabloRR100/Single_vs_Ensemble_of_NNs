@@ -95,6 +95,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 loss.backward()
                 optimizers[n].step()
                 
+            print(outputs.shape)
+            print(outputs)
+                
             # Ensemble foward pass
             
             outputs = torch.mean(torch.stack(outputs), dim=0)
