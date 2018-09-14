@@ -41,58 +41,58 @@ Catch from the parser all the parameters to define the training
 print('\n\nCONFIGURATION')
 print('-------------')
 
-#from parser import args
-#
-#save = args.save
-#name = args.name
-#draws = args.draws
-#dataset = args.dataset
-#testing = args.testing
-#comments = args.comments
-#
-#ensemble_type = args.ensembleSize
-#
-#n_epochs = args.epochs
-#n_iters = args.iterations
-#batch_size = args.batch_size
-#learning_rate = args.learning_rate
-#save_frequency = args.save_frequency
-#
-#if args.name is None: args.name = 'ResNet'
-## Sanity check for epochs - batch size - iterations
-#n_iters, n_epochs, batch_size = def_training(n_iters, n_epochs, batch_size)
-#
-## Display config to run file
-#table = BT()
-#table.append_row(['Save', str(args.save)])
-#table.append_row(['Name', str(args.name)])
-#table.append_row(['Draws', str(args.draws)])
-#table.append_row(['Testing', str(args.testing)])
-#table.append_row(['Comments', str(args.comments)])
-#table.append_row(['Ensemble size', str(args.ensembleSize)])
-#table.append_row(['-------------', '-------------'])
-#table.append_row(['Epochs', n_epochs])
-#table.append_row(['Iterations', n_iters])
-#table.append_row(['Batch Size', batch_size])
-#table.append_row(['Learning Rate', str(args.learning_rate)])
-#print(table)
-#
+from parser import args
 
-#######################################################
-# Backup code to debug from python shell - no parser
-save = False                # Activate results saving 
-draws = False               # Activate showing the figures
-dataset = 'CIFAR10'
-testing = True             # Activate test to run few iterations per epoch       
-comments = True             # Activate printing comments
-createlog = False           # Activate option to save the logs in .txt
-save_frequency = 1          # After how many epochs save stats
-ensemble_type = 'Big'       # Single model big 
-#ensemble_type = 'Huge'     # Single model huge
-learning_rate = 0.1
-batch_size = 128
-n_iters = 64000
-#######################################################
+save = args.save
+name = args.name
+draws = args.draws
+dataset = args.dataset
+testing = args.testing
+comments = args.comments
+
+ensemble_type = args.ensembleSize
+
+n_epochs = args.epochs
+n_iters = args.iterations
+batch_size = args.batch_size
+learning_rate = args.learning_rate
+save_frequency = args.save_frequency
+
+if args.name is None: args.name = 'ResNet'
+# Sanity check for epochs - batch size - iterations
+n_iters, n_epochs, batch_size = def_training(n_iters, n_epochs, batch_size)
+
+# Display config to run file
+table = BT()
+table.append_row(['Save', str(args.save)])
+table.append_row(['Name', str(args.name)])
+table.append_row(['Draws', str(args.draws)])
+table.append_row(['Testing', str(args.testing)])
+table.append_row(['Comments', str(args.comments)])
+table.append_row(['Ensemble size', str(args.ensembleSize)])
+table.append_row(['-------------', '-------------'])
+table.append_row(['Epochs', n_epochs])
+table.append_row(['Iterations', n_iters])
+table.append_row(['Batch Size', batch_size])
+table.append_row(['Learning Rate', str(args.learning_rate)])
+print(table)
+
+
+########################################################
+## Backup code to debug from python shell - no parser
+#save = False                # Activate results saving 
+#draws = False               # Activate showing the figures
+#dataset = 'CIFAR10'
+#testing = True             # Activate test to run few iterations per epoch       
+#comments = True             # Activate printing comments
+#createlog = False           # Activate option to save the logs in .txt
+#save_frequency = 1          # After how many epochs save stats
+#ensemble_type = 'Big'       # Single model big 
+##ensemble_type = 'Huge'     # Single model huge
+#learning_rate = 0.1
+#batch_size = 128
+#n_iters = 64000
+########################################################
 
 
 momentum = 0.9
@@ -273,18 +273,18 @@ from train_ensemble import train as train_ensemble
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Big Single Model
-#
-#optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
-#
-#print('Starting Single Model Training...' )
-#params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-#          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
-#
-#results, timer = train(*params)
-#
-#results = train_ensemble(*params)
-#with open('Results_Single_Model.pkl', 'wb') as result:
-#    pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
+
+optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
+
+print('Starting Single Model Training...' )
+params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+
+results, timer = train(*params)
+
+results = train_ensemble(*params)
+with open('Results_Single_Model.pkl', 'wb') as result:
+    pickle.dump(results, result, pickle.HIGHEST_PROTOCOL)
 
 
 #figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
@@ -306,20 +306,21 @@ with open('Results_Ensemble_Models.pkl', 'wb') as result:
 
 results.show()
 
-# Training figures
+
+
+## Training figures
 #with open('Results_Ensemble_Models.pkl', 'rb') as input:
 #    results2 = pickle.load(input)
-#
-#
-#
-## 4 - Evaluate Models
-## -------------------
-#    
-#print('\n\nTESTING')
-#print('-------'); bl
-#
-#from test import test
-#test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+
+
+# 4 - Evaluate Models
+# -------------------
+    
+print('\n\nTESTING')
+print('-------')
+
+from test import test
+test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
 
 results.show()
 

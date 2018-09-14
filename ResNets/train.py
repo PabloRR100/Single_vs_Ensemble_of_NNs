@@ -39,7 +39,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     
     # Testing mode
     if test:         
-        epochs = 3
+        epochs = 10
         print('training in test mode')
     
     timer = []
