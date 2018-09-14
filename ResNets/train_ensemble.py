@@ -34,8 +34,8 @@ def print_stats(n, epoch, epochs, j, iters, subset):
 def train(dataset, names, models, optimizers, criterion, device, trainloader, validloader,
           epochs, iters, save, paths, save_frequency=1, test=True, validate=True):
     
-    com_iter = False
-    com_epoch = False
+#    com_iter = False
+#    com_epoch = False
     # Every model train mode
     for m in models: m.train()
             
@@ -146,7 +146,6 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         # ----------
         if validate:
             
-            c = 0
             correct, total = 0, 0
             for k, (images, labels) in enumerate(validloader):
             
@@ -180,7 +179,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 #                    print(stats)                    
                 
                     # Store epoch results for each model (as last iteration of that epoch)
-                    if c == len(validloader):
+                    len_ = len(list(validloader)) if test else len(validloader)
+                    if k == len_:
+                        print(k)
                         results.append_iter_loss(lss, 'valid', n+1)
                         results.append_iter_accy(acc, 'valid', n+1)
                 
