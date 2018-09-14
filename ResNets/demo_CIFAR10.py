@@ -7,6 +7,7 @@ Created on Thu Aug  9 15:31:56 2018
 """
 
 import os
+import pickle
 import multiprocessing
 from beautifultable import BeautifulTable as BT
 
@@ -31,9 +32,6 @@ warnings.filterwarnings('ignore', 'ImportWarning')
 warnings.filterwarnings('ignore', 'DeprecationWarning')
 
 
-bl = print('\n') 
-
-
 ''' 
 CONFIGURATION 
 -------------
@@ -41,19 +39,17 @@ CONFIGURATION
 Catch from the parser all the parameters to define the training
 '''
 print('\n\nCONFIGURATION')
-print('-------------'); bl
+print('-------------')
 
+########################################################
 from parser import args
-
 save = args.save
 name = args.name
 draws = args.draws
 dataset = args.dataset
 testing = args.testing
 comments = args.comments
-
 ensemble_type = args.ensembleSize
-
 n_epochs = args.epochs
 n_iters = args.iterations
 batch_size = args.batch_size
@@ -78,12 +74,15 @@ table.append_row(['Iterations', n_iters])
 table.append_row(['Batch Size', batch_size])
 table.append_row(['Learning Rate', str(args.learning_rate)])
 print(table)
+#########################################################
+
 
 
 ########################################################
 ## Backup code to debug from python shell - no parser
 #save = False                # Activate results saving 
 #draws = False               # Activate showing the figures
+#dataset = 'CIFAR10'
 #testing = True             # Activate test to run few iterations per epoch       
 #comments = True             # Activate printing comments
 #createlog = False           # Activate option to save the logs in .txt
@@ -108,8 +107,6 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 gpus = True if torch.cuda.device_count() > 1 else False
 mem = False if device == 'cpu' else True
 
-bl
-bl
 
 table = BT()
 table.append_row(['Python Version', sys.version[:5]])
@@ -123,8 +120,8 @@ print('\n\nCOMPUTING CONFIG')
 print('----------------')
 print(table)
 
-bl
-bl
+
+
 
 '''
 DEFININTION OF PATHS 
@@ -175,18 +172,14 @@ paths = {
         'dataframes': path_to_dataframes
         }
 
-bl
-bl
-
 
 
 # 1 - Import the Dataset
 # ----------------------
 
 print('IMPORTING DATA')
-print('--------------'); bl
+print('--------------')
 
-#dataset = 'CIFAR10'
 train_set, valid_set, test_set = load_dataset(data_path, dataset, comments=comments)
 
 train_loader = DataLoader(dataset = train_set.dataset, 
@@ -203,15 +196,12 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
                          shuffle = False, num_workers=n_workers, pin_memory = mem)
 
 
-bl
-bl
-
 
 # 2 - Import the ResNet
 # ---------------------
 
 print('\n\nIMPORTING MODELS')
-print('----------------'); bl
+print('----------------')
 
 from resnets_CIFAR10 import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
 
@@ -235,7 +225,7 @@ table.append_row(['ResNset32', *parameters(resnet32)])
 table.append_row(['ResNset44', *parameters(resnet44)])
 table.append_row(['ResNset56', *parameters(resnet56)])
 table.append_row(['ResNset110', *parameters(resnet110)])
-if comments: bl; print(table)
+if comments: print(table)
 
 
 # Apply constraint - Parameters constant
@@ -246,91 +236,98 @@ ensemble_size = round(count_parameters(singleModel) / small)
 
 
 # Construct the single model
+
 singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 
 name = singleModel.name
 singleModel.to(device)
 if gpus: singleModel = nn.DataParallel(singleModel)
+optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
 
 # Construct the ensemble
 
 names = []
 ensemble = []
+optimizers = []
 for i in range(ensemble_size):
     
     model = ResNet20()
     names.append(model.name + '_' + str(i+1))
+    params = [optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)]
+    optimizers.append(*params)
     
     model.to(device)
     if gpus: model = nn.DataParallel(model)
     ensemble.append(model)
 
 
-bl
-bl
+
 
 # 3 - Train ResNet
 # ----------------
 
 print('\n\nTRAINING')
-print('--------'); bl
+print('--------')
 
 from train import train
+from train_ensemble import train as train_ensemble
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+
+
 
 # Big Single Model
 
-optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
-
-print('Training Single Model' )
+print('Starting Single Model Training...' )
 params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
           valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
 
-train_history, valid_history, timer = train(*params)
+results, timer = train(*params)
+with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
+    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
 
-figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
-figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
-if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
-if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name + '.csv'))
+results.show()
 
 
-# Ensemble individuals
 
-ensemble_history = []
-for i, model in enumerate(ensemble):
+
+# Ensemble Model
+
+print('Starting Ensemble Training...')
+
+params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
+          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
     
-    print('Training individual {}/{} of the Ensemble'.format(i+1, len(ensemble)))
-    optimizer = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
-    params = [dataset, name, model, optimizer, criterion, device, train_loader, 
-              valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
-    
-    model.train()    
-    train_history, valid_history, timer = train(*params)
-    ensemble_history.append((train_history, valid_history, timer))
+ens_results, ens_timer = train_ensemble(*params)
+with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
+    pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
 
-for i, model in enumerate(ensemble):  
-    
-    train_history, valid_history, model_time = ensemble_history[i]
-    figures(train_history, 'train_' +  names[i], dataset, paths['figures'], draws, save)
-    figures(valid_history, 'valid_' + names[i], dataset, paths['figures'], draws, save)
-    
-    if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name[i] + '.csv'))
-    if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name[i] + '.csv'))
+ens_results.show()
 
 
-bl
-bl
+
+## Training figures
+#with open('Results_Ensemble_Models.pkl', 'rb') as input:
+#    res = pickle.load(input)
+#
+#figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
+#figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
+#if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
+#if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name + '.csv'))
+
 
 
 # 4 - Evaluate Models
 # -------------------
     
-print('\n\nTESTING')
-print('-------'); bl
-
-from test import test
-test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
-
+#print('\n\nTESTING')
+#print('-------')
+#
+#from test import test
+#test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+#
+#results.show()
 
 exit()
+
+
