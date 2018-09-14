@@ -54,6 +54,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         print('training in test mode')
         trainloader = islice(trainloader, 2)
         validloader = islice(validloader, 2)
+        len_ = 2
             
     start = now()
     for epoch in range(1, epochs+1):
@@ -98,6 +99,10 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 results.append_iter_loss(lss, 'train', n+1)
                 results.append_iter_accy(acc, 'train', n+1)
                 
+                if i == len_-1:
+                    # Store epoch results for this individual (as last iter)
+                    results.append_loss(lss, 'train', n+1)
+                    results.append_accy(acc, 'train', n+1)
 #                if com_iter: print_stats(n+1, epoch, epochs, j, iters, 'Train')
 #                stat = [subset, n+1, epoch, epochs, j, iters]
 #                stats = '\n {} Model {}: Epoch: [{}/{}] Iter: [{}/{}]'.format(*stat)
@@ -107,10 +112,6 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
                 loss.backward()
                 optimizers[n].step()        
-            
-            # Store epoch results for this individual (as last iter)
-            results.append_loss(lss, 'train', n+1)
-            results.append_accy(acc, 'train', n+1)
                 
                 
             ## Ensemble foward pass
@@ -152,7 +153,6 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         # ----------
         if validate:
             
-            correct, total = 0, 0
             for k, (images, labels) in enumerate(validloader):
             
                 images = Variable(images)
@@ -175,6 +175,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                         
                         loss = criterion(output, labels) 
                     
+                        correct, total = 0, 0
                         _, predictions = torch.max(output.data, 1)
                         total += output.size(0)
                         correct += int(sum(predictions == labels)) 
@@ -196,6 +197,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     
                 loss = criterion(outputs, labels)  
                 
+                correct, total = 0, 0
                 _, preds = outputs.max(1)
                 total += outputs.size(0)
                 correct += int(sum(preds == labels))
