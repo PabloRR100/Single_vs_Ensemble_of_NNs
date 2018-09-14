@@ -164,9 +164,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     output = m(images)
                     outputs.append(output)
                                         
-                    # Store epoch results for each model (as last iteration of that epoch)
-                    len_ = len(list(validloader)) if test else len(validloader)
-                    if k == len_-1:
+                    # Store epoch results for each model
+                    if k == 0:
                         
                         print('Hey I got into this!')
                         loss = criterion(output, labels) 
