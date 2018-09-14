@@ -55,7 +55,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 
     # Testing mode
     if test:         
-        epochs = 3
+        epochs = 30
         print('training in test mode')
 #        trainloader = islice(trainloader, 10)
 #        validloader = islice(validloader, 10)
@@ -75,7 +75,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             images = images.to(device)
             labels = labels.to(device)
             
-            outputs = []
+            outs = []
             for n, m in enumerate(models):
                 
                 # Scheduler for learning rate        
@@ -87,7 +87,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 # Calculate loss for individual                
                 m.zero_grad()
                 output = m(images)
-                outputs.append(output)
+                outs.append(output)
                 loss = criterion(output, labels) 
                 
                 # Calculate accy for individual
@@ -119,7 +119,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
             ## Ensemble foward pass
             
-            outputs = torch.mean(torch.stack(outputs), dim=0)
+            outputs = torch.mean(torch.stack(outs), dim=0)
             
             # Calculate loss for ensemble
             loss = criterion(output, labels) 
@@ -159,14 +159,14 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 images = images.to(device)
                 labels = labels.to(device)
                 
-                outputs = []
+                outs = []
                 for n, m in enumerate(models):
                     
                     ## Individuals foward pass
             
                     m.zero_grad()
                     output = m(images)
-                    outputs.append(output)
+                    outs.append(output)
                                         
                     # Store epoch results for each model
                     if k == 0:
@@ -190,7 +190,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     
                 ## Ensemble foward pass
                 
-                outputs = torch.mean(torch.stack(outputs), dim=0)
+                outputs = torch.mean(torch.stack(outs), dim=0)
                     
                 loss = criterion(outputs, labels)  
                 
@@ -208,7 +208,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             results.append_accy(acc, 'valid', None)
             
             # Print results
-            if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid', n+1)
+            if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid', None)
                 
             # Save model and delete previous if it is the best
             if acc > best_acc:

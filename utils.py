@@ -45,27 +45,29 @@ def count_parameters(model):
 # EPOCHS-ITERS-BATCH_SIZE
 # -----------------------
 
-def def_training(n_iters, n_epochs, batch_size):
+def def_training(n_iters, n_epochs, batch_size, batches, samples):
     '''
     Function to ensure the epochs, iterations and batch_sizes chosen
     are consistent
     '''
-    def table_stats(n_iters, n_epochs, batch_size):
+    def table_stats(n_iters, n_epochs, batch_size, batches, samples):
         table = BT()
+        table.append_row(['Samples', samples])
+        table.append_row(['Batch size', batch_size])
+        table.append_row(['Num batches', batches])
         table.append_row(['Iters', n_iters])
         table.append_row(['Epochs', n_epochs])
-        table.append_row(['Batch size', batch_size])
         print(table)
     
-    def print_stats(n_iters, n_epochs, batch_size, error):
+    def print_stats(n_iters, n_epochs, batch_size, batches, error):
         print('\n\nERROR IN TRAINING PARAMETERS')
         print(error)
-        table_stats(n_iters, n_epochs, batch_size)
+        table_stats(n_iters, n_epochs, batch_size, batches, samples)
         print('Exiting...')
     
     if n_epochs is None:
         
-        n_epochs = n_iters / batch_size 
+        n_epochs = n_iters / batches 
         error = errors['training']['epochs']
         if n_iters % batch_size != 0:
             print_stats(n_iters, n_epochs, batch_size, error)

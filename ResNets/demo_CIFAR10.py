@@ -57,8 +57,6 @@ learning_rate = args.learning_rate
 save_frequency = args.save_frequency
 
 if args.name is None: args.name = 'ResNet'
-# Sanity check for epochs - batch size - iterations
-n_iters, n_epochs, batch_size = def_training(n_iters, n_epochs, batch_size)
 
 # Display config to run file
 table = BT()
@@ -98,7 +96,7 @@ print(table)
 momentum = 0.9
 weight_decay = 1e-4
 
-n_epochs = int(n_iters / batch_size)
+#n_epochs = int(n_iters / batch_size)
 
 # GPU if CUDA is available
 cuda = torch.cuda.is_available()
@@ -196,6 +194,17 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
                          shuffle = False, num_workers=n_workers, pin_memory = mem)
 
 
+## Sanity check for epochs - batch size - iterations
+#print('Checking epochs - iterations...')
+#batches = len(train_loader)
+#samples = len(train_loader.sampler.indices)
+#n_iters, n_epochs, batch_size = def_training(n_iters, n_epochs, 
+#                                             batch_size, batches, samples)
+
+batches = len(train_loader)
+samples = len(train_loader.sampler.indices) 
+n_epochs= n_iters // batches
+
 
 # 2 - Import the ResNet
 # ---------------------
@@ -283,7 +292,7 @@ params = [dataset, name, singleModel, optimizer, criterion, device, train_loader
           valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
 
 results, timer = train(*params)
-with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
+with open('Results_Single_Models.pkl', 'wb') as object_result:
     pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
 
 results.show()
@@ -310,6 +319,21 @@ ens_results.show()
 #with open('Results_Ensemble_Models.pkl', 'rb') as input:
 #    res = pickle.load(input)
 #
+#import seaborn as sns
+#import matplotlib.pyplot as plt
+#sns.set_style("dark")
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_loss))
+#sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_accy))
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(res.train_loss))
+#sns.lineplot(data=pd.DataFrame.from_dict(res.train_accy))
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(res.valid_loss))
+#sns.lineplot(data=pd.DataFrame.from_dict(res.valid_accy))
+
+
+
 #figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
 #figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
 #if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
