@@ -350,8 +350,7 @@ ens_results.show()
 #sns.lineplot(data=pd.DataFrame.from_dict(eres.train_accy))
 #sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_accy))
 #
-#
-#
+
 
 #figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
 #figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)

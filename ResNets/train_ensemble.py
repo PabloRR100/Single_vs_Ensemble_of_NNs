@@ -38,7 +38,7 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
 def train(dataset, names, models, optimizers, criterion, device, trainloader, validloader,
           epochs, iters, save, paths, save_frequency=1, test=True, validate=True):
     
-    com_iter = True
+    com_iter = False
     com_epoch = True
     # Every model train mode
     for m in models: m.train()
@@ -119,16 +119,17 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
             ## Ensemble foward pass
             
-            outputs = torch.mean(torch.stack(outs), dim=0)
+            output = torch.mean(torch.stack(outs), dim=0)
             
             # Calculate loss for ensemble
             loss = criterion(output, labels) 
             correct, total = 0, 0 
             
             # Calculate accuracy for ensemble
-            _, preds = outputs.max(1)
-            total += outputs.size(0)
+            _, preds = output.max(1)
+            total += output.size(0)
             correct += int(sum(preds == labels))
+            accuracy = correct / total
             
             lss = round(loss.item(), 3)
             acc = round(accuracy * 100, 2)
@@ -151,6 +152,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         # ----------
         if validate:
             
+            correct, total = 0, 0
             for k, (images, labels) in enumerate(validloader):
             
                 images = Variable(images)
@@ -173,33 +175,31 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                         
                         loss = criterion(output, labels) 
                     
-                        correct, total = 0, 0
+                        corr, tot = 0, 0
                         _, predictions = torch.max(output.data, 1)
-                        total += output.size(0)
-                        correct += int(sum(predictions == labels)) 
-                        accuracy = correct / total
+                        tot += output.size(0)
+                        corr += int(sum(predictions == labels)) 
+                        accur = corr / tot
                                         
-                        lss = round(loss.item(), 3)
-                        acc = round(accuracy * 100, 2)
+                        ls = round(loss.item(), 3)
+                        ac = round(accur * 100, 2)
                     
-                        results.append_loss(lss, 'valid', n+1)
-                        results.append_accy(acc, 'valid', n+1)
+                        results.append_loss(ls, 'valid', n+1)
+                        results.append_accy(ac, 'valid', n+1)
                         
                         if com_epoch: 
-                            print_stats(epoch, epochs, j, iters, lss, acc, 'Valid', n+1)
+                            print_stats(epoch, epochs, j, iters, ls, ac, 'Valid', n+1)
                     
                 ## Ensemble foward pass
                 
-                outputs = torch.mean(torch.stack(outs), dim=0)
-                    
-                loss = criterion(outputs, labels)  
-                
-                correct, total = 0, 0
-                _, preds = outputs.max(1)
-                total += outputs.size(0)
+                output = torch.mean(torch.stack(outs), dim=0)
+                                    
+                _, preds = output.max(1)
+                total += output.size(0)
                 correct += int(sum(preds == labels))
-                
-            accuracy = correct / total
+            
+            loss = criterion(output, labels) 
+            accuracy = correct / total    
             lss = round(loss.item(), 3)
             acc = round(accuracy * 100, 2)
             

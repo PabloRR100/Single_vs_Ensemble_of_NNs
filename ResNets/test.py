@@ -1,34 +1,9 @@
 
-import os
 import torch 
-from itertools import islice
 from torch.autograd import Variable
 
-#def avoidWarnings():
-#    import warnings
-#    warnings.filterwarnings('always')
-#    warnings.filterwarnings('ignore')
-#    warnings.filterwarnings('ignore', 'ImportWarning')
-#    warnings.filterwarnings('ignore', 'DeprecationWarning')    
-
-
 def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
-    
-#    test = True
-#    # Testing mode
-#    if test:         
-#        print('Validating in test mode')
-#        dataloader = islice(dataloader, 20)
-#    
-    # Log config 
-    
-    logpath = paths['logs']['test']
-    assert os.path.exists(logpath), 'Error: path to save test logs not found'
-    logfile = name + '_test_accuracy.txt'
-    logfile = os.path.join(logpath, logfile)
-    if save: f = open(logfile, 'w+')
-    
-    
+            
     # Single Network Performance
     
     singleModel.eval()
@@ -51,8 +26,6 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             correct += int(sum(preds == labels))
         
     print('Single model accuracy {}%'.format(100 * correct / total))
-    if save: 
-        f.write('Single model accuracy {}%'.format(100 * correct / total))
         
     
     # Ensemble Model
@@ -82,6 +55,3 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             correct += int(sum(preds == labels))
      
     print('Ensemble accuracy {}%'.format(100 * correct / total))
-    if save: 
-        f.write('Ensemble accuracy {}%'.format(100 * correct / total))
-        f.close()

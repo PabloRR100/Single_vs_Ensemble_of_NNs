@@ -40,7 +40,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     timer = []
     best_acc = 0
     model.train()
-    com_iter = True
+    com_iter = False
     com_epoch = True
     results = Results([model])
     

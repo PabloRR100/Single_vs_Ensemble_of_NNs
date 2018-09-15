@@ -126,6 +126,7 @@ class Results(object):
             print('Exiting..')
             exit()
 
+
     def append_iter_loss(self, v, subset: str, m=None):
         
         # single model
