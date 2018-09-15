@@ -316,41 +316,75 @@ ens_results.show()
 
 
 
-## Training figures
-#with open('Results_Single_Models.pkl', 'rb') as input:
-#    res = pickle.load(input)
-#
-#
-#with open('Results_Ensemble_Models.pkl', 'rb') as input:
-#    eres = pickle.load(input)
-#
+# Training figures
+with open('Results_Single_Models.pkl', 'rb') as input:
+    res = pickle.load(input)
+
+
+with open('Results_Ensemble_Models.pkl', 'rb') as input:
+    eres = pickle.load(input)
+
 #
 #import pandas
 #import seaborn as sns
 #import matplotlib.pyplot as plt
 #sns.set_style("dark")
 #
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_loss))
+#sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_loss['ensemble']))
+#
+#data = {'single':res.iter_train_accy, 
+#        'ensemble': eres.iter_train_accy['ensemble']}
+#
+#data2 = {'single':res.iter_train_loss, 
+#        'ensemble': eres.iter_train_loss['ensemble']}
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(data))
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(data2))
+#
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_accy), palette='red')
+#sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_accy['ensemble']))
+#
+#
+#
+#sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_loss))
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_accy))
 #
+#
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(res.train_loss))
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(res.valid_loss))
 #
+#
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(res.train_accy))
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(res.valid_accy))
 #
 #
 #
 #sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_loss))
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_accy))
 #
+#
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(eres.train_loss))
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_loss))
 #
+#
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(eres.train_accy))
+#
 #sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_accy))
 #
-
+#
 
 #figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
 #figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
