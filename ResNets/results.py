@@ -17,6 +17,8 @@ class Results(object):
             self.valid_loss = list()
             self.valid_accy = list()
             
+            self.timer = list()
+            
             # Store per iteration (training) data
             self.iter_train_loss = list()
             self.iter_train_accy = list()
@@ -31,6 +33,8 @@ class Results(object):
     
             self.valid_loss = dict()
             self.valid_accy = dict()
+            
+            self.timer()
             
             # Store per iteration (training) data
             self.iter_train_loss = dict()
@@ -77,6 +81,9 @@ class Results(object):
             table.append_row(['Ensemble', len(self.train_loss['ensemble']), 
                               len(self.valid_loss['ensemble']), len(self.iter_train_loss['ensemble'])])
         print(table)
+        
+    def append_time(self, v):
+        self.timer.append(v)
         
         
     def append_loss(self, v, subset: str, m=None):
