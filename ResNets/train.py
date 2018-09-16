@@ -49,7 +49,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     
     # Testing mode
     if test:         
-        epochs = 3
+        epochs = 2
 #        print('training in test mode')
 #        trainloader = islice(trainloader, 2)
 #        validloader = islice(validloader, 2)
@@ -129,14 +129,14 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             lss = round(loss.item(), 3)
             acc = round(accuracy * 100, 2)
             
-            # Save model and delete previous if it is the best
-            if acc > best_acc:
-                
-                models = glob.glob(os.path.join(modelpath, '*.pkl'))
-                for m in models:
-                    os.remove(m)
-                torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
-                best_acc = acc
+#            # Save model and delete previous if it is the best
+#            if acc > best_acc:
+#                
+#                models = glob.glob(os.path.join(modelpath, '*.pkl'))
+#                for m in models:
+#                    os.remove(m)
+#                torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
+#                best_acc = acc
         
             # Store per-epoch results
             results.append_loss(lss, 'valid')

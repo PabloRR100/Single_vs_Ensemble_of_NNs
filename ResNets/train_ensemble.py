@@ -55,7 +55,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 
     # Testing mode
     if test:         
-        epochs = 1
+        epochs = 2
         print('training in test mode')
 #        trainloader = islice(trainloader, 10)
 #        validloader = islice(validloader, 10)
@@ -211,16 +211,16 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             # Print results
             if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid', None)
                 
-            # Save model and delete previous if it is the best
-            if acc > best_acc:
-                
-                prev_models = glob.glob(os.path.join(modelpath, '*.pkl'))
-                for p in prev_models:
-                    os.remove(p)
-                    
-                for i, m in enumerate(models):                    
-                    torch.save(m.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (names[i], epoch))) 
-                best_acc = acc
+#            # Save model and delete previous if it is the best
+#            if acc > best_acc:
+#                
+#                prev_models = glob.glob(os.path.join(modelpath, '*.pkl'))
+#                for p in prev_models:
+#                    os.remove(p)
+#                    
+#                for i, m in enumerate(models):                    
+#                    torch.save(m.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (names[i], epoch))) 
+#                best_acc = acc
             
         results.append_time(time(start))
 #        timer.append(time(start))
