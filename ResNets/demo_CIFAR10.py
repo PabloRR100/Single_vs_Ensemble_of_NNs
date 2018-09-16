@@ -23,7 +23,7 @@ import sys
 sys.path.append('..')
 sys.path.append('ResNets')
 sys.stdout
-from utils import def_training, load_dataset, count_parameters, figures
+from utils import def_training, load_dataset, count_parameters
 
 
 import warnings
@@ -285,21 +285,21 @@ from train_ensemble import train as train_ensemble
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 
-
-# Big Single Model
-
-print('Starting Single Model Training...' )
-params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
-
-results, timer = train(*params)
-with open('Results_Single_Models.pkl', 'wb') as object_result:
-    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-
-results.show()
-
-
-
+#
+## Big Single Model
+#
+#print('Starting Single Model Training...' )
+#params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+#          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+#
+#results, timer = train(*params)
+#with open('Results_Single_Models.pkl', 'wb') as object_result:
+#    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+#
+#results.show()
+#
+#
+#
 
 # Ensemble Model
 
@@ -316,16 +316,16 @@ ens_results.show()
 
 
 
-# Training figures
-with open('Results_Single_Models.pkl', 'rb') as input:
-    res = pickle.load(input)
-
-
-with open('Results_Ensemble_Models.pkl', 'rb') as input:
-    eres = pickle.load(input)
-
+## Training figures
+#with open('Results_Single_Models.pkl', 'rb') as input:
+#    res = pickle.load(input)
 #
-#import pandas
+#
+#with open('Results_Ensemble_Models.pkl', 'rb') as input:
+#    eres = pickle.load(input)
+#
+#
+#import pandas as pd
 #import seaborn as sns
 #import matplotlib.pyplot as plt
 #sns.set_style("dark")
@@ -384,7 +384,7 @@ with open('Results_Ensemble_Models.pkl', 'rb') as input:
 #
 #sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_accy))
 #
-#
+
 
 #figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
 #figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
