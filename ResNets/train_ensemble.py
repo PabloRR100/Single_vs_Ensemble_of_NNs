@@ -45,7 +45,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             
     # Initialize results
     j = 0 
-    timer = []
+#    timer = []
     best_acc = 0
     results = Results(models)
     len_ = len(trainloader)
@@ -62,6 +62,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 #        len_ = 2
             
     start = now()
+    results.append_time(0)
     for epoch in range(1, epochs+1):
                 
         # Training
@@ -220,7 +221,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 for i, m in enumerate(models):                    
                     torch.save(m.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (names[i], epoch))) 
                 best_acc = acc
-                    
-        timer.append(time(start))
+            
+        results.append_time(time(start))
+#        timer.append(time(start))
         
-    return results, timer
+#    return results, timer
+    return results

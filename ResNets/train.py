@@ -37,7 +37,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
           epochs, iters, save, paths, save_frequency=1, test=True, validate=True):
     
     j = 0 
-    timer = []
+#    timer = []
     best_acc = 0
     model.train()
     com_iter = False
@@ -49,12 +49,13 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     
     # Testing mode
     if test:         
-        epochs = 1
+        epochs = 3
 #        print('training in test mode')
 #        trainloader = islice(trainloader, 2)
 #        validloader = islice(validloader, 2)
     
     start = now()
+    results.timer.append(0)
     for epoch in range(1, epochs+1):
         
         # Scheduler for learning rate        
@@ -142,6 +143,9 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             results.append_accy(acc, 'valid')
             
             if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid')              
-        timer.append(time(start))
         
-    return results, timer
+        results.append_time(time(start))
+#        timer.append(time(start))
+        
+#    return results, timer
+    return results

@@ -7,8 +7,11 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
     # Single Network Performance
     
     singleModel.eval()
-    singleModel.to(device)
-    total, correct = 0,0
+    for m in ensemble: m.eval()
+    
+    control = 0
+
+    total, correct = (0,0)
     with torch.no_grad():
         
         for i, (images, labels) in enumerate(dataloader):
@@ -24,13 +27,18 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             _, preds = outputs.max(1)
             total += outputs.size(0)
             correct += int(sum(preds == labels))
+            
+            control += 1
         
     print('Single model accuracy {}%'.format(100 * correct / total))
+    print('Control: ', control)
         
     
-    # Ensemble Model
-        
-    total, correct = 0,0
+    # Ensemble Model 
+    
+    control = 0    
+    
+    total, correct = (0,0)
     with torch.no_grad():
         
         for i, (images, labels) in enumerate(dataloader):
@@ -44,7 +52,6 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             outputs = []
             for model in ensemble:
                 
-                model.eval()
                 output = model(images)
                 outputs.append(output)
                 
@@ -55,3 +62,4 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             correct += int(sum(preds == labels))
      
     print('Ensemble accuracy {}%'.format(100 * correct / total))
+    print('Control: ', control)

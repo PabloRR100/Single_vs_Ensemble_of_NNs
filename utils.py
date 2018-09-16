@@ -8,6 +8,8 @@ matplotlib.use('agg')
 import os
 import sys
 import numpy as np
+import pandas as pd
+import seaborn as sns
 import matplotlib.pyplot as plt
 from beautifultable import BeautifulTable as BT
 
@@ -181,31 +183,39 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
 
 # Plot and save output figures
     
-def figures(data, name, dataset_name, path, draws, save):
-      
-    # Loss evolution
-    
-    image_file = 'baseline_' + name + '_' + dataset_name + '_training_loss.png'
-    image_file = os.path.join(path, image_file)
+#import matplotlib.pyplot as plt
+#def figures(data, name, dataset_name, path, draws, save):
+#      
+#    # Loss evolution
+#    
+#    image_file = 'baseline_' + name + '_' + dataset_name + '_training_loss.png'
+#    image_file = os.path.join(path, image_file)
+#    plt.figure()
+#    plt.title('Loss Evolution')
+#    plt.plot(data['Loss'], 'r-', label='Training')
+#    plt.legend()
+#    if save: plt.savefig(image_file)
+#    if draws: plt.show()
+#    
+#    # Accuracy evolution
+#    
+#    plt.figure()
+#    image_file = 'baseline_' + name + '_' + dataset_name + '_training_accuracy.png'
+#    image_file = os.path.join(path, image_file)
+#    plt.title('Accuracy Evolution')
+#    plt.plot(data['Accuracy'], 'r-', label='Training')
+#    plt.legend()
+#    if save: plt.savefig(image_file)
+#    if draws: plt.show()
+
+
+def savefig(data: dict, path: str, title: str):
+    ''' Save the plot from the data '''
     plt.figure()
-    plt.title('Loss Evolution')
-    plt.plot(data['Loss'], 'r-', label='Training')
-    plt.legend()
-    if save: plt.savefig(image_file)
-    if draws: plt.show()
-    
-    # Accuracy evolution
-    
-    plt.figure()
-    image_file = 'baseline_' + name + '_' + dataset_name + '_training_accuracy.png'
-    image_file = os.path.join(path, image_file)
-    plt.title('Accuracy Evolution')
-    plt.plot(data['Accuracy'], 'r-', label='Training')
-    plt.legend()
-    if save: plt.savefig(image_file)
-    if draws: plt.show()
-    
-            
+    sns.set_style("dark")
+    df = pd.DataFrame.from_dict(data)
+    sns.lineplot(data=df)
+    plt.savefig(os.path.join(path, title))
     
 
 

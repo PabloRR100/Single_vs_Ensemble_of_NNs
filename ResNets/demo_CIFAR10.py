@@ -22,8 +22,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import sys
 sys.path.append('..')
 sys.path.append('ResNets')
-sys.stdout
-from utils import def_training, load_dataset, count_parameters
+from utils import load_dataset, count_parameters, savefig
 
 
 import warnings
@@ -56,10 +55,8 @@ n_iters = args.iterations
 batch_size = args.batch_size
 learning_rate = args.learning_rate
 save_frequency = args.save_frequency
-
 if args.name is None: args.name = 'ResNet'
 
-# Display config to run file
 table = BT()
 table.append_row(['Save', str(args.save)])
 table.append_row(['Name', str(args.name)])
@@ -248,6 +245,7 @@ ensemble_size = round(count_parameters(singleModel) / small)
 # Construct the single model
 
 singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
+title = singleModel.name
 
 name = singleModel.name
 singleModel.to(device)
@@ -285,21 +283,21 @@ from train_ensemble import train as train_ensemble
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 
-#
-## Big Single Model
-#
-#print('Starting Single Model Training...' )
-#params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-#          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
-#
-#results, timer = train(*params)
-#with open('Results_Single_Models.pkl', 'wb') as object_result:
-#    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-#
-#results.show()
-#
-#
-#
+
+# Big Single Model
+
+print('Starting Single Model Training...' )
+params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+
+results = train(*params)
+with open('Results_Single_Models.pkl', 'wb') as object_result:
+    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+
+results.show()
+
+
+
 
 # Ensemble Model
 
@@ -308,7 +306,7 @@ print('Starting Ensemble Training...')
 params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
           valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
     
-ens_results, ens_timer = train_ensemble(*params)
+ens_results = train_ensemble(*params)
 with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
     pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
 
@@ -316,81 +314,39 @@ ens_results.show()
 
 
 
-## Training figures
-#with open('Results_Single_Models.pkl', 'rb') as input:
-#    res = pickle.load(input)
-#
-#
-#with open('Results_Ensemble_Models.pkl', 'rb') as input:
-#    eres = pickle.load(input)
-#
-#
-#import pandas as pd
-#import seaborn as sns
-#import matplotlib.pyplot as plt
-#sns.set_style("dark")
-#
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_loss))
-#sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_loss['ensemble']))
-#
-#data = {'single':res.iter_train_accy, 
-#        'ensemble': eres.iter_train_accy['ensemble']}
-#
-#data2 = {'single':res.iter_train_loss, 
-#        'ensemble': eres.iter_train_loss['ensemble']}
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(data))
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(data2))
-#
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_accy), palette='red')
-#sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_accy['ensemble']))
-#
-#
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_loss))
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(res.iter_train_accy))
-#
-#
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(res.train_loss))
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(res.valid_loss))
-#
-#
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(res.train_accy))
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(res.valid_accy))
-#
-#
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_loss))
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(eres.iter_train_accy))
-#
-#
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(eres.train_loss))
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_loss))
-#
-#
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(eres.train_accy))
-#
-#sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_accy))
-#
+# Training figures
+with open('Results_Single_Models.pkl', 'rb') as input:
+    res = pickle.load(input)
 
 
-#figures(train_history, 'train_' + name, dataset, paths['figures'], draws, save)
-#figures(valid_history, 'valid_' + name, dataset, paths['figures'], draws, save)
-#if save: train_history.to_csv(os.path.join(paths['dataframes'], 'train_' + name + '.csv'))
-#if save: valid_history.to_csv(os.path.join(paths['dataframes'], 'valid_' + name + '.csv'))
+with open('Results_Ensemble_Models.pkl', 'rb') as input:
+    eres = pickle.load(input)
 
+
+data1 = {'single':res.iter_train_accy, 
+        'ensemble': eres.iter_train_accy['ensemble']}
+
+data2 = {'single':res.iter_train_loss, 
+        'ensemble': eres.iter_train_loss['ensemble']}
+
+data3 = {'single':res.train_accy, 
+        'ensemble': eres.train_accy['ensemble']}
+
+data4 = {'single':res.train_loss, 
+        'ensemble': eres.train_loss['ensemble']}
+
+data5 = {'single':res.valid_accy, 
+        'ensemble': eres.valid_accy['ensemble']}
+
+data6 = {'single':res.valid_loss, 
+        'ensemble': eres.valid_loss['ensemble']}
+ 
+savefig(data1, path_to_figures, title + '_train_accuracy_per_iter.png')
+savefig(data2, path_to_figures, title + '_train_loss_per_iter.png')
+savefig(data3, path_to_figures, title + '_train_accuracy_per_epoch.png')
+savefig(data4, path_to_figures, title + '_train_loss_per_iter.png')
+savefig(data5, path_to_figures, title + '_valid_accuracy.png')
+savefig(data6, path_to_figures, title + '_valid_loss.png')
 
 
 # 4 - Evaluate Models
