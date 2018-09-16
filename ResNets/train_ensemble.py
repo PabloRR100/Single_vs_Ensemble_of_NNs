@@ -36,7 +36,7 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
     
     
 def train(dataset, names, models, optimizers, criterion, device, trainloader, validloader,
-          epochs, iters, save, paths, save_frequency=1, test=True, validate=True):
+          epochs, iters, save, paths, test=True, validate=True):
     
     com_iter = False
     com_epoch = True

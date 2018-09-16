@@ -34,7 +34,7 @@ class Results(object):
             self.valid_loss = dict()
             self.valid_accy = dict()
             
-            self.timer()
+            self.timer = list()
             
             # Store per iteration (training) data
             self.iter_train_loss = dict()

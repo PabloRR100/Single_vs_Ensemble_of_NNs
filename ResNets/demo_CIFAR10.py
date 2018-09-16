@@ -288,7 +288,7 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 print('Starting Single Model Training...' )
 params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+          valid_loader, n_epochs, n_iters, save, paths, testing]
 
 results = train(*params)
 with open('Results_Single_Models.pkl', 'wb') as object_result:
@@ -304,7 +304,7 @@ results.show()
 print('Starting Ensemble Training...')
 
 params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, save, paths, save_frequency, testing]
+          valid_loader, n_epochs, n_iters, save, paths, testing]
     
 ens_results = train_ensemble(*params)
 with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
