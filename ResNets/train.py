@@ -37,7 +37,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
           epochs, iters, save, paths, test=True, validate=True):
     
     j = 0 
-#    timer = []
     best_acc = 0
     model.train()
     com_iter = False
@@ -129,14 +128,14 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             lss = round(loss.item(), 3)
             acc = round(accuracy * 100, 2)
             
-#            # Save model and delete previous if it is the best
-#            if acc > best_acc:
-#                
-#                models = glob.glob(os.path.join(modelpath, '*.pkl'))
-#                for m in models:
-#                    os.remove(m)
-#                torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
-#                best_acc = acc
+            # Save model and delete previous if it is the best
+            if acc > best_acc:
+                
+                models = glob.glob(os.path.join(modelpath, '*.pkl'))
+                for m in models:
+                    os.remove(m)
+                torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
+                best_acc = acc
         
             # Store per-epoch results
             results.append_loss(lss, 'valid')
@@ -145,7 +144,5 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid')              
         
         results.append_time(time(start))
-#        timer.append(time(start))
         
-#    return results, timer
     return results

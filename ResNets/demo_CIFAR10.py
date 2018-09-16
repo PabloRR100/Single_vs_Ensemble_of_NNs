@@ -192,13 +192,6 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
                          shuffle = False, num_workers=n_workers, pin_memory = mem)
 
 
-## Sanity check for epochs - batch size - iterations
-#print('Checking epochs - iterations...')
-#batches = len(train_loader)
-#samples = len(train_loader.sampler.indices)
-#n_iters, n_epochs, batch_size = def_training(n_iters, n_epochs, 
-#                                             batch_size, batches, samples)
-
 batches = len(train_loader)
 samples = len(train_loader.sampler.indices) 
 n_epochs= n_iters // batches
@@ -298,7 +291,6 @@ results.show()
 
 
 
-
 # Ensemble Model
 
 print('Starting Ensemble Training...')
@@ -313,11 +305,9 @@ with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
 ens_results.show()
 
 
-
 ## Training figures
 #with open('Results_Single_Models.pkl', 'rb') as input:
 #    res = pickle.load(input)
-#
 #
 #with open('Results_Ensemble_Models.pkl', 'rb') as input:
 #    eres = pickle.load(input)
