@@ -213,7 +213,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             # Save model and delete previous if it is the best
             if acc > best_acc:
                 
-                prev_models = glob.glob(os.path.join(modelpath, '*.pkl'))
+                prev_models = glob.glob(os.path.join(modelpath, names[0][:-2] + '*.pkl'))
                 for p in prev_models:
                     os.remove(p)
                     

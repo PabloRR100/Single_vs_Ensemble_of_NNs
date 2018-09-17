@@ -55,7 +55,6 @@ n_iters = args.iterations
 batch_size = args.batch_size
 learning_rate = args.learning_rate
 save_frequency = args.save_frequency
-if args.name is None: args.name = 'ResNet'
 
 table = BT()
 table.append_row(['Save', str(args.save)])
@@ -337,12 +336,6 @@ savefig(data3, path_to_figures, title + '_train_accuracy_per_epoch.png')
 savefig(data4, path_to_figures, title + '_train_loss_per_iter.png')
 savefig(data5, path_to_figures, title + '_valid_accuracy.png')
 savefig(data6, path_to_figures, title + '_valid_loss.png')
-
-
-import pandas as pd
-import seaborn as sns
-sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_accy))
-
 
 
 # 4 - Evaluate Models

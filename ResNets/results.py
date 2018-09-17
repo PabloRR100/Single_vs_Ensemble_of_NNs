@@ -1,5 +1,5 @@
 
-from collections import OrderedDict as odict
+from collections import OrderedDict as ordict
 from beautifultable import BeautifulTable as BT
 
 class Results(object):
@@ -29,17 +29,17 @@ class Results(object):
         else:
             
             # Store per epoch data
-            self.train_loss = odict()
-            self.train_accy = odict()
+            self.train_loss = ordict()
+            self.train_accy = ordict()
     
-            self.valid_loss = odict()
-            self.valid_accy = odict()
+            self.valid_loss = ordict()
+            self.valid_accy = ordict()
             
             self.timer = list()
             
             # Store per iteration (training) data
-            self.iter_train_loss = odict()
-            self.iter_train_accy = odict()
+            self.iter_train_loss = ordict()
+            self.iter_train_accy = ordict()
             
             
             self.train_loss['ensemble'] = list()
