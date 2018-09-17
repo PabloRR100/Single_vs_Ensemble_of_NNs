@@ -1,5 +1,5 @@
 
-from collections import Orderedodict as odict
+from collections import OrderedDict as odict
 from beautifultable import BeautifulTable as BT
 
 class Results(object):
