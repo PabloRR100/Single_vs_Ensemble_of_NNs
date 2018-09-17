@@ -1,5 +1,6 @@
 
 import os
+import math
 import pickle
 import numpy as np
 import pandas as pd
@@ -13,19 +14,19 @@ from dash.dependencies import Input, Output
 from results import aggregateResults
 
 
-## Training figures
-#with open('Results_Single_Models.pkl', 'rb') as input:
-#    res = pickle.load(input)
-#
-#with open('Results_Ensemble_Models.pkl', 'rb') as input:
-#    eres = pickle.load(input)
-
 # Training figures
-with open('../Results_Single_Models_Backup.pkl', 'rb') as input:
+with open('Results_Single_Models.pkl', 'rb') as input:
     res = pickle.load(input)
 
-with open('../Results_Ensemble_Models_Backup.pkl', 'rb') as input:
+with open('Results_Ensemble_Models.pkl', 'rb') as input:
     eres = pickle.load(input)
+#
+## Training figures
+#with open('../Results_Single_Models_Backup.pkl', 'rb') as input:
+#    res = pickle.load(input)
+#
+#with open('../Results_Ensemble_Models_Backup.pkl', 'rb') as input:
+#    eres = pickle.load(input)
 
 data = aggregateResults(res, eres)
 
@@ -38,7 +39,7 @@ resolutions = [{'label': 'Iteration', 'value': 'iter'},
 
 measurements = [{'label': 'Loss', 'value': 'loss'},
                 {'label': 'Accuracy', 'value': 'accy'},
-                {'label': 'Test Error', 'value': 'accy'}]
+                {'label': 'Test Error', 'value': 'test'}]
 
 
 app.layout = html.Div([
@@ -50,13 +51,13 @@ app.layout = html.Div([
                 
                 dcc.Dropdown(id='measure-picker',
                      options = measurements,
-                     value = measurements[1]),
+                     value = 'test'),
     
                 dcc.Graph(id='graph'),
                 
                 dcc.Dropdown(id='resolution-picker',
                              options = resolutions,
-                             value = resolutions[1])
+                             value = 'epoch')
                 ])
         ])
 
@@ -66,14 +67,32 @@ app.layout = html.Div([
                Input(component_id = 'resolution-picker', component_property='value')])    
 def train_graph(measure, resolution):
         
-    mlab = measure['label']
-    mval = measure['value']
+    print(measure)
+    print(resolution)
     
-    rlab = resolution['laeb']
-    rval = resolution['value']
+    def roundup(x):
+        x = x.max()
+        return int(math.ceil(x / 10.0)) * 10
+    
+    def rounddown(x):
+        x = x.min()
+        return int(math.floor(x / 10.0)) * 10
+    
+    def setcolor(x):
+        colors = {'ensemble': 'red',
+                  'ResNet56': 'blue'}
+        return colors[x]
+    
+#    mlab = measure['label']
+#    rlab = resolution['label']
+#    
+#    mval = measure['value']
+#    rval = resolution['value']
     
     # Return data only for the selection from the dropdown
-    df = data['train'][rval][mval]
+#    df = data['train'][ ][mval]
+    
+    df = data['train'][resolution][measure]
 
     
     traces = []
@@ -86,16 +105,19 @@ def train_graph(measure, resolution):
                         x = df.index.values+1, 
                         y = df[col],
                         name = col,
-                        mode = 'lines+markers',
+                        mode = 'lines+markers' if col in ['ensemble', 'ResNet56'] else 'lines',
                         marker = {'size': 5},
+                        line = dict(
+                                width = 2 if col in ['ensemble', 'ResNet56'] else 0.8,
+                                dash = 'dash' if col not in ['ensemble', 'ResNet56'] else 'solid'),
                         visible = True if col in ['ensemble', 'ResNet56'] else 'legendonly'
                         )
                 )
         
     layout = go.Layout(title='Training Results',
-                       xaxis = {'title': rlab},
-                       yaxis = {'title': mlab, 
-                                'range': [0, 100],
+                       xaxis = {'title': 'Testing'},
+                       yaxis = {'title': 'Testing', 
+                                'range': [rounddown(df[col]), roundup(df[col])],
                                 'dtick': 10,},
                        hovermode = 'closest')
     

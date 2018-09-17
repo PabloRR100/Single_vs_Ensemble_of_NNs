@@ -187,7 +187,7 @@ def aggregateResults(res, eres):
     iter_train_testerror = 100 - iter_train_accy.iloc[:,:]
     
     # Training Test Error Per Epoch
-    epoch_train_testerror = 100 - iter_train_accy.iloc[:,:]
+    epoch_train_testerror = 100 - epoch_train_accy.iloc[:,:]
     
     
     # Validation Loss
