@@ -49,17 +49,19 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             images = images.to(device)
             labels = labels.to(device)
             
-            outputs = []
+            outs = []
             for model in ensemble:
                 
                 output = model(images)
-                outputs.append(output)
+                outs.append(output)
                 
-            outputs = torch.mean(torch.stack(outputs), dim=0)
+            outputs = torch.mean(torch.stack(outs), dim=0)
                 
             _, preds = outputs.max(1)
             total += outputs.size(0)
             correct += int(sum(preds == labels))
+            
+            control += 1
      
     print('Ensemble accuracy {}%'.format(100 * correct / total))
     print('Control: ', control)
