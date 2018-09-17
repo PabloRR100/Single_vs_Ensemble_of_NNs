@@ -98,10 +98,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         
         if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
         
-        stat = [epoch, epochs, j, iters, lss, acc]
-        stats = '\n Train: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
-        print(stats)
-        
         # Validation
         if validate:
             
