@@ -16,12 +16,15 @@ def avoidWarnings():
 
 
 now = datetime.now
-def time(start):
-    ''' Helper function to track time wrt an anchor'''
-    elapsed = (now() - start).total_seconds()
-    hours =  int(elapsed/3600)
-    minutes = round((elapsed/3600 - hours)*60, 2)
-    return hours, minutes
+def elapsed(start):
+    return round((now() - start).seconds/60, 2)
+
+#def time(start):
+#    ''' Helper function to track time wrt an anchor'''
+#    elapsed = (now() - start).total_seconds()
+#    hours =  int(elapsed/3600)
+#    minutes = round((elapsed/3600 - hours)*60, 2)
+#    return hours, minutes
 
 
 def print_stats(epoch, epochs, j, iters, lss, acc, subset):
@@ -139,6 +142,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             
             if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid')              
         
-        results.append_time(time(start))
+        results.append_time(elapsed(start))
         
     return results
