@@ -53,6 +53,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
 #        validloader = islice(validloader, 2)
     
     start = now()
+    results.name = name
     results.timer.append(0)
     for epoch in range(1, epochs+1):
         

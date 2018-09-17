@@ -65,6 +65,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             
     start = now()
     results.append_time(0)
+    results.name = names[0][:-2] + '(x' + str(len(names)) + ')'
+    
     for epoch in range(1, epochs+1):
                 
         # Training
