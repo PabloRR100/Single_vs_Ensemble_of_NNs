@@ -135,7 +135,7 @@ data_path = os.path.abspath(os.path.join(root, '../datasets'))
 path_to_logs = os.path.join(results, 'logs', 'resnets')
 path_to_models = os.path.join(results, 'models', 'resnets')
 path_to_figures = os.path.join(results, 'figures', 'resnets')
-path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
+#path_to_dataframes = os.path.join(results, 'dataframes', 'resnets')
 
 train_log = os.path.join(path_to_logs, 'train')
 test_log = os.path.join(path_to_logs, 'test')
@@ -147,7 +147,7 @@ assert os.path.exists(data_path), 'Data folder not found'
 assert os.path.exists(path_to_logs), 'Logs folder not found'
 assert os.path.exists(path_to_models), 'Models folder not found'
 assert os.path.exists(path_to_figures), 'Figure folder not found'
-assert os.path.exists(path_to_dataframes), 'Dataframes folder not found'
+#assert os.path.exists(path_to_dataframes), 'Dataframes folder not found'
 
 print('Paths Validated')
 print('---------------')
@@ -163,8 +163,8 @@ paths = {
         'resulsts': results,
         'logs': {'train': train_log, 'test': test_log}, 
         'models': path_to_models,
-        'figures': path_to_figures,
-        'dataframes': path_to_dataframes
+        'figures': path_to_figures
+#        'dataframes': path_to_dataframes
         }
 
 
