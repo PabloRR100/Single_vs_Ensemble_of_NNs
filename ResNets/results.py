@@ -2,7 +2,7 @@
 from collections import OrderedDict as ordict
 from beautifultable import BeautifulTable as BT
 
-class Results(object):
+class TrainResults(object):
     
     def __init__(self, models):
         
@@ -154,3 +154,11 @@ class Results(object):
         elif not m: self.iter_train_accy['ensemble'].append(v)
         # individual learner
         else: self.iter_train_accy['m' + str(m)].append(v)  
+
+
+class TestResults():
+    
+    def __init__(self):
+        
+        self.single_accy
+        self.ensemble_accy

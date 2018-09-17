@@ -2,10 +2,10 @@
 import os
 import glob
 import torch
-from results import Results
 from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
+from results import TrainResults as Results
 
 
 def avoidWarnings():

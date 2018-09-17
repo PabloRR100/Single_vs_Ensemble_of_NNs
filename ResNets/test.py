@@ -1,11 +1,13 @@
 
 import torch 
 from torch.autograd import Variable
+from results import TestResults as Results
 
 def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             
     # Single Network Performance
     
+    results = Results()
     singleModel.eval()
     for m in ensemble: m.eval()
     
@@ -32,6 +34,7 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
         
     print('Single model accuracy {}%'.format(100 * correct / total))
     print('Control: ', control)
+    results.single_accy = round((100 * correct / total), 3)
         
     
     # Ensemble Model 
@@ -65,3 +68,6 @@ def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
      
     print('Ensemble accuracy {}%'.format(100 * correct / total))
     print('Control: ', control)
+    results.ensemble_accy = round((100 * correct / total), 3)
+    
+    return results

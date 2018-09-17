@@ -353,7 +353,10 @@ print('\n\nTESTING')
 print('-------')
 
 from test import test
-test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+
+testresults = test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+with open('Results_Testing.pkl', 'wb') as object_result:
+    pickle.dump(testresults, object_result, pickle.HIGHEST_PROTOCOL)
 
 
 exit()
