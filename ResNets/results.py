@@ -1,4 +1,5 @@
 
+from collections import Orderedodict as odict
 from beautifultable import BeautifulTable as BT
 
 class Results(object):
@@ -28,19 +29,29 @@ class Results(object):
         else:
             
             # Store per epoch data
-            self.train_loss = dict()
-            self.train_accy = dict()
+            self.train_loss = odict()
+            self.train_accy = odict()
     
-            self.valid_loss = dict()
-            self.valid_accy = dict()
+            self.valid_loss = odict()
+            self.valid_accy = odict()
             
             self.timer = list()
             
             # Store per iteration (training) data
-            self.iter_train_loss = dict()
-            self.iter_train_accy = dict()
+            self.iter_train_loss = odict()
+            self.iter_train_accy = odict()
             
+            
+            self.train_loss['ensemble'] = list()
+            self.train_accy['ensemble'] = list()
+            
+            self.valid_loss['ensemble'] = list()
+            self.valid_accy['ensemble'] = list()
+            
+            self.iter_train_loss['ensemble'] = list()
+            self.iter_train_accy['ensemble'] = list()
                         
+            
             for i in range(1, 1 + self.m):
                 name = 'm' + str(i)
                 self.train_loss[name] = list()
@@ -51,15 +62,6 @@ class Results(object):
                 
                 self.iter_train_loss[name] = list()
                 self.iter_train_accy[name] = list()
-                
-            self.train_loss['ensemble'] = list()
-            self.train_accy['ensemble'] = list()
-            
-            self.valid_loss['ensemble'] = list()
-            self.valid_accy['ensemble'] = list()
-            
-            self.iter_train_loss['ensemble'] = list()
-            self.iter_train_accy['ensemble'] = list()
             
             
     def show(self):

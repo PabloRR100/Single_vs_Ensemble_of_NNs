@@ -305,38 +305,44 @@ with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
 ens_results.show()
 
 
-## Training figures
-#with open('Results_Single_Models.pkl', 'rb') as input:
-#    res = pickle.load(input)
-#
-#with open('Results_Ensemble_Models.pkl', 'rb') as input:
-#    eres = pickle.load(input)
-#
-#
-#data1 = {'single':res.iter_train_accy, 
-#        'ensemble': eres.iter_train_accy['ensemble']}
-#
-#data2 = {'single':res.iter_train_loss, 
-#        'ensemble': eres.iter_train_loss['ensemble']}
-#
-#data3 = {'single':res.train_accy, 
-#        'ensemble': eres.train_accy['ensemble']}
-#
-#data4 = {'single':res.train_loss, 
-#        'ensemble': eres.train_loss['ensemble']}
-#
-#data5 = {'single':res.valid_accy, 
-#        'ensemble': eres.valid_accy['ensemble']}
-#
-#data6 = {'single':res.valid_loss, 
-#        'ensemble': eres.valid_loss['ensemble']}
-# 
-#savefig(data1, path_to_figures, title + '_train_accuracy_per_iter.png')
-#savefig(data2, path_to_figures, title + '_train_loss_per_iter.png')
-#savefig(data3, path_to_figures, title + '_train_accuracy_per_epoch.png')
-#savefig(data4, path_to_figures, title + '_train_loss_per_iter.png')
-#savefig(data5, path_to_figures, title + '_valid_accuracy.png')
-#savefig(data6, path_to_figures, title + '_valid_loss.png')
+# Training figures
+with open('Results_Single_Models.pkl', 'rb') as input:
+    res = pickle.load(input)
+
+with open('Results_Ensemble_Models.pkl', 'rb') as input:
+    eres = pickle.load(input)
+
+
+data1 = {'single':res.iter_train_accy, 
+        'ensemble': eres.iter_train_accy['ensemble']}
+
+data2 = {'single':res.iter_train_loss, 
+        'ensemble': eres.iter_train_loss['ensemble']}
+
+data3 = {'single':res.train_accy, 
+        'ensemble': eres.train_accy['ensemble']}
+
+data4 = {'single':res.train_loss, 
+        'ensemble': eres.train_loss['ensemble']}
+
+data5 = {'single':res.valid_accy, 
+        'ensemble': eres.valid_accy['ensemble']}
+
+data6 = {'single':res.valid_loss, 
+        'ensemble': eres.valid_loss['ensemble']}
+ 
+savefig(data1, path_to_figures, title + '_train_accuracy_per_iter.png')
+savefig(data2, path_to_figures, title + '_train_loss_per_iter.png')
+savefig(data3, path_to_figures, title + '_train_accuracy_per_epoch.png')
+savefig(data4, path_to_figures, title + '_train_loss_per_iter.png')
+savefig(data5, path_to_figures, title + '_valid_accuracy.png')
+savefig(data6, path_to_figures, title + '_valid_loss.png')
+
+
+import pandas as pd
+import seaborn as sns
+sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_accy))
+
 
 
 # 4 - Evaluate Models

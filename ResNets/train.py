@@ -7,7 +7,6 @@ from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 
-
 def avoidWarnings():
     import warnings
     warnings.filterwarnings('always')
