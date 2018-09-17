@@ -17,12 +17,15 @@ def avoidWarnings():
     
     
 now = datetime.now
-def time(start):
-    ''' Helper function to track time wrt an anchor'''
-    elapsed = (now() - start).total_seconds()
-    hours =  int(elapsed/3600)
-    minutes = round((elapsed/3600 - hours)*60, 2)
-    return hours, minutes
+def elapsed(start):
+    return round((now() - start).seconds/60, 2)
+
+#def time(start):
+#    ''' Helper function to track time wrt an anchor'''
+#    elapsed = (now() - start).total_seconds()
+#    hours =  int(elapsed/3600)
+#    minutes = round((elapsed/3600 - hours)*60, 2)
+#    return hours, minutes
 
 
 def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
@@ -221,6 +224,6 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                     torch.save(m.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (names[i], epoch))) 
                 best_acc = acc
             
-        results.append_time(time(start))
+        results.append_time(elapsed(start))
         
     return results
