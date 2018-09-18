@@ -52,7 +52,6 @@ with open('Results_Ensemble_Models.pkl', 'rb') as input:
 
 data = aggregateResults(res, eres)
 
-#options = ['Single Model', 'Ensemble Model'] + [str(k) for k in eres.train_accy.keys()]
 resolutions = [{'label': 'Iteration', 'value': 'iter'},
                {'label': 'Epochs', 'value': 'epoch'}]
 
@@ -60,6 +59,31 @@ measurements = [{'label': 'Loss', 'value': 'loss'},
                 {'label': 'Accuracy', 'value': 'accy'},
                 {'label': 'Test Error', 'value': 'test'}]
 
+
+def time_graph():
+    
+    traces = []
+    for c in data['timer']:
+        traces.append(
+                go.Scatter(x = data['timer'].index.values+1, 
+                           y = data['timer'][c],
+                           name = c,
+                           mode = 'lines'
+                )
+        )
+    
+    print("I'm here")       
+    print(traces[0].x)
+    print(traces[0].y)
+            
+    layout = go.Layout(title='Timer',
+                       xaxis={'title':'Epochs'},
+                       yaxis={'title':'Minutes'},)
+
+    return {'data': traces, 'layout':layout}
+
+
+def test_graph():
 
 
 # Dashboard Layout
@@ -100,21 +124,24 @@ app.layout = html.Div([
         ], className = 'six columns')
             
     ], className = 'row'),
-    
-    
-    
+        
     html.Div([
         
         # Time Analysis
         html.Div([                
-            dcc.Graph(id='test_graph'),                
+             
+            dcc.Graph(
+                id='life-exp-vs-gdp',
+                figure=time_graph()
+            )
+            
         ], className = 'eigth columns'),
                 
-#        # Test results
-#        html.Div([
-#            dcc.Graph(id='test-graph'),                
-#        ], className = 'four columns')
-#            
+        # Test results
+        html.Div([
+            dcc.Graph(id='test-graph'),                
+        ], className = 'four columns')
+            
     ], className = 'row'),
             
 ])
@@ -123,8 +150,8 @@ app.layout = html.Div([
 app.css.append_css({
     'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'
 })
-    
 
+    
 @app.callback(Output(component_id = 'train_graph', component_property='figure'),
               [Input(component_id = 'measure-picker', component_property='value'),
                Input(component_id = 'resolution-picker', component_property='value')])    
@@ -133,9 +160,7 @@ def train_graph(measure, resolution):
     df = data['train'][resolution][measure]
     
     traces = []
-    
-    for col in df:
-        
+    for col in df:    
         traces.append(
                 go.Scatter(
                         #x = np.range(len(list(df))), 
@@ -148,14 +173,14 @@ def train_graph(measure, resolution):
                         visible = True if col in ['ensemble', 'ResNet56'] else 'legendonly'
                         )
                 )
-        
+                
     layout = go.Layout(title='Training Results',
                        xaxis = {'title': resolution},
                        yaxis = {'title': measure, 
                                 'range': [rounddown(df[col]), roundup(df[col])],
                                 'dtick': 10,},
                        hovermode = 'closest')
-    
+
     return {'data': traces, 'layout': layout}
 
 
@@ -189,8 +214,42 @@ def valid_graph(measure):
                                 'dtick': 10,},
                        hovermode = 'closest')
     
-    return {'data': traces, 'layout': layout}
+    return {'data': traces, 'layout': layout}    
 
-    
+
 if __name__ == '__main__':
     app.run_server(debug=True)
+
+
+
+
+
+
+## BACKUP CODE
+
+
+#    dcc.Interval(id='n', interval=1000e3, n_intervals=0),
+#    dcc.Graph(id='time_graph'),  
+
+#@app.callback(Output('time_graph', 'figure'), [Input('n', 'n_intervals')])
+#def time_graph(n):
+#    
+#    traces = []
+#    for c in data['timer']:
+#        traces.append(
+#                go.Scatter(x = data['timer'].index.values+1, 
+#                           y = data['timer'][c],
+#                           name = c,
+#                           mode = 'lines'
+#                )
+#        )
+#    
+#    print("I'm here")       
+#    print(traces[0].x)
+#    print(traces[0].y)
+#            
+#    layout = go.Layout(title='Timer',
+#                       xaxis={'title':'Epochs'},
+#                       yaxis={'title':'Minutes'},)
+#
+#    return {'data': traces, 'layout':layout}

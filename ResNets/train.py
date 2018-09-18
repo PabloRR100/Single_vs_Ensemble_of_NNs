@@ -2,7 +2,6 @@
 import os
 import glob
 import torch
-from itertools import islice
 from datetime import datetime 
 from torch.autograd import Variable
 from results import TrainResults as Results
@@ -18,13 +17,6 @@ def avoidWarnings():
 now = datetime.now
 def elapsed(start):
     return round((now() - start).seconds/60, 2)
-
-#def time(start):
-#    ''' Helper function to track time wrt an anchor'''
-#    elapsed = (now() - start).total_seconds()
-#    hours =  int(elapsed/3600)
-#    minutes = round((elapsed/3600 - hours)*60, 2)
-#    return hours, minutes
 
 
 def print_stats(epoch, epochs, j, iters, lss, acc, subset):
@@ -52,6 +44,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     if test:         
         epochs = 6
 #        print('training in test mode')
+#        from itertools import islice
 #        trainloader = islice(trainloader, 2)
 #        validloader = islice(validloader, 2)
     

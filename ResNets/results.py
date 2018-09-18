@@ -237,6 +237,7 @@ def aggregateResults(res, eres):
     # DATA DICTIONARY
     data = {'train': train,
             'valid': valid,
-            'test': test}
+            'test': test,
+            'timer': timer}
 
     return data
