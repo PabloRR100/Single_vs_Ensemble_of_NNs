@@ -1,9 +1,6 @@
 
-import os
 import math
 import pickle
-import numpy as np
-import pandas as pd
 import plotly.graph_objs as go
 
 import dash
@@ -18,10 +15,14 @@ from results import aggregateResults
 
 def roundup(x):
     x = x.max()
+    print('Max :', x)
+    print('Round up: ', int(math.ceil(x / 10.0)) * 10)
     return int(math.ceil(x / 10.0)) * 10
 
 def rounddown(x):
     x = x.min()
+    print('Min :', x)
+    print('Round down: ', int(math.floor(x / 10.0)) * 10)
     return int(math.floor(x / 10.0)) * 10
 
 def drawline(c):
@@ -85,10 +86,12 @@ def time_graph():
 def test_graph():
     
     d = data['test']
+    c = ['red', 'blue']
     x = ['Deep Model', 'Ensemble Model']
     y = [d['single'], d['ensemble']]
     
-    traces = (go.Bar(x = x, y = y))
+    traces = [go.Bar(x = x, y = y, 
+                     marker = {'color':c})]
         
     layout = go.Layout(title='Test Accuracy',
                   xaxis={'title':'Models'},
@@ -105,39 +108,69 @@ app.layout = html.Div([
 
     html.Div([
         html.H1('ResNet56 vs ResNet20 (x3)')
-    ], style = {'text-align':'center'}),
+    ], id = 'title', style = {'text-align':'center'}),
         
     html.Div([
         
         # Training results
-        html.Div([
-            
-            dcc.Dropdown(id='measure-picker',
-                 options = measurements,
-                 value = 'test'),
-    
-            dcc.Graph(id='train_graph'),
-            
-            dcc.Dropdown(id='resolution-picker',
-                         options = resolutions,
-                         value = 'epoch')
+        html.Div([       
                 
+            # Dropdowns
+            html.Div([            
+                    
+                # Metric Dropdown
+                html.Div([                    
+                    dcc.Dropdown(
+                        id='measure-picker',
+                        options = measurements,
+                        value = 'test'),
+                ], className = 'six columns'),                
+                            
+                # Metric Dropdown
+                html.Div([
+                    dcc.Dropdown(
+                        id='resolution-picker',
+                        options = resolutions,
+                        value = 'epoch')
+                ], className = 'six columns')
+                
+            ],  className = 'row'),
+                
+            # Graph
+            html.Div([
+                dcc.Graph(id='train_graph')
+            ])
+                    
         ], className = 'six columns'),
                 
         # Validation results
         html.Div([
+            
+            # Dropdown
+            html.Div([            
+                    
+                # Metric Dropdown
+                html.Div([       
+                    dcc.Dropdown(
+                        id='valid-measure-picker',
+                        options = measurements,
+                        value = 'test')
+                ], className = 'six columns'),
+                    
+                # Metric Dropdown
+                html.Div([], className = 'six columns')
                 
-            dcc.Dropdown(id='valid-measure-picker',
-                 options = measurements,
-                 value = 'test'),
-    
-            dcc.Graph(id='valid-graph'),
+            ], className = 'row'), 
                 
+            # Graph
+            html.Div([
+                dcc.Graph(id='valid-graph'),
+            ])
+                    
         ], className = 'six columns')
             
     ], className = 'row'),
-        
-        
+    
         
     html.Div([
         
@@ -194,8 +227,7 @@ def train_graph(measure, resolution):
     layout = go.Layout(title='Training Results',
                        xaxis = {'title': resolution},
                        yaxis = {'title': measure, 
-                                #'range': [rounddown(df[col]), roundup(df[col])],
-                                'range': [0, 100],
+                                'range': [rounddown(df.min()), roundup(df.max())],
                                 'dtick': 10,},
                        hovermode = 'closest')
 
@@ -228,8 +260,7 @@ def valid_graph(measure):
     layout = go.Layout(title='Validation Data',
                        xaxis = {'title': 'Epochs'},
                        yaxis = {'title': measure, 
-                                #'range': [rounddown(df[col]), roundup(df[col])],
-                                'range': [0, 100],
+                                'range': [rounddown(df.min()), roundup(df.max())],
                                 'dtick': 10,},
                        hovermode = 'closest')
     
@@ -238,37 +269,3 @@ def valid_graph(measure):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-
-
-
-
-
-
-## BACKUP CODE
-
-
-#    dcc.Interval(id='n', interval=1000e3, n_intervals=0),
-#    dcc.Graph(id='time_graph'),  
-
-#@app.callback(Output('time_graph', 'figure'), [Input('n', 'n_intervals')])
-#def time_graph(n):
-#    
-#    traces = []
-#    for c in data['timer']:
-#        traces.append(
-#                go.Scatter(x = data['timer'].index.values+1, 
-#                           y = data['timer'][c],
-#                           name = c,
-#                           mode = 'lines'
-#                )
-#        )
-#    
-#    print("I'm here")       
-#    print(traces[0].x)
-#    print(traces[0].y)
-#            
-#    layout = go.Layout(title='Timer',
-#                       xaxis={'title':'Epochs'},
-#                       yaxis={'title':'Minutes'},)
-#
-#    return {'data': traces, 'layout':layout}
