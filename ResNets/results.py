@@ -3,7 +3,7 @@ from pandas import concat, DataFrame
 from collections import OrderedDict as ordict
 from beautifultable import BeautifulTable as BT
 
-class TrainResults(object):
+class Results(object):
     
     def __init__(self, models):
         
@@ -196,7 +196,7 @@ def aggregateResults(res, eres):
     
     # Validation Accuracy 
     valid_accy = concat((DataFrame(res.valid_accy, columns=['ResNet56']), 
-                            DataFrame.from_dict(eres.train_accy)), axis=1)
+                            DataFrame.from_dict(eres.valid_accy)), axis=1)
     
     # Validation Test Error
     valid_testerror = 100 - valid_accy.iloc[:,:]
