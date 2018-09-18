@@ -42,6 +42,9 @@ with open('Results_Single_Models.pkl', 'rb') as input:
 
 with open('Results_Ensemble_Models.pkl', 'rb') as input:
     eres = pickle.load(input)
+    
+with open('Results_Testing.pkl', 'rb') as input:
+    test = pickle.load(input)
 
 ## Training figures
 #with open('../Results_Single_Models_Backup.pkl', 'rb') as input:
@@ -50,7 +53,7 @@ with open('Results_Ensemble_Models.pkl', 'rb') as input:
 #with open('../Results_Ensemble_Models_Backup.pkl', 'rb') as input:
 #    eres = pickle.load(input)
 
-data = aggregateResults(res, eres)
+data = aggregateResults(res, eres, test)
 
 resolutions = [{'label': 'Iteration', 'value': 'iter'},
                {'label': 'Epochs', 'value': 'epoch'}]
@@ -71,11 +74,7 @@ def time_graph():
                            mode = 'lines'
                 )
         )
-    
-    print("I'm here")       
-    print(traces[0].x)
-    print(traces[0].y)
-            
+                
     layout = go.Layout(title='Timer',
                        xaxis={'title':'Epochs'},
                        yaxis={'title':'Minutes'},)
@@ -84,7 +83,20 @@ def time_graph():
 
 
 def test_graph():
+    
+    d = data['test']
+    x = ['Deep Model', 'Ensemble Model']
+    y = [d['single'], d['ensemble']]
+    
+    traces = (go.Bar(x = x, y = y))
+        
+    layout = go.Layout(title='Test Accuracy',
+                  xaxis={'title':'Models'},
+                  yaxis={'title':'Accuracy (%)'},)
 
+    return {'data': traces, 'layout':layout}
+        
+         
 
 # Dashboard Layout
 
@@ -125,22 +137,27 @@ app.layout = html.Div([
             
     ], className = 'row'),
         
+        
+        
     html.Div([
         
         # Time Analysis
         html.Div([                
              
             dcc.Graph(
-                id='life-exp-vs-gdp',
+                id='time-graph',
                 figure=time_graph()
             )
             
-        ], className = 'eigth columns'),
+        ], className = 'six columns'),
                 
         # Test results
         html.Div([
-            dcc.Graph(id='test-graph'),                
-        ], className = 'four columns')
+            dcc.Graph(
+                id='test-graph',
+                figure=test_graph()
+            )                
+        ], className = 'six columns')
             
     ], className = 'row'),
             
@@ -177,7 +194,8 @@ def train_graph(measure, resolution):
     layout = go.Layout(title='Training Results',
                        xaxis = {'title': resolution},
                        yaxis = {'title': measure, 
-                                'range': [rounddown(df[col]), roundup(df[col])],
+                                #'range': [rounddown(df[col]), roundup(df[col])],
+                                'range': [0, 100],
                                 'dtick': 10,},
                        hovermode = 'closest')
 
@@ -210,7 +228,8 @@ def valid_graph(measure):
     layout = go.Layout(title='Validation Data',
                        xaxis = {'title': 'Epochs'},
                        yaxis = {'title': measure, 
-                                'range': [rounddown(df[col]), roundup(df[col])],
+                                #'range': [rounddown(df[col]), roundup(df[col])],
+                                'range': [0, 100],
                                 'dtick': 10,},
                        hovermode = 'closest')
     

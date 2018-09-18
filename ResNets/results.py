@@ -163,7 +163,7 @@ class TestResults():
         self.ensemble_accy = None
         
 
-def aggregateResults(res, eres):
+def aggregateResults(res, eres, test):
     
     # Timer
     timer = concat((DataFrame(res.timer), DataFrame(eres.timer)), axis=1)
@@ -229,8 +229,8 @@ def aggregateResults(res, eres):
     
     
     # TESTING DATA
-    test = {'single': 'placeholder',
-            'ensemble': 'placeholder'}
+    test = {'single': test.single_accy,
+            'ensemble': test.ensemble_accy}
     
     
     
