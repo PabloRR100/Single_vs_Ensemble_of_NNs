@@ -3,7 +3,7 @@ from pandas import concat, DataFrame
 from collections import OrderedDict as ordict
 from beautifultable import BeautifulTable as BT
 
-class Results(object):
+class TrainResults(object):
     
     def __init__(self, models):
         
