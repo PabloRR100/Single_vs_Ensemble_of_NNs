@@ -8,6 +8,7 @@ class TrainResults(object):
     def __init__(self, models):
         
         self.m = len(models)
+        self.timer = list()
         
         # In case of a single model
         if self.m == 1:
@@ -18,8 +19,6 @@ class TrainResults(object):
             
             self.valid_loss = list()
             self.valid_accy = list()
-            
-            self.timer = list()
             
             # Store per iteration (training) data
             self.iter_train_loss = list()
@@ -35,9 +34,7 @@ class TrainResults(object):
     
             self.valid_loss = ordict()
             self.valid_accy = ordict()
-            
-            self.timer = list()
-            
+                        
             # Store per iteration (training) data
             self.iter_train_loss = ordict()
             self.iter_train_accy = ordict()
@@ -84,6 +81,7 @@ class TrainResults(object):
             table.append_row(['Ensemble', len(self.train_loss['ensemble']), 
                               len(self.valid_loss['ensemble']), len(self.iter_train_loss['ensemble'])])
         print(table)
+        
         
     def append_time(self, v):
         self.timer.append(v)
@@ -161,11 +159,15 @@ class TestResults():
     
     def __init__(self):
         
-        self.single_accy
-        self.ensemble_accy
+        self.single_accy = None
+        self.ensemble_accy = None
         
 
 def aggregateResults(res, eres):
+    
+    # Timer
+    timer = concat((DataFrame(res.timer), DataFrame(eres.timer)), axis=1)
+    timer.columns = ['Deep model', 'Ensemble']
     
     # Training Loss Per Iteration
     iter_train_loss = concat((DataFrame(res.iter_train_loss, columns=['ResNet56']), 
@@ -188,7 +190,6 @@ def aggregateResults(res, eres):
     
     # Training Test Error Per Epoch
     epoch_train_testerror = 100 - epoch_train_accy.iloc[:,:]
-    
     
     # Validation Loss
     valid_loss = concat((DataFrame(res.valid_loss, columns=['ResNet56']), 

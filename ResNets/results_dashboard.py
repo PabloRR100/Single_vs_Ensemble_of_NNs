@@ -36,24 +36,21 @@ def drawline(c):
 
 # Data Wrapper
 
-## Training figures
-#with open('Results_Single_Models.pkl', 'rb') as input:
-#    res = pickle.load(input)
-#
-#with open('Results_Ensemble_Models.pkl', 'rb') as input:
-#    eres = pickle.load(input)
-
 # Training figures
-with open('../Results_Single_Models_Backup.pkl', 'rb') as input:
+with open('Results_Single_Models.pkl', 'rb') as input:
     res = pickle.load(input)
 
-with open('../Results_Ensemble_Models_Backup.pkl', 'rb') as input:
+with open('Results_Ensemble_Models.pkl', 'rb') as input:
     eres = pickle.load(input)
 
+## Training figures
+#with open('../Results_Single_Models_Backup.pkl', 'rb') as input:
+#    res = pickle.load(input)
+#
+#with open('../Results_Ensemble_Models_Backup.pkl', 'rb') as input:
+#    eres = pickle.load(input)
+
 data = aggregateResults(res, eres)
-app = dash.Dash()
-
-
 
 #options = ['Single Model', 'Ensemble Model'] + [str(k) for k in eres.train_accy.keys()]
 resolutions = [{'label': 'Iteration', 'value': 'iter'},
@@ -67,6 +64,7 @@ measurements = [{'label': 'Loss', 'value': 'loss'},
 
 # Dashboard Layout
 
+app = dash.Dash()
 app.layout = html.Div([
 
     html.Div([
@@ -101,7 +99,23 @@ app.layout = html.Div([
                 
         ], className = 'six columns')
             
-    ], className = 'row')
+    ], className = 'row'),
+    
+    
+    
+    html.Div([
+        
+        # Time Analysis
+        html.Div([                
+            dcc.Graph(id='test_graph'),                
+        ], className = 'eigth columns'),
+                
+#        # Test results
+#        html.Div([
+#            dcc.Graph(id='test-graph'),                
+#        ], className = 'four columns')
+#            
+    ], className = 'row'),
             
 ])
 
