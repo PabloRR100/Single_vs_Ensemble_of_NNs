@@ -1,0 +1,141 @@
+
+
+CONFIGURATION
+-------------
++---------------+---------------+
+|     Save      |     False     |
++---------------+---------------+
+|     Name      |     None      |
++---------------+---------------+
+|     Draws     |     False     |
++---------------+---------------+
+|    Testing    |     False     |
++---------------+---------------+
+|   Comments    |     True      |
++---------------+---------------+
+| Ensemble size |      Big      |
++---------------+---------------+
+| ------------- | ------------- |
++---------------+---------------+
+|    Epochs     |     None      |
++---------------+---------------+
+|  Iterations   |     64000     |
++---------------+---------------+
+|  Batch Size   |      128      |
++---------------+---------------+
+| Learning Rate |      0.1      |
++---------------+---------------+
+
+
+COMPUTING CONFIG
+----------------
++-----------------+-------+
+| Python Version  | 3.5.5 |
++-----------------+-------+
+| PyTorch Version | 0.4.0 |
++-----------------+-------+
+|      Cuda       | True  |
++-----------------+-------+
+|     Device      | cuda  |
++-----------------+-------+
+|      Cores      |   6   |
++-----------------+-------+
+|      GPUs       |   1   |
++-----------------+-------+
+|  CUDNN Enabled  | True  |
++-----------------+-------+
+DEFINITION OF PATHS
+-------------------
+Paths Validated
+---------------
+Root path:  /home/pabloruizruiz/Desktop/Single_vs_Ensemble_of_NNs
+Script path:  /home/pabloruizruiz/Desktop/Single_vs_Ensemble_of_NNs/ResNets
+Result path:  /home/pabloruizruiz/Desktop/Single_vs_Ensemble_of_NNs/results
+DataFolder path:  /home/pabloruizruiz/Desktop/datasets
+IMPORTING DATA
+--------------
+Files already downloaded and verified
+Loading dataset:  CIFAR10
++--------------+-------+
+| Train Images | 45000 |
++--------------+-------+
+| Valid Images | 5000  |
++--------------+-------+
+| Test Images  | 10000 |
++--------------+-------+
+|   Classes    |  10   |
++--------------+-------+
+
+
+IMPORTING MODELS
+----------------
++------------+-------------+-----------------+
+|   Model    | M. Paramars | % over ResNet20 |
++------------+-------------+-----------------+
+| ResNset20  |    0.272    |       1.0       |
++------------+-------------+-----------------+
+| ResNset32  |    0.467    |      1.714      |
++------------+-------------+-----------------+
+| ResNset44  |    0.661    |      2.427      |
++------------+-------------+-----------------+
+| ResNset56  |    0.856    |      3.141      |
++------------+-------------+-----------------+
+| ResNset110 |    1.731    |      6.352      |
++------------+-------------+-----------------+
+
+
+TRAINING
+--------
+Starting Single Model Training...
+
+ Train:: Epoch: [1/181] Iter: [352/64000] Loss: 1.729 Acc: 30.56%
+
+ Valid:: Epoch: [1/181] Iter: [352/64000] Loss: 2.212 Acc: 34.44%
+
+ Train:: Epoch: [2/181] Iter: [704/64000] Loss: 1.446 Acc: 45.83%
+
+ Valid:: Epoch: [2/181] Iter: [704/64000] Loss: 1.367 Acc: 47.12%
+
+ Train:: Epoch: [3/181] Iter: [1056/64000] Loss: 1.28 Acc: 48.61%
+
+ Valid:: Epoch: [3/181] Iter: [1056/64000] Loss: 1.811 Acc: 58.34%
+
+ Train:: Epoch: [4/181] Iter: [1408/64000] Loss: 1.229 Acc: 55.56%
+
+ Valid:: Epoch: [4/181] Iter: [1408/64000] Loss: 0.969 Acc: 65.8%
+
+ Train:: Epoch: [5/181] Iter: [1760/64000] Loss: 0.898 Acc: 68.06%
+
+ Valid:: Epoch: [5/181] Iter: [1760/64000] Loss: 1.069 Acc: 69.86%
+
+ Train:: Epoch: [6/181] Iter: [2112/64000] Loss: 1.067 Acc: 62.5%
+
+ Valid:: Epoch: [6/181] Iter: [2112/64000] Loss: 1.231 Acc: 73.66%
+
+ Train:: Epoch: [7/181] Iter: [2464/64000] Loss: 0.432 Acc: 83.33%
+
+ Valid:: Epoch: [7/181] Iter: [2464/64000] Loss: 0.879 Acc: 76.22%
+
+ Train:: Epoch: [8/181] Iter: [2816/64000] Loss: 0.77 Acc: 69.44%
+
+ Valid:: Epoch: [8/181] Iter: [2816/64000] Loss: 1.234 Acc: 78.38%
+
+ Train:: Epoch: [9/181] Iter: [3168/64000] Loss: 0.466 Acc: 77.78%
+
+ Valid:: Epoch: [9/181] Iter: [3168/64000] Loss: 0.69 Acc: 79.12%
+
+ Train:: Epoch: [10/181] Iter: [3520/64000] Loss: 0.542 Acc: 81.94%
+
+ Valid:: Epoch: [10/181] Iter: [3520/64000] Loss: 0.602 Acc: 79.4%
+
+ Train:: Epoch: [11/181] Iter: [3872/64000] Loss: 0.525 Acc: 80.56%
+
+ Valid:: Epoch: [11/181] Iter: [3872/64000] Loss: 1.061 Acc: 79.86%
+
+ Train:: Epoch: [12/181] Iter: [4224/64000] Loss: 0.365 Acc: 91.67%
+
+ Valid:: Epoch: [12/181] Iter: [4224/64000] Loss: 0.841 Acc: 82.28%
+
+ Train:: Epoch: [13/181] Iter: [4576/64000] Loss: 0.425 Acc: 83.33%
+
+ Valid:: Epoch: [13/181] Iter: [4576/64000] Loss: 1.503 Acc: 82.02%
