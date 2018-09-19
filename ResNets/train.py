@@ -18,6 +18,9 @@ now = datetime.now
 def elapsed(start):
     return round((now() - start).seconds/60, 2)
 
+def time():
+    print('{}:{} \n'.format(now().hour, now().minute))
+
 
 def print_stats(epoch, epochs, j, iters, lss, acc, subset):
     
@@ -43,15 +46,17 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     # Testing mode
     if test:         
         epochs = 6
-#        print('training in test mode')
-#        from itertools import islice
-#        trainloader = islice(trainloader, 2)
-#        validloader = islice(validloader, 2)
+        print('training in test mode')
+        from itertools import islice
+        trainloader = islice(trainloader, 2)
+        validloader = islice(validloader, 2)
     
     start = now()
     results.name = name
     results.timer.append(0)
     for epoch in range(1, epochs+1):
+        
+        if epoch % 10 == 0: time()
         
         # Scheduler for learning rate        
         if (j == 32000 or j == 48000):  

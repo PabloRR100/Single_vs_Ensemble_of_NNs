@@ -20,6 +20,10 @@ def elapsed(start):
     return round((now() - start).seconds/60, 2)
 
 
+def time():
+    print('{}:{} \n'.format(now().hour, now().minute))
+
+
 def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
     if n:
         stat = [subset, n, epoch, epochs, j, iters, lss, acc]        
@@ -61,6 +65,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     results.name = names[0][:-2] + '(x' + str(len(names)) + ')'
     
     for epoch in range(1, epochs+1):
+        
+        if epoch % 10 == 0: time()
                 
         # Training
         # --------
