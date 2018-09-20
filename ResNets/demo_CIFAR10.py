@@ -7,6 +7,7 @@ Created on Thu Aug  9 15:31:56 2018
 """
 
 import os
+import glob
 import pickle
 import multiprocessing
 from beautifultable import BeautifulTable as BT
@@ -55,6 +56,7 @@ n_iters = args.iterations
 batch_size = args.batch_size
 learning_rate = args.learning_rate
 save_frequency = args.save_frequency
+load_trained_models = args.pretrained
 
 table = BT()
 table.append_row(['Save', str(args.save)])
@@ -63,11 +65,15 @@ table.append_row(['Draws', str(args.draws)])
 table.append_row(['Testing', str(args.testing)])
 table.append_row(['Comments', str(args.comments)])
 table.append_row(['Ensemble size', str(args.ensembleSize)])
-table.append_row(['-------------', '-------------'])
-table.append_row(['Epochs', n_epochs])
-table.append_row(['Iterations', n_iters])
-table.append_row(['Batch Size', batch_size])
-table.append_row(['Learning Rate', str(args.learning_rate)])
+if load_trained_models:
+    table.append_row(['-------------', '-------------'])
+    table.append_row(['Epochs', n_epochs])
+    table.append_row(['Iterations', n_iters])
+    table.append_row(['Batch Size', batch_size])
+    table.append_row(['Learning Rate', str(args.learning_rate)])
+else:
+    table.append_row(['-------------', '-------------'])
+    table.append_row(['No Training', 'Pretrained Models'])
 print(table)
 #########################################################
 
@@ -87,6 +93,7 @@ print(table)
 #learning_rate = 0.1
 #batch_size = 128
 #n_iters = 64000
+#load_trained_models = False # Load pretrained models instead of training
 ########################################################
 
 
@@ -260,86 +267,74 @@ for i in range(ensemble_size):
 
 
 
-
 # 3 - Train ResNet
 # ----------------
 
-print('\n\nTRAINING')
-print('--------')
+if load_trained_models:
+    
+    ## LOAD TRAINED MODELS
+    
+    def loadmodel(model, device, path):
+        return model.load_state_dict(torch.load(path, map_location=device))
+            
+    
+    if load_trained_models():
+        
+        # Load saved models
+        paths = glob.glob(os.path.join(paths['models'], '*.pkl'))
+        
+        # Single Model
+    #    delattr(singleModel, 'name')
+        singleModel = loadmodel(singleModel, device, paths[0])
+        
+        # Ensemble Members
+        ensemble = []
+        for p in paths[1:]:
+            model = loadmodel(singleModel, device, p)
+            ensemble.append(model)
+            
+    
+    ## TRAINING   
+    
+    print('\n\nTRAINING')
+    print('--------')
+    
+    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+    
+    # Big Single Model
+    
+    from train import train
+    print('Starting Single Model Training...' )
+    
+    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+              valid_loader, n_epochs, n_iters, save, paths, testing]
+    
+    results = train(*params)
+    with open('Results_Single_Models.pkl', 'wb') as object_result:
+        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    results.show()
+    
+    
+    
+    # Ensemble Model
+    
+    from train_ensemble import train as train_ensemble
+    print('Starting Ensemble Training...')
+    
+    params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
+              valid_loader, n_epochs, n_iters, save, paths, testing]
+        
+    ens_results = train_ensemble(*params)
+    with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
+        pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    ens_results.show()
 
-criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
-## Big Single Model
-#
-#from train import train
-#print('Starting Single Model Training...' )
-#
-#params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-#          valid_loader, n_epochs, n_iters, save, paths, testing]
-#
-#results = train(*params)
-#with open('Results_Single_Models.pkl', 'wb') as object_result:
-#    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-#
-#results.show()
-#
-
-
-# Ensemble Model
-
-from train_ensemble import train as train_ensemble
-print('Starting Ensemble Training...')
-
-params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, save, paths, testing]
+else:
     
-ens_results = train_ensemble(*params)
-with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
-    pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
-
-ens_results.show()
-
-
-if not True: ## Just to avoid running this from Azure - it breaks
-    
-    # Training figures
-    with open('Results_Single_Models.pkl', 'rb') as input:
-        res = pickle.load(input)
-    
-    with open('Results_Ensemble_Models.pkl', 'rb') as input:
-        eres = pickle.load(input)
-    
-    
-    data1 = {'single':res.iter_train_accy, 
-            'ensemble': eres.iter_train_accy['ensemble']}
-    
-    data2 = {'single':res.iter_train_loss, 
-            'ensemble': eres.iter_train_loss['ensemble']}
-    
-    data3 = {'single':res.train_accy, 
-            'ensemble': eres.train_accy['ensemble']}
-    
-    data4 = {'single':res.train_loss, 
-            'ensemble': eres.train_loss['ensemble']}
-    
-    data5 = {'single':res.valid_accy, 
-            'ensemble': eres.valid_accy['ensemble']}
-    
-    data6 = {'single':res.valid_loss, 
-            'ensemble': eres.valid_loss['ensemble']}
-     
-    import pandas as pd
-    import seaborn as sns
-    sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_loss))
-    
-    sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_loss))
-    
-    savefig(data1, path_to_figures, title + '_train_accuracy_per_iter.png')
-    savefig(data2, path_to_figures, title + '_train_loss_per_iter.png')
-    savefig(data3, path_to_figures, title + '_train_accuracy_per_epoch.png')
-    savefig(data4, path_to_figures, title + '_train_loss_per_iter.png')
-    savefig(data5, path_to_figures, title + '_valid_accuracy.png')
-    savefig(data6, path_to_figures, title + '_valid_loss.png')
+    print('Loading Already Trained Models...')
 
 
 # 4 - Evaluate Models
@@ -349,12 +344,60 @@ print('\n\nTESTING')
 print('-------')
 
 from test import test
-
+    
 testresults = test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
 with open('Results_Testing.pkl', 'wb') as object_result:
     pickle.dump(testresults, object_result, pickle.HIGHEST_PROTOCOL)
 
 
+
 exit()
+
+
+
+
+
+
+
+#if not True: ## Just to avoid running this from Azure - it breaks
+#    
+#    # Training figures
+#    with open('Results_Single_Models.pkl', 'rb') as input:
+#        res = pickle.load(input)
+#    
+#    with open('Results_Ensemble_Models.pkl', 'rb') as input:
+#        eres = pickle.load(input)
+#    
+#    
+#    data1 = {'single':res.iter_train_accy, 
+#            'ensemble': eres.iter_train_accy['ensemble']}
+#    
+#    data2 = {'single':res.iter_train_loss, 
+#            'ensemble': eres.iter_train_loss['ensemble']}
+#    
+#    data3 = {'single':res.train_accy, 
+#            'ensemble': eres.train_accy['ensemble']}
+#    
+#    data4 = {'single':res.train_loss, 
+#            'ensemble': eres.train_loss['ensemble']}
+#    
+#    data5 = {'single':res.valid_accy, 
+#            'ensemble': eres.valid_accy['ensemble']}
+#    
+#    data6 = {'single':res.valid_loss, 
+#            'ensemble': eres.valid_loss['ensemble']}
+#     
+#    import pandas as pd
+#    import seaborn as sns
+#    sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_loss))
+#    
+#    sns.lineplot(data=pd.DataFrame.from_dict(eres.valid_loss))
+#    
+#    savefig(data1, path_to_figures, title + '_train_accuracy_per_iter.png')
+#    savefig(data2, path_to_figures, title + '_train_loss_per_iter.png')
+#    savefig(data3, path_to_figures, title + '_train_accuracy_per_epoch.png')
+#    savefig(data4, path_to_figures, title + '_train_loss_per_iter.png')
+#    savefig(data5, path_to_figures, title + '_valid_accuracy.png')
+#    savefig(data6, path_to_figures, title + '_valid_loss.png')
 
 

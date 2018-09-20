@@ -39,6 +39,11 @@ parser.add_argument('-D', '--draws',
                     type=str2bool, default=False,
                     help='Boolean: draw figures or jsut save them')
 
+parser.add_argument('-P', '--pretrained', 
+                    type=str2bool, default=False,
+                    help='Boolean: load pretrained models instead of training')
+
+
 # Model parameters
 parser.add_argument('-E', '--ensembleSize',
                     type=str, default='Big', help=mse)

@@ -14,16 +14,10 @@ from results import aggregateResults
 # Helper functions
 
 def roundup(x):
-    x = x.max()
-    print('Max :', x)
-    print('Round up: ', int(math.ceil(x / 10.0)) * 10)
-    return int(math.ceil(x / 10.0)) * 10
+    return int(math.ceil(x.max() / 10.0)) * 10
 
 def rounddown(x):
-    x = x.min()
-    print('Min :', x)
-    print('Round down: ', int(math.floor(x / 10.0)) * 10)
-    return int(math.floor(x / 10.0)) * 10
+    return int(math.floor(x.min() / 10.0)) * 10
 
 def drawline(c):
     
@@ -47,12 +41,6 @@ with open('Results_Ensemble_Models.pkl', 'rb') as input:
 with open('Results_Testing.pkl', 'rb') as input:
     test = pickle.load(input)
 
-## Training figures
-#with open('../Results_Single_Models_Backup.pkl', 'rb') as input:
-#    res = pickle.load(input)
-#
-#with open('../Results_Ensemble_Models_Backup.pkl', 'rb') as input:
-#    eres = pickle.load(input)
 
 data = aggregateResults(res, eres, test)
 
@@ -66,19 +54,28 @@ measurements = [{'label': 'Loss', 'value': 'loss'},
 
 def time_graph():
     
-    traces = []
-    for c in data['timer']:
-        traces.append(
-                go.Scatter(x = data['timer'].index.values, 
-                           y = data['timer'][c],
-                           name = c,
-                           mode = 'lines'
-                )
-        )
+    # Line plot in backup code at the end of the file
+    d = data['timer']
+    c = ['rgba(55, 128, 191, 0.7)', 'rgba(219, 64, 82, 0.7)']
+    
+    x = list(d)
+    y = d.values[-1,:]
+    
+    traces = [go.Bar(x = x, y = y, 
+                     marker = {'color':c})]
                 
     layout = go.Layout(title='Timer',
                        xaxis={'title':'Epochs'},
                        yaxis={'title':'Minutes'},)
+    
+    annotations = []
+    for i in range(0, 2):
+        annotations.append(dict(x=x[i], y=y[i], text=y[i],
+                                yanchor = 'top',
+                                font=dict(family='Arial', size=30,
+                                color='rgba(245, 246, 249, 1)'),
+                                showarrow=False,))
+        layout['annotations'] = annotations
 
     return {'data': traces, 'layout':layout}
 
@@ -86,7 +83,8 @@ def time_graph():
 def test_graph():
     
     d = data['test']
-    c = ['red', 'blue']
+    c = ['rgba(55, 128, 191, 0.7)', 'rgba(219, 64, 82, 0.7)']
+    
     x = ['Deep Model', 'Ensemble Model']
     y = [d['single'], d['ensemble']]
     
@@ -96,6 +94,15 @@ def test_graph():
     layout = go.Layout(title='Test Accuracy',
                   xaxis={'title':'Models'},
                   yaxis={'title':'Accuracy (%)'},)
+
+    annotations = []
+    for i in range(0, 2):
+        annotations.append(dict(x=x[i], y=y[i], text=y[i],
+                                yanchor = 'top',
+                                font=dict(family='Arial', size=30,
+                                color='rgba(245, 246, 249, 1)'),
+                                showarrow=False,))
+        layout['annotations'] = annotations
 
     return {'data': traces, 'layout':layout}
         
@@ -269,3 +276,33 @@ def valid_graph(measure):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+
+
+
+
+## BACKUP CODE
+
+
+
+## Training figures
+#with open('../Results_Single_Models_Backup.pkl', 'rb') as input:
+#    res = pickle.load(input)
+#
+#with open('../Results_Ensemble_Models_Backup.pkl', 'rb') as input:
+#    eres = pickle.load(input)
+
+
+
+
+
+#def time_graph():
+#    
+#    traces = []
+#    for c in data['timer']:
+#        traces.append(
+#                go.Scatter(x = data['timer'].index.values, 
+#                           y = data['timer'][c],
+#                           name = c,
+#                           mode = 'lines'
+#                )
+#        )
