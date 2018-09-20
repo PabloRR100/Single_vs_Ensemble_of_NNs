@@ -4,11 +4,16 @@ import pickle
 import plotly.graph_objs as go
 
 import dash
+import dash_auth
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from results import aggregateResults
+
+USERNAME_PASSWORD_PAIRS = [
+        ['PabloRR10', 'Nartenalpo10-'],
+        ['username', 'password']]
 
 
 # Helper functions
@@ -112,6 +117,9 @@ def test_graph():
 # Dashboard Layout
 
 app = dash.Dash()
+server = app.server
+auth = dash_auth.BasicAuth(app, USERNAME_PASSWORD_PAIRS)
+
 app.layout = html.Div([
 
     html.Div([
