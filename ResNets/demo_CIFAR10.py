@@ -65,7 +65,7 @@ table.append_row(['Draws', str(args.draws)])
 table.append_row(['Testing', str(args.testing)])
 table.append_row(['Comments', str(args.comments)])
 table.append_row(['Ensemble size', str(args.ensembleSize)])
-if load_trained_models:
+if not load_trained_models:
     table.append_row(['-------------', '-------------'])
     table.append_row(['Epochs', n_epochs])
     table.append_row(['Iterations', n_iters])
@@ -273,26 +273,26 @@ for i in range(ensemble_size):
 if load_trained_models:
     
     ## LOAD TRAINED MODELS
+    print('Loading trained models')
     
     def loadmodel(model, device, path):
         return model.load_state_dict(torch.load(path, map_location=device))
-            
+                    
+    # Load saved models
+    ps = glob.glob(os.path.join(paths['models'], '*.pkl'))
     
-    if load_trained_models():
-        
-        # Load saved models
-        paths = glob.glob(os.path.join(paths['models'], '*.pkl'))
-        
-        # Single Model
-    #    delattr(singleModel, 'name')
-        singleModel = loadmodel(singleModel, device, paths[0])
-        
-        # Ensemble Members
-        ensemble = []
-        for p in paths[1:]:
-            model = loadmodel(singleModel, device, p)
-            ensemble.append(model)
+    # Single Model
+#    delattr(singleModel, 'name')
+    singleModel = loadmodel(singleModel, device, ps[0])
+    
+    # Ensemble Members
+    ensemble = []
+    for p in ps[1:]:
+        model = loadmodel(singleModel, device, p)
+        ensemble.append(model)
             
+
+else:
     
     ## TRAINING   
     
@@ -331,10 +331,6 @@ if load_trained_models:
     
     ens_results.show()
 
-
-else:
-    
-    print('Loading Already Trained Models...')
 
 
 # 4 - Evaluate Models
