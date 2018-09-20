@@ -69,7 +69,7 @@ def time_graph():
     traces = []
     for c in data['timer']:
         traces.append(
-                go.Scatter(x = data['timer'].index.values+1, 
+                go.Scatter(x = data['timer'].index.values, 
                            y = data['timer'][c],
                            name = c,
                            mode = 'lines'

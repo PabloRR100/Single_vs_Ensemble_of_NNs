@@ -228,36 +228,12 @@ if __name__ == '__main__':
             elif i == 4:
                 models.append(ResNet152(tmp_settings))
     
-    
-    
     import sys
     sys.path.append('..')
     from utils import count_parameters
-    from beautifultable import BeautifulTable as BT
-
-    resnet18 = ResNet18([[2, 1, 0]] * 4)
-    resnet34 = ResNet34()
-    resnet50 = ResNet50()
-    resnet101 = ResNet101()
-    resnet152 = ResNet152()
-    
-    table = BT()
-    table.append_row(['Model', 'M. Paramars'])
-    table.append_row(['ResNset20', count_parameters(resnet18)/1e6,])
-    table.append_row(['ResNset32', count_parameters(resnet34)/1e6])
-    table.append_row(['ResNset44', count_parameters(resnet50)/1e6])
-    table.append_row(['ResNset56', count_parameters(resnet101)/1e6])
-    table.append_row(['ResNset110', count_parameters(resnet152)/1e6])
-    print(table)
-        
-    
-    def test():
-        net = ResNet50()
-        y = net(Variable(torch.randn(1,3,32,32)))
-        print(y.size())
-    
-    test()
-    
+    for model in models:
+        print(count_parameters(model) * 1e-6)
+     
     '''
     ResNetss implemented on the paper <https://arxiv.org/pdf/1512.03385.pdf>
     
@@ -276,9 +252,3 @@ if __name__ == '__main__':
     +------------+-------------+
     
     '''
-
-
-resnet18 = ResNet18([[2, 1, 0]] * 4)
-count_parameters(resnet18) * 1e-6
-
-

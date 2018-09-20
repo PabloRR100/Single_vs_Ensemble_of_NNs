@@ -267,28 +267,27 @@ for i in range(ensemble_size):
 print('\n\nTRAINING')
 print('--------')
 
-from train import train
-from train_ensemble import train as train_ensemble
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
-
-
-# Big Single Model
-
-print('Starting Single Model Training...' )
-params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, save, paths, testing]
-
-results = train(*params)
-with open('Results_Single_Models.pkl', 'wb') as object_result:
-    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-
-results.show()
-
+## Big Single Model
+#
+#from train import train
+#print('Starting Single Model Training...' )
+#
+#params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+#          valid_loader, n_epochs, n_iters, save, paths, testing]
+#
+#results = train(*params)
+#with open('Results_Single_Models.pkl', 'wb') as object_result:
+#    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+#
+#results.show()
+#
 
 
 # Ensemble Model
 
+from train_ensemble import train as train_ensemble
 print('Starting Ensemble Training...')
 
 params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
