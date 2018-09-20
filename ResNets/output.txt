@@ -9,7 +9,7 @@ CONFIGURATION
 +---------------+---------------+
 |     Draws     |     False     |
 +---------------+---------------+
-|    Testing    |     True      |
+|    Testing    |     False     |
 +---------------+---------------+
 |   Comments    |     True      |
 +---------------+---------------+
@@ -88,113 +88,1145 @@ TRAINING
 --------
 Starting Single Model Training...
 
- Train:: Epoch: [1/6] Iter: [352/64000] Loss: 1.67 Acc: 36.11%
+ Train:: Epoch: [1/181] Iter: [352/64000] Loss: 1.818 Acc: 36.11%
 
- Valid:: Epoch: [1/6] Iter: [352/64000] Loss: 1.94 Acc: 40.02%
+ Valid:: Epoch: [1/181] Iter: [352/64000] Loss: 1.203 Acc: 36.42%
 
- Train:: Epoch: [2/6] Iter: [704/64000] Loss: 1.188 Acc: 54.17%
+ Train:: Epoch: [2/181] Iter: [704/64000] Loss: 1.146 Acc: 61.11%
 
- Valid:: Epoch: [2/6] Iter: [704/64000] Loss: 1.828 Acc: 53.66%
+ Valid:: Epoch: [2/181] Iter: [704/64000] Loss: 1.448 Acc: 52.2%
 
- Train:: Epoch: [3/6] Iter: [1056/64000] Loss: 0.988 Acc: 59.72%
+ Train:: Epoch: [3/181] Iter: [1056/64000] Loss: 0.978 Acc: 59.72%
 
- Valid:: Epoch: [3/6] Iter: [1056/64000] Loss: 1.552 Acc: 64.38%
+ Valid:: Epoch: [3/181] Iter: [1056/64000] Loss: 1.977 Acc: 65.22%
 
- Train:: Epoch: [4/6] Iter: [1408/64000] Loss: 0.984 Acc: 65.28%
+ Train:: Epoch: [4/181] Iter: [1408/64000] Loss: 0.975 Acc: 66.67%
 
- Valid:: Epoch: [4/6] Iter: [1408/64000] Loss: 0.848 Acc: 71.2%
+ Valid:: Epoch: [4/181] Iter: [1408/64000] Loss: 1.185 Acc: 71.58%
 
- Train:: Epoch: [5/6] Iter: [1760/64000] Loss: 0.505 Acc: 76.39%
+ Train:: Epoch: [5/181] Iter: [1760/64000] Loss: 0.555 Acc: 83.33%
 
- Valid:: Epoch: [5/6] Iter: [1760/64000] Loss: 0.918 Acc: 73.86%
+ Valid:: Epoch: [5/181] Iter: [1760/64000] Loss: 0.94 Acc: 74.32%
 
- Train:: Epoch: [6/6] Iter: [2112/64000] Loss: 0.578 Acc: 73.61%
+ Train:: Epoch: [6/181] Iter: [2112/64000] Loss: 0.602 Acc: 77.78%
 
- Valid:: Epoch: [6/6] Iter: [2112/64000] Loss: 0.505 Acc: 76.98%
+ Valid:: Epoch: [6/181] Iter: [2112/64000] Loss: 1.634 Acc: 77.36%
+
+ Train:: Epoch: [7/181] Iter: [2464/64000] Loss: 0.392 Acc: 86.11%
+
+ Valid:: Epoch: [7/181] Iter: [2464/64000] Loss: 1.444 Acc: 79.98%
+
+ Train:: Epoch: [8/181] Iter: [2816/64000] Loss: 0.602 Acc: 75.0%
+
+ Valid:: Epoch: [8/181] Iter: [2816/64000] Loss: 0.541 Acc: 80.3%
+
+ Train:: Epoch: [9/181] Iter: [3168/64000] Loss: 0.352 Acc: 87.5%
+
+ Valid:: Epoch: [9/181] Iter: [3168/64000] Loss: 0.561 Acc: 80.32%
+23:53 
+
+
+ Train:: Epoch: [10/181] Iter: [3520/64000] Loss: 0.564 Acc: 77.78%
+
+ Valid:: Epoch: [10/181] Iter: [3520/64000] Loss: 0.406 Acc: 81.36%
+
+ Train:: Epoch: [11/181] Iter: [3872/64000] Loss: 0.694 Acc: 80.56%
+
+ Valid:: Epoch: [11/181] Iter: [3872/64000] Loss: 0.261 Acc: 83.08%
+
+ Train:: Epoch: [12/181] Iter: [4224/64000] Loss: 0.511 Acc: 84.72%
+
+ Valid:: Epoch: [12/181] Iter: [4224/64000] Loss: 0.567 Acc: 82.28%
+
+ Train:: Epoch: [13/181] Iter: [4576/64000] Loss: 0.719 Acc: 80.56%
+
+ Valid:: Epoch: [13/181] Iter: [4576/64000] Loss: 1.258 Acc: 83.48%
+
+ Train:: Epoch: [14/181] Iter: [4928/64000] Loss: 0.379 Acc: 86.11%
+
+ Valid:: Epoch: [14/181] Iter: [4928/64000] Loss: 0.697 Acc: 84.6%
+
+ Train:: Epoch: [15/181] Iter: [5280/64000] Loss: 0.597 Acc: 77.78%
+
+ Valid:: Epoch: [15/181] Iter: [5280/64000] Loss: 0.74 Acc: 84.04%
+
+ Train:: Epoch: [16/181] Iter: [5632/64000] Loss: 0.495 Acc: 86.11%
+
+ Valid:: Epoch: [16/181] Iter: [5632/64000] Loss: 0.877 Acc: 84.84%
+
+ Train:: Epoch: [17/181] Iter: [5984/64000] Loss: 0.311 Acc: 84.72%
+
+ Valid:: Epoch: [17/181] Iter: [5984/64000] Loss: 0.399 Acc: 85.18%
+
+ Train:: Epoch: [18/181] Iter: [6336/64000] Loss: 0.229 Acc: 90.28%
+
+ Valid:: Epoch: [18/181] Iter: [6336/64000] Loss: 1.108 Acc: 85.72%
+
+ Train:: Epoch: [19/181] Iter: [6688/64000] Loss: 0.469 Acc: 84.72%
+
+ Valid:: Epoch: [19/181] Iter: [6688/64000] Loss: 0.409 Acc: 85.28%
+0:2 
+
+
+ Train:: Epoch: [20/181] Iter: [7040/64000] Loss: 0.172 Acc: 94.44%
+
+ Valid:: Epoch: [20/181] Iter: [7040/64000] Loss: 0.674 Acc: 85.38%
+
+ Train:: Epoch: [21/181] Iter: [7392/64000] Loss: 0.297 Acc: 87.5%
+
+ Valid:: Epoch: [21/181] Iter: [7392/64000] Loss: 1.363 Acc: 86.1%
+
+ Train:: Epoch: [22/181] Iter: [7744/64000] Loss: 0.245 Acc: 91.67%
+
+ Valid:: Epoch: [22/181] Iter: [7744/64000] Loss: 0.394 Acc: 86.14%
+
+ Train:: Epoch: [23/181] Iter: [8096/64000] Loss: 0.269 Acc: 93.06%
+
+ Valid:: Epoch: [23/181] Iter: [8096/64000] Loss: 0.493 Acc: 85.96%
+
+ Train:: Epoch: [24/181] Iter: [8448/64000] Loss: 0.164 Acc: 95.83%
+
+ Valid:: Epoch: [24/181] Iter: [8448/64000] Loss: 0.074 Acc: 86.66%
+
+ Train:: Epoch: [25/181] Iter: [8800/64000] Loss: 0.223 Acc: 93.06%
+
+ Valid:: Epoch: [25/181] Iter: [8800/64000] Loss: 0.233 Acc: 86.3%
+
+ Train:: Epoch: [26/181] Iter: [9152/64000] Loss: 0.202 Acc: 91.67%
+
+ Valid:: Epoch: [26/181] Iter: [9152/64000] Loss: 0.38 Acc: 86.54%
+
+ Train:: Epoch: [27/181] Iter: [9504/64000] Loss: 0.302 Acc: 90.28%
+
+ Valid:: Epoch: [27/181] Iter: [9504/64000] Loss: 0.843 Acc: 87.4%
+
+ Train:: Epoch: [28/181] Iter: [9856/64000] Loss: 0.193 Acc: 91.67%
+
+ Valid:: Epoch: [28/181] Iter: [9856/64000] Loss: 2.25 Acc: 87.28%
+
+ Train:: Epoch: [29/181] Iter: [10208/64000] Loss: 0.259 Acc: 93.06%
+
+ Valid:: Epoch: [29/181] Iter: [10208/64000] Loss: 0.07 Acc: 87.02%
+0:11 
+
+
+ Train:: Epoch: [30/181] Iter: [10560/64000] Loss: 0.378 Acc: 86.11%
+
+ Valid:: Epoch: [30/181] Iter: [10560/64000] Loss: 0.139 Acc: 86.88%
+
+ Train:: Epoch: [31/181] Iter: [10912/64000] Loss: 0.28 Acc: 91.67%
+
+ Valid:: Epoch: [31/181] Iter: [10912/64000] Loss: 1.534 Acc: 87.36%
+
+ Train:: Epoch: [32/181] Iter: [11264/64000] Loss: 0.182 Acc: 91.67%
+
+ Valid:: Epoch: [32/181] Iter: [11264/64000] Loss: 1.638 Acc: 86.96%
+
+ Train:: Epoch: [33/181] Iter: [11616/64000] Loss: 0.078 Acc: 97.22%
+
+ Valid:: Epoch: [33/181] Iter: [11616/64000] Loss: 1.415 Acc: 87.7%
+
+ Train:: Epoch: [34/181] Iter: [11968/64000] Loss: 0.104 Acc: 95.83%
+
+ Valid:: Epoch: [34/181] Iter: [11968/64000] Loss: 1.693 Acc: 87.06%
+
+ Train:: Epoch: [35/181] Iter: [12320/64000] Loss: 0.156 Acc: 94.44%
+
+ Valid:: Epoch: [35/181] Iter: [12320/64000] Loss: 0.038 Acc: 87.72%
+
+ Train:: Epoch: [36/181] Iter: [12672/64000] Loss: 0.095 Acc: 97.22%
+
+ Valid:: Epoch: [36/181] Iter: [12672/64000] Loss: 0.462 Acc: 87.24%
+
+ Train:: Epoch: [37/181] Iter: [13024/64000] Loss: 0.215 Acc: 93.06%
+
+ Valid:: Epoch: [37/181] Iter: [13024/64000] Loss: 0.704 Acc: 87.8%
+
+ Train:: Epoch: [38/181] Iter: [13376/64000] Loss: 0.18 Acc: 91.67%
+
+ Valid:: Epoch: [38/181] Iter: [13376/64000] Loss: 1.277 Acc: 87.7%
+
+ Train:: Epoch: [39/181] Iter: [13728/64000] Loss: 0.116 Acc: 95.83%
+
+ Valid:: Epoch: [39/181] Iter: [13728/64000] Loss: 1.072 Acc: 87.0%
+0:21 
+
+
+ Train:: Epoch: [40/181] Iter: [14080/64000] Loss: 0.189 Acc: 93.06%
+
+ Valid:: Epoch: [40/181] Iter: [14080/64000] Loss: 1.219 Acc: 87.88%
+
+ Train:: Epoch: [41/181] Iter: [14432/64000] Loss: 0.088 Acc: 97.22%
+
+ Valid:: Epoch: [41/181] Iter: [14432/64000] Loss: 1.997 Acc: 88.04%
+
+ Train:: Epoch: [42/181] Iter: [14784/64000] Loss: 0.143 Acc: 93.06%
+
+ Valid:: Epoch: [42/181] Iter: [14784/64000] Loss: 1.599 Acc: 87.68%
+
+ Train:: Epoch: [43/181] Iter: [15136/64000] Loss: 0.184 Acc: 94.44%
+
+ Valid:: Epoch: [43/181] Iter: [15136/64000] Loss: 0.905 Acc: 87.36%
+
+ Train:: Epoch: [44/181] Iter: [15488/64000] Loss: 0.084 Acc: 95.83%
+
+ Valid:: Epoch: [44/181] Iter: [15488/64000] Loss: 0.055 Acc: 88.16%
+
+ Train:: Epoch: [45/181] Iter: [15840/64000] Loss: 0.083 Acc: 97.22%
+
+ Valid:: Epoch: [45/181] Iter: [15840/64000] Loss: 0.457 Acc: 87.6%
+
+ Train:: Epoch: [46/181] Iter: [16192/64000] Loss: 0.11 Acc: 95.83%
+
+ Valid:: Epoch: [46/181] Iter: [16192/64000] Loss: 0.933 Acc: 88.3%
+
+ Train:: Epoch: [47/181] Iter: [16544/64000] Loss: 0.185 Acc: 90.28%
+
+ Valid:: Epoch: [47/181] Iter: [16544/64000] Loss: 1.056 Acc: 87.3%
+
+ Train:: Epoch: [48/181] Iter: [16896/64000] Loss: 0.075 Acc: 97.22%
+
+ Valid:: Epoch: [48/181] Iter: [16896/64000] Loss: 0.294 Acc: 88.6%
+
+ Train:: Epoch: [49/181] Iter: [17248/64000] Loss: 0.127 Acc: 94.44%
+
+ Valid:: Epoch: [49/181] Iter: [17248/64000] Loss: 1.052 Acc: 88.18%
+0:30 
+
+
+ Train:: Epoch: [50/181] Iter: [17600/64000] Loss: 0.115 Acc: 94.44%
+
+ Valid:: Epoch: [50/181] Iter: [17600/64000] Loss: 0.407 Acc: 88.42%
+
+ Train:: Epoch: [51/181] Iter: [17952/64000] Loss: 0.103 Acc: 95.83%
+
+ Valid:: Epoch: [51/181] Iter: [17952/64000] Loss: 0.116 Acc: 87.98%
+
+ Train:: Epoch: [52/181] Iter: [18304/64000] Loss: 0.185 Acc: 93.06%
+
+ Valid:: Epoch: [52/181] Iter: [18304/64000] Loss: 2.917 Acc: 88.22%
+
+ Train:: Epoch: [53/181] Iter: [18656/64000] Loss: 0.082 Acc: 95.83%
+
+ Valid:: Epoch: [53/181] Iter: [18656/64000] Loss: 0.729 Acc: 87.68%
+
+ Train:: Epoch: [54/181] Iter: [19008/64000] Loss: 0.083 Acc: 98.61%
+
+ Valid:: Epoch: [54/181] Iter: [19008/64000] Loss: 0.477 Acc: 88.44%
+
+ Train:: Epoch: [55/181] Iter: [19360/64000] Loss: 0.082 Acc: 98.61%
+
+ Valid:: Epoch: [55/181] Iter: [19360/64000] Loss: 0.042 Acc: 87.66%
+
+ Train:: Epoch: [56/181] Iter: [19712/64000] Loss: 0.117 Acc: 95.83%
+
+ Valid:: Epoch: [56/181] Iter: [19712/64000] Loss: 1.22 Acc: 88.08%
+
+ Train:: Epoch: [57/181] Iter: [20064/64000] Loss: 0.053 Acc: 97.22%
+
+ Valid:: Epoch: [57/181] Iter: [20064/64000] Loss: 1.092 Acc: 88.16%
+
+ Train:: Epoch: [58/181] Iter: [20416/64000] Loss: 0.078 Acc: 95.83%
+
+ Valid:: Epoch: [58/181] Iter: [20416/64000] Loss: 0.006 Acc: 88.3%
+
+ Train:: Epoch: [59/181] Iter: [20768/64000] Loss: 0.035 Acc: 98.61%
+
+ Valid:: Epoch: [59/181] Iter: [20768/64000] Loss: 0.028 Acc: 88.1%
+0:39 
+
+
+ Train:: Epoch: [60/181] Iter: [21120/64000] Loss: 0.095 Acc: 98.61%
+
+ Valid:: Epoch: [60/181] Iter: [21120/64000] Loss: 0.442 Acc: 88.9%
+
+ Train:: Epoch: [61/181] Iter: [21472/64000] Loss: 0.018 Acc: 100.0%
+
+ Valid:: Epoch: [61/181] Iter: [21472/64000] Loss: 1.992 Acc: 88.6%
+
+ Train:: Epoch: [62/181] Iter: [21824/64000] Loss: 0.2 Acc: 94.44%
+
+ Valid:: Epoch: [62/181] Iter: [21824/64000] Loss: 0.052 Acc: 88.42%
+
+ Train:: Epoch: [63/181] Iter: [22176/64000] Loss: 0.057 Acc: 98.61%
+
+ Valid:: Epoch: [63/181] Iter: [22176/64000] Loss: 0.833 Acc: 88.08%
+
+ Train:: Epoch: [64/181] Iter: [22528/64000] Loss: 0.058 Acc: 97.22%
+
+ Valid:: Epoch: [64/181] Iter: [22528/64000] Loss: 0.469 Acc: 89.16%
+
+ Train:: Epoch: [65/181] Iter: [22880/64000] Loss: 0.089 Acc: 97.22%
+
+ Valid:: Epoch: [65/181] Iter: [22880/64000] Loss: 0.042 Acc: 88.46%
+
+ Train:: Epoch: [66/181] Iter: [23232/64000] Loss: 0.015 Acc: 100.0%
+
+ Valid:: Epoch: [66/181] Iter: [23232/64000] Loss: 0.324 Acc: 88.42%
+
+ Train:: Epoch: [67/181] Iter: [23584/64000] Loss: 0.031 Acc: 100.0%
+
+ Valid:: Epoch: [67/181] Iter: [23584/64000] Loss: 1.485 Acc: 89.36%
+
+ Train:: Epoch: [68/181] Iter: [23936/64000] Loss: 0.062 Acc: 95.83%
+
+ Valid:: Epoch: [68/181] Iter: [23936/64000] Loss: 0.101 Acc: 88.42%
+
+ Train:: Epoch: [69/181] Iter: [24288/64000] Loss: 0.138 Acc: 94.44%
+
+ Valid:: Epoch: [69/181] Iter: [24288/64000] Loss: 0.482 Acc: 88.54%
+0:49 
+
+
+ Train:: Epoch: [70/181] Iter: [24640/64000] Loss: 0.147 Acc: 97.22%
+
+ Valid:: Epoch: [70/181] Iter: [24640/64000] Loss: 0.539 Acc: 88.56%
+
+ Train:: Epoch: [71/181] Iter: [24992/64000] Loss: 0.097 Acc: 97.22%
+
+ Valid:: Epoch: [71/181] Iter: [24992/64000] Loss: 1.198 Acc: 89.06%
+
+ Train:: Epoch: [72/181] Iter: [25344/64000] Loss: 0.032 Acc: 98.61%
+
+ Valid:: Epoch: [72/181] Iter: [25344/64000] Loss: 0.728 Acc: 88.5%
+
+ Train:: Epoch: [73/181] Iter: [25696/64000] Loss: 0.094 Acc: 97.22%
+
+ Valid:: Epoch: [73/181] Iter: [25696/64000] Loss: 0.638 Acc: 88.34%
+
+ Train:: Epoch: [74/181] Iter: [26048/64000] Loss: 0.107 Acc: 97.22%
+
+ Valid:: Epoch: [74/181] Iter: [26048/64000] Loss: 1.084 Acc: 88.46%
+
+ Train:: Epoch: [75/181] Iter: [26400/64000] Loss: 0.111 Acc: 95.83%
+
+ Valid:: Epoch: [75/181] Iter: [26400/64000] Loss: 0.639 Acc: 89.28%
+
+ Train:: Epoch: [76/181] Iter: [26752/64000] Loss: 0.09 Acc: 95.83%
+
+ Valid:: Epoch: [76/181] Iter: [26752/64000] Loss: 0.397 Acc: 88.82%
+
+ Train:: Epoch: [77/181] Iter: [27104/64000] Loss: 0.038 Acc: 97.22%
+
+ Valid:: Epoch: [77/181] Iter: [27104/64000] Loss: 0.093 Acc: 89.06%
+
+ Train:: Epoch: [78/181] Iter: [27456/64000] Loss: 0.111 Acc: 95.83%
+
+ Valid:: Epoch: [78/181] Iter: [27456/64000] Loss: 1.39 Acc: 88.6%
+
+ Train:: Epoch: [79/181] Iter: [27808/64000] Loss: 0.034 Acc: 98.61%
+
+ Valid:: Epoch: [79/181] Iter: [27808/64000] Loss: 0.01 Acc: 89.22%
+0:58 
+
+
+ Train:: Epoch: [80/181] Iter: [28160/64000] Loss: 0.142 Acc: 94.44%
+
+ Valid:: Epoch: [80/181] Iter: [28160/64000] Loss: 1.71 Acc: 88.4%
+
+ Train:: Epoch: [81/181] Iter: [28512/64000] Loss: 0.082 Acc: 95.83%
+
+ Valid:: Epoch: [81/181] Iter: [28512/64000] Loss: 2.639 Acc: 88.56%
+
+ Train:: Epoch: [82/181] Iter: [28864/64000] Loss: 0.04 Acc: 97.22%
+
+ Valid:: Epoch: [82/181] Iter: [28864/64000] Loss: 0.418 Acc: 88.94%
+
+ Train:: Epoch: [83/181] Iter: [29216/64000] Loss: 0.049 Acc: 98.61%
+
+ Valid:: Epoch: [83/181] Iter: [29216/64000] Loss: 1.305 Acc: 88.92%
+
+ Train:: Epoch: [84/181] Iter: [29568/64000] Loss: 0.137 Acc: 94.44%
+
+ Valid:: Epoch: [84/181] Iter: [29568/64000] Loss: 0.002 Acc: 89.14%
+
+ Train:: Epoch: [85/181] Iter: [29920/64000] Loss: 0.039 Acc: 98.61%
+
+ Valid:: Epoch: [85/181] Iter: [29920/64000] Loss: 3.333 Acc: 88.74%
+
+ Train:: Epoch: [86/181] Iter: [30272/64000] Loss: 0.01 Acc: 100.0%
+
+ Valid:: Epoch: [86/181] Iter: [30272/64000] Loss: 0.751 Acc: 89.1%
+
+ Train:: Epoch: [87/181] Iter: [30624/64000] Loss: 0.171 Acc: 95.83%
+
+ Valid:: Epoch: [87/181] Iter: [30624/64000] Loss: 0.869 Acc: 89.14%
+
+ Train:: Epoch: [88/181] Iter: [30976/64000] Loss: 0.02 Acc: 100.0%
+
+ Valid:: Epoch: [88/181] Iter: [30976/64000] Loss: 0.694 Acc: 89.32%
+
+ Train:: Epoch: [89/181] Iter: [31328/64000] Loss: 0.035 Acc: 97.22%
+
+ Valid:: Epoch: [89/181] Iter: [31328/64000] Loss: 0.448 Acc: 89.2%
+1:7 
+
+
+ Train:: Epoch: [90/181] Iter: [31680/64000] Loss: 0.155 Acc: 97.22%
+
+ Valid:: Epoch: [90/181] Iter: [31680/64000] Loss: 0.355 Acc: 89.3%
+
+ Train:: Epoch: [91/181] Iter: [32032/64000] Loss: 0.018 Acc: 100.0%
+
+ Valid:: Epoch: [91/181] Iter: [32032/64000] Loss: 1.493 Acc: 89.72%
+
+ Train:: Epoch: [92/181] Iter: [32384/64000] Loss: 0.202 Acc: 94.44%
+
+ Valid:: Epoch: [92/181] Iter: [32384/64000] Loss: 0.823 Acc: 88.78%
+
+ Train:: Epoch: [93/181] Iter: [32736/64000] Loss: 0.042 Acc: 97.22%
+
+ Valid:: Epoch: [93/181] Iter: [32736/64000] Loss: 0.92 Acc: 88.66%
+
+ Train:: Epoch: [94/181] Iter: [33088/64000] Loss: 0.049 Acc: 97.22%
+
+ Valid:: Epoch: [94/181] Iter: [33088/64000] Loss: 0.022 Acc: 89.22%
+
+ Train:: Epoch: [95/181] Iter: [33440/64000] Loss: 0.029 Acc: 98.61%
+
+ Valid:: Epoch: [95/181] Iter: [33440/64000] Loss: 0.402 Acc: 89.06%
+
+ Train:: Epoch: [96/181] Iter: [33792/64000] Loss: 0.106 Acc: 97.22%
+
+ Valid:: Epoch: [96/181] Iter: [33792/64000] Loss: 1.39 Acc: 89.68%
+
+ Train:: Epoch: [97/181] Iter: [34144/64000] Loss: 0.048 Acc: 98.61%
+
+ Valid:: Epoch: [97/181] Iter: [34144/64000] Loss: 0.007 Acc: 89.72%
+
+ Train:: Epoch: [98/181] Iter: [34496/64000] Loss: 0.036 Acc: 98.61%
+
+ Valid:: Epoch: [98/181] Iter: [34496/64000] Loss: 1.661 Acc: 88.6%
+
+ Train:: Epoch: [99/181] Iter: [34848/64000] Loss: 0.071 Acc: 98.61%
+
+ Valid:: Epoch: [99/181] Iter: [34848/64000] Loss: 0.098 Acc: 89.18%
+1:17 
+
+
+ Train:: Epoch: [100/181] Iter: [35200/64000] Loss: 0.022 Acc: 100.0%
+
+ Valid:: Epoch: [100/181] Iter: [35200/64000] Loss: 0.018 Acc: 89.4%
+
+ Train:: Epoch: [101/181] Iter: [35552/64000] Loss: 0.04 Acc: 98.61%
+
+ Valid:: Epoch: [101/181] Iter: [35552/64000] Loss: 0.789 Acc: 89.44%
+
+ Train:: Epoch: [102/181] Iter: [35904/64000] Loss: 0.032 Acc: 98.61%
+
+ Valid:: Epoch: [102/181] Iter: [35904/64000] Loss: 1.094 Acc: 89.16%
+
+ Train:: Epoch: [103/181] Iter: [36256/64000] Loss: 0.048 Acc: 97.22%
+
+ Valid:: Epoch: [103/181] Iter: [36256/64000] Loss: 0.941 Acc: 89.08%
+
+ Train:: Epoch: [104/181] Iter: [36608/64000] Loss: 0.011 Acc: 100.0%
+
+ Valid:: Epoch: [104/181] Iter: [36608/64000] Loss: 0.795 Acc: 89.44%
+
+ Train:: Epoch: [105/181] Iter: [36960/64000] Loss: 0.036 Acc: 97.22%
+
+ Valid:: Epoch: [105/181] Iter: [36960/64000] Loss: 0.805 Acc: 89.24%
+
+ Train:: Epoch: [106/181] Iter: [37312/64000] Loss: 0.046 Acc: 97.22%
+
+ Valid:: Epoch: [106/181] Iter: [37312/64000] Loss: 0.0 Acc: 90.12%
+
+ Train:: Epoch: [107/181] Iter: [37664/64000] Loss: 0.089 Acc: 97.22%
+
+ Valid:: Epoch: [107/181] Iter: [37664/64000] Loss: 0.378 Acc: 89.1%
+
+ Train:: Epoch: [108/181] Iter: [38016/64000] Loss: 0.033 Acc: 100.0%
+
+ Valid:: Epoch: [108/181] Iter: [38016/64000] Loss: 0.079 Acc: 89.4%
+
+ Train:: Epoch: [109/181] Iter: [38368/64000] Loss: 0.009 Acc: 100.0%
+
+ Valid:: Epoch: [109/181] Iter: [38368/64000] Loss: 1.406 Acc: 89.26%
+1:26 
+
+
+ Train:: Epoch: [110/181] Iter: [38720/64000] Loss: 0.01 Acc: 100.0%
+
+ Valid:: Epoch: [110/181] Iter: [38720/64000] Loss: 0.785 Acc: 89.26%
+
+ Train:: Epoch: [111/181] Iter: [39072/64000] Loss: 0.115 Acc: 97.22%
+
+ Valid:: Epoch: [111/181] Iter: [39072/64000] Loss: 0.003 Acc: 88.96%
+
+ Train:: Epoch: [112/181] Iter: [39424/64000] Loss: 0.091 Acc: 95.83%
+
+ Valid:: Epoch: [112/181] Iter: [39424/64000] Loss: 1.802 Acc: 89.18%
+
+ Train:: Epoch: [113/181] Iter: [39776/64000] Loss: 0.011 Acc: 100.0%
+
+ Valid:: Epoch: [113/181] Iter: [39776/64000] Loss: 3.117 Acc: 88.64%
+
+ Train:: Epoch: [114/181] Iter: [40128/64000] Loss: 0.044 Acc: 98.61%
+
+ Valid:: Epoch: [114/181] Iter: [40128/64000] Loss: 1.018 Acc: 89.72%
+
+ Train:: Epoch: [115/181] Iter: [40480/64000] Loss: 0.018 Acc: 100.0%
+
+ Valid:: Epoch: [115/181] Iter: [40480/64000] Loss: 0.133 Acc: 89.74%
+
+ Train:: Epoch: [116/181] Iter: [40832/64000] Loss: 0.007 Acc: 100.0%
+
+ Valid:: Epoch: [116/181] Iter: [40832/64000] Loss: 1.709 Acc: 89.92%
+
+ Train:: Epoch: [117/181] Iter: [41184/64000] Loss: 0.06 Acc: 97.22%
+
+ Valid:: Epoch: [117/181] Iter: [41184/64000] Loss: 1.235 Acc: 89.48%
+
+ Train:: Epoch: [118/181] Iter: [41536/64000] Loss: 0.158 Acc: 94.44%
+
+ Valid:: Epoch: [118/181] Iter: [41536/64000] Loss: 0.074 Acc: 89.04%
+
+ Train:: Epoch: [119/181] Iter: [41888/64000] Loss: 0.025 Acc: 98.61%
+
+ Valid:: Epoch: [119/181] Iter: [41888/64000] Loss: 0.637 Acc: 89.94%
+1:35 
+
+
+ Train:: Epoch: [120/181] Iter: [42240/64000] Loss: 0.043 Acc: 98.61%
+
+ Valid:: Epoch: [120/181] Iter: [42240/64000] Loss: 2.715 Acc: 89.42%
+
+ Train:: Epoch: [121/181] Iter: [42592/64000] Loss: 0.042 Acc: 98.61%
+
+ Valid:: Epoch: [121/181] Iter: [42592/64000] Loss: 0.048 Acc: 89.48%
+
+ Train:: Epoch: [122/181] Iter: [42944/64000] Loss: 0.062 Acc: 97.22%
+
+ Valid:: Epoch: [122/181] Iter: [42944/64000] Loss: 0.894 Acc: 89.82%
+
+ Train:: Epoch: [123/181] Iter: [43296/64000] Loss: 0.033 Acc: 98.61%
+
+ Valid:: Epoch: [123/181] Iter: [43296/64000] Loss: 0.267 Acc: 89.34%
+
+ Train:: Epoch: [124/181] Iter: [43648/64000] Loss: 0.013 Acc: 100.0%
+
+ Valid:: Epoch: [124/181] Iter: [43648/64000] Loss: 0.006 Acc: 90.16%
+
+ Train:: Epoch: [125/181] Iter: [44000/64000] Loss: 0.033 Acc: 97.22%
+
+ Valid:: Epoch: [125/181] Iter: [44000/64000] Loss: 2.463 Acc: 89.4%
+
+ Train:: Epoch: [126/181] Iter: [44352/64000] Loss: 0.001 Acc: 100.0%
+
+ Valid:: Epoch: [126/181] Iter: [44352/64000] Loss: 1.777 Acc: 89.72%
+
+ Train:: Epoch: [127/181] Iter: [44704/64000] Loss: 0.004 Acc: 100.0%
+
+ Valid:: Epoch: [127/181] Iter: [44704/64000] Loss: 1.558 Acc: 88.96%
+
+ Train:: Epoch: [128/181] Iter: [45056/64000] Loss: 0.012 Acc: 98.61%
+
+ Valid:: Epoch: [128/181] Iter: [45056/64000] Loss: 3.777 Acc: 89.74%
+
+ Train:: Epoch: [129/181] Iter: [45408/64000] Loss: 0.099 Acc: 98.61%
+
+ Valid:: Epoch: [129/181] Iter: [45408/64000] Loss: 0.057 Acc: 89.52%
+1:45 
+
+
+ Train:: Epoch: [130/181] Iter: [45760/64000] Loss: 0.011 Acc: 100.0%
+
+ Valid:: Epoch: [130/181] Iter: [45760/64000] Loss: 0.002 Acc: 89.54%
+
+ Train:: Epoch: [131/181] Iter: [46112/64000] Loss: 0.054 Acc: 98.61%
+
+ Valid:: Epoch: [131/181] Iter: [46112/64000] Loss: 0.004 Acc: 89.82%
+
+ Train:: Epoch: [132/181] Iter: [46464/64000] Loss: 0.014 Acc: 100.0%
+
+ Valid:: Epoch: [132/181] Iter: [46464/64000] Loss: 0.778 Acc: 89.3%
+
+ Train:: Epoch: [133/181] Iter: [46816/64000] Loss: 0.007 Acc: 100.0%
+
+ Valid:: Epoch: [133/181] Iter: [46816/64000] Loss: 1.631 Acc: 89.38%
+
+ Train:: Epoch: [134/181] Iter: [47168/64000] Loss: 0.003 Acc: 100.0%
+
+ Valid:: Epoch: [134/181] Iter: [47168/64000] Loss: 1.111 Acc: 90.08%
+
+ Train:: Epoch: [135/181] Iter: [47520/64000] Loss: 0.072 Acc: 98.61%
+
+ Valid:: Epoch: [135/181] Iter: [47520/64000] Loss: 0.134 Acc: 89.86%
+
+ Train:: Epoch: [136/181] Iter: [47872/64000] Loss: 0.025 Acc: 100.0%
+
+ Valid:: Epoch: [136/181] Iter: [47872/64000] Loss: 0.089 Acc: 89.74%
+
+ Train:: Epoch: [137/181] Iter: [48224/64000] Loss: 0.05 Acc: 97.22%
+
+ Valid:: Epoch: [137/181] Iter: [48224/64000] Loss: 0.48 Acc: 89.28%
+
+ Train:: Epoch: [138/181] Iter: [48576/64000] Loss: 0.023 Acc: 98.61%
+
+ Valid:: Epoch: [138/181] Iter: [48576/64000] Loss: 4.139 Acc: 89.94%
+
+ Train:: Epoch: [139/181] Iter: [48928/64000] Loss: 0.022 Acc: 100.0%
+
+ Valid:: Epoch: [139/181] Iter: [48928/64000] Loss: 1.712 Acc: 89.8%
+1:54 
+
+
+ Train:: Epoch: [140/181] Iter: [49280/64000] Loss: 0.002 Acc: 100.0%
+
+ Valid:: Epoch: [140/181] Iter: [49280/64000] Loss: 0.147 Acc: 89.68%
+
+ Train:: Epoch: [141/181] Iter: [49632/64000] Loss: 0.008 Acc: 100.0%
+
+ Valid:: Epoch: [141/181] Iter: [49632/64000] Loss: 0.667 Acc: 89.88%
+
+ Train:: Epoch: [142/181] Iter: [49984/64000] Loss: 0.009 Acc: 100.0%
+
+ Valid:: Epoch: [142/181] Iter: [49984/64000] Loss: 0.009 Acc: 89.86%
+
+ Train:: Epoch: [143/181] Iter: [50336/64000] Loss: 0.048 Acc: 98.61%
+
+ Valid:: Epoch: [143/181] Iter: [50336/64000] Loss: 1.285 Acc: 89.8%
+
+ Train:: Epoch: [144/181] Iter: [50688/64000] Loss: 0.027 Acc: 98.61%
+
+ Valid:: Epoch: [144/181] Iter: [50688/64000] Loss: 1.729 Acc: 89.52%
+
+ Train:: Epoch: [145/181] Iter: [51040/64000] Loss: 0.082 Acc: 98.61%
+
+ Valid:: Epoch: [145/181] Iter: [51040/64000] Loss: 0.946 Acc: 89.72%
+
+ Train:: Epoch: [146/181] Iter: [51392/64000] Loss: 0.03 Acc: 98.61%
+
+ Valid:: Epoch: [146/181] Iter: [51392/64000] Loss: 0.078 Acc: 89.98%
+
+ Train:: Epoch: [147/181] Iter: [51744/64000] Loss: 0.001 Acc: 100.0%
+
+ Valid:: Epoch: [147/181] Iter: [51744/64000] Loss: 0.413 Acc: 89.6%
+
+ Train:: Epoch: [148/181] Iter: [52096/64000] Loss: 0.062 Acc: 98.61%
+
+ Valid:: Epoch: [148/181] Iter: [52096/64000] Loss: 0.652 Acc: 89.72%
+
+ Train:: Epoch: [149/181] Iter: [52448/64000] Loss: 0.032 Acc: 98.61%
+
+ Valid:: Epoch: [149/181] Iter: [52448/64000] Loss: 0.448 Acc: 89.58%
+2:3 
+
+
+ Train:: Epoch: [150/181] Iter: [52800/64000] Loss: 0.006 Acc: 100.0%
+
+ Valid:: Epoch: [150/181] Iter: [52800/64000] Loss: 2.171 Acc: 90.16%
+
+ Train:: Epoch: [151/181] Iter: [53152/64000] Loss: 0.09 Acc: 95.83%
+
+ Valid:: Epoch: [151/181] Iter: [53152/64000] Loss: 0.022 Acc: 89.78%
+
+ Train:: Epoch: [152/181] Iter: [53504/64000] Loss: 0.004 Acc: 100.0%
+
+ Valid:: Epoch: [152/181] Iter: [53504/64000] Loss: 3.355 Acc: 89.34%
+
+ Train:: Epoch: [153/181] Iter: [53856/64000] Loss: 0.004 Acc: 100.0%
+
+ Valid:: Epoch: [153/181] Iter: [53856/64000] Loss: 0.329 Acc: 89.74%
+
+ Train:: Epoch: [154/181] Iter: [54208/64000] Loss: 0.087 Acc: 98.61%
+
+ Valid:: Epoch: [154/181] Iter: [54208/64000] Loss: 0.002 Acc: 89.38%
+
+ Train:: Epoch: [155/181] Iter: [54560/64000] Loss: 0.003 Acc: 100.0%
+
+ Valid:: Epoch: [155/181] Iter: [54560/64000] Loss: 1.092 Acc: 89.88%
+
+ Train:: Epoch: [156/181] Iter: [54912/64000] Loss: 0.032 Acc: 98.61%
+
+ Valid:: Epoch: [156/181] Iter: [54912/64000] Loss: 0.786 Acc: 89.96%
+
+ Train:: Epoch: [157/181] Iter: [55264/64000] Loss: 0.023 Acc: 98.61%
+
+ Valid:: Epoch: [157/181] Iter: [55264/64000] Loss: 0.569 Acc: 89.04%
+
+ Train:: Epoch: [158/181] Iter: [55616/64000] Loss: 0.012 Acc: 98.61%
+
+ Valid:: Epoch: [158/181] Iter: [55616/64000] Loss: 0.806 Acc: 89.62%
+
+ Train:: Epoch: [159/181] Iter: [55968/64000] Loss: 0.001 Acc: 100.0%
+
+ Valid:: Epoch: [159/181] Iter: [55968/64000] Loss: 1.558 Acc: 90.16%
+2:13 
+
+
+ Train:: Epoch: [160/181] Iter: [56320/64000] Loss: 0.011 Acc: 98.61%
+
+ Valid:: Epoch: [160/181] Iter: [56320/64000] Loss: 0.002 Acc: 89.64%
+
+ Train:: Epoch: [161/181] Iter: [56672/64000] Loss: 0.001 Acc: 100.0%
+
+ Valid:: Epoch: [161/181] Iter: [56672/64000] Loss: 2.715 Acc: 90.58%
+
+ Train:: Epoch: [162/181] Iter: [57024/64000] Loss: 0.004 Acc: 100.0%
+
+ Valid:: Epoch: [162/181] Iter: [57024/64000] Loss: 0.137 Acc: 90.02%
+
+ Train:: Epoch: [163/181] Iter: [57376/64000] Loss: 0.002 Acc: 100.0%
+
+ Valid:: Epoch: [163/181] Iter: [57376/64000] Loss: 1.313 Acc: 89.46%
+
+ Train:: Epoch: [164/181] Iter: [57728/64000] Loss: 0.01 Acc: 100.0%
+
+ Valid:: Epoch: [164/181] Iter: [57728/64000] Loss: 1.001 Acc: 90.54%
+
+ Train:: Epoch: [165/181] Iter: [58080/64000] Loss: 0.064 Acc: 98.61%
+
+ Valid:: Epoch: [165/181] Iter: [58080/64000] Loss: 0.197 Acc: 89.7%
+
+ Train:: Epoch: [166/181] Iter: [58432/64000] Loss: 0.071 Acc: 97.22%
+
+ Valid:: Epoch: [166/181] Iter: [58432/64000] Loss: 1.393 Acc: 90.06%
+
+ Train:: Epoch: [167/181] Iter: [58784/64000] Loss: 0.011 Acc: 100.0%
+
+ Valid:: Epoch: [167/181] Iter: [58784/64000] Loss: 0.034 Acc: 90.24%
+
+ Train:: Epoch: [168/181] Iter: [59136/64000] Loss: 0.007 Acc: 100.0%
+
+ Valid:: Epoch: [168/181] Iter: [59136/64000] Loss: 1.557 Acc: 89.5%
+
+ Train:: Epoch: [169/181] Iter: [59488/64000] Loss: 0.012 Acc: 100.0%
+
+ Valid:: Epoch: [169/181] Iter: [59488/64000] Loss: 0.0 Acc: 89.48%
+2:22 
+
+
+ Train:: Epoch: [170/181] Iter: [59840/64000] Loss: 0.028 Acc: 98.61%
+
+ Valid:: Epoch: [170/181] Iter: [59840/64000] Loss: 0.692 Acc: 89.6%
+
+ Train:: Epoch: [171/181] Iter: [60192/64000] Loss: 0.013 Acc: 98.61%
+
+ Valid:: Epoch: [171/181] Iter: [60192/64000] Loss: 3.125 Acc: 89.84%
+
+ Train:: Epoch: [172/181] Iter: [60544/64000] Loss: 0.002 Acc: 100.0%
+
+ Valid:: Epoch: [172/181] Iter: [60544/64000] Loss: 3.906 Acc: 90.04%
+
+ Train:: Epoch: [173/181] Iter: [60896/64000] Loss: 0.014 Acc: 98.61%
+
+ Valid:: Epoch: [173/181] Iter: [60896/64000] Loss: 1.511 Acc: 90.22%
+
+ Train:: Epoch: [174/181] Iter: [61248/64000] Loss: 0.001 Acc: 100.0%
+
+ Valid:: Epoch: [174/181] Iter: [61248/64000] Loss: 0.001 Acc: 90.06%
+
+ Train:: Epoch: [175/181] Iter: [61600/64000] Loss: 0.014 Acc: 100.0%
+
+ Valid:: Epoch: [175/181] Iter: [61600/64000] Loss: 0.001 Acc: 89.9%
+
+ Train:: Epoch: [176/181] Iter: [61952/64000] Loss: 0.0 Acc: 100.0%
+
+ Valid:: Epoch: [176/181] Iter: [61952/64000] Loss: 1.214 Acc: 90.12%
+
+ Train:: Epoch: [177/181] Iter: [62304/64000] Loss: 0.001 Acc: 100.0%
+
+ Valid:: Epoch: [177/181] Iter: [62304/64000] Loss: 1.251 Acc: 89.7%
+
+ Train:: Epoch: [178/181] Iter: [62656/64000] Loss: 0.007 Acc: 100.0%
+
+ Valid:: Epoch: [178/181] Iter: [62656/64000] Loss: 2.822 Acc: 89.94%
+
+ Train:: Epoch: [179/181] Iter: [63008/64000] Loss: 0.031 Acc: 97.22%
+
+ Valid:: Epoch: [179/181] Iter: [63008/64000] Loss: 0.077 Acc: 90.04%
+2:31 
+
+
+ Train:: Epoch: [180/181] Iter: [63360/64000] Loss: 0.005 Acc: 100.0%
+
+ Valid:: Epoch: [180/181] Iter: [63360/64000] Loss: 0.025 Acc: 90.38%
+
+ Train:: Epoch: [181/181] Iter: [63712/64000] Loss: 0.005 Acc: 100.0%
+
+ Valid:: Epoch: [181/181] Iter: [63712/64000] Loss: 3.105 Acc: 89.86%
 Lenght of results collected
 +-------------+-------------+-------------+------------+
 |    Model    | Epoch Train | Epoch Valid | Iter Train |
 +-------------+-------------+-------------+------------+
-| Single Deep |      6      |      6      |    2112    |
+| Single Deep |     181     |     181     |   63712    |
 +-------------+-------------+-------------+------------+
 Starting Ensemble Training...
 
- Train Ensemble: Epoch: [1/6] Iter: [352/64000] Loss: 1.203 Acc: 54.17%
+ Train Ensemble: Epoch: [1/181] Iter: [352/64000] Loss: 1.22 Acc: 54.17%
 
- Valid Model 1: Epoch: [1/6] Iter: [352/64000] Loss: 1.393 Acc: 50.0%
+ Valid Model 1: Epoch: [1/181] Iter: [352/64000] Loss: 1.397 Acc: 50.78%
 
- Valid Model 2: Epoch: [1/6] Iter: [352/64000] Loss: 1.311 Acc: 56.25%
+ Valid Model 2: Epoch: [1/181] Iter: [352/64000] Loss: 1.371 Acc: 53.91%
 
- Valid Model 3: Epoch: [1/6] Iter: [352/64000] Loss: 1.319 Acc: 58.59%
+ Valid Model 3: Epoch: [1/181] Iter: [352/64000] Loss: 1.345 Acc: 56.25%
 
- Valid Ensemble: Epoch: [1/6] Iter: [352/64000] Loss: 1.292 Acc: 54.44%
+ Valid Ensemble: Epoch: [1/181] Iter: [352/64000] Loss: 2.278 Acc: 55.9%
 
- Train Ensemble: Epoch: [2/6] Iter: [704/64000] Loss: 0.847 Acc: 69.44%
+ Train Ensemble: Epoch: [2/181] Iter: [704/64000] Loss: 0.988 Acc: 63.89%
 
- Valid Model 1: Epoch: [2/6] Iter: [704/64000] Loss: 0.939 Acc: 65.62%
+ Valid Model 1: Epoch: [2/181] Iter: [704/64000] Loss: 0.887 Acc: 67.19%
 
- Valid Model 2: Epoch: [2/6] Iter: [704/64000] Loss: 0.991 Acc: 60.94%
+ Valid Model 2: Epoch: [2/181] Iter: [704/64000] Loss: 0.922 Acc: 67.19%
 
- Valid Model 3: Epoch: [2/6] Iter: [704/64000] Loss: 0.96 Acc: 64.06%
+ Valid Model 3: Epoch: [2/181] Iter: [704/64000] Loss: 0.982 Acc: 65.62%
 
- Valid Ensemble: Epoch: [2/6] Iter: [704/64000] Loss: 0.896 Acc: 65.98%
+ Valid Ensemble: Epoch: [2/181] Iter: [704/64000] Loss: 1.4 Acc: 67.22%
 
- Train Ensemble: Epoch: [3/6] Iter: [1056/64000] Loss: 0.773 Acc: 72.22%
+ Train Ensemble: Epoch: [3/181] Iter: [1056/64000] Loss: 0.818 Acc: 66.67%
 
- Valid Model 1: Epoch: [3/6] Iter: [1056/64000] Loss: 0.93 Acc: 71.88%
+ Valid Model 1: Epoch: [3/181] Iter: [1056/64000] Loss: 0.821 Acc: 72.66%
 
- Valid Model 2: Epoch: [3/6] Iter: [1056/64000] Loss: 0.82 Acc: 71.09%
+ Valid Model 2: Epoch: [3/181] Iter: [1056/64000] Loss: 0.759 Acc: 75.0%
 
- Valid Model 3: Epoch: [3/6] Iter: [1056/64000] Loss: 0.848 Acc: 69.53%
+ Valid Model 3: Epoch: [3/181] Iter: [1056/64000] Loss: 0.736 Acc: 74.22%
 
- Valid Ensemble: Epoch: [3/6] Iter: [1056/64000] Loss: 1.072 Acc: 73.22%
+ Valid Ensemble: Epoch: [3/181] Iter: [1056/64000] Loss: 0.795 Acc: 72.68%
 
- Train Ensemble: Epoch: [4/6] Iter: [1408/64000] Loss: 0.694 Acc: 79.17%
+ Train Ensemble: Epoch: [4/181] Iter: [1408/64000] Loss: 0.559 Acc: 79.17%
 
- Valid Model 1: Epoch: [4/6] Iter: [1408/64000] Loss: 0.805 Acc: 74.22%
+ Valid Model 1: Epoch: [4/181] Iter: [1408/64000] Loss: 0.861 Acc: 73.44%
 
- Valid Model 2: Epoch: [4/6] Iter: [1408/64000] Loss: 0.797 Acc: 75.0%
+ Valid Model 2: Epoch: [4/181] Iter: [1408/64000] Loss: 0.937 Acc: 67.19%
 
- Valid Model 3: Epoch: [4/6] Iter: [1408/64000] Loss: 0.778 Acc: 72.66%
+ Valid Model 3: Epoch: [4/181] Iter: [1408/64000] Loss: 0.944 Acc: 67.19%
 
- Valid Ensemble: Epoch: [4/6] Iter: [1408/64000] Loss: 0.749 Acc: 75.08%
+ Valid Ensemble: Epoch: [4/181] Iter: [1408/64000] Loss: 0.707 Acc: 76.4%
 
- Train Ensemble: Epoch: [5/6] Iter: [1760/64000] Loss: 0.581 Acc: 83.33%
+ Train Ensemble: Epoch: [5/181] Iter: [1760/64000] Loss: 0.461 Acc: 84.72%
 
- Valid Model 1: Epoch: [5/6] Iter: [1760/64000] Loss: 0.807 Acc: 70.31%
+ Valid Model 1: Epoch: [5/181] Iter: [1760/64000] Loss: 0.742 Acc: 72.66%
 
- Valid Model 2: Epoch: [5/6] Iter: [1760/64000] Loss: 0.771 Acc: 77.34%
+ Valid Model 2: Epoch: [5/181] Iter: [1760/64000] Loss: 0.797 Acc: 71.09%
 
- Valid Model 3: Epoch: [5/6] Iter: [1760/64000] Loss: 0.68 Acc: 74.22%
+ Valid Model 3: Epoch: [5/181] Iter: [1760/64000] Loss: 0.913 Acc: 71.88%
 
- Valid Ensemble: Epoch: [5/6] Iter: [1760/64000] Loss: 1.189 Acc: 78.66%
+ Valid Ensemble: Epoch: [5/181] Iter: [1760/64000] Loss: 1.326 Acc: 79.08%
 
- Train Ensemble: Epoch: [6/6] Iter: [2112/64000] Loss: 0.491 Acc: 83.33%
+ Train Ensemble: Epoch: [6/181] Iter: [2112/64000] Loss: 0.675 Acc: 72.22%
 
- Valid Model 1: Epoch: [6/6] Iter: [2112/64000] Loss: 0.642 Acc: 79.69%
+ Valid Model 1: Epoch: [6/181] Iter: [2112/64000] Loss: 0.59 Acc: 83.59%
 
- Valid Model 2: Epoch: [6/6] Iter: [2112/64000] Loss: 0.64 Acc: 82.03%
+ Valid Model 2: Epoch: [6/181] Iter: [2112/64000] Loss: 0.669 Acc: 78.91%
 
- Valid Model 3: Epoch: [6/6] Iter: [2112/64000] Loss: 0.638 Acc: 79.69%
+ Valid Model 3: Epoch: [6/181] Iter: [2112/64000] Loss: 0.652 Acc: 77.34%
 
- Valid Ensemble: Epoch: [6/6] Iter: [2112/64000] Loss: 0.561 Acc: 80.14%
-Lenght of results collected
-+--------------+-------------+-------------+------------+
-|    Model     | Epoch Train | Epoch Valid | Iter Train |
-+--------------+-------------+-------------+------------+
-| Individual 1 |      6      |      6      |    2112    |
-+--------------+-------------+-------------+------------+
-| Individual 2 |      6      |      6      |    2112    |
-+--------------+-------------+-------------+------------+
-| Individual 3 |      6      |      6      |    2112    |
-+--------------+-------------+-------------+------------+
-|   Ensemble   |      6      |      6      |    2112    |
-+--------------+-------------+-------------+------------+
+ Valid Ensemble: Epoch: [6/181] Iter: [2112/64000] Loss: 0.795 Acc: 80.86%
+
+ Train Ensemble: Epoch: [7/181] Iter: [2464/64000] Loss: 0.524 Acc: 81.94%
+
+ Valid Model 1: Epoch: [7/181] Iter: [2464/64000] Loss: 0.574 Acc: 77.34%
+
+ Valid Model 2: Epoch: [7/181] Iter: [2464/64000] Loss: 0.663 Acc: 76.56%
+
+ Valid Model 3: Epoch: [7/181] Iter: [2464/64000] Loss: 0.57 Acc: 80.47%
+
+ Valid Ensemble: Epoch: [7/181] Iter: [2464/64000] Loss: 0.986 Acc: 80.64%
+
+ Train Ensemble: Epoch: [8/181] Iter: [2816/64000] Loss: 0.6 Acc: 75.0%
+
+ Valid Model 1: Epoch: [8/181] Iter: [2816/64000] Loss: 0.602 Acc: 78.91%
+
+ Valid Model 2: Epoch: [8/181] Iter: [2816/64000] Loss: 0.606 Acc: 79.69%
+
+ Valid Model 3: Epoch: [8/181] Iter: [2816/64000] Loss: 0.6 Acc: 79.69%
+
+ Valid Ensemble: Epoch: [8/181] Iter: [2816/64000] Loss: 0.34 Acc: 83.0%
+
+ Train Ensemble: Epoch: [9/181] Iter: [3168/64000] Loss: 0.481 Acc: 90.28%
+
+ Valid Model 1: Epoch: [9/181] Iter: [3168/64000] Loss: 0.647 Acc: 82.03%
+
+ Valid Model 2: Epoch: [9/181] Iter: [3168/64000] Loss: 0.622 Acc: 80.47%
+
+ Valid Model 3: Epoch: [9/181] Iter: [3168/64000] Loss: 0.609 Acc: 82.03%
+
+ Valid Ensemble: Epoch: [9/181] Iter: [3168/64000] Loss: 0.888 Acc: 83.8%
+2:42 
 
 
-TESTING
--------
-Single model accuracy 77.29%
-Control:  10000
-Ensemble accuracy 79.76%
-Control:  10000
+ Train Ensemble: Epoch: [10/181] Iter: [3520/64000] Loss: 0.458 Acc: 84.72%
+
+ Valid Model 1: Epoch: [10/181] Iter: [3520/64000] Loss: 0.61 Acc: 78.12%
+
+ Valid Model 2: Epoch: [10/181] Iter: [3520/64000] Loss: 0.617 Acc: 75.78%
+
+ Valid Model 3: Epoch: [10/181] Iter: [3520/64000] Loss: 0.588 Acc: 78.12%
+
+ Valid Ensemble: Epoch: [10/181] Iter: [3520/64000] Loss: 0.708 Acc: 83.5%
+
+ Train Ensemble: Epoch: [11/181] Iter: [3872/64000] Loss: 0.284 Acc: 91.67%
+
+ Valid Model 1: Epoch: [11/181] Iter: [3872/64000] Loss: 0.548 Acc: 78.91%
+
+ Valid Model 2: Epoch: [11/181] Iter: [3872/64000] Loss: 0.407 Acc: 88.28%
+
+ Valid Model 3: Epoch: [11/181] Iter: [3872/64000] Loss: 0.441 Acc: 83.59%
+
+ Valid Ensemble: Epoch: [11/181] Iter: [3872/64000] Loss: 0.751 Acc: 84.8%
+
+ Train Ensemble: Epoch: [12/181] Iter: [4224/64000] Loss: 0.379 Acc: 87.5%
+
+ Valid Model 1: Epoch: [12/181] Iter: [4224/64000] Loss: 0.567 Acc: 78.91%
+
+ Valid Model 2: Epoch: [12/181] Iter: [4224/64000] Loss: 0.424 Acc: 87.5%
+
+ Valid Model 3: Epoch: [12/181] Iter: [4224/64000] Loss: 0.54 Acc: 80.47%
+
+ Valid Ensemble: Epoch: [12/181] Iter: [4224/64000] Loss: 0.615 Acc: 85.38%
+
+ Train Ensemble: Epoch: [13/181] Iter: [4576/64000] Loss: 0.418 Acc: 81.94%
+
+ Valid Model 1: Epoch: [13/181] Iter: [4576/64000] Loss: 0.491 Acc: 85.16%
+
+ Valid Model 2: Epoch: [13/181] Iter: [4576/64000] Loss: 0.491 Acc: 82.81%
+
+ Valid Model 3: Epoch: [13/181] Iter: [4576/64000] Loss: 0.586 Acc: 82.03%
+
+ Valid Ensemble: Epoch: [13/181] Iter: [4576/64000] Loss: 1.276 Acc: 85.86%
+
+ Train Ensemble: Epoch: [14/181] Iter: [4928/64000] Loss: 0.158 Acc: 94.44%
+
+ Valid Model 1: Epoch: [14/181] Iter: [4928/64000] Loss: 0.568 Acc: 82.81%
+
+ Valid Model 2: Epoch: [14/181] Iter: [4928/64000] Loss: 0.506 Acc: 82.03%
+
+ Valid Model 3: Epoch: [14/181] Iter: [4928/64000] Loss: 0.527 Acc: 82.81%
+
+ Valid Ensemble: Epoch: [14/181] Iter: [4928/64000] Loss: 0.4 Acc: 86.02%
+
+ Train Ensemble: Epoch: [15/181] Iter: [5280/64000] Loss: 0.273 Acc: 90.28%
+
+ Valid Model 1: Epoch: [15/181] Iter: [5280/64000] Loss: 0.44 Acc: 87.5%
+
+ Valid Model 2: Epoch: [15/181] Iter: [5280/64000] Loss: 0.515 Acc: 85.16%
+
+ Valid Model 3: Epoch: [15/181] Iter: [5280/64000] Loss: 0.476 Acc: 88.28%
+
+ Valid Ensemble: Epoch: [15/181] Iter: [5280/64000] Loss: 0.711 Acc: 86.52%
+
+ Train Ensemble: Epoch: [16/181] Iter: [5632/64000] Loss: 0.305 Acc: 93.06%
+
+ Valid Model 1: Epoch: [16/181] Iter: [5632/64000] Loss: 0.396 Acc: 87.5%
+
+ Valid Model 2: Epoch: [16/181] Iter: [5632/64000] Loss: 0.39 Acc: 85.94%
+
+ Valid Model 3: Epoch: [16/181] Iter: [5632/64000] Loss: 0.36 Acc: 89.06%
+
+ Valid Ensemble: Epoch: [16/181] Iter: [5632/64000] Loss: 0.433 Acc: 87.2%
+
+ Train Ensemble: Epoch: [17/181] Iter: [5984/64000] Loss: 0.33 Acc: 88.89%
+
+ Valid Model 1: Epoch: [17/181] Iter: [5984/64000] Loss: 0.512 Acc: 84.38%
+
+ Valid Model 2: Epoch: [17/181] Iter: [5984/64000] Loss: 0.503 Acc: 81.25%
+
+ Valid Model 3: Epoch: [17/181] Iter: [5984/64000] Loss: 0.589 Acc: 85.94%
+
+ Valid Ensemble: Epoch: [17/181] Iter: [5984/64000] Loss: 0.457 Acc: 87.16%
+
+ Train Ensemble: Epoch: [18/181] Iter: [6336/64000] Loss: 0.346 Acc: 83.33%
+
+ Valid Model 1: Epoch: [18/181] Iter: [6336/64000] Loss: 0.439 Acc: 83.59%
+
+ Valid Model 2: Epoch: [18/181] Iter: [6336/64000] Loss: 0.425 Acc: 85.16%
+
+ Valid Model 3: Epoch: [18/181] Iter: [6336/64000] Loss: 0.449 Acc: 82.03%
+
+ Valid Ensemble: Epoch: [18/181] Iter: [6336/64000] Loss: 0.53 Acc: 87.1%
+
+ Train Ensemble: Epoch: [19/181] Iter: [6688/64000] Loss: 0.361 Acc: 87.5%
+
+ Valid Model 1: Epoch: [19/181] Iter: [6688/64000] Loss: 0.472 Acc: 85.16%
+
+ Valid Model 2: Epoch: [19/181] Iter: [6688/64000] Loss: 0.461 Acc: 85.94%
+
+ Valid Model 3: Epoch: [19/181] Iter: [6688/64000] Loss: 0.513 Acc: 84.38%
+
+ Valid Ensemble: Epoch: [19/181] Iter: [6688/64000] Loss: 0.187 Acc: 87.92%
+2:51 
+
+
+ Train Ensemble: Epoch: [20/181] Iter: [7040/64000] Loss: 0.254 Acc: 93.06%
+
+ Valid Model 1: Epoch: [20/181] Iter: [7040/64000] Loss: 0.478 Acc: 80.47%
+
+ Valid Model 2: Epoch: [20/181] Iter: [7040/64000] Loss: 0.574 Acc: 80.47%
+
+ Valid Model 3: Epoch: [20/181] Iter: [7040/64000] Loss: 0.541 Acc: 85.16%
+
+ Valid Ensemble: Epoch: [20/181] Iter: [7040/64000] Loss: 1.014 Acc: 87.82%
+
+ Train Ensemble: Epoch: [21/181] Iter: [7392/64000] Loss: 0.25 Acc: 88.89%
+
+ Valid Model 1: Epoch: [21/181] Iter: [7392/64000] Loss: 0.382 Acc: 87.5%
+
+ Valid Model 2: Epoch: [21/181] Iter: [7392/64000] Loss: 0.368 Acc: 89.84%
+
+ Valid Model 3: Epoch: [21/181] Iter: [7392/64000] Loss: 0.403 Acc: 89.06%
+
+ Valid Ensemble: Epoch: [21/181] Iter: [7392/64000] Loss: 1.506 Acc: 88.38%
+
+ Train Ensemble: Epoch: [22/181] Iter: [7744/64000] Loss: 0.362 Acc: 87.5%
+
+ Valid Model 1: Epoch: [22/181] Iter: [7744/64000] Loss: 0.336 Acc: 86.72%
+
+ Valid Model 2: Epoch: [22/181] Iter: [7744/64000] Loss: 0.351 Acc: 86.72%
+
+ Valid Model 3: Epoch: [22/181] Iter: [7744/64000] Loss: 0.32 Acc: 89.06%
+
+ Valid Ensemble: Epoch: [22/181] Iter: [7744/64000] Loss: 0.83 Acc: 89.04%
+
+ Train Ensemble: Epoch: [23/181] Iter: [8096/64000] Loss: 0.242 Acc: 91.67%
+
+ Valid Model 1: Epoch: [23/181] Iter: [8096/64000] Loss: 0.329 Acc: 89.06%
+
+ Valid Model 2: Epoch: [23/181] Iter: [8096/64000] Loss: 0.353 Acc: 86.72%
+
+ Valid Model 3: Epoch: [23/181] Iter: [8096/64000] Loss: 0.416 Acc: 90.62%
+
+ Valid Ensemble: Epoch: [23/181] Iter: [8096/64000] Loss: 0.355 Acc: 88.56%
+
+ Train Ensemble: Epoch: [24/181] Iter: [8448/64000] Loss: 0.185 Acc: 95.83%
+
+ Valid Model 1: Epoch: [24/181] Iter: [8448/64000] Loss: 0.471 Acc: 85.16%
+
+ Valid Model 2: Epoch: [24/181] Iter: [8448/64000] Loss: 0.259 Acc: 91.41%
+
+ Valid Model 3: Epoch: [24/181] Iter: [8448/64000] Loss: 0.427 Acc: 85.94%
+
+ Valid Ensemble: Epoch: [24/181] Iter: [8448/64000] Loss: 1.195 Acc: 88.86%
+
+ Train Ensemble: Epoch: [25/181] Iter: [8800/64000] Loss: 0.214 Acc: 93.06%
+
+ Valid Model 1: Epoch: [25/181] Iter: [8800/64000] Loss: 0.46 Acc: 86.72%
+
+ Valid Model 2: Epoch: [25/181] Iter: [8800/64000] Loss: 0.445 Acc: 85.94%
+
+ Valid Model 3: Epoch: [25/181] Iter: [8800/64000] Loss: 0.47 Acc: 88.28%
+
+ Valid Ensemble: Epoch: [25/181] Iter: [8800/64000] Loss: 1.475 Acc: 88.92%
+
+ Train Ensemble: Epoch: [26/181] Iter: [9152/64000] Loss: 0.208 Acc: 94.44%
+
+ Valid Model 1: Epoch: [26/181] Iter: [9152/64000] Loss: 0.414 Acc: 88.28%
+
+ Valid Model 2: Epoch: [26/181] Iter: [9152/64000] Loss: 0.42 Acc: 86.72%
+
+ Valid Model 3: Epoch: [26/181] Iter: [9152/64000] Loss: 0.431 Acc: 85.16%
+
+ Valid Ensemble: Epoch: [26/181] Iter: [9152/64000] Loss: 0.988 Acc: 88.7%
+
+ Train Ensemble: Epoch: [27/181] Iter: [9504/64000] Loss: 0.347 Acc: 91.67%
+
+ Valid Model 1: Epoch: [27/181] Iter: [9504/64000] Loss: 0.356 Acc: 85.94%
+
+ Valid Model 2: Epoch: [27/181] Iter: [9504/64000] Loss: 0.359 Acc: 88.28%
+
+ Valid Model 3: Epoch: [27/181] Iter: [9504/64000] Loss: 0.342 Acc: 88.28%
+
+ Valid Ensemble: Epoch: [27/181] Iter: [9504/64000] Loss: 0.875 Acc: 88.82%
+
+ Train Ensemble: Epoch: [28/181] Iter: [9856/64000] Loss: 0.244 Acc: 93.06%
+
+ Valid Model 1: Epoch: [28/181] Iter: [9856/64000] Loss: 0.39 Acc: 86.72%
+
+ Valid Model 2: Epoch: [28/181] Iter: [9856/64000] Loss: 0.414 Acc: 86.72%
+
+ Valid Model 3: Epoch: [28/181] Iter: [9856/64000] Loss: 0.352 Acc: 86.72%
+
+ Valid Ensemble: Epoch: [28/181] Iter: [9856/64000] Loss: 0.849 Acc: 89.4%
+
+ Train Ensemble: Epoch: [29/181] Iter: [10208/64000] Loss: 0.191 Acc: 93.06%
+
+ Valid Model 1: Epoch: [29/181] Iter: [10208/64000] Loss: 0.473 Acc: 84.38%
+
+ Valid Model 2: Epoch: [29/181] Iter: [10208/64000] Loss: 0.557 Acc: 82.03%
+
+ Valid Model 3: Epoch: [29/181] Iter: [10208/64000] Loss: 0.397 Acc: 88.28%
+
+ Valid Ensemble: Epoch: [29/181] Iter: [10208/64000] Loss: 0.901 Acc: 88.98%
+3:1 
+
+
+ Train Ensemble: Epoch: [30/181] Iter: [10560/64000] Loss: 0.179 Acc: 95.83%
+
+ Valid Model 1: Epoch: [30/181] Iter: [10560/64000] Loss: 0.375 Acc: 89.06%
+
+ Valid Model 2: Epoch: [30/181] Iter: [10560/64000] Loss: 0.46 Acc: 85.16%
+
+ Valid Model 3: Epoch: [30/181] Iter: [10560/64000] Loss: 0.29 Acc: 91.41%
+
+ Valid Ensemble: Epoch: [30/181] Iter: [10560/64000] Loss: 0.944 Acc: 89.56%
+
+ Train Ensemble: Epoch: [31/181] Iter: [10912/64000] Loss: 0.128 Acc: 98.61%
+
+ Valid Model 1: Epoch: [31/181] Iter: [10912/64000] Loss: 0.318 Acc: 92.19%
+
+ Valid Model 2: Epoch: [31/181] Iter: [10912/64000] Loss: 0.391 Acc: 90.62%
+
+ Valid Model 3: Epoch: [31/181] Iter: [10912/64000] Loss: 0.349 Acc: 89.06%
+
+ Valid Ensemble: Epoch: [31/181] Iter: [10912/64000] Loss: 0.676 Acc: 89.44%
+
+ Train Ensemble: Epoch: [32/181] Iter: [11264/64000] Loss: 0.306 Acc: 90.28%
+
+ Valid Model 1: Epoch: [32/181] Iter: [11264/64000] Loss: 0.458 Acc: 88.28%
+
+ Valid Model 2: Epoch: [32/181] Iter: [11264/64000] Loss: 0.619 Acc: 81.25%
+
+ Valid Model 3: Epoch: [32/181] Iter: [11264/64000] Loss: 0.46 Acc: 85.16%
+
+ Valid Ensemble: Epoch: [32/181] Iter: [11264/64000] Loss: 0.204 Acc: 90.02%
+
+ Train Ensemble: Epoch: [33/181] Iter: [11616/64000] Loss: 0.169 Acc: 94.44%
+
+ Valid Model 1: Epoch: [33/181] Iter: [11616/64000] Loss: 0.497 Acc: 85.16%
+
+ Valid Model 2: Epoch: [33/181] Iter: [11616/64000] Loss: 0.527 Acc: 82.81%
+
+ Valid Model 3: Epoch: [33/181] Iter: [11616/64000] Loss: 0.593 Acc: 82.81%
+
+ Valid Ensemble: Epoch: [33/181] Iter: [11616/64000] Loss: 0.72 Acc: 89.7%
+
+ Train Ensemble: Epoch: [34/181] Iter: [11968/64000] Loss: 0.136 Acc: 93.06%
+
+ Valid Model 1: Epoch: [34/181] Iter: [11968/64000] Loss: 0.373 Acc: 89.84%
+
+ Valid Model 2: Epoch: [34/181] Iter: [11968/64000] Loss: 0.195 Acc: 90.62%
+
+ Valid Model 3: Epoch: [34/181] Iter: [11968/64000] Loss: 0.317 Acc: 88.28%
+
+ Valid Ensemble: Epoch: [34/181] Iter: [11968/64000] Loss: 0.935 Acc: 89.76%
+
+ Train Ensemble: Epoch: [35/181] Iter: [12320/64000] Loss: 0.129 Acc: 95.83%
+
+ Valid Model 1: Epoch: [35/181] Iter: [12320/64000] Loss: 0.433 Acc: 84.38%
+
+ Valid Model 2: Epoch: [35/181] Iter: [12320/64000] Loss: 0.407 Acc: 86.72%
+
+ Valid Model 3: Epoch: [35/181] Iter: [12320/64000] Loss: 0.451 Acc: 83.59%
+
+ Valid Ensemble: Epoch: [35/181] Iter: [12320/64000] Loss: 0.983 Acc: 89.8%
+
+ Train Ensemble: Epoch: [36/181] Iter: [12672/64000] Loss: 0.169 Acc: 94.44%
+
+ Valid Model 1: Epoch: [36/181] Iter: [12672/64000] Loss: 0.349 Acc: 89.84%
+
+ Valid Model 2: Epoch: [36/181] Iter: [12672/64000] Loss: 0.325 Acc: 89.84%
+
+ Valid Model 3: Epoch: [36/181] Iter: [12672/64000] Loss: 0.413 Acc: 87.5%
+
+ Valid Ensemble: Epoch: [36/181] Iter: [12672/64000] Loss: 0.562 Acc: 90.68%
+
+ Train Ensemble: Epoch: [37/181] Iter: [13024/64000] Loss: 0.127 Acc: 94.44%
+
+ Valid Model 1: Epoch: [37/181] Iter: [13024/64000] Loss: 0.438 Acc: 87.5%
+
+ Valid Model 2: Epoch: [37/181] Iter: [13024/64000] Loss: 0.34 Acc: 89.06%
+
+ Valid Model 3: Epoch: [37/181] Iter: [13024/64000] Loss: 0.261 Acc: 91.41%
+
+ Valid Ensemble: Epoch: [37/181] Iter: [13024/64000] Loss: 0.167 Acc: 90.2%
