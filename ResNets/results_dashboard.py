@@ -38,6 +38,7 @@ with open('Results_Single_Models.pkl', 'rb') as input:
 with open('Results_Ensemble_Models.pkl', 'rb') as input:
     eres = pickle.load(input)
     
+    
 with open('Results_Testing.pkl', 'rb') as input:
     test = pickle.load(input)
 
@@ -64,7 +65,7 @@ def time_graph():
     traces = [go.Bar(x = x, y = y, 
                      marker = {'color':c})]
                 
-    layout = go.Layout(title='Timer',
+    layout = go.Layout(title='Training time',
                        xaxis={'title':'Epochs'},
                        yaxis={'title':'Minutes'},)
     
@@ -91,7 +92,7 @@ def test_graph():
     traces = [go.Bar(x = x, y = y, 
                      marker = {'color':c})]
         
-    layout = go.Layout(title='Test Accuracy',
+    layout = go.Layout(title='Testing Set',
                   xaxis={'title':'Models'},
                   yaxis={'title':'Accuracy (%)'},)
 
@@ -231,7 +232,7 @@ def train_graph(measure, resolution):
                         )
                 )
                 
-    layout = go.Layout(title='Training Results',
+    layout = go.Layout(title='Training Set',
                        xaxis = {'title': resolution},
                        yaxis = {'title': measure, 
                                 'range': [rounddown(df.min()), roundup(df.max())],
@@ -264,7 +265,7 @@ def valid_graph(measure):
                         )
                 )
         
-    layout = go.Layout(title='Validation Data',
+    layout = go.Layout(title='Validation Set',
                        xaxis = {'title': 'Epochs'},
                        yaxis = {'title': measure, 
                                 'range': [rounddown(df.min()), roundup(df.max())],

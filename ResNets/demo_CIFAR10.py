@@ -23,7 +23,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import sys
 sys.path.append('..')
 sys.path.append('ResNets')
-from utils import load_dataset, count_parameters, savefig
+from utils import load_dataset, count_parameters
 
 
 import warnings
