@@ -16,6 +16,9 @@ USERNAME_PASSWORD_PAIRS = [
         ['username', 'password']]
 
 
+import sys
+sys.path.append('..')
+
 # Helper functions
 
 def roundup(x):
