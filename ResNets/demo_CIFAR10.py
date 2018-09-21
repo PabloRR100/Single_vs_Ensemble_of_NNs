@@ -223,11 +223,11 @@ def parameters(model, typ=None):
 
 table = BT()
 table.append_row(['Model', 'M. Paramars', '% over ResNet20'])
-table.append_row(['ResNset20', *parameters(resnet20)])
-table.append_row(['ResNset32', *parameters(resnet32)])
-table.append_row(['ResNset44', *parameters(resnet44)])
-table.append_row(['ResNset56', *parameters(resnet56)])
-table.append_row(['ResNset110', *parameters(resnet110)])
+table.append_row(['ResNet 20', *parameters(resnet20)])
+table.append_row(['ResNet 32', *parameters(resnet32)])
+table.append_row(['ResNet 44', *parameters(resnet44)])
+table.append_row(['ResNet 56', *parameters(resnet56)])
+table.append_row(['ResNet 110', *parameters(resnet110)])
 if comments: print(table)
 
 

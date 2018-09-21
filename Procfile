@@ -1,1 +1,2 @@
-web: gunicorn ResNets/results_dashboard:server
+web: gunicorn --pythonpath ResNets results_dashboard:server
+
