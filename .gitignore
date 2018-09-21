@@ -1,6 +1,3 @@
-
-results/**/*.pkl
-
 .idea/
 .DS_Store
 
