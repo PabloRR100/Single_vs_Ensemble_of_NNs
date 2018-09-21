@@ -1,1 +1,1 @@
-web: gunicorn ResNets/results_dashboad:server
+web: gunicorn ResNets/results_dashboard:server
