@@ -60,6 +60,10 @@ measurements = [{'label': 'Loss', 'value': 'loss'},
                 {'label': 'Accuracy', 'value': 'accy'},
                 {'label': 'Test Error', 'value': 'test'}]
 
+reversed_dictionary = {'loss': 'Loss', 
+                       'accy':'Accuracy',
+                       'test':'Test Error'}
+
 
 def time_graph():
     
@@ -245,7 +249,7 @@ def train_graph(measure, resolution):
                 
     layout = go.Layout(title='Training Set',
                        xaxis = {'title': resolution},
-                       yaxis = {'title': measure, 
+                       yaxis = {'title': reversed_dictionary[measure], 
                                 'range': [rounddown(df.min()), roundup(df.max())],
                                 'dtick': 10,},
                        hovermode = 'closest')
@@ -278,7 +282,7 @@ def valid_graph(measure):
         
     layout = go.Layout(title='Validation Set',
                        xaxis = {'title': 'Epochs'},
-                       yaxis = {'title': measure, 
+                       yaxis = {'title': reversed_dictionary[measure], 
                                 'range': [rounddown(df.min()), roundup(df.max())],
                                 'dtick': 10,},
                        hovermode = 'closest')
