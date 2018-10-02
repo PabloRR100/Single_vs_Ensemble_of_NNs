@@ -13,6 +13,7 @@ from results import aggregateResults
 
 USERNAME_PASSWORD_PAIRS = [
         ['PabloRR10', 'Nartenalpo10-'],
+        ['wasay', 'wasay'],
         ['username', 'password']]
 
 
@@ -46,8 +47,7 @@ with open(os.path.join(results_path, 'Results_Single_Models.pkl'), 'rb') as inpu
     res = pickle.load(input)
 
 with open(os.path.join(results_path, 'Results_Ensemble_Models.pkl'), 'rb') as input:
-    eres = pickle.load(input)
-    
+    eres = pickle.load(input)    
     
 with open(os.path.join(results_path, 'Results_Testing.pkl'), 'rb') as input:
     test = pickle.load(input)

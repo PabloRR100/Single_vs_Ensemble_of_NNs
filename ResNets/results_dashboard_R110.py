@@ -13,6 +13,7 @@ from results import aggregateResults
 
 USERNAME_PASSWORD_PAIRS = [
         ['PabloRR10', 'Nartenalpo10-'],
+        ['wasay', 'wasay'],
         ['username', 'password']]
 
 
