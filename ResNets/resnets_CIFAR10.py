@@ -204,6 +204,7 @@ def ResNet110(**kwargs):
     return ResNet(name = 'ResNet110', depth = 110, **kwargs)
 
 
+
 if __name__ == '__main__':
 
     import sys

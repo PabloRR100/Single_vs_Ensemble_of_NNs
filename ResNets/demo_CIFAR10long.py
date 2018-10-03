@@ -206,7 +206,7 @@ n_epochs= n_iters // batches
 print('\n\nIMPORTING MODELS')
 print('----------------')
 
-from resnets_Yuze2 import ResNet18, ResNet34, ResNet50, ResNet101, ResNet152
+from resnets_Yuze import ResNet18, ResNet34, ResNet50, ResNet101, ResNet152
 
 resnet18 = ResNet18()
 resnet34 = ResNet34()
