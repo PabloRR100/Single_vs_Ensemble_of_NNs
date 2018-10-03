@@ -78,7 +78,7 @@ print(table)
 #########################################################
 
 
-
+#
 ########################################################
 ## Backup code to debug from python shell - no parser
 #save = False                # Activate results saving 
@@ -280,7 +280,6 @@ if load_trained_models:
     ps = glob.glob(os.path.join(paths['models'], '*.pkl'))
     
     # Single Model
-#    delattr(singleModel, 'name')
     singleModel = loadmodel(singleModel, device, ps[0])
     
     # Ensemble Members
