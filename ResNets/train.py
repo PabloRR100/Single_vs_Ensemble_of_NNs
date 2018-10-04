@@ -56,7 +56,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     results.timer.append(0)
     for epoch in range(1, epochs+1):
         
-        if epoch % 10 == 0: time()
+        if epoch-1 % 10 == 0: time()
         
         # Scheduler for learning rate        
         if (j == 32000 or j == 48000):  
