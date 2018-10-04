@@ -24,8 +24,9 @@ def time():
 
 def print_stats(epoch, epochs, j, iters, lss, acc, subset):
     
-    stat = [subset, epoch, epochs, j, iters, lss, acc]        
-    stats = '\n {}:: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
+    stat = [time(), subset, epoch, epochs, j, iters, lss, acc]        
+    stats = '\n ** Time: {} -- {} ** Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%' \
+            .format(*stat)
     print(stats)    
     
 
@@ -56,7 +57,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     results.timer.append(0)
     for epoch in range(1, epochs+1):
         
-        if epoch-1 % 10 == 0: time()
+#        if epoch-1 % 10 == 0: time()
         
         # Scheduler for learning rate        
         if (j == 32000 or j == 48000):  
