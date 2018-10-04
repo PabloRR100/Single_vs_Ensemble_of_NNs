@@ -18,15 +18,16 @@ now = datetime.now
 def elapsed(start):
     return round((now() - start).seconds/60, 2)
 
+
 def time():
-    print('{}:{} \n'.format(now().hour, now().minute))
+    print('\n ** Time {}:{}'.format(now().hour, now().minute))
 
 
 def print_stats(epoch, epochs, j, iters, lss, acc, subset):
     
-    stat = [time(), subset, epoch, epochs, j, iters, lss, acc]        
-    stats = '\n ** Time: {} -- {} ** Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%' \
-            .format(*stat)
+    time()
+    stat = [subset, epoch, epochs, j, iters, lss, acc]        
+    stats = '\n ** {} ** Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
     print(stats)    
     
 
@@ -44,6 +45,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     avoidWarnings()
     modelpath = paths['models']
     
+    test = True
     # Testing mode
     if test:         
         epochs = 6
