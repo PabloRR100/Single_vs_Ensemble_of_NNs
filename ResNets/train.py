@@ -25,7 +25,7 @@ def time():
 
 def print_stats(epoch, epochs, j, iters, lss, acc, subset):
     
-    time()
+    if subset == 'Train': time()
     stat = [subset, epoch, epochs, j, iters, lss, acc]        
     stats = '\n ** {} ** Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
     print(stats)    
@@ -45,8 +45,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     avoidWarnings()
     modelpath = paths['models']
     
-    test = True
-    # Testing mode
     if test:         
         epochs = 6
         print('training in test mode')
@@ -58,8 +56,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     results.name = name
     results.timer.append(0)
     for epoch in range(1, epochs+1):
-        
-#        if epoch-1 % 10 == 0: time()
         
         # Scheduler for learning rate        
         if (j == 32000 or j == 48000):  
