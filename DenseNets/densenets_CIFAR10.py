@@ -133,12 +133,20 @@ if __name__ == '__main__':
 #    test()
     
     '''
-    densenetss implemented on the paper <https://arxiv.org/pdf/1512.03385.pdf>
+    Source <https://github.com/kuangliu/pytorch-cifar/blob/master/models/densenets.py>
     
-    +------------+-------------+
-    |   Model    | M. Paramars |
+    +-------------+-------------+
+    |    Model    | M. Paramars |
+    +-------------+-------------+
+    | DenseNet121 |    6.956    |
+    +-------------+-------------+
+    | DenseNet169 |   12.493    |
+    +-------------+-------------+
+    | DenseNet201 |   18.104    |
+    +-------------+-------------+
+    | DenseNet161 |   26.482    |
+    +-------------+-------------+
+    | DenseNetC10 |    1.001    |
+    +-------------+-------------+
 
-
-
-    
     '''

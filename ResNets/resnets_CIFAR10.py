@@ -236,7 +236,7 @@ if __name__ == '__main__':
     test()
     
     '''
-    ResNetss implemented on the paper <https://arxiv.org/pdf/1512.03385.pdf>
+    ResNets implemented on the paper <https://arxiv.org/pdf/1512.03385.pdf>
     
     +------------+-------------+
     |   Model    | M. Paramars |

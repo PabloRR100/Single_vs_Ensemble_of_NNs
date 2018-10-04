@@ -1,8 +1,8 @@
 
 
 # Do not show figures
-import matplotlib
-matplotlib.use('agg') 
+#import matplotlib
+#matplotlib.use('agg') 
 
 
 import os
