@@ -110,3 +110,56 @@ def ResNet101():
 
 def ResNet152():
     return ResNet(Bottleneck, [3,8,36,3], 'ResNet152')
+
+
+
+
+if __name__ == '__main__':
+
+    import sys
+    sys.path.append('..')
+    from utils import count_parameters
+    from torch.autograd import Variable
+    from beautifultable import BeautifulTable as BT
+
+    resnet18 = ResNet18()
+    resnet34 = ResNet34()
+    resnet50 = ResNet50()
+    resnet101 = ResNet101()
+    resnet152 = ResNet152()
+    
+    table = BT()
+    table.append_row(['Model', 'M. Paramars'])
+    table.append_row(['ResNset18', count_parameters(resnet18)/1e6,])
+    table.append_row(['ResNset34', count_parameters(resnet34)/1e6])
+    table.append_row(['ResNset50', count_parameters(resnet50)/1e6])
+    table.append_row(['ResNset101', count_parameters(resnet101)/1e6])
+    table.append_row(['ResNset152', count_parameters(resnet152)/1e6])
+    print(table)
+        
+    
+    def test():
+        net = ResNet50()
+        y = net(Variable(torch.randn(1,3,32,32)))
+        print(y.size())
+    
+    test()
+    
+    '''
+    Source <https://github.com/kuangliu/pytorch-cifar/blob/master/models/resnets.py>
+    
+    +------------+-------------+
+    |   Model    | M. Paramars |
+    +------------+-------------+
+    | ResNset18  |   11.174    |
+    +------------+-------------+
+    | ResNset34  |   21.282    |
+    +------------+-------------+
+    | ResNset50  |   23.521    |
+    +------------+-------------+
+    | ResNset101 |   42.513    |
+    +------------+-------------+
+    | ResNset152 |   58.157    |
+    +------------+-------------+
+    
+    '''
