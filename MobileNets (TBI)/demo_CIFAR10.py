@@ -207,7 +207,7 @@ n_epochs= n_iters // batches
 print('\n\nIMPORTING MODELS')
 print('----------------')
 
-from resnets_Paper import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
+from resnets_CIFAR10 import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
 
 resnet20 = ResNet20()
 resnet32 = ResNet32()
@@ -246,7 +246,9 @@ title = singleModel.name
 
 name = singleModel.name
 singleModel.to(device)
-if gpus: singleModel = nn.DataParallel(singleModel)
+if gpus: 
+    singleModel = nn.DataParallel(singleModel)
+    cudnn.benchmark = True
 optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
 
@@ -263,7 +265,9 @@ for i in range(ensemble_size):
     optimizers.append(params)
     
     model.to(device)
-    if gpus: model = nn.DataParallel(model)
+    if gpus: 
+        model = nn.DataParallel(model)
+        cudnn.benchmark = True
     ensemble.append(model)
 
 
@@ -283,6 +287,7 @@ if load_trained_models:
     ps = glob.glob(os.path.join(paths['models'], '*.pkl'))
     
     # Single Model
+#    delattr(singleModel, 'name')
     singleModel = loadmodel(singleModel, device, ps[0])
     
     # Ensemble Members
@@ -303,8 +308,6 @@ else:
     
     # Big Single Model
     
-    cudnn.benchmark = False    
-    cudnn.benchmark = True
     from train import train
     print('Starting Single Model Training...' )
     
@@ -321,8 +324,6 @@ else:
     
     # Ensemble Model
     
-    cudnn.benchmark = False    
-    cudnn.benchmark = True
     from train_ensemble import train as train_ensemble
     print('Starting Ensemble Training...')
     

@@ -40,6 +40,8 @@ class VGG(nn.Module):
 
 if __name__ == '__main__':
 
+    import sys
+    sys.path.append('..')
     from utils import count_parameters
     from beautifultable import BeautifulTable as BT
 

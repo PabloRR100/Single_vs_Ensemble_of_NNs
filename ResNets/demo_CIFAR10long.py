@@ -16,6 +16,7 @@ from beautifultable import BeautifulTable as BT
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
@@ -206,7 +207,7 @@ n_epochs= n_iters // batches
 print('\n\nIMPORTING MODELS')
 print('----------------')
 
-from resnets_Yuze import ResNet18, ResNet34, ResNet50, ResNet101, ResNet152
+from resnets_CIFAR10 import ResNet18, ResNet34, ResNet50, ResNet101, ResNet152
 
 resnet18 = ResNet18()
 resnet34 = ResNet34()
@@ -299,7 +300,9 @@ else:
     criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
     
     # Big Single Model
-    
+
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
     from train import train
     print('Starting Single Model Training...' )
     
@@ -316,6 +319,8 @@ else:
     
     # Ensemble Model
     
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
     from train_ensemble import train as train_ensemble
     print('Starting Ensemble Training...')
     
