@@ -16,6 +16,7 @@ from beautifultable import BeautifulTable as BT
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
@@ -245,7 +246,9 @@ title = singleModel.name
 
 name = singleModel.name
 singleModel.to(device)
-if gpus: singleModel = nn.DataParallel(singleModel)
+if gpus: 
+    singleModel = nn.DataParallel(singleModel)
+    cudnn.benchmark = True
 optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
 
@@ -262,7 +265,9 @@ for i in range(ensemble_size):
     optimizers.append(params)
     
     model.to(device)
-    if gpus: model = nn.DataParallel(model)
+    if gpus: 
+        model = nn.DataParallel(model)
+        cudnn.benchmark = True
     ensemble.append(model)
 
 
