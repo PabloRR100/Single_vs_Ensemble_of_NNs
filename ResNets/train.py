@@ -38,7 +38,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     j = 0 
     best_acc = 0
     model.train()
-    com_iter = False
+    com_iter = True
     com_epoch = True
     results = Results([model])
     

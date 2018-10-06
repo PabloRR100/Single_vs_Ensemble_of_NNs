@@ -43,6 +43,10 @@ parser.add_argument('-P', '--pretrained',
                     type=str2bool, default=False,
                     help='Boolean: load pretrained models instead of training')
 
+parser.add_argument('-I', '--print_iters', 
+                    type=str2bool, default=False,
+                    help='Boolean: print after every iteration')
+
 
 # Model parameters
 parser.add_argument('-E', '--ensembleSize',
