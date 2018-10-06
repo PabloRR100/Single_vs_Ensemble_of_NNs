@@ -315,10 +315,6 @@ else:
     
     results.show()
     
-    f = open("finished_trianing_single.txt","w+")
-    f.close() 
-    
-    
     
     # Ensemble Model
     
@@ -336,9 +332,6 @@ else:
     
     ens_results.show()
 
-    f = open("finished_trianing_ensemble.txt","w+")
-    f.close() 
-
 
 # 4 - Evaluate Models
 # -------------------
@@ -351,10 +344,7 @@ from test import test
 testresults = test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
 with open('Results_Testing_2.pkl', 'wb') as object_result:
     pickle.dump(testresults, object_result, pickle.HIGHEST_PROTOCOL)
-
-
-f = open("finished_testing.txt","w+")
-f.close() 
+    
 
 exit()
 
