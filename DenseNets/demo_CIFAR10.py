@@ -1,12 +1,13 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Aug  9 15:31:56 2018
-@author: pabloruizruiz
-@title: Deep DenseNet vs Shallow DenseNets Ensemble on CIFAR-10
-"""
+
+import warnings
+warnings.filterwarnings('always')
+warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore', 'ImportWarning')
+warnings.filterwarnings('ignore', 'DeprecationWarning')
 
 import os
+import glob
+import pickle
 import multiprocessing
 from beautifultable import BeautifulTable as BT
 
@@ -14,80 +15,192 @@ from beautifultable import BeautifulTable as BT
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.autograd import Variable
+import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
 
 import sys
 sys.path.append('..')
-data = '/Users/pabloruizruiz/Harvard/Single_Ensembles/data'
-root = '/Users/pabloruizruiz/Harvard/Single_Ensembles/DenseNets'
-results = '/Users/pabloruizruiz/Harvard/Single_Ensembles/results'
-
-os.chdir(root)
-path_to_data = data
-path_to_logs = os.path.join(results, 'logs', 'resnets')
-path_to_figures = os.path.join(results, 'figures', 'resnets')
-path_to_outputs = os.path.join(results, 'dataframes', 'resnets')
+sys.path.append('DenseNets')
+from utils import load_dataset, count_parameters
 
 
-import warnings
-warnings.filterwarnings("ignore")
-from utils import load_dataset, count_parameters, figures
+''' 
+CONFIGURATION 
+-------------
+
+Catch from the parser all the parameters to define the training
+'''
+print('\n\nCONFIGURATION')
+print('-------------')
+
+########################################################
+from parser import args
+save = args.save
+name = args.name
+draws = args.draws
+dataset = args.dataset
+testing = args.testing
+comments = args.comments
+ensemble_type = args.ensembleSize
+n_epochs = args.epochs
+n_iters = args.iterations
+batch_size = args.batch_size
+learning_rate = args.learning_rate
+save_frequency = args.save_frequency
+load_trained_models = args.pretrained
+
+table = BT()
+table.append_row(['Save', str(args.save)])
+table.append_row(['Name', str(args.name)])
+table.append_row(['Draws', str(args.draws)])
+table.append_row(['Testing', str(args.testing)])
+table.append_row(['Comments', str(args.comments)])
+table.append_row(['Ensemble size', str(args.ensembleSize)])
+if not load_trained_models:
+    table.append_row(['-------------', '-------------'])
+    table.append_row(['Epochs', n_epochs])
+    table.append_row(['Iterations', n_iters])
+    table.append_row(['Batch Size', batch_size])
+    table.append_row(['Learning Rate', str(args.learning_rate)])
+else:
+    table.append_row(['-------------', '-------------'])
+    table.append_row(['No Training', 'Pretrained Models'])
+print(table)
+#########################################################
 
 
 
+########################################################
+## Backup code to debug from python shell - no parser
+#save = False                # Activate results saving 
+#draws = False               # Activate showing the figures
+#dataset = 'CIFAR10'
+#testing = True             # Activate test to run few iterations per epoch       
+#comments = True             # Activate printing comments
+#createlog = False           # Activate option to save the logs in .txt
+#save_frequency = 1          # After how many epochs save stats
+#ensemble_type = 'Big'       # Single model big 
+##ensemble_type = 'Huge'     # Single model huge
+#learning_rate = 0.1
+#batch_size = 64
+#n_iters = 106000
+#load_trained_models = False # Load pretrained models instead of training
+########################################################
 
-''' CONFIGURATION '''
-
-test = True                 # Activate test to run few iterations per epoch       
-draws = False               # Activate showing the figures
-save_every = 1              # After how many epochs save stats
-print_every = 2             # After how many epochs print stats
-comments = True             # Activate printing comments
-ensemble_type = 'Big'       # Single model big 
-#ensemble_type = 'Huge'     # Single model huge
 
 momentum = 0.9
 weight_decay = 1e-4
-learning_rate = 0.1
 
-n_epochs = 40
-batch_size = 64
-n_iters = int(n_epochs * batch_size)
+#n_epochs = int(n_iters / batch_size)
 
+# GPU if CUDA is available
 cuda = torch.cuda.is_available()
 n_workers = multiprocessing.cpu_count()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
+gpus = True if torch.cuda.device_count() > 1 else False
+mem = False if device == 'cpu' else True
 
+
+table = BT()
+table.append_row(['Python Version', sys.version[:5]])
+table.append_row(['PyTorch Version', torch.__version__])
+table.append_row(['Cuda', str(cuda)])
+table.append_row(['Device', str(device)])
+table.append_row(['Cores', str(n_workers)])
+table.append_row(['GPUs', str(torch.cuda.device_count())])
+table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
+print('\n\nCOMPUTING CONFIG')
+print('----------------')
+print(table)
+
+
+
+'''
+DEFININTION OF PATHS 
+--------------------
+Define all the paths to load / save files
+Ensure all those paths are correctly defined before moving on
+'''
+
+print('DEFINITION OF PATHS')
+print('-------------------')
+scripts = os.getcwd()
+root = os.path.abspath(os.path.join(scripts, '../'))
+results = os.path.abspath(os.path.join(root, 'results'))
+data_path = os.path.abspath(os.path.join(root, '../datasets'))
+
+path_to_logs = os.path.join(results, 'logs', 'densenets')
+path_to_models = os.path.join(results, 'models', 'densenets')
+path_to_figures = os.path.join(results, 'figures', 'densenets')
+
+train_log = os.path.join(path_to_logs, 'train')
+test_log = os.path.join(path_to_logs, 'test')
+
+assert os.path.exists(root), 'Root folder not found'
+assert os.path.exists(scripts), 'Scripts folder not found'
+assert os.path.exists(results), 'Results folder not found'
+assert os.path.exists(data_path), 'Data folder not found'
+assert os.path.exists(path_to_logs), 'Logs folder not found'
+assert os.path.exists(path_to_models), 'Models folder not found'
+assert os.path.exists(path_to_figures), 'Figure folder not found'
+
+print('Paths Validated')
+print('---------------')
+print('Root path: ', root)
+print('Script path: ', scripts)
+print('Result path: ', results)
+print('DataFolder path: ', data_path)
+
+paths = {
+    'root': root, 
+    'script': scripts,
+    'data': data_path,
+    'resulsts': results,
+    'logs': {'train': train_log, 'test': test_log}, 
+    'models': path_to_models,
+    'figures': path_to_figures
+}
 
 
 
 # 1 - Import the Dataset
 # ----------------------
 
-path = os.path.join(root, 'data')
-train_set, valid_set, test_set = load_dataset(path_to_data, 'CIFAR10', comments=comments)
+print('IMPORTING DATA')
+print('--------------')
+
+
+train_set, valid_set, test_set = load_dataset(data_path, dataset, comments=comments)
 
 train_loader = DataLoader(dataset = train_set.dataset, 
-                               sampler=SubsetRandomSampler(train_set.indices),
-                               batch_size = batch_size, num_workers=n_workers)
+                          sampler=SubsetRandomSampler(train_set.indices),
+                          batch_size = batch_size, num_workers=n_workers,
+                          pin_memory = mem)
 
 valid_loader = DataLoader(dataset = valid_set.dataset, 
-                               sampler=SubsetRandomSampler(valid_set.indices),
-                               batch_size = batch_size, num_workers=n_workers)
+                          sampler=SubsetRandomSampler(valid_set.indices),
+                          batch_size = batch_size, num_workers=n_workers,
+                          pin_memory = mem)
 
 test_loader = DataLoader(dataset = test_set, batch_size = 1,
-                               shuffle = False, num_workers=n_workers)
+                         shuffle = False, num_workers=n_workers, pin_memory = mem)
 
+
+batches = len(train_loader)
+samples = len(train_loader.sampler.indices) 
+n_iters = int(n_epochs * batches)
 
 
 
 # 2 - Import the DenseNets
 # ------------------------
 
-from densenetsCIFAR10 import (denseNet_40_12, denseNet_100_12, denseNet_100_24, 
+print('\n\nIMPORTING MODELS')
+print('----------------')
+
+from densenets_Paper import (denseNet_40_12, denseNet_100_12, denseNet_100_24, 
                               denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40)
 
 densenet_40_12 = denseNet_40_12()
@@ -106,6 +219,7 @@ def parameters(model, typ=None):
         if typ == 'BC': return count_parameters(model) / simplest2
     return count_parameters(model)*1e-6, compare_to_simplest(model, typ)
 
+
 table = BT()
 table.append_row(['Model', 'k', 'L', 'M. of Params', '% Over simplest'])
 table.append_row(['DenseNet', 12, 40, *parameters(densenet_40_12)])
@@ -123,6 +237,32 @@ small = count_parameters(denseNetBC_100_12())  # 19:1 vs 33:1
 singleModel = denseNetBC_250_24() if ensemble_type == 'Big' else denseNetBC_190_40() 
 ensemble_size = round(count_parameters(singleModel) / small)
 
+# Construct the single model
+
+singleModel = denseNetBC_250_24() if ensemble_type == 'Big' else denseNetBC_190_40() # 3:1 vs 6:1
+title = singleModel.name
+
+name = singleModel.name
+singleModel.to(device)
+if gpus: singleModel = nn.DataParallel(singleModel)
+optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
+
+
+# Construct the ensemble
+
+names = []
+ensemble = []
+optimizers = []
+for i in range(ensemble_size):
+    
+    model = densenetBC_100_12()
+    names.append(model.name + '_' + str(i+1))
+    params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
+    optimizers.append(params)
+    
+    model.to(device)
+    if gpus: model = nn.DataParallel(model)
+    ensemble.append(model)
 
 # Construct the ensemble
 
@@ -137,97 +277,82 @@ for i in range(ensemble_size):
 
 # 3 - Train DenseNet
 # ------------------
-
-from train import train
-criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=learning_rate, 
-                      momentum=momentum, weight_decay=weight_decay)
-
-
-# Big Single Model
-
-singleModel.train()
-single_history, single_time = train('CIFAR10', singleModel, optimizer, criterion, train_loader,
-                                    n_epochs, n_iters, createlog=False, logpath=None, 
-                                    print_every=print_every, save_frequency=save_every)
-
-figures(single_history, singleModel.name, 'CIFAR10', path_to_figures, draws)
-single_history.to_csv(os.path.join(path_to_outputs, singleModel.name + '.csv'))
-
-
-# Ensemble individuals
-
-ensemble_history = []
-for model in ensemble:
-    model.train()
-    model_history, model_time = train('CIFAR10', model, optimizer, criterion, train_loader, 
-                                      n_epochs, n_iters, createlog=False, logpath=None, 
-                                      print_every=print_every, save_frequency=save_every)
-    ensemble_history.append((model_history, model_time))
     
-for i, model in enumerate(ensemble):
-    model_history, model_time = ensemble_history[i]
-    figures(model_history, model.name, 'CIFAR10', path_to_figures, draws)
-    model_history.to_csv(os.path.join(path_to_outputs, model.name + '.csv'))
-
-
+    if load_trained_models:
+    
+    ## LOAD TRAINED MODELS
+    print('Loading trained models')
+    
+    def loadmodel(model, device, path):
+        return model.load_state_dict(torch.load(path, map_location=device))
+                    
+    # Load saved models
+    ps = glob.glob(os.path.join(paths['models'], '*.pkl'))
+    
+    # Single Model
+    singleModel = loadmodel(singleModel, device, ps[0])
+    
+    # Ensemble Members
+    ensemble = []
+    for p in ps[1:]:
+        model = loadmodel(singleModel, device, p)
+        ensemble.append(model)
+            
+else:
+    
+    ## TRAINING   
+    
+    print('\n\nTRAINING')
+    print('--------')
+    
+    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+    
+    # Big Single Model
+    
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
+    from train import train
+    print('Starting Single Model Training...' )
+    
+    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+              valid_loader, n_epochs, n_iters, save, paths, testing]
+    
+    results = train(*params)
+    with open('Results_Single_Models.pkl', 'wb') as object_result:
+        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    results.show()
+    
+    
+    # Ensemble Model
+    
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
+    from train_ensemble import train as train_ensemble
+    print('Starting Ensemble Training...')
+    
+    params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
+              valid_loader, n_epochs, n_iters, save, paths, testing]
+        
+    ens_results = train_ensemble(*params)
+    with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
+        pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    ens_results.show()
 
 
 # 4 - Evaluate Models
 # -------------------
+    
+print('\n\nTESTING')
+print('-------')
 
-# Big Single Model
+from test import test
     
-singleModel.eval()
-total, correct = 0,0
-with torch.no_grad():
-    
-    for i, (images, labels) in enumerate(test_loader):
-        
-        images = Variable(images)
-        labels = Variable(labels)
-        
-        outputs = singleModel(images)
-        
-        _, preds = outputs.max(1)
-        total += outputs.size(0)
-        correct += int(sum(preds == labels))
-        
-        if (i % 50 == 0 and (i < 100 or (i > 1000 and i < 1050))) or i % 1000 == 0:
-            print('Image [{}/{}]. Total correct {}'.format(i,len(test_set),correct))                
-    
-    print('Accuracy of the network on the {} test images: {}%'.format(len(test_set), (100 * correct / total)))
-     
-        
-# Ensemble Model
-    
-total, correct = 0,0
-with torch.no_grad():
-    
-    for i, (images, labels) in enumerate(test_loader):
-        
-        #images, labels = test_set[0]
-        images = Variable(images)
-        labels = Variable(torch.tensor(labels))        
-        
-        outputs = []
-        for model in ensemble:
-            
-            model.eval()
-            output = model(images)
-            outputs.append(output)
-            
-        outputs = torch.mean(torch.stack(outputs), dim=0)
-            
-        _, preds = outputs.max(1)
-        total += outputs.size(0)
-        correct += int(sum(preds == labels))
-        
-        if (i % 50 == 0 and (i < 100 or (i > 1000 and i < 1050))) or i % 1000 == 0:
-            print('Image [{}/{}]. Total correct {}'.format(i,len(test_set),correct))    
-            
-    print('Accuracy of the network on the {} test images: {}%'.format(len(test_set), (100 * correct / total)))
-        
-        
+testresults = test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+with open('Results_Testing.pkl', 'wb') as object_result:
+    pickle.dump(testresults, object_result, pickle.HIGHEST_PROTOCOL)
 
 
+
+exit()

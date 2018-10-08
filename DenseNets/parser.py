@@ -59,11 +59,11 @@ parser.add_argument('-d', '--dataset',
                     type=str, default='CIFAR10', help=msd)
 
 parser.add_argument('-e', '--epochs', 
-                    type=int, default=None, 
+                    type=int, default=300, 
                     help='Int: Epochs for training')
 
 parser.add_argument('-i', '--iterations', 
-                    type=int, default=64000, 
+                    type=int, default=None, 
                     help='Int: Iterations for training')
 
 
@@ -72,7 +72,7 @@ parser.add_argument('-lr', '--learning_rate',
                     help='Float: Learning Rate')
 
 parser.add_argument('-bs', '--batch_size', 
-                    type=int, default=128, 
+                    type=int, default=64, 
                     help='Int: Training batch size')
 
 parser.add_argument('-sf', '--save_frequency', 
