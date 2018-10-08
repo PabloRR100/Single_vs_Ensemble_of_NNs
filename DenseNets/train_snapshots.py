@@ -25,7 +25,7 @@ def time():
 
 def print_stats(epoch, epochs, j, iters, lss, acc, subset):
     
-    if subset == 'Train': time()
+    time()
     stat = [subset, epoch, epochs, j, iters, lss, acc]        
     stats = '\n ** {} ** Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
     print(stats)    
@@ -45,6 +45,8 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     avoidWarnings()
     modelpath = paths['models']
     
+    test = True
+    # Testing mode
     if test:         
         epochs = 6
         print('training in test mode')
@@ -57,9 +59,33 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     results.timer.append(0)
     for epoch in range(1, epochs+1):
         
-        # Scheduler for learning rate        
-        if (j == 32000 or j == 48000):  
-            for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
+        ## TODO: Scheduler for learning rate        
+        def test_learning_rate(E, M):
+            
+            t = 1    
+            T = E*10
+            alp = []
+            alp0 = 0.1
+            from math import ceil, cos, pi
+            
+            for e in range(E):
+                for i in range(10):
+                    div = ceil(T/M)
+                    alp.append(0.5 * alp0 * ( cos( (pi * (t-1) % div) / div ) + 1 ))
+                    t += 1
+                    
+            return alp
+        
+        M = 6 
+        E = 300
+                    
+        alp = test_learning_rate(E, M)    
+        
+        import matplotlib.pyplot as plt
+        plt.plot(range(len(alp)), alp)
+        plt.axvline(x=range())
+        plt.show()
+
         
         # Training
         for i, (images, labels) in enumerate(trainloader):
@@ -142,3 +168,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         results.append_time(elapsed(start))
         
     return results
+
+
+
