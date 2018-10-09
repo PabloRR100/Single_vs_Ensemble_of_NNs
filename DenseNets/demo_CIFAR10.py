@@ -307,8 +307,8 @@ else:
     print('\n\nTRAINING')
     print('--------')
     
-#    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
-#    
+    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+    
 #    # Big Single Model
 #    
 #    cudnn.benchmark = False    
