@@ -58,8 +58,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     for epoch in range(1, epochs+1):
         
         # Scheduler for learning rate  
-        ## TODO: Modify LR to math paper
-        if (j == 32000 or j == 48000):  
+        if (epoch / epochs ==  0.5 or epoch / epochs == 0.75):  
             for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
             print('** Changing LR to {}'.format(p['lr']))
         
