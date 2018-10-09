@@ -85,7 +85,7 @@ print(table)
 ##ensemble_type = 'Huge'     # Single model huge
 #learning_rate = 0.1
 #batch_size = 64
-#n_iters = 106000
+#n_epochs = 300
 #load_trained_models = False # Load pretrained models instead of training
 ########################################################
 
@@ -255,7 +255,7 @@ ensemble = []
 optimizers = []
 for i in range(ensemble_size):
     
-    model = densenetBC_100_12()
+    model = denseNetBC_100_12()
     names.append(model.name + '_' + str(i+1))
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
     optimizers.append(params)
@@ -278,7 +278,7 @@ for i in range(ensemble_size):
 # 3 - Train DenseNet
 # ------------------
     
-    if load_trained_models:
+if load_trained_models:
     
     ## LOAD TRAINED MODELS
     print('Loading trained models')
