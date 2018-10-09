@@ -6,6 +6,7 @@ from datetime import datetime
 from torch.autograd import Variable
 from results import TrainResults as Results
 
+
 def avoidWarnings():
     import warnings
     warnings.filterwarnings('always')
@@ -14,13 +15,16 @@ def avoidWarnings():
     warnings.filterwarnings('ignore', 'DeprecationWarning')    
 
 
+
 now = datetime.now
 def elapsed(start):
     return round((now() - start).seconds/60, 2)
 
 
+
 def time():
     print('\n ** Time {}:{}'.format(now().hour, now().minute))
+
 
 
 def print_stats(epoch, epochs, j, iters, lss, acc, subset):

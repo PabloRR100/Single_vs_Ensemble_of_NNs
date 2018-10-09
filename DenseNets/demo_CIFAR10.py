@@ -86,6 +86,7 @@ ensemble_type = 'Big'       # Single model big
 learning_rate = 0.1
 batch_size = 64
 n_epochs = 300
+n_iters = None
 load_trained_models = False # Load pretrained models instead of training
 #######################################################
 
@@ -93,7 +94,7 @@ load_trained_models = False # Load pretrained models instead of training
 momentum = 0.9
 weight_decay = 1e-4
 
-#n_epochs = int(n_iters / batch_size)
+
 
 # GPU if CUDA is available
 cuda = torch.cuda.is_available()
@@ -188,10 +189,11 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
                          shuffle = False, num_workers=n_workers, pin_memory = mem)
 
 
+from math import ceil
 batches = len(train_loader)
 samples = len(train_loader.sampler.indices) 
-n_iters = int(n_epochs * batches)
-
+if n_iters is None: n_iters = int(n_epochs * batches)
+if n_epochs is None: n_epochs = ceil(n_iters / batch_size)
 
 
 # 2 - Import the DenseNets
