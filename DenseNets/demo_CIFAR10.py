@@ -320,7 +320,7 @@ else:
               valid_loader, n_epochs, n_iters, save, paths, testing]
     
     results = train(*params)
-    with open('Results_Single_Models.pkl', 'wb') as object_result:
+    with open(title + '_Results_Single_Models.pkl', 'wb') as object_result:
         pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
     
     results.show()
@@ -337,7 +337,7 @@ else:
               valid_loader, n_epochs, n_iters, save, paths, testing]
         
     ens_results = train_ensemble(*params)
-    with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
+    with open(title + '_Results_Ensemble_Models.pkl', 'wb') as object_result:
         pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
     
     ens_results.show()
@@ -352,7 +352,7 @@ print('-------')
 from test import test
     
 testresults = test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
-with open('Results_Testing.pkl', 'wb') as object_result:
+with open(title + '_Results_Testing.pkl', 'wb') as object_result:
     pickle.dump(testresults, object_result, pickle.HIGHEST_PROTOCOL)
 
 
