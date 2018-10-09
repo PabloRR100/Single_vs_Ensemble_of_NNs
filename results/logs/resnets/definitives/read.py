@@ -84,6 +84,11 @@ dh_essemble = (h1 + 24 - h0 if h1 < h0 else h1 - h0) * 60 + (m1+60-m0 if m1 > m0
 
 from results import TrainResults, TestResults
 
+def remove_empty_keys(d):
+    d = {k: v for k, v in d.items() if v != []}
+    return d
+
+
 # Single Model
 
 res = TrainResults([0])
@@ -104,6 +109,9 @@ eres.name = 'ResNet18(x4)'
 eres.timer = dh_essemble
 eres.train_loss['ensemble'] = tr_ensemble_loss
 eres.train_accy['ensemble'] = tr_ensemble_accy
+eres.train_loss = remove_empty_keys(eres.train_loss)
+eres.train_accy = remove_empty_keys(eres.train_accy)
+
 eres.valid_loss['ensemble'] = va_ensemble_loss
 eres.valid_accy['ensemble'] = va_ensemble_accy
 for i, m in enumerate(models): 
