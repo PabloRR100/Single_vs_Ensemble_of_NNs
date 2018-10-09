@@ -105,3 +105,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+./results/models/resnets/resnet101_/ResNet101-151.pkl
