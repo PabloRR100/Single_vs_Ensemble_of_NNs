@@ -96,6 +96,7 @@ class DenseNet(nn.Module):
                  num_classes=10, small_inputs=True, efficient=True):
 
         super(DenseNet, self).__init__()
+        self.name = name
         assert 0 < compression <= 1, 'compression of densenet should be between 0 and 1'
         self.avgpool_size = 8 if small_inputs else 7
 
@@ -167,15 +168,6 @@ def denseNetBC_250_24():
 def denseNetBC_190_40():
     return DenseNet('DenseNet-BC_40_190', 40, (31,31,31), 0.5, 16, 4, 0, 10)
 
-#def test():
-#    from torch.autograd import Variable
-#    net = denseNetBC_100_12()
-#    y = net(Variable(torch.randn(1,3,32,32)))
-#    print(y.size())
-#
-#test()
-
-
 
 if __name__ == '__main__':
 
@@ -187,6 +179,14 @@ if __name__ == '__main__':
     densenetBC_100_12 = denseNetBC_100_12() 
     densenetBC_250_24 = denseNetBC_250_24()
     densenetBC_190_40 = denseNetBC_190_40()
+    
+    def test():
+        from torch.autograd import Variable
+        net = denseNetBC_100_12()
+        y = net(Variable(torch.randn(1,3,32,32)))
+        print(y.size())
+    
+    test()
     
     table = BT()
     table.append_row(['Model', 'Growth Rate', 'Depth', 'M. of Params'])
