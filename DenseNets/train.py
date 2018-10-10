@@ -78,6 +78,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             
             model.zero_grad()
             f1 = now()
+            if j == 1: print('Processing First Image...')
             outputs = model(images)
             if j == 1: 
                 print('Time to process 1 image: ', elapsed(f1))
