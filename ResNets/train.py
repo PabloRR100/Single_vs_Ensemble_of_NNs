@@ -60,6 +60,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         # Scheduler for learning rate        
         if (j == 32000 or j == 48000):  
             for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
+            print('** Changing LR to {}'.format(p['lr']))
         
         # Training
         for i, (images, labels) in enumerate(trainloader):
