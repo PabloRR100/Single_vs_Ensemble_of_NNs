@@ -202,12 +202,8 @@ if n_epochs is None: n_epochs = ceil(n_iters / batch_size)
 print('\n\nIMPORTING MODELS')
 print('----------------')
 
-from densenets_Paper import (denseNet_40_12, denseNet_100_12, denseNet_100_24, 
-                              denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40)
+from densenets_Efficient import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
 
-densenet_40_12 = denseNet_40_12()
-densenet_100_12 = denseNet_100_12()
-densenet_100_24 = denseNet_100_24()
 densenetBC_100_12 = denseNetBC_100_12() 
 densenetBC_250_24 = denseNetBC_250_24()
 densenetBC_190_40 = denseNetBC_190_40()
@@ -215,18 +211,13 @@ densenetBC_190_40 = denseNetBC_190_40()
 
 def parameters(model, typ=None):
     def compare_to_simplest(model, typ):
-        simplest1 = count_parameters(densenet_40_12)
         simplest2 = count_parameters(densenetBC_100_12)
-        if typ is None: return count_parameters(model) / simplest1
-        if typ == 'BC': return count_parameters(model) / simplest2
+        return count_parameters(model) / simplest2
     return count_parameters(model)*1e-6, compare_to_simplest(model, typ)
 
 
 table = BT()
 table.append_row(['Model', 'k', 'L', 'M. of Params', '% Over simplest'])
-table.append_row(['DenseNet', 12, 40, *parameters(densenet_40_12)])
-table.append_row(['DenseNet', 12, 100, *parameters(densenet_100_12)])
-table.append_row(['DenseNet', 24, 100, *parameters(densenet_100_24)])
 table.append_row(['DenseNet-BC', 12, 100, *parameters(densenetBC_100_12, 'BC')])
 table.append_row(['DenseNet-BC', 24, 250, *parameters(densenetBC_250_24, 'BC')])
 table.append_row(['DenseNet-BC', 40, 190, *parameters(densenetBC_190_40, 'BC')])
@@ -309,21 +300,21 @@ else:
     
     criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
     
-#    # Big Single Model
-#    
-#    cudnn.benchmark = False    
-#    cudnn.benchmark = True
-#    from train import train
-#    print('Starting Single Model Training...' )
-#    
-#    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-#              valid_loader, n_epochs, n_iters, save, paths, testing]
-#    
-#    results = train(*params)
-#    with open(title + '_Results_Single_Models.pkl', 'wb') as object_result:
-#        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-#    
-#    results.show()
+    # Big Single Model
+    
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
+    from train import train
+    print('Starting Single Model Training...' )
+    
+    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+              valid_loader, n_epochs, n_iters, save, paths, testing]
+    
+    results = train(*params)
+    with open(title + '_Results_Single_Models.pkl', 'wb') as object_result:
+        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    results.show()
     
     
     # Ensemble Model
