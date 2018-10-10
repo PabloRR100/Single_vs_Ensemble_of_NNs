@@ -79,7 +79,8 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             model.zero_grad()
             f1 = now()
             outputs = model(images)
-            if j == 1: print('Time to process 1 image: ', elapsed(f1))
+            if j == 1: 
+                print('Time to process 1 image: ', elapsed(f1))
             scores, predictions = torch.max(outputs.data, 1)
         
             loss = criterion(outputs, labels)            

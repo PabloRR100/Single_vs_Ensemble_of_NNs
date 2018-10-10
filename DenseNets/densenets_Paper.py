@@ -23,7 +23,10 @@ def flatten(x):
 
 
 class SingleLayer(nn.Module):
-    
+    '''
+    Before entering the first dense vlock, a convolution with 16 (or twice the 
+    growth rate for BC type) output channels is performed on the input images
+    '''
     def __init__(self, nChannels, growthRate):
         super(SingleLayer, self).__init__()
         
