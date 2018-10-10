@@ -165,6 +165,7 @@ def denseNet_100_12():
 def denseNet_100_24():
     return DenseNet('DenseNet_24_100', 24, 100, 1, 10, bottleneck=False)
 
+
 def denseNetBC_100_12():
     return DenseNet('DenseNet-BC_12_100', 12, 100, 0.5, 10, bottleneck=True)
 
