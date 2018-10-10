@@ -101,6 +101,7 @@ class DenseNet(nn.Module):
 
         # First convolution -- Distinguisish between CIFAR10 and ImageNet
         if small_inputs:
+            num_init_features = 2 * growth_rate
             self.features = nn.Sequential(OrderedDict([
                 ('conv0', nn.Conv2d(3, num_init_features, kernel_size=3, stride=1, padding=1, bias=False)),
             ]))
@@ -158,13 +159,13 @@ class DenseNet(nn.Module):
         return out
 
 def denseNetBC_100_12():
-    return DenseNet('DenseNet-BC_12_100', 12, (32,16,8), 0.5, 16, 4, 0, 10)
+    return DenseNet('DenseNet-BC_12_100', 12, (16,16,16), 0.5, 16, 4, 0, 10)
 
 def denseNetBC_250_24():
-    return DenseNet('DenseNet-BC_24_250', 24, (32,16,8), 0.5, 16, 4, 0, 10)
+    return DenseNet('DenseNet-BC_24_250', 24, (41, 41, 41), 0.5, 16, 4, 0, 10)
 
 def denseNetBC_190_40():
-    return DenseNet('DenseNet-BC_40_190', 40, (32,16,8), 0.5, 16, 4, 0, 10)
+    return DenseNet('DenseNet-BC_40_190', 40, (31,31,31), 0.5, 16, 4, 0, 10)
 
 #def test():
 #    from torch.autograd import Variable
