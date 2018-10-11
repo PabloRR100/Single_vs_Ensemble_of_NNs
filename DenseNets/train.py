@@ -68,6 +68,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             print('** Changing LR to {}'.format(p['lr']))
         
         # Training
+        print('About to get into the trainloader')
         for i, (images, labels) in enumerate(trainloader):
             
             print('Just got into the trainloader')
