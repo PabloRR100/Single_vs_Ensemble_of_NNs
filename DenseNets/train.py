@@ -41,6 +41,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     
     j = 0 
     best_acc = 0
+    print('Before the model.train()')
     model.train()
     com_iter = False
     com_epoch = True
@@ -61,6 +62,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     results.timer.append(0)
     for epoch in range(1, epochs+1):
         
+        if epoch == 1: print('Epoch 1')
         # Scheduler for learning rate  
         if (epoch / epochs ==  0.5 or epoch / epochs == 0.75):  
             for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
@@ -76,6 +78,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             images = images.to(device)
             labels = labels.to(device)
             
+            if j == 1: print('Before the zero grad')
             model.zero_grad()
             f1 = now()
             if j == 1: print('Processing First Image...')
