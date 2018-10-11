@@ -41,7 +41,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     
     j = 0 
     best_acc = 0
-    print('Before the model.train()')
     model.train()
     com_iter = False
     com_epoch = True
@@ -71,6 +70,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         # Training
         for i, (images, labels) in enumerate(trainloader):
             
+            print('Just got into the trainloader')
             j += 1 # for printing
             images = Variable(images)
             labels = Variable(labels)
