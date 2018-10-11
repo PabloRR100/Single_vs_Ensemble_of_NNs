@@ -71,7 +71,7 @@ print(table)
 #########################################################
 
 
-
+#
 ########################################################
 ## Backup code to debug from python shell - no parser
 #save = False                # Activate results saving 
@@ -89,7 +89,7 @@ print(table)
 #n_iters = None
 #load_trained_models = False # Load pretrained models instead of training
 ########################################################
-
+#
 
 momentum = 0.9
 weight_decay = 1e-4

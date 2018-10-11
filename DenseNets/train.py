@@ -69,6 +69,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         
         # Training
         print('About to get into the trainloader')
+        print('The lenght of the trainloader is ', len(trainloader))
         for i, (images, labels) in enumerate(trainloader):
             
             print('Just got into the trainloader')
