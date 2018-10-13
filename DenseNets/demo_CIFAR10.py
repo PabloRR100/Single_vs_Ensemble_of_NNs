@@ -112,10 +112,13 @@ table.append_row(['Device', str(device)])
 table.append_row(['Cores', str(n_workers)])
 table.append_row(['GPUs', str(torch.cuda.device_count())])
 table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
+
+
 print('\n\nCOMPUTING CONFIG')
 print('----------------')
 print(table)
 
+exit()
 
 
 '''
