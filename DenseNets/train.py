@@ -61,7 +61,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     results.timer.append(0)
     for epoch in range(1, epochs+1):
         
-        if epoch == 1: print('Epoch 1')
         # Scheduler for learning rate  
         if (epoch / epochs ==  0.5 or epoch / epochs == 0.75):  
             for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
