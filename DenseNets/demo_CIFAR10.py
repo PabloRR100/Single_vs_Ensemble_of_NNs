@@ -34,6 +34,7 @@ Catch from the parser all the parameters to define the training
 '''
 print('\n\nCONFIGURATION')
 print('-------------')
+sys.stdout.flush()
 
 ########################################################
 from parser import args
@@ -68,6 +69,7 @@ else:
     table.append_row(['-------------', '-------------'])
     table.append_row(['No Training', 'Pretrained Models'])
 print(table)
+sys.stdout.flush()
 #########################################################
 
 
@@ -117,7 +119,7 @@ table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
 print('\n\nCOMPUTING CONFIG')
 print('----------------')
 print(table)
-
+sys.stdout.flush()
 
 
 '''
@@ -129,6 +131,7 @@ Ensure all those paths are correctly defined before moving on
 
 print('DEFINITION OF PATHS')
 print('-------------------')
+sys.stdout.flush()
 scripts = os.getcwd()
 root = os.path.abspath(os.path.join(scripts, '../'))
 results = os.path.abspath(os.path.join(root, 'results'))
@@ -173,9 +176,10 @@ paths = {
 
 print('IMPORTING DATA')
 print('--------------')
+sys.stdout.flush()
 
 ## Error suggested to set num_workers = 0
-n_workers = 0
+#n_workers = 0
 
 train_set, valid_set, test_set = load_dataset(data_path, dataset, comments=comments)
 
@@ -304,6 +308,7 @@ else:
     
     print('\n\nTRAINING')
     print('--------')
+    sys.stdout.flush()
     
     criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
     
@@ -313,6 +318,7 @@ else:
     cudnn.benchmark = True
     from train import train
     print('Starting Single Model Training...' )
+    sys.stdout.flush()
     
     params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
               valid_loader, n_epochs, n_iters, save, paths, testing]

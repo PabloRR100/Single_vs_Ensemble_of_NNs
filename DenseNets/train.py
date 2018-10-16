@@ -1,5 +1,6 @@
 
 import os
+import sys
 import glob
 import torch
 from datetime import datetime 
@@ -69,9 +70,11 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         # Training
         print('About to get into the trainloader')
         print('The lenght of the trainloader is ', len(trainloader))
+        sys.stdout.flush()
         for i, (images, labels) in enumerate(trainloader):
             
             print('Just got into the trainloader')
+            sys.stdout.flush()
             j += 1 # for printing
             images = Variable(images)
             labels = Variable(labels)
