@@ -37,6 +37,12 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
 def train(dataset, names, models, optimizers, criterion, device, trainloader, validloader,
           epochs, iters, save, paths, test=True, validate=True):
     
+    import torch.nn as nn
+    gpus = True if torch.cuda.device_count() > 1 else False
+    for model in enumerate(models):
+        model.to(device)
+        if gpus: model = nn.DataParallel(model)
+    
     com_iter = False
     com_epoch = True
     # Every model train mode
