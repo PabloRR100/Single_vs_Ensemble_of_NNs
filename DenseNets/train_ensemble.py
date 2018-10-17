@@ -158,7 +158,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             print('Last output dimensions:{}     n = {}'.format(output.size(), n))
             sys.stdout.flush()
             output = torch.mean(torch.stack(outs), dim=0)
-            if j == 1: print('Time to process 1 batch by entire ensemble: ', elapsed(f1))
+            if j == 1: print('Time to process 1 batch by entire ensemble: ', elapsed(start))
             
             # Calculate loss for ensemble
             loss = criterion(output, labels) 
