@@ -73,6 +73,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         sys.stdout.flush()
         for i, (images, labels) in enumerate(trainloader):
             
+            if i == 0: print(len(images))
             if i % 50 == 0: print('Im doing stuff... image: ', i+1)
 #            print('Just got into the trainloader')
             sys.stdout.flush()
@@ -86,10 +87,10 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             if j == 1: print('Before the zero grad')
             model.zero_grad()
             f1 = now()
-            if j == 1: print('Processing First Image...')
+            if j == 1: print('Processing First Batch...')
             outputs = model(images)
             if j == 1: 
-                print('Time to process 1 image: ', elapsed(f1))
+                print('Time to process 1 batch: ', elapsed(f1))
             scores, predictions = torch.max(outputs.data, 1)
         
             loss = criterion(outputs, labels)            
@@ -110,7 +111,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
           
             if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
         
-        if epoch == 1: print('Time to process 1 batch: ', elapsed(start))
+        if epoch == 1: print('Time to process 1 epoch: ', elapsed(start))
         # Stores per-epoch results
         results.append_loss(lss, 'train')
         results.append_accy(acc, 'train')

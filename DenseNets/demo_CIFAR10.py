@@ -247,8 +247,6 @@ singleModel = denseNetBC_250_24() if ensemble_type == 'Big' else denseNetBC_190_
 title = singleModel.name
 
 name = singleModel.name
-singleModel.to(device)
-if gpus: singleModel = nn.DataParallel(singleModel)
 optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
 
@@ -263,9 +261,6 @@ for i in range(ensemble_size):
     names.append(model.name + '_' + str(i+1))
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
     optimizers.append(params)
-    
-    model.to(device)
-    if gpus: model = nn.DataParallel(model)
     ensemble.append(model)
 
 # Construct the ensemble
@@ -316,8 +311,10 @@ else:
     
     # Big Single Model
     
-    cudnn.benchmark = False    
-    cudnn.benchmark = True
+    singleModel.to(device)
+    if gpus: 
+        singleModel = nn.DataParallel(singleModel)  
+        cudnn.benchmark = True
     from train import train
     print('Starting Single Model Training...' )
     sys.stdout.flush()
@@ -334,7 +331,11 @@ else:
     
     # Ensemble Model
     
-    cudnn.benchmark = False    
+    for i in range(ensemble_size):
+        model.to(device)
+        if gpus: model = nn.DataParallel(model)
+        ensemble.append(model)
+
     cudnn.benchmark = True
     from train_ensemble import train as train_ensemble
     print('Starting Ensemble Training...')
