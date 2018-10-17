@@ -73,6 +73,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         sys.stdout.flush()
         for i, (images, labels) in enumerate(trainloader):
             
+            if i % 50 == 0: print('Im doing stuff... image: ', i+1)
 #            print('Just got into the trainloader')
             sys.stdout.flush()
             j += 1 # for printing
@@ -91,7 +92,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
                 print('Time to process 1 image: ', elapsed(f1))
             scores, predictions = torch.max(outputs.data, 1)
         
-            loss = criterion(outputs, labels)            
+#            loss = criterion(outputs, labels)            
 #            loss.backward()
 #            optimizer.step()
 
