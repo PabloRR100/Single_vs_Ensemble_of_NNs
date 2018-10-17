@@ -94,7 +94,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             scores, predictions = torch.max(outputs.data, 1)
         
             loss = criterion(outputs, labels)            
-#            loss.backward()
+            loss.backward()
 #            optimizer.step()
 
             correct, total = 0, 0
