@@ -43,6 +43,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         model.to(device)
         if gpus: model = nn.DataParallel(model)
     
+    print('len(optimizers) = ', len(optimizers))
+    
     com_iter = False
     com_epoch = True
     # Every model train mode
@@ -98,12 +100,12 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 ## Individual forward pass
                 
                 # Calculate loss for individual    
-                if j == 1: print('Before the zero grad')
+                if j == 1 and n == 0: print('Before the zero grad')
                 m.zero_grad()
                 f1 = now()
-                if j == 1: print('Processing First Batch...')
+                if j == 1 and n == 0: print('Processing First Batch...')
                 output = m(images)
-                if j == 1: print('Time to process 1 batch by first net: ', elapsed(f1))
+                if j == 1 and n == 0: print('Time to process 1 batch by first net: ', elapsed(f1))
                 outs.append(output)
                 loss = criterion(output, labels) 
                 
@@ -130,6 +132,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 
+                print('n = ', n)
                 loss.backward()
                 optimizers[n].step()        
                 
