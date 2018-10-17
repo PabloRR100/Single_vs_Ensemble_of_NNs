@@ -91,7 +91,7 @@ sys.stdout.flush()
 #n_iters = None
 #load_trained_models = False # Load pretrained models instead of training
 ########################################################
-#
+
 
 momentum = 0.9
 weight_decay = 1e-4
@@ -262,16 +262,6 @@ for i in range(ensemble_size):
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
     optimizers.append(params)
     ensemble.append(model)
-
-# Construct the ensemble
-
-ensemble = []
-
-for i in range(ensemble_size):
-    model = denseNetBC_100_12()
-    model.name = model.name + '_' + str(i+1)
-    ensemble.append(model)
-
 
 # exit()
 
