@@ -92,7 +92,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
                 print('Time to process 1 image: ', elapsed(f1))
             scores, predictions = torch.max(outputs.data, 1)
         
-#            loss = criterion(outputs, labels)            
+            loss = criterion(outputs, labels)            
 #            loss.backward()
 #            optimizer.step()
 
