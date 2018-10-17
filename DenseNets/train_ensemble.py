@@ -43,6 +43,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         model.to(device)
         if gpus: model = nn.DataParallel(model)
     
+    print('len(models) = ', len(models))
     print('len(optimizers) = ', len(optimizers))
     
     com_iter = False
