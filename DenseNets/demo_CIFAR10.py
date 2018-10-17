@@ -210,10 +210,10 @@ if n_epochs is None: n_epochs = ceil(n_iters / batch_size)
 print('\n\nIMPORTING MODELS')
 print('----------------')
 
-from densenets_Paper import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
-print('Using paper nets')
-#from densenets_Efficient import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
-#print('Using efficient nets')
+#from densenets_Paper import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
+#print('Using paper nets')
+from densenets_Efficient import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
+print('Using efficient nets')
 
 densenetBC_100_12 = denseNetBC_100_12() 
 densenetBC_250_24 = denseNetBC_250_24()

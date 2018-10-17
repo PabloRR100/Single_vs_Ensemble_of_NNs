@@ -85,7 +85,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         for i, (images, labels) in enumerate(trainloader):
             
             if i == 0: print(len(images))
-            if i % 50 == 0: print('Im doing stuff... image: ', i+1)
+            if i % 50 == 0: print('Im doing stuff... batch: ', i+1)
             
             j += 1 # for printing
             images = Variable(images)
