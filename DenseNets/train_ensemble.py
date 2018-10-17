@@ -142,11 +142,13 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 
-                print('Before the loss backward ', n)
-                sys.stdout.flush()
+                if j == 1:
+                    print('Before the loss backward ', n)
+                    sys.stdout.flush()
                 loss.backward()
-                print('Before the optimizer step')
-                sys.stdout.flush()
+                if j == 1:
+                    print('Before the optimizer step')
+                    sys.stdout.flush()
                 optimizers[n].step()        
                 
                 
