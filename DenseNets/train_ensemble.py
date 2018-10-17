@@ -130,8 +130,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 
-#                loss.backward()
-#                optimizers[n].step()        
+                loss.backward()
+                optimizers[n].step()        
                 
                 
             ## Ensemble foward pass
