@@ -95,7 +95,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         
             loss = criterion(outputs, labels)            
             loss.backward()
-#            optimizer.step()
+            optimizer.step()
 
             correct, total = 0, 0
             total += outputs.size(0)
