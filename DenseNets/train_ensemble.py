@@ -43,9 +43,6 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         model.to(device)
         if gpus: model = nn.DataParallel(model)
     
-    print('len(models) = ', len(models))
-    print('len(optimizers) = ', len(optimizers))
-    
     com_iter = False
     com_epoch = True
     # Every model train mode
@@ -132,8 +129,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train', n+1)  
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
-                
-                print('n = ', n)
+
                 loss.backward()
                 optimizers[n].step()        
                 
