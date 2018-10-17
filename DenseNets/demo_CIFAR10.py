@@ -210,10 +210,10 @@ if n_epochs is None: n_epochs = ceil(n_iters / batch_size)
 print('\n\nIMPORTING MODELS')
 print('----------------')
 
-#from densenets_Paper import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
-#print('Using paper nets')
-from densenets_Efficient import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
-print('Using efficient nets')
+from densenets_Paper import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
+print('Using paper nets')
+#from densenets_Efficient import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
+#print('Using efficient nets')
 
 densenetBC_100_12 = denseNetBC_100_12() 
 densenetBC_250_24 = denseNetBC_250_24()
@@ -309,24 +309,24 @@ else:
     
     criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
     
-#    # Big Single Model
-#    
-#    singleModel.to(device)
-#    if gpus: 
-#        singleModel = nn.DataParallel(singleModel)  
-#        cudnn.benchmark = True
-#    from train import train
-#    print('Starting Single Model Training...' )
-#    sys.stdout.flush()
-#    
-#    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-#              valid_loader, n_epochs, n_iters, save, paths, testing]
-#    
-#    results = train(*params)
-#    with open(title + '_Results_Single_Models.pkl', 'wb') as object_result:
-#        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-#    
-#    results.show()
+    # Big Single Model
+    
+    singleModel.to(device)
+    if gpus: 
+        singleModel = nn.DataParallel(singleModel)  
+        cudnn.benchmark = True
+    from train import train
+    print('Starting Single Model Training...' )
+    sys.stdout.flush()
+    
+    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+              valid_loader, n_epochs, n_iters, save, paths, testing]
+    
+    results = train(*params)
+    with open(title + '_Results_Single_Models.pkl', 'wb') as object_result:
+        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    results.show()
     
     
     # Ensemble Model
@@ -337,17 +337,17 @@ else:
 #        ensemble.append(model)
 
 #    cudnn.benchmark = True
-    from train_ensemble import train as train_ensemble
-    print('Starting Ensemble Training...')
-    
-    params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
-              valid_loader, n_epochs, n_iters, save, paths, testing]
-        
-    ens_results = train_ensemble(*params)
-    with open(title + '_Results_Ensemble_Models.pkl', 'wb') as object_result:
-        pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
-    
-    ens_results.show()
+#    from train_ensemble import train as train_ensemble
+#    print('Starting Ensemble Training...')
+#    
+#    params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
+#              valid_loader, n_epochs, n_iters, save, paths, testing]
+#        
+#    ens_results = train_ensemble(*params)
+#    with open(title + '_Results_Ensemble_Models.pkl', 'wb') as object_result:
+#        pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
+#    
+#    ens_results.show()
 
 
 # 4 - Evaluate Models
