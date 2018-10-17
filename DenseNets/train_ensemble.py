@@ -39,7 +39,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     
     import torch.nn as nn
     gpus = True if torch.cuda.device_count() > 1 else False
-    for model in enumerate(models):
+    for model in models:
         model.to(device)
         if gpus: model = nn.DataParallel(model)
     
