@@ -72,6 +72,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         # --------
         for i, (images, labels) in enumerate(trainloader):
             
+            if i == 0: print(len(images))
+            if i % 50 == 0: print('Im doing stuff... image: ', i+1)
+            
             j += 1 # for printing
             images = Variable(images)
             labels = Variable(labels)
@@ -88,9 +91,13 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
 
                 ## Individual forward pass
                 
-                # Calculate loss for individual                
+                # Calculate loss for individual    
+                if j == 1: print('Before the zero grad')
                 m.zero_grad()
+                f1 = now()
+                if j == 1: print('Processing First Batch...')
                 output = m(images)
+                if j == 1: print('Time to process 1 batch by first net: ', elapsed(f1))
                 outs.append(output)
                 loss = criterion(output, labels) 
                 
@@ -117,13 +124,14 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 
-                loss.backward()
-                optimizers[n].step()        
+#                loss.backward()
+#                optimizers[n].step()        
                 
                 
             ## Ensemble foward pass
             
             output = torch.mean(torch.stack(outs), dim=0)
+            if j == 1: print('Time to process 1 batch by entire ensemble: ', elapsed(f1))
             
             # Calculate loss for ensemble
             loss = criterion(output, labels) 

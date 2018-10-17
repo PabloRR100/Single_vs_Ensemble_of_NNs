@@ -336,7 +336,7 @@ else:
         if gpus: model = nn.DataParallel(model)
         ensemble.append(model)
 
-    cudnn.benchmark = True
+#    cudnn.benchmark = True
     from train_ensemble import train as train_ensemble
     print('Starting Ensemble Training...')
     
