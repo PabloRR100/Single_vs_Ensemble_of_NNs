@@ -80,6 +80,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
         # Training
         # --------
+        print('About to get into the trainloader')
+        print('The lenght of the trainloader is ', len(trainloader))
         for i, (images, labels) in enumerate(trainloader):
             
             if i == 0: print(len(images))
@@ -140,7 +142,11 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
                 # Individual backwad pass                           # How does loss.backward wicho model is?
                 
+                print('Before the loss backward')
+                sys.stdout.flush()
                 loss.backward()
+                print('Before the optimizer step')
+                sys.stdout.flush()
                 optimizers[n].step()        
                 
                 
