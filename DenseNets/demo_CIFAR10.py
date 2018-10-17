@@ -301,32 +301,32 @@ if load_trained_models:
             
 else:
     
-    ## TRAINING   
-    
-    print('\n\nTRAINING')
-    print('--------')
-    sys.stdout.flush()
-    
-    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
-    
-    # Big Single Model
-    
-    singleModel.to(device)
-    if gpus: 
-        singleModel = nn.DataParallel(singleModel)  
-        cudnn.benchmark = True
-    from train import train
-    print('Starting Single Model Training...' )
-    sys.stdout.flush()
-    
-    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-              valid_loader, n_epochs, n_iters, save, paths, testing]
-    
-    results = train(*params)
-    with open(title + '_Results_Single_Models.pkl', 'wb') as object_result:
-        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-    
-    results.show()
+#    ## TRAINING   
+#    
+#    print('\n\nTRAINING')
+#    print('--------')
+#    sys.stdout.flush()
+#    
+#    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+#    
+#    # Big Single Model
+#    
+#    singleModel.to(device)
+#    if gpus: 
+#        singleModel = nn.DataParallel(singleModel)  
+#        cudnn.benchmark = True
+#    from train import train
+#    print('Starting Single Model Training...' )
+#    sys.stdout.flush()
+#    
+#    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+#              valid_loader, n_epochs, n_iters, save, paths, testing]
+#    
+#    results = train(*params)
+#    with open(title + '_Results_Single_Models.pkl', 'wb') as object_result:
+#        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+#    
+#    results.show()
     
     
     # Ensemble Model
