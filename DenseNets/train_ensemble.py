@@ -154,6 +154,10 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
             ## Ensemble foward pass
             
+            print('Before the mergin of the of the outputs')
+            sys.stdout.flush()
+            print('Last output dimensions', output.size())
+            sys.stdout.flush()
             output = torch.mean(torch.stack(outs), dim=0)
             if j == 1: print('Time to process 1 batch by entire ensemble: ', elapsed(f1))
             
