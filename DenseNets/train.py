@@ -73,7 +73,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         sys.stdout.flush()
         for i, (images, labels) in enumerate(trainloader):
             
-            print('Just got into the trainloader')
+#            print('Just got into the trainloader')
             sys.stdout.flush()
             j += 1 # for printing
             images = Variable(images)
