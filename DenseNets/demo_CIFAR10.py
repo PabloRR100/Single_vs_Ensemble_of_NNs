@@ -301,14 +301,14 @@ if load_trained_models:
             
 else:
     
-#    ## TRAINING   
-#    
-#    print('\n\nTRAINING')
-#    print('--------')
-#    sys.stdout.flush()
-#    
-#    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
-#    
+    ## TRAINING   
+    
+    print('\n\nTRAINING')
+    print('--------')
+    sys.stdout.flush()
+    
+    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+    
 #    # Big Single Model
 #    
 #    singleModel.to(device)
