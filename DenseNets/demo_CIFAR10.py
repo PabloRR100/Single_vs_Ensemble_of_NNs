@@ -278,89 +278,89 @@ for i in range(ensemble_size):
     ensemble.append(model)
 
 
+# exit()
+
+
+# 3 - Train DenseNet
+# ------------------
+    
+if load_trained_models:
+    
+    ## LOAD TRAINED MODELS
+    print('Loading trained models')
+    
+    def loadmodel(model, device, path):
+        return model.load_state_dict(torch.load(path, map_location=device))
+                    
+    # Load saved models
+    ps = glob.glob(os.path.join(paths['models'], '*.pkl'))
+    
+    # Single Model
+    singleModel = loadmodel(singleModel, device, ps[0])
+    
+    # Ensemble Members
+    ensemble = []
+    for p in ps[1:]:
+        model = loadmodel(singleModel, device, p)
+        ensemble.append(model)
+            
+else:
+    
+    ## TRAINING   
+    
+    print('\n\nTRAINING')
+    print('--------')
+    sys.stdout.flush()
+    
+    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+    
+    # Big Single Model
+    
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
+    from train import train
+    print('Starting Single Model Training...' )
+    sys.stdout.flush()
+    
+    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+              valid_loader, n_epochs, n_iters, save, paths, testing]
+    
+    results = train(*params)
+    with open(title + '_Results_Single_Models.pkl', 'wb') as object_result:
+        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    results.show()
+    
+    
+    # Ensemble Model
+    
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
+    from train_ensemble import train as train_ensemble
+    print('Starting Ensemble Training...')
+    
+    params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
+              valid_loader, n_epochs, n_iters, save, paths, testing]
+        
+    ens_results = train_ensemble(*params)
+    with open(title + '_Results_Ensemble_Models.pkl', 'wb') as object_result:
+        pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    ens_results.show()
+
+
+# 4 - Evaluate Models
+# -------------------
+    
+print('\n\nTESTING')
+print('-------')
+
+from test import test
+    
+testresults = test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+with open(title + '_Results_Testing.pkl', 'wb') as object_result:
+    pickle.dump(testresults, object_result, pickle.HIGHEST_PROTOCOL)
+
+
+
 exit()
-#
-#
-## 3 - Train DenseNet
-## ------------------
-#    
-#if load_trained_models:
-#    
-#    ## LOAD TRAINED MODELS
-#    print('Loading trained models')
-#    
-#    def loadmodel(model, device, path):
-#        return model.load_state_dict(torch.load(path, map_location=device))
-#                    
-#    # Load saved models
-#    ps = glob.glob(os.path.join(paths['models'], '*.pkl'))
-#    
-#    # Single Model
-#    singleModel = loadmodel(singleModel, device, ps[0])
-#    
-#    # Ensemble Members
-#    ensemble = []
-#    for p in ps[1:]:
-#        model = loadmodel(singleModel, device, p)
-#        ensemble.append(model)
-#            
-#else:
-#    
-#    ## TRAINING   
-#    
-#    print('\n\nTRAINING')
-#    print('--------')
-#    sys.stdout.flush()
-#    
-#    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
-#    
-#    # Big Single Model
-#    
-#    cudnn.benchmark = False    
-#    cudnn.benchmark = True
-#    from train import train
-#    print('Starting Single Model Training...' )
-#    sys.stdout.flush()
-#    
-#    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-#              valid_loader, n_epochs, n_iters, save, paths, testing]
-#    
-#    results = train(*params)
-#    with open(title + '_Results_Single_Models.pkl', 'wb') as object_result:
-#        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-#    
-#    results.show()
-#    
-#    
-#    # Ensemble Model
-#    
-#    cudnn.benchmark = False    
-#    cudnn.benchmark = True
-#    from train_ensemble import train as train_ensemble
-#    print('Starting Ensemble Training...')
-#    
-#    params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
-#              valid_loader, n_epochs, n_iters, save, paths, testing]
-#        
-#    ens_results = train_ensemble(*params)
-#    with open(title + '_Results_Ensemble_Models.pkl', 'wb') as object_result:
-#        pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
-#    
-#    ens_results.show()
-#
-#
-## 4 - Evaluate Models
-## -------------------
-#    
-#print('\n\nTESTING')
-#print('-------')
-#
-#from test import test
-#    
-#testresults = test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
-#with open(title + '_Results_Testing.pkl', 'wb') as object_result:
-#    pickle.dump(testresults, object_result, pickle.HIGHEST_PROTOCOL)
-#
-#
-#
-#exit()

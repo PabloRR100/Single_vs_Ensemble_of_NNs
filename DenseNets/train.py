@@ -60,102 +60,102 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     start = now()
     results.name = name
     results.timer.append(0)
-    for epoch in range(1, epochs+1):
-        
-        # Scheduler for learning rate  
-        if (epoch / epochs ==  0.5 or epoch / epochs == 0.75):  
-            for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
-            print('** Changing LR to {}'.format(p['lr']))
-        
-        # Training
-        print('About to get into the trainloader')
-        print('The lenght of the trainloader is ', len(trainloader))
-        sys.stdout.flush()
-        for i, (images, labels) in enumerate(trainloader):
-            
-            print('Just got into the trainloader')
-            sys.stdout.flush()
-            j += 1 # for printing
-            images = Variable(images)
-            labels = Variable(labels)
-            
-            images = images.to(device)
-            labels = labels.to(device)
-            
-            if j == 1: print('Before the zero grad')
-            model.zero_grad()
-            f1 = now()
-            if j == 1: print('Processing First Image...')
-            outputs = model(images)
-            if j == 1: 
-                print('Time to process 1 image: ', elapsed(f1))
-            scores, predictions = torch.max(outputs.data, 1)
-        
-            loss = criterion(outputs, labels)            
-            loss.backward()
-            optimizer.step()
-
-            correct, total = 0, 0
-            total += outputs.size(0)
-            correct += int(sum(predictions == labels)) 
-            accuracy = correct / total
-            
-            lss = round(loss.item(), 3)
-            acc = round(accuracy * 100, 2)
-            
-            # Stores per iteration results
-            results.append_iter_loss(lss, 'train')
-            results.append_iter_accy(acc, 'train')
-          
-            if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
-        
-        if epoch == 1: print('Time to process 1 batch: ', elapsed(start))
-        # Stores per-epoch results
-        results.append_loss(lss, 'train')
-        results.append_accy(acc, 'train')
-        
-        if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
-        
-        # Validation
-        if validate:
-            
-            correct, total = 0, 0
-            for k, (images, labels) in enumerate(validloader):
-            
-                images = Variable(images)
-                labels = Variable(labels)
-                
-                images = images.to(device)
-                labels = labels.to(device)
-                
-                outputs = model(images)
-                
-                loss = criterion(outputs, labels)  
-                
-                _, preds = outputs.max(1)
-                total += outputs.size(0)
-                correct += int(sum(preds == labels))
-                
-            accuracy = correct / total
-        
-            lss = round(loss.item(), 3)
-            acc = round(accuracy * 100, 2)
-            
-            # Save model and delete previous if it is the best
-            if acc > best_acc:
-                
-                models = glob.glob(os.path.join(modelpath, '*.pkl'))
-                for m in models:
-                    os.remove(m)
-                torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
-                best_acc = acc
-        
-            # Store per-epoch results
-            results.append_loss(lss, 'valid')
-            results.append_accy(acc, 'valid')
-            
-            if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid')              
-        
-        results.append_time(elapsed(start))
-        
-    return results
+#    for epoch in range(1, epochs+1):
+#        
+#        # Scheduler for learning rate  
+#        if (epoch / epochs ==  0.5 or epoch / epochs == 0.75):  
+#            for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
+#            print('** Changing LR to {}'.format(p['lr']))
+#        
+#        # Training
+#        print('About to get into the trainloader')
+#        print('The lenght of the trainloader is ', len(trainloader))
+#        sys.stdout.flush()
+#        for i, (images, labels) in enumerate(trainloader):
+#            
+#            print('Just got into the trainloader')
+#            sys.stdout.flush()
+#            j += 1 # for printing
+#            images = Variable(images)
+#            labels = Variable(labels)
+#            
+#            images = images.to(device)
+#            labels = labels.to(device)
+#            
+#            if j == 1: print('Before the zero grad')
+#            model.zero_grad()
+#            f1 = now()
+#            if j == 1: print('Processing First Image...')
+#            outputs = model(images)
+#            if j == 1: 
+#                print('Time to process 1 image: ', elapsed(f1))
+#            scores, predictions = torch.max(outputs.data, 1)
+#        
+#            loss = criterion(outputs, labels)            
+#            loss.backward()
+#            optimizer.step()
+#
+#            correct, total = 0, 0
+#            total += outputs.size(0)
+#            correct += int(sum(predictions == labels)) 
+#            accuracy = correct / total
+#            
+#            lss = round(loss.item(), 3)
+#            acc = round(accuracy * 100, 2)
+#            
+#            # Stores per iteration results
+#            results.append_iter_loss(lss, 'train')
+#            results.append_iter_accy(acc, 'train')
+#          
+#            if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
+#        
+#        if epoch == 1: print('Time to process 1 batch: ', elapsed(start))
+#        # Stores per-epoch results
+#        results.append_loss(lss, 'train')
+#        results.append_accy(acc, 'train')
+#        
+#        if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
+#        
+#        # Validation
+#        if validate:
+#            
+#            correct, total = 0, 0
+#            for k, (images, labels) in enumerate(validloader):
+#            
+#                images = Variable(images)
+#                labels = Variable(labels)
+#                
+#                images = images.to(device)
+#                labels = labels.to(device)
+#                
+#                outputs = model(images)
+#                
+#                loss = criterion(outputs, labels)  
+#                
+#                _, preds = outputs.max(1)
+#                total += outputs.size(0)
+#                correct += int(sum(preds == labels))
+#                
+#            accuracy = correct / total
+#        
+#            lss = round(loss.item(), 3)
+#            acc = round(accuracy * 100, 2)
+#            
+#            # Save model and delete previous if it is the best
+#            if acc > best_acc:
+#                
+#                models = glob.glob(os.path.join(modelpath, '*.pkl'))
+#                for m in models:
+#                    os.remove(m)
+#                torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
+#                best_acc = acc
+#        
+#            # Store per-epoch results
+#            results.append_loss(lss, 'valid')
+#            results.append_accy(acc, 'valid')
+#            
+#            if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid')              
+#        
+#        results.append_time(elapsed(start))
+#        
+#    return results
