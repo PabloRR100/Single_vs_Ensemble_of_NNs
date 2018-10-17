@@ -179,7 +179,7 @@ print('--------------')
 sys.stdout.flush()
 
 ## Error suggested to set num_workers = 0
-#n_workers = 0
+n_workers = 0
 
 train_set, valid_set, test_set = load_dataset(data_path, dataset, comments=comments)
 
