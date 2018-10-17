@@ -1,5 +1,6 @@
 
 import os
+import sys
 import glob
 import torch
 from datetime import datetime 
@@ -101,12 +102,18 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 ## Individual forward pass
                 
                 # Calculate loss for individual    
-                if j == 1 and n == 0: print('Before the zero grad')
+                if j == 1 and n == 0: 
+                    print('Before the zero grad')
+                    sys.stdout.flush()
                 m.zero_grad()
                 f1 = now()
-                if j == 1 and n == 0: print('Processing First Batch...')
+                if j == 1 and n == 0: 
+                    print('Processing First Batch...')
+                    sys.stdout.flush()
                 output = m(images)
-                if j == 1 and n == 0: print('Time to process 1 batch by first net: ', elapsed(f1))
+                if j == 1 and n == 0: 
+                    print('Time to process 1 batch by first net: ', elapsed(f1))
+                    sys.stdout.flush()
                 outs.append(output)
                 loss = criterion(output, labels) 
                 
