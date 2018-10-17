@@ -154,11 +154,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
             ## Ensemble foward pass
             
-            if j == 1:
-                print('Before the mergin of the of the outputs')
-                sys.stdout.flush()
-                print('Last output dimensions', output.size())
-                sys.stdout.flush()
+#            print('Before the mergin of the of the outputs')            
+            print('Last output dimensions:     n = '.fomat(output.size(), n))
+            sys.stdout.flush()
             output = torch.mean(torch.stack(outs), dim=0)
             if j == 1: print('Time to process 1 batch by entire ensemble: ', elapsed(f1))
             
@@ -185,7 +183,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         # Store epoch results for Ensemble
         results.append_loss(lss, 'train', None)
         results.append_accy(acc, 'train', None)
-        
+                
         # Print results
         if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')
         
