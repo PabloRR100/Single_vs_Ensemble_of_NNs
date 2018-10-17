@@ -321,10 +321,9 @@ else:
     
     # Ensemble Model
     
-    for i in range(ensemble_size):
+    for model in ensemble:
         model.to(device)
         if gpus: model = nn.DataParallel(model)
-        ensemble.append(model)
 
     cudnn.benchmark = True
     from train_ensemble import train as train_ensemble
