@@ -169,6 +169,7 @@ paths = {
     'figures': path_to_figures
 }
 
+exit() ## Just trying if with docker recognizes the gpus
 
 
 # 1 - Import the Dataset
