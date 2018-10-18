@@ -207,8 +207,11 @@ n_epochs= n_iters // batches
 print('\n\nIMPORTING MODELS')
 print('----------------')
 
-from resnets_CIFAR10 import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
+sys.path.append('../ResNets')
+from mobile_nets import MobileNet
+from resnets_Paper import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
 
+net = MobileNet()
 resnet20 = ResNet20()
 resnet32 = ResNet32()
 resnet44 = ResNet44()
@@ -224,6 +227,7 @@ def parameters(model, typ=None):
 
 table = BT()
 table.append_row(['Model', 'M. Paramars', '% over ResNet20'])
+table.append_row(['Mobile Net', *parameters(net)])
 table.append_row(['ResNet 20', *parameters(resnet20)])
 table.append_row(['ResNet 32', *parameters(resnet32)])
 table.append_row(['ResNet 44', *parameters(resnet44)])
