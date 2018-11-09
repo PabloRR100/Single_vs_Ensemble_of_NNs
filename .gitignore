@@ -105,4 +105,5 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-./results/models/resnets/resnet101_/ResNet101-151.pkl
+results/models/resnets/definitives/*
+results/models/vggs/definitives/*
