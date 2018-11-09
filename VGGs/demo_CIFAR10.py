@@ -61,6 +61,9 @@ weight_decay = args.weight_decay = 1e-4
 save_frequency = args.save_frequency
 load_trained_models = args.pretrained
 
+
+
+
 table = BT()
 table.append_row(['Save', str(args.save)])
 table.append_row(['Name', str(args.name)])
@@ -199,7 +202,10 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
 
 batches = len(train_loader)
 samples = len(train_loader.sampler.indices) 
-n_epochs= n_iters // batches
+if n_epochs == None:
+    n_epochs= n_iters // batches
+if n_iters == None:
+    n_iters = n_epochs * batches
 
 
 ## TODO: Convergence criteria
