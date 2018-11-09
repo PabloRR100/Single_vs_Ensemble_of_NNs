@@ -24,14 +24,8 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import sys
 sys.path.append('..')
 sys.path.append('VGGs')
+from utils import avoidWarnings
 from utils import load_dataset, count_parameters
-
-
-import warnings
-warnings.filterwarnings('always')
-warnings.filterwarnings('ignore')
-warnings.filterwarnings('ignore', 'ImportWarning')
-warnings.filterwarnings('ignore', 'DeprecationWarning')
 
 
 ''' 
@@ -302,12 +296,13 @@ if load_trained_models:
 
 else:
     
-#    ## TRAINING   
-#    
-#    print('\n\nTRAINING')
-#    print('--------')
-#    
-#    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+    avoidWarnings()
+    ## TRAINING   
+    
+    print('\n\nTRAINING')
+    print('--------')
+    
+    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 #    
 #    # Big Single Model
 #    

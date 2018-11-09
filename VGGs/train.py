@@ -3,16 +3,10 @@ import os
 import glob
 import torch
 from utils import timeit
+from utils import avoidWarnings
 from datetime import datetime 
 from torch.autograd import Variable
-from results import TrainResults as Results
-
-def avoidWarnings():
-    import warnings
-    warnings.filterwarnings('always')
-    warnings.filterwarnings('ignore')
-    warnings.filterwarnings('ignore', 'ImportWarning')
-    warnings.filterwarnings('ignore', 'DeprecationWarning')    
+from results import TrainResults as Results 
 
 
 now = datetime.now
