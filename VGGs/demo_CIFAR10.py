@@ -328,7 +328,7 @@ else:
     cudnn.benchmark = True
     from train_ensemble import train as train_ensemble
     print('Starting Ensemble Training...')
-    print('Loading Models {} (x{}) ...'.format(ensemble[0].name, len(names)))
+    print('Loading Models {} (x{}) ...'.format(names[0][:-2], len(names)))
     
     params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
               valid_loader, n_epochs, n_iters, save, paths, testing]
