@@ -171,15 +171,15 @@ class ResNet(nn.Module):
             print('Sizes of the tensors inside each node: \n')
             print("\t In Model: input size", x.size())
         
-        x = self.relu(self.bn(self.conv(x)))    # 32x32
+        x = self.relu(self.bn(self.conv(x)))    # BSx3x32x32
         
-        x = self.layer1(x)                      # 32x32
-        x = self.layer2(x)                      # 16x16
-        x = self.layer3(x)                      # 8x8
+        x = self.layer1(x)                      # BSx16x32x32
+        x = self.layer2(x)                      # BSx32x16x16
+        x = self.layer3(x)                      # BSx64x8x8
 
-        x = self.avgpool(x)                     # 1x1
-        x = self.flatten(x)                     # Flatten
-        x  = self.fc(x)                         # Dense
+        x = self.avgpool(x)                     # BSx641x1
+        x = self.flatten(x)                     # Flatten BSx64
+        x  = self.fc(x)                         # Dense   BSx10
         
         if print_sizes:
             print("\t In Model: output size", x.size())
