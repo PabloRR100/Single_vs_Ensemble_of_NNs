@@ -56,8 +56,6 @@ save_frequency = args.save_frequency
 load_trained_models = args.pretrained
 
 
-
-
 table = BT()
 table.append_row(['Save', str(args.save)])
 table.append_row(['Name', str(args.name)])
@@ -303,24 +301,24 @@ else:
     print('--------')
     
     criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
-#    
-#    # Big Single Model
-#    
-#    cudnn.benchmark = False    
-#    cudnn.benchmark = True
-#    from train import train
-#    print('Starting Single Model Training...' )
-#    print('Loading Model {} ...'.format(name))
-#    
-#    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-#              valid_loader, n_epochs, n_iters, save, paths, testing]
-#    
-#    results = train(*params)
-#    with open('Results_Single_Models.pkl', 'wb') as object_result:
-#        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-#    
-#    results.show()
-#    
+    
+    # Big Single Model
+    
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
+    from train import train
+    print('Starting Single Model Training...' )
+    print('Loading Model {} ...'.format(name))
+    
+    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+              valid_loader, n_epochs, n_iters, save, paths, testing]
+    
+    results = train(*params)
+    with open('Results_Single_Models.pkl', 'wb') as object_result:
+        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    results.show()
+    
     
     # Ensemble Model
     
