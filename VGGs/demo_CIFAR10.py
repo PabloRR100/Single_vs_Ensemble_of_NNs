@@ -43,64 +43,62 @@ Catch from the parser all the parameters to define the training
 print('\n\nCONFIGURATION')
 print('-------------')
 
+########################################################
+from parser import args
+save = args.save
+name = args.name
+draws = args.draws
+dataset = args.dataset
+testing = args.testing
+comments = args.comments
+ensemble_type = args.ensembleSize
+n_epochs = args.epochs
+n_iters = args.iterations
+batch_size = args.batch_size
+learning_rate = args.learning_rate
+momentum = args.momentum = 0.9
+weight_decay = args.weight_decay = 1e-4
+save_frequency = args.save_frequency
+load_trained_models = args.pretrained
+
+table = BT()
+table.append_row(['Save', str(args.save)])
+table.append_row(['Name', str(args.name)])
+table.append_row(['Draws', str(args.draws)])
+table.append_row(['Testing', str(args.testing)])
+table.append_row(['Comments', str(args.comments)])
+table.append_row(['Ensemble size', str(args.ensembleSize)])
+if not load_trained_models:
+    table.append_row(['-------------', '-------------'])
+    table.append_row(['Epochs', n_epochs])
+    table.append_row(['Iterations', n_iters])
+    table.append_row(['Batch Size', batch_size])
+    table.append_row(['Learning Rate', str(args.learning_rate)])
+else:
+    table.append_row(['-------------', '-------------'])
+    table.append_row(['No Training', 'Pretrained Models'])
+print(table)
 #########################################################
-#from parser import args
-#save = args.save
-#name = args.name
-#draws = args.draws
-#dataset = args.dataset
-#testing = args.testing
-#comments = args.comments
-#ensemble_type = args.ensembleSize
-#n_epochs = args.epochs
-#n_iters = args.iterations
-#batch_size = args.batch_size
-#learning_rate = args.learning_rate
-#momentum = args.momentum = 0.9
-#weight_decay = args.weight_decay = 1e-4
-#save_frequency = args.save_frequency
-#load_trained_models = args.pretrained
-#
-#table = BT()
-#table.append_row(['Save', str(args.save)])
-#table.append_row(['Name', str(args.name)])
-#table.append_row(['Draws', str(args.draws)])
-#table.append_row(['Testing', str(args.testing)])
-#table.append_row(['Comments', str(args.comments)])
-#table.append_row(['Ensemble size', str(args.ensembleSize)])
-#if not load_trained_models:
-#    table.append_row(['-------------', '-------------'])
-#    table.append_row(['Epochs', n_epochs])
-#    table.append_row(['Iterations', n_iters])
-#    table.append_row(['Batch Size', batch_size])
-#    table.append_row(['Learning Rate', str(args.learning_rate)])
-#else:
-#    table.append_row(['-------------', '-------------'])
-#    table.append_row(['No Training', 'Pretrained Models'])
-#print(table)
-##########################################################
 
-
-
-#######################################################
-# Backup code to debug from python shell - no parser
-save = False                # Activate results saving 
-draws = False               # Activate showing the figures
-dataset = 'CIFAR10'
-testing = True             # Activate test to run few iterations per epoch       
-comments = True             # Activate printing comments
-createlog = False           # Activate option to save the logs in .txt
-save_frequency = 1          # After how many epochs save stats
-ensemble_type = 'Big'       # Single model big VGG13
-#ensemble_type = 'Huge'     # Single model hug VGG16
-#ensemble_type = 'SuperHuge'# Single model superhuge VGG19
-learning_rate = 0.1
-momentum = 0.9
-weight_decay = 1e-4
-batch_size = 128
-n_iters = 64000
-load_trained_models = False # Load pretrained models instead of training
-#######################################################
+########################################################
+## Backup code to debug from python shell - no parser
+#save = False                # Activate results saving 
+#draws = False               # Activate showing the figures
+#dataset = 'CIFAR10'
+#testing = True             # Activate test to run few iterations per epoch       
+#comments = True             # Activate printing comments
+#createlog = False           # Activate option to save the logs in .txt
+#save_frequency = 1          # After how many epochs save stats
+#ensemble_type = 'Big'       # Single model big VGG13
+##ensemble_type = 'Huge'     # Single model hug VGG16
+##ensemble_type = 'SuperHuge'# Single model superhuge VGG19
+#learning_rate = 0.1
+#momentum = 0.9
+#weight_decay = 1e-4
+#batch_size = 128
+#n_iters = 64000
+#load_trained_models = False # Load pretrained models instead of training
+########################################################
 
 #n_epochs = int(n_iters / batch_size)
 
