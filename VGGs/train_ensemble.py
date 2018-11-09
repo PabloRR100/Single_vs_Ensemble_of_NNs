@@ -2,6 +2,7 @@
 import os
 import glob
 import torch
+from utils import timeit
 from datetime import datetime 
 from torch.autograd import Variable
 from results import TrainResults as Results
@@ -33,7 +34,8 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
         stats = '\n {} Ensemble: Epoch: [{}/{}] Iter: [{}/{}] Loss: {} Acc: {}%'.format(*stat)
     print(stats)    
     
-    
+
+@timeit
 def train(dataset, names, models, optimizers, criterion, device, trainloader, validloader,
           epochs, iters, save, paths, test=True, validate=True):
     

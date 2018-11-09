@@ -302,30 +302,30 @@ if load_trained_models:
 
 else:
     
-    ## TRAINING   
-    
-    print('\n\nTRAINING')
-    print('--------')
-    
-    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
-    
-    # Big Single Model
-    
-    cudnn.benchmark = False    
-    cudnn.benchmark = True
-    from train import train
-    print('Starting Single Model Training...' )
-    
-    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-              valid_loader, n_epochs, n_iters, save, paths, testing]
-    
-    results = train(*params)
-    with open('Results_Single_Models.pkl', 'wb') as object_result:
-        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-    
-    results.show()
-    
-    
+#    ## TRAINING   
+#    
+#    print('\n\nTRAINING')
+#    print('--------')
+#    
+#    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+#    
+#    # Big Single Model
+#    
+#    cudnn.benchmark = False    
+#    cudnn.benchmark = True
+#    from train import train
+#    print('Starting Single Model Training...' )
+#    print('Loading Model {} ...'.format(name))
+#    
+#    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+#              valid_loader, n_epochs, n_iters, save, paths, testing]
+#    
+#    results = train(*params)
+#    with open('Results_Single_Models.pkl', 'wb') as object_result:
+#        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+#    
+#    results.show()
+#    
     
     # Ensemble Model
     
@@ -333,6 +333,7 @@ else:
     cudnn.benchmark = True
     from train_ensemble import train as train_ensemble
     print('Starting Ensemble Training...')
+    print('Loading Models {} (x{}) ...'.format(ensemble[0].name, len(names)))
     
     params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
               valid_loader, n_epochs, n_iters, save, paths, testing]
