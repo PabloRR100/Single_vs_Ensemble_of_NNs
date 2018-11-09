@@ -225,16 +225,16 @@ def load_dataset(data_path, dataset: str, comments: bool = True):
 #    if save: plt.savefig(image_file)
 #    if draws: plt.show()
 
-
-def savefig(data: dict, path: str, title: str):
-    ''' Save the plot from the data '''
-    plt.figure()
-    sns.set_style("dark")
-    df = pd.DataFrame.from_dict(data)
-    sns.lineplot(data=df)
-    plt.savefig(os.path.join(path, title))
-    
-
-
+#
+#def savefig(data: dict, path: str, title: str):
+#    ''' Save the plot from the data '''
+#    plt.figure()
+#    sns.set_style("dark")
+#    df = pd.DataFrame.from_dict(data)
+#    sns.lineplot(data=df)
+#    plt.savefig(os.path.join(path, title))
+#    
+#
+#
 
 
