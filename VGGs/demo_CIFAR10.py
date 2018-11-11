@@ -99,6 +99,24 @@ print(table)
 #n_epochs = int(n_iters / batch_size)
 
 # GPU if CUDA is available
+cuda = torch.cuda.is_available()
+n_workers = multiprocessing.cpu_count()
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+gpus = True if torch.cuda.device_count() > 1 else False
+mem = False if device == 'cpu' else True
+
+
+table = BT()
+table.append_row(['Python Version', sys.version[:5]])
+table.append_row(['PyTorch Version', torch.__version__])
+table.append_row(['Cuda', str(cuda)])
+table.append_row(['Device', str(device)])
+table.append_row(['Cores', str(n_workers)])
+table.append_row(['GPUs', str(torch.cuda.device_count())])
+table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
+print('\n\nCOMPUTING CONFIG')
+print('----------------')
+print(table)
 
 
 '''
