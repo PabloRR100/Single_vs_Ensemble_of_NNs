@@ -163,26 +163,26 @@ class TestResults():
         self.ensemble_accy = None
         
 
-def aggregateResults(res, eres, test):
+def aggregateResults(res, eres, test, name):
     
     # Timer
     timer = concat((DataFrame(res.timer), DataFrame(eres.timer)), axis=1)
     timer.columns = ['Deep model', 'Ensemble']
     
     # Training Loss Per Iteration
-    iter_train_loss = concat((DataFrame(res.iter_train_loss, columns=['ResNet56']), 
+    iter_train_loss = concat((DataFrame(res.iter_train_loss, columns=[name]), 
                                  DataFrame.from_dict(eres.iter_train_loss)), axis=1)
     
     # Training Loss Per Epoch
-    epoch_train_loss = concat((DataFrame(res.train_loss, columns=['ResNet56']), 
+    epoch_train_loss = concat((DataFrame(res.train_loss, columns=[name]), 
                                   DataFrame.from_dict(eres.train_loss)), axis=1)
     
     # Training Accuracy Per Iteration
-    iter_train_accy = concat((DataFrame(res.iter_train_accy, columns=['ResNet56']), 
+    iter_train_accy = concat((DataFrame(res.iter_train_accy, columns=[name]), 
                                  DataFrame.from_dict(eres.iter_train_accy)), axis=1)
     
     # Training Accuracy Per Epoch
-    epoch_train_accy = concat((DataFrame(res.train_accy, columns=['ResNet56']), 
+    epoch_train_accy = concat((DataFrame(res.train_accy, columns=[name]), 
                                   DataFrame.from_dict(eres.train_accy)), axis=1)
     
     # Training Test Error Per Iteration
@@ -192,11 +192,11 @@ def aggregateResults(res, eres, test):
     epoch_train_testerror = 100 - epoch_train_accy.iloc[:,:]
     
     # Validation Loss
-    valid_loss = concat((DataFrame(res.valid_loss, columns=['ResNet56']), 
+    valid_loss = concat((DataFrame(res.valid_loss, columns=[name]), 
                             DataFrame.from_dict(eres.valid_loss)), axis=1)
     
     # Validation Accuracy 
-    valid_accy = concat((DataFrame(res.valid_accy, columns=['ResNet56']), 
+    valid_accy = concat((DataFrame(res.valid_accy, columns=[name]), 
                             DataFrame.from_dict(eres.valid_accy)), axis=1)
     
     # Validation Test Error
