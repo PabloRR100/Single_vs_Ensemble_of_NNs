@@ -283,6 +283,11 @@ if load_trained_models:
     
     from collections import OrderedDict
     
+    def get_epoch(pth):
+        pth = pth.split('/')[-1] # remove all the path
+        pth = pth[:-4] # remove .pkl
+        return pth.split('-')[1] # get just the epoch
+    
     def load_weights(path):
         global device
         state_dict = torch.load(path, map_location=device)
@@ -292,28 +297,69 @@ if load_trained_models:
             new_state_dict[name] = v
         return new_state_dict
 
-    ## LOAD TRAINED MODELS
-    print('Loading trained models')
+    ## LOAD TRAINED MODELS      -->         args.pretrained = -P = True
+    print('Loading trained models... ')
                     
     # Load saved models
     if ensemble_type == 'Big':
         pth = os.path.join(path_to_definitives, 'resnet56')
     else:
         pth = os.path.join(path_to_definitives, 'resnet110')
+        e_epoch = get_epoch(pth)
         
     ps = glob.glob(os.path.join(pth, '*.pkl'))
     
     # Single Model
+    s_epoch = int(get_epoch(ps[0]))
     singleModel.load_state_dict(load_weights(ps[0]))
 
     
     # Ensemble Members
+    e_epoch = int(get_epoch(ps[1]))
     for i,p in enumerate(ps[1:]):                
         ensemble[i].load_state_dict(load_weights(p))  
         
         
     # Reset Models from saved Epoch
     # -----------------------------
+    
+    print('\n\nTRAINING')
+    print('--------')
+    
+    criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+    
+     # Big Single Model
+     
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
+    
+    from train_reset import train as tr
+    print('Starting Single Model Training...' )
+    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+              valid_loader, e_epoch, n_epochs, n_iters, save, paths, testing]
+    
+    results = tr(*params)
+    with open('Results_Loaded_Single_Models.pkl', 'wb') as object_result:
+        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    results.show()
+    
+    # Ensemble Model
+    
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
+    from train_ensemble import train as tre
+    print('Starting Ensemble Training...')
+    
+    params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
+              valid_loader, e_epoch, n_epochs, n_iters, save, paths, testing]
+        
+    ens_results = tre(*params)
+    with open('Results_Loaded_Ensemble_Models.pkl', 'wb') as object_result:
+        pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    ens_results.show()
+
     
 
 else:
@@ -324,6 +370,7 @@ else:
     print('--------')
     
     criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
+    
     
     # Big Single Model
     
@@ -342,11 +389,8 @@ else:
     results.show()
     
     
-    
     # Ensemble Model
     
-    cudnn.benchmark = False    
-    cudnn.benchmark = True
     from train_ensemble import train as train_ensemble
     print('Starting Ensemble Training...')
     
