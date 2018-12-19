@@ -3,9 +3,18 @@ import torch
 from torch.autograd import Variable
 from results import TestResults as Results
 
+def avoidWarnings():
+    import warnings
+    warnings.filterwarnings('always')
+    warnings.filterwarnings('ignore')
+    warnings.filterwarnings('ignore', 'ImportWarning')
+    warnings.filterwarnings('ignore', 'DeprecationWarning')    
+    
+
 def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
             
     # Single Network Performance
+    avoidWarnings()
     
     results = Results()
     singleModel.eval()

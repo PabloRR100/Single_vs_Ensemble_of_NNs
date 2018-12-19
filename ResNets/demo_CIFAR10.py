@@ -278,11 +278,22 @@ for i in range(ensemble_size):
 
 if load_trained_models:
     
+    # Load Best Models
+    # ----------------
+    
+    from collections import OrderedDict
+    
+    def load_weights(path):
+        global device
+        state_dict = torch.load(path, map_location=device)
+        new_state_dict = OrderedDict()
+        for k,v in state_dict.items():
+            name = k[7:] # remove module.
+            new_state_dict[name] = v
+        return new_state_dict
+
     ## LOAD TRAINED MODELS
     print('Loading trained models')
-    
-    def loadmodel(model, device, path):
-        return model.load_state_dict(torch.load(path, map_location=device))
                     
     # Load saved models
     if ensemble_type == 'Big':
@@ -293,15 +304,17 @@ if load_trained_models:
     ps = glob.glob(os.path.join(pth, '*.pkl'))
     
     # Single Model
-    singleModel = nn.DataParallel(singleModel)
-    singleModel = loadmodel(singleModel, device, ps[0])
+    singleModel.load_state_dict(load_weights(ps[0]))
+
     
     # Ensemble Members
-    ensemble = []
-    for p in ps[1:]:
-        model = loadmodel(singleModel, device, p)
-        ensemble.append(model)
-            
+    for i,p in enumerate(ps[1:]):                
+        ensemble[i].load_state_dict(load_weights(p))  
+        
+        
+    # Reset Models from saved Epoch
+    # -----------------------------
+    
 
 else:
     
