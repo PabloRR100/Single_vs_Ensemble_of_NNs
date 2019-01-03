@@ -34,7 +34,6 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset):
 def train(dataset, name, model, optimizer, criterion, device, trainloader, validloader,
           epoch, epochs, iters, save, paths, test=True, validate=True):
     
-    j = 0 
     best_acc = 0
     model.train()
     com_iter = False
@@ -48,13 +47,9 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     results.name = name
     results.timer.append(0)
     
-    for epoch in range(epoch, epoch + epochs):
-        
-        # Scheduler for learning rate        
-        if (j == 32000 or j == 48000):  
-            for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
-            print('** Changing LR to {}'.format(p['lr']))
-        
+    j = epoch * 352
+    for epoch in range(epoch, epochs):
+                
         # Training
         for i, (images, labels) in enumerate(trainloader):
             

@@ -59,7 +59,7 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     results.append_time(0)
     results.name = names[0][:-2] + '(x' + str(len(names)) + ')'
     
-    for epoch in range(epoch, epochs + epoch):
+    for epoch in range(epoch, epochs):
         
         if epoch % 10 == 0: time()
                 

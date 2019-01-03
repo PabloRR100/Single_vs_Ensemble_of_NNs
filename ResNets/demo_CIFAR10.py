@@ -1,3 +1,4 @@
+s
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -91,10 +92,12 @@ createlog = False           # Activate option to save the logs in .txt
 save_frequency = 1          # After how many epochs save stats
 ensemble_type = 'Big'       # Single model big 
 #ensemble_type = 'Huge'     # Single model huge
-learning_rate = 0.1
+#learning_rate = 0.1
 batch_size = 128
+n_epochs = 300
 n_iters = 64000
-load_trained_models = False # Load pretrained models instead of training
+load_trained_models = True # Load pretrained models instead of training
+learning_rate = 0.001
 #######################################################
 
 
@@ -203,7 +206,8 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
 
 batches = len(train_loader)
 samples = len(train_loader.sampler.indices) 
-n_epochs= n_iters // batches
+#if not n_epochs: 
+#    n_epochs= n_iters // batches
 
 
 # 2 - Import the ResNet
