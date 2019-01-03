@@ -1,4 +1,4 @@
-s
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -86,7 +86,7 @@ print('-------------')
 save = False                # Activate results saving 
 draws = False               # Activate showing the figures
 dataset = 'CIFAR10'
-testing = True             # Activate test to run few iterations per epoch       
+testing = False             # Activate test to run few iterations per epoch       
 comments = True             # Activate printing comments
 createlog = False           # Activate option to save the logs in .txt
 save_frequency = 1          # After how many epochs save stats
