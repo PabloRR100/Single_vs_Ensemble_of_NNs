@@ -166,7 +166,8 @@ print('Root path: ', root)
 print('Script path: ', scripts)
 print('Results path: ', results)
 print('DataFolder path: ', data_path)
-print('Models path: ', path_to_models)
+print('Models to save path: ', path_to_models)
+print('Models to load path: ', path_to_definitives)
 
 paths = {
     'root': root, 
@@ -311,20 +312,21 @@ if load_trained_models:
     else:
         pth = os.path.join(path_to_definitives, 'resnet110')
         e_epoch = get_epoch(pth)
-        
+    
+    assert os.path.exists(pth), 'Model to load not found'
     ps = glob.glob(os.path.join(pth, '*.pkl'))
     
     # Single Model
     s_epoch = int(get_epoch(ps[0]))
     singleModel.load_state_dict(load_weights(ps[0]))
-    print('[OK] Single model loaded')
+    print('[OK] Single model loaded on epoch ', s_epoch)
 
     
     # Ensemble Members
     e_epoch = int(get_epoch(ps[1]))
     for i,p in enumerate(ps[1:]):                
         ensemble[i].load_state_dict(load_weights(p))  
-    print('[OK] Ensemble loaded')
+    print('[OK] Ensemble loaded on epoch ', e_epoch)
         
         
     # Reset Models from saved Epoch
