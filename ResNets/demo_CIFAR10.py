@@ -294,13 +294,15 @@ if load_trained_models:
         pth = pth[:-4] # remove .pkl
         return pth.split('-')[1] # get just the epoch
     
-    def load_weights(path):
+    def load_weights(path, verbose=0):
         global device
         state_dict = torch.load(path, map_location=device)
+        if verbose == 1: print('Current dict: ', state_dict.keys())
         new_state_dict = OrderedDict()
         for k,v in state_dict.items():
             name = k[7:] # remove module.
             new_state_dict[name] = v
+        if verbose == 1: print('New dict: ', new_state_dict.keys())
         return new_state_dict
 
     ## LOAD TRAINED MODELS      -->         args.pretrained = -P = True
@@ -318,7 +320,7 @@ if load_trained_models:
     
     # Single Model
     s_epoch = int(get_epoch(ps[0]))
-    singleModel.load_state_dict(load_weights(ps[0]))
+    singleModel.load_state_dict(load_weights(ps[0], verbose=1))
     print('[OK] Single model loaded on epoch ', s_epoch)
 
     
