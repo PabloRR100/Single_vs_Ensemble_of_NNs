@@ -291,8 +291,11 @@ if load_trained_models:
     
     def get_epoch(pth):
         pth = pth.split('/')[-1] # remove all the path
+        print('Loading dict: ', pth)
         pth = pth[:-4] # remove .pkl
-        return pth.split('-')[1] # get just the epoch
+        epoch = pth.split('-')[1] # get just the epoch
+        print('Epoch to restart training: ', epoch)
+        return epoch
     
     def load_weights(path, verbose=0):
         global device
