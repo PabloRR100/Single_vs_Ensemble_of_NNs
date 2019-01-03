@@ -164,8 +164,9 @@ print('Paths Validated')
 print('---------------')
 print('Root path: ', root)
 print('Script path: ', scripts)
-print('Result path: ', results)
+print('Results path: ', results)
 print('DataFolder path: ', data_path)
+print('Models path: ', path_to_models)
 
 paths = {
     'root': root, 
@@ -316,12 +317,14 @@ if load_trained_models:
     # Single Model
     s_epoch = int(get_epoch(ps[0]))
     singleModel.load_state_dict(load_weights(ps[0]))
+    print('[OK] Single model loaded')
 
     
     # Ensemble Members
     e_epoch = int(get_epoch(ps[1]))
     for i,p in enumerate(ps[1:]):                
         ensemble[i].load_state_dict(load_weights(p))  
+    print('[OK] Ensemble loaded')
         
         
     # Reset Models from saved Epoch
@@ -334,19 +337,19 @@ if load_trained_models:
     
      # Big Single Model
      
-    cudnn.benchmark = False    
-    cudnn.benchmark = True
-    
-    from train_reset import train as tr
-    print('Starting Single Model Training...' )
-    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-              valid_loader, e_epoch, n_epochs, n_iters, save, paths, testing]
-    
-    results = tr(*params)
-    with open('Results_Loaded_Single_Models.pkl', 'wb') as object_result:
-        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-    
-    results.show()
+#    cudnn.benchmark = False    
+#    cudnn.benchmark = True
+#    
+#    from train_reset import train as tr
+#    print('Starting Single Model Training...' )
+#    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+#              valid_loader, e_epoch, n_epochs, n_iters, save, paths, testing]
+#    
+#    results = tr(*params)
+#    with open('Results_Loaded_Single_Models.pkl', 'wb') as object_result:
+#        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+#    
+#    results.show()
     
     # Ensemble Model
     
@@ -378,19 +381,19 @@ else:
     
     # Big Single Model
     
-    cudnn.benchmark = False    
-    cudnn.benchmark = True
-    from train import train
-    print('Starting Single Model Training...' )
-    
-    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-              valid_loader, n_epochs, n_iters, save, paths, testing]
-    
-    results = train(*params)
-    with open('Results_Single_Models.pkl', 'wb') as object_result:
-        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-    
-    results.show()
+#    cudnn.benchmark = False    
+#    cudnn.benchmark = True
+#    from train import train
+#    print('Starting Single Model Training...' )
+#    
+#    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+#              valid_loader, n_epochs, n_iters, save, paths, testing]
+#    
+#    results = train(*params)
+#    with open('Results_Single_Models.pkl', 'wb') as object_result:
+#        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+#    
+#    results.show()
     
     
     # Ensemble Model
