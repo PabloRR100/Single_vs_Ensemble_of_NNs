@@ -319,6 +319,7 @@ if load_trained_models:
     ps = glob.glob(os.path.join(pth, '*.pkl'))
     
     # Single Model
+    print('Getting ready Single Model : ', singleModel)
     s_epoch = int(get_epoch(ps[0]))
     singleModel.load_state_dict(load_weights(ps[0], verbose=1))
     print('[OK] Single model loaded on epoch ', s_epoch)
