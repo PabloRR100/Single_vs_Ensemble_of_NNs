@@ -38,7 +38,7 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
 def train(dataset, names, models, optimizers, criterion, device, trainloader, validloader,
           epoch, epochs, iters, save, paths, test=True, validate=True):
     
-    com_iter = False
+    com_iter = True
     com_epoch = True
     # Every model train mode
     for m in models: m.train()
@@ -49,8 +49,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     # Initialize results
     j = 0 
     best_acc = 0
-    results = Results(models)
     len_ = len(trainloader)
+    results = Results(models)
     
     avoidWarnings()
     modelpath = paths['models']
@@ -77,10 +77,6 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             outs = []
             for n, m in enumerate(models):
                 
-                # Scheduler for learning rate        
-                if (j == 32000 or j == 48000):  
-                    for p in optimizers[n].param_groups: p['lr'] = p['lr'] / 10
-
                 ## Individual forward pass
                 
                 # Calculate loss for individual                

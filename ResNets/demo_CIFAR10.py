@@ -291,7 +291,6 @@ if load_trained_models:
     
     def get_epoch(pth):
         pth = pth.split('/')[-1] # remove all the path
-        print('Loading dict: ', pth)
         pth = pth[:-4] # remove .pkl
         epoch = pth.split('-')[1] # get just the epoch
         print('Epoch to restart training: ', epoch)
@@ -299,13 +298,15 @@ if load_trained_models:
     
     def load_weights(path, verbose=0):
         global device
+        print('\n\nLoading Weights from: ', path)
+        print('-------')
         state_dict = torch.load(path, map_location=device)
-        if verbose == 1: print('Current dict: ', state_dict.keys())
+        if verbose == 1: print('\nCurrent dict: ', state_dict.keys())
         new_state_dict = OrderedDict()
         for k,v in state_dict.items():
             name = k[7:] # remove module.
             new_state_dict[name] = v
-        if verbose == 1: print('New dict: ', new_state_dict.keys())
+        if verbose == 1: print('\nNew dict: ', new_state_dict.keys())
         return new_state_dict
     
     ## LOAD TRAINED MODELS      -->         args.pretrained = -P = True
@@ -363,7 +364,7 @@ if load_trained_models:
     
     cudnn.benchmark = False    
     cudnn.benchmark = True
-    from train_ensemble import train as tre
+    from train_reset_ensemble import train as tre
     print('Starting Ensemble Training...')
     
     params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
