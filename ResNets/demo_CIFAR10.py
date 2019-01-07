@@ -307,7 +307,7 @@ if load_trained_models:
             new_state_dict[name] = v
         if verbose == 1: print('New dict: ', new_state_dict.keys())
         return new_state_dict
-
+    
     ## LOAD TRAINED MODELS      -->         args.pretrained = -P = True
     print('Loading trained models... ')
                     
@@ -326,7 +326,7 @@ if load_trained_models:
     s_epoch = int(get_epoch(ps[0]))
     singleModel.load_state_dict(load_weights(ps[0], verbose=1))
     print('[OK] Single model loaded on epoch ', s_epoch)
-
+    
     
     # Ensemble Members
     e_epoch = int(get_epoch(ps[1]))
