@@ -128,6 +128,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             # Save model and delete previous if it is the best
             if acc > best_acc:
                 
+                print('Best validation accuracy reached --> Saving model')
                 models = glob.glob(os.path.join(modelpath, '*.pkl'))
                 for m in models:
                     os.remove(m)
