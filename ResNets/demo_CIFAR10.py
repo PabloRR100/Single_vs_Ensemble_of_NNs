@@ -13,6 +13,9 @@ import pickle
 import multiprocessing
 from beautifultable import BeautifulTable as BT
 
+# Switching multiprocessing to avoid "Too many files opened"
+import torch.multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
 
 import torch
 import torch.nn as nn
