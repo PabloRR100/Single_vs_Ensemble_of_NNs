@@ -206,11 +206,77 @@ test_loader = DataLoader(dataset = test_set, batch_size = 1,
                          shuffle = False, num_workers=n_workers, pin_memory = mem)
 
 
+print('Train set: ', len(train_set))
+print('Valid set: ', len(valid_set))
+print('Test set: ', len(test_set))
+
 batches = len(train_loader)
+v_batches = len(valid_loader)
 samples = len(train_loader.sampler.indices) 
+v_samples = len(valid_loader.sampler.indices) 
+print('Training batches per epoch: ', batches)
+print('Validation batches per epoch: ', v_batches)
+print('Total training iterations per epoch :', samples)
+print('Total validation iterations per epoch :', v_samples)
 #if not n_epochs: 
 #    n_epochs= n_iters // batches
 
+
+
+
+
+### Another option to load datasets
+#
+#import numpy as np
+#from torchvision.datasets import CIFAR10
+#from torchvision.transforms import transforms
+#
+#normalize = transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))
+#train_transform = transforms.Compose([
+#            transforms.RandomCrop(32, padding=4),
+#            transforms.RandomHorizontalFlip(),
+#            transforms.ToTensor(),
+#            normalize,
+#        ])
+#
+#valid_transform = transforms.Compose([
+#            transforms.ToTensor(),
+#            normalize,
+#    ])
+#
+#train_dataset = CIFAR10(root = root, download = True, train = True, transform = train_transform)
+#valid_dataset = CIFAR10(root = root, download = True, train = True, transform = valid_transform)
+#test_dataset  = CIFAR10(root = root, download = True, train = False, transform = valid_transform)
+#
+#shuffle = True
+#valid_size = 0.1
+#num_train = len(train_dataset)
+#indices = list(range(num_train))
+#split = int(np.floor(valid_size * num_train))
+#
+#if shuffle:
+#    np.random.seed(2019)
+#    np.random.shuffle(indices)
+#
+#train_idx, valid_idx = indices[split:], indices[:split]
+#train_sampler = SubsetRandomSampler(train_idx)
+#valid_sampler = SubsetRandomSampler(valid_idx)
+#
+#trainloader = torch.utils.data.DataLoader(
+#    train_dataset, batch_size=batch_size, sampler=train_sampler,
+#)
+#validloader = torch.utils.data.DataLoader(
+#    valid_dataset, batch_size=batch_size, sampler=valid_sampler,
+#)
+#
+#batches = len(trainloader)
+#v_batches = len(validloader)
+#samples = len(trainloader.sampler.indices) 
+#v_samples = len(validloader.sampler.indices) 
+#print('Training batches per epoch: ', batches)
+#print('Validation batches per epoch: ', v_batches)
+#print('Total training iterations per epoch :', samples)
+#print('Total validation iterations per epoch :', v_samples)
 
 # 2 - Import the ResNet
 # ---------------------
@@ -344,7 +410,7 @@ if load_trained_models:
     
     criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
     
-     # Big Single Model
+    # Big Single Model
      
 #    cudnn.benchmark = False    
 #    cudnn.benchmark = True
