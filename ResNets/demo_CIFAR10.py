@@ -347,7 +347,7 @@ for i in range(ensemble_size):
 # 3 - Train ResNet
 # ----------------
 
-load_trained_models = False
+load_trained_models = True
 if load_trained_models:
     
     # Load Best Models
