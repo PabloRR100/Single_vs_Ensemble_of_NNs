@@ -382,18 +382,26 @@ if load_trained_models:
     
     assert os.path.exists(pth), 'Model to load not found'
     ps = glob.glob(os.path.join(pth, '*.pkl'))
+    print('Files to load:')
+    for p in ps:
+        print('...', p[-25:])
     
-    # Single Model
+    pattern = 'ResNet56' if ensemble_size == 'Big' else 'ResNet110'         
+    single_ps = [p for p in ps if 'ResNet56' in p]
+    ensemble_ps = [p for p in ps if 'ResNet56' not in p]
+
+    
+   # Single Model
     print('Getting ready Single Model : ', singleModel)
-    s_epoch = int(get_epoch(ps[0]))
-    singleModel.load_state_dict(load_weights(ps[0], verbose=1))
+    s_epoch = int(get_epoch(single_ps[0]))
+    singleModel.load_state_dict(load_weights(single_ps[0], verbose=0))
     print('[OK] Single model loaded on epoch ', s_epoch)
     
     
     # Ensemble Members
-    e_epoch = int(get_epoch(ps[1]))
-    for i,p in enumerate(ps[1:]):                
-        ensemble[i].load_state_dict(load_weights(p))  
+    e_epoch = int(get_epoch(ensemble_ps[0]))
+    for i,p in enumerate(ensemble_ps):                
+        ensemble[i].load_state_dict(load_weights(p, verbose=0))  
     print('[OK] Ensemble loaded on epoch ', e_epoch)
         
         
@@ -407,19 +415,19 @@ if load_trained_models:
     
     # Big Single Model
      
-#    cudnn.benchmark = False    
-#    cudnn.benchmark = True
-#    
-#    from train_reset import train as tr
-#    print('Starting Single Model Training...' )
-#    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
-#              valid_loader, e_epoch, n_epochs, n_iters, save, paths, testing]
-#    
-#    results = tr(*params)
-#    with open('Results_Loaded_Single_Models.pkl', 'wb') as object_result:
-#        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-#    
-#    results.show()
+    cudnn.benchmark = False    
+    cudnn.benchmark = True
+    
+    from train_reset import train as tr
+    print('Starting Single Model Training...' )
+    params = [dataset, name, singleModel, optimizer, criterion, device, train_loader,
+              valid_loader, e_epoch, n_epochs, n_iters, save, paths, testing]
+    
+    results = tr(*params)
+    with open('Results_Loaded_Single_Models.pkl', 'wb') as object_result:
+        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+    
+    results.show()
     
     # Ensemble Model
     
