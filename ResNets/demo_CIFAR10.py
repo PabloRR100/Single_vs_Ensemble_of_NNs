@@ -218,11 +218,6 @@ print('Training batches per epoch: ', batches)
 print('Validation batches per epoch: ', v_batches)
 print('Total training iterations per epoch :', samples)
 print('Total validation iterations per epoch :', v_samples)
-#if not n_epochs: 
-#    n_epochs= n_iters // batches
-
-
-
 
 
 ### Another option to load datasets
