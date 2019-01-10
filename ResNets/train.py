@@ -38,7 +38,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     j = 0 
     best_acc = 0
     model.train()
-    com_iter = True
+    com_iter = False
     com_epoch = True
     results = Results([model])
     
@@ -58,7 +58,8 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     for epoch in range(1, epochs+1):
         
         # Scheduler for learning rate        
-        if (j == 32000 or j == 48000):  
+#        if (j == 32000 or j == 48000):  
+        if (epoch == 150 or epoch == 225):
             for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
             print('** Changing LR to {}'.format(p['lr']))
         
