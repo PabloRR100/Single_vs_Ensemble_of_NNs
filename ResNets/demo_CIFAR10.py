@@ -10,7 +10,7 @@ Created on Thu Aug  9 15:31:56 2018
 import os
 import glob
 import pickle
-import multiprocessing
+#import multiprocessing
 from beautifultable import BeautifulTable as BT
 
 # Switching multiprocessing to avoid "Too many files opened"
@@ -47,71 +47,70 @@ Catch from the parser all the parameters to define the training
 print('\n\nCONFIGURATION')
 print('-------------')
 
+########################################################
+from parser import args
+save = args.save
+name = args.name
+draws = args.draws
+dataset = args.dataset
+testing = args.testing
+comments = args.comments
+ensemble_type = args.ensembleSize
+n_epochs = args.epochs
+n_iters = args.iterations
+batch_size = args.batch_size
+learning_rate = args.learning_rate
+save_frequency = args.save_frequency
+load_trained_models = args.pretrained
+
+table = BT()
+table.append_row(['Save', str(args.save)])
+table.append_row(['Name', str(args.name)])
+table.append_row(['Draws', str(args.draws)])
+table.append_row(['Testing', str(args.testing)])
+table.append_row(['Comments', str(args.comments)])
+table.append_row(['Ensemble size', str(args.ensembleSize)])
+if not load_trained_models:
+    table.append_row(['-------------', '-------------'])
+    table.append_row(['Epochs', n_epochs])
+    table.append_row(['Iterations', n_iters])
+    table.append_row(['Batch Size', batch_size])
+    table.append_row(['Learning Rate', str(args.learning_rate)])
+else:
+    table.append_row(['-------------', '-------------'])
+    table.append_row(['No Training', 'Pretrained Models'])
+print(table)
 #########################################################
-#from parser import args
-#save = args.save
-#name = args.name
-#draws = args.draws
-#dataset = args.dataset
-#testing = args.testing
-#comments = args.comments
-#ensemble_type = args.ensembleSize
-#n_epochs = args.epochs
-#n_iters = args.iterations
-#batch_size = args.batch_size
-#learning_rate = args.learning_rate
-#save_frequency = args.save_frequency
-#load_trained_models = args.pretrained
-#
-#table = BT()
-#table.append_row(['Save', str(args.save)])
-#table.append_row(['Name', str(args.name)])
-#table.append_row(['Draws', str(args.draws)])
-#table.append_row(['Testing', str(args.testing)])
-#table.append_row(['Comments', str(args.comments)])
-#table.append_row(['Ensemble size', str(args.ensembleSize)])
-#if not load_trained_models:
-#    table.append_row(['-------------', '-------------'])
-#    table.append_row(['Epochs', n_epochs])
-#    table.append_row(['Iterations', n_iters])
-#    table.append_row(['Batch Size', batch_size])
-#    table.append_row(['Learning Rate', str(args.learning_rate)])
-#else:
-#    table.append_row(['-------------', '-------------'])
-#    table.append_row(['No Training', 'Pretrained Models'])
-#print(table)
-##########################################################
 
 
 
-#######################################################
-# Backup code to debug from python shell - no parser
-save = False                # Activate results saving 
-draws = False               # Activate showing the figures
-dataset = 'CIFAR10'
-testing = False             # Activate test to run few iterations per epoch       
-comments = True             # Activate printing comments
-createlog = False           # Activate option to save the logs in .txt
-save_frequency = 1          # After how many epochs save stats
-ensemble_type = 'Big'       # Single model big 
-#ensemble_type = 'Huge'     # Single model huge
-#learning_rate = 0.1
-batch_size = 128
-n_epochs = 300
-n_iters = 64000
-load_trained_models = True # Load pretrained models instead of training
-learning_rate = 0.001
-#######################################################
+########################################################
+## Backup code to debug from python shell - no parser
+#save = False                # Activate results saving 
+#draws = False               # Activate showing the figures
+#dataset = 'CIFAR10'
+#testing = False             # Activate test to run few iterations per epoch       
+#comments = True             # Activate printing comments
+#createlog = False           # Activate option to save the logs in .txt
+#save_frequency = 1          # After how many epochs save stats
+#ensemble_type = 'Big'       # Single model big 
+##ensemble_type = 'Huge'     # Single model huge
+##learning_rate = 0.1
+#batch_size = 128
+#n_epochs = 300
+#n_iters = 64000
+#load_trained_models = True # Load pretrained models instead of training
+#learning_rate = 0.001
+########################################################
 
 
 momentum = 0.9
 weight_decay = 1e-4
 
-#n_epochs = int(n_iters / batch_size)
 
 # GPU if CUDA is available
-cuda = torch.cuda.is_available()
 #n_workers = multiprocessing.cpu_count()
+cuda = torch.cuda.is_available()
 n_workers = torch.multiprocessing.cpu_count()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 gpus = True if torch.cuda.device_count() > 1 else False
@@ -192,8 +191,8 @@ paths = {
 print('IMPORTING DATA')
 print('--------------')
 
+#comments=True
 dataset = 'CIFAR10'
-comments=True
 train_set, valid_set, test_set = load_dataset(data_path, dataset, comments=comments)
 
 train_loader = DataLoader(dataset = train_set.dataset, 
@@ -223,6 +222,8 @@ print('Validation batches per epoch: ', v_batches)
 print('Total training iterations per epoch :', samples)
 print('Total validation iterations per epoch :', v_samples)
 
+n_iters = batches * n_epochs
+print('Total iterations = batches/epoch * n_epochs = ', n_iters)
 
 ### Another option to load datasets
 #
@@ -347,7 +348,7 @@ for i in range(ensemble_size):
 # 3 - Train ResNet
 # ----------------
 
-load_trained_models = True
+#load_trained_models = True
 if load_trained_models:
     
     # Load Best Models
@@ -502,7 +503,7 @@ print('\n\nTESTING')
 print('-------')
 
 from test import test
-    
+
 testresults = test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
 with open('Results_Testing.pkl', 'wb') as object_result:
     pickle.dump(testresults, object_result, pickle.HIGHEST_PROTOCOL)
@@ -512,7 +513,35 @@ with open('Results_Testing.pkl', 'wb') as object_result:
 exit()
 
 
-
+#model = ResNet56()
+#model.load_state_dict(torch.load('../ResNet56-156.pkl', map_location=device))
+#model.eval()
+#control = 0
+#
+#total, correct = (0,0)
+#from torch.autograd import Variable
+#with torch.no_grad():
+#    
+#    for i, (images, labels) in enumerate(test_loader):
+#        
+#        images = Variable(images)
+#        labels = Variable(labels)
+#        
+#        images = images.to(device)
+#        labels = labels.to(device)
+#        
+#        outputs = singleModel(images)
+#        
+#        _, preds = outputs.max(1)
+#        total += outputs.size(0)
+#        correct += int(sum(preds == labels))
+#        
+#        control += 1
+#    
+#print('Single model accuracy {}%'.format(100 * correct / total))
+#print('Control: ', control)
+#
+#
 
 
 
