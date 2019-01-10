@@ -126,10 +126,12 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             lss = round(loss.item(), 3)
             acc = round(accuracy * 100, 2)
             
+            if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid')
+
             # Save model and delete previous if it is the best
             if acc > best_acc:
                 
-                print('Best validation accuracy reached --> Saving model')
+                print('Best validation accuracy reached --> Saving model')              
                 models = glob.glob(os.path.join(modelpath, '*.pkl'))
                 for m in models:
                     os.remove(m)
@@ -139,8 +141,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             # Store per-epoch results
             results.append_loss(lss, 'valid')
             results.append_accy(acc, 'valid')
-            
-            if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid')              
         
         results.append_time(elapsed(start))
         
