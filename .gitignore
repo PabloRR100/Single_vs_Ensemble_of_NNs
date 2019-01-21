@@ -1,5 +1,6 @@
 # Custom
 experiments/
+results/
 
 .idea/
 .DS_Store
