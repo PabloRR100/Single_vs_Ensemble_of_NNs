@@ -37,7 +37,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
     
     j = 0 
     best_acc = 0
-    model.train()
     com_iter = False
     com_epoch = True
     results = Results([model])
@@ -104,6 +103,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
         # Validation
         if validate:
             
+            model.eval()
             correct, total = 0, 0
             for k, (images, labels) in enumerate(validloader):
             
@@ -141,6 +141,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             # Store per-epoch results
             results.append_loss(lss, 'valid')
             results.append_accy(acc, 'valid')
+            model.train()
         
         results.append_time(elapsed(start))
         
