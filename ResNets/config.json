@@ -1,0 +1,33 @@
+
+{
+    "language"        : "PYTHON",
+    "main-file"       : "prmts_optim.py",
+    "experiment-name" : "resnet56_optim",
+    "likelihood"      : "NOISELESS",
+    "variables" : {
+        "batch_size" : {
+            "type" : "INT",
+            "size" : 1,
+            "min"  : 16,
+            "max"  : 128
+        },
+        "learning_rate" : {
+            "type" : "FLOAT",
+            "size" : 1,
+            "min"  : 0.0001,
+            "max"  : 0.1
+        },
+        "momemtum" : {
+            "type" : "FLOAT",
+            "size" : 1,
+            "min"  : 0.01,
+            "max"  : 0.99
+        },
+        "weight_decay" : {
+            "type" : "FLOAT",
+            "size" : 1,
+            "min"  : 0.0001,
+            "max"  : 10
+        }
+    }
+}

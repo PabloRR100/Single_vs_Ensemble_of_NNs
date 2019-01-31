@@ -73,7 +73,7 @@ table.append_row(['Ensemble size', str(args.ensembleSize)])
 if not load_trained_models:
     table.append_row(['-------------', '-------------'])
     table.append_row(['Epochs', n_epochs])
-    table.append_row(['Iterations', n_iters])
+    table.append_row(['Iterations', n_i ters])
     table.append_row(['Batch Size', batch_size])
     table.append_row(['Learning Rate', str(args.learning_rate)])
 else:
