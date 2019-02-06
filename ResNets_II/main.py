@@ -72,8 +72,7 @@ table.append_row(['Device', str(device)])
 table.append_row(['Cores', str(n_workers)])
 table.append_row(['GPUs', str(torch.cuda.device_count())])
 table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
-print('\n\nCOMPUTING CONFIG')
-print('----------------')
+
 print(table)
 
 
@@ -86,7 +85,7 @@ Define all the paths to load / save files
 Ensure all those paths are correctly defined before moving on
 '''
 
-print('DEFINITION OF PATHS')
+print('\n\nDEFINITION OF PATHS')
 print('-------------------')
 scripts = os.getcwd()
 root = os.path.abspath(os.path.join(scripts, '../'))
@@ -110,8 +109,7 @@ assert os.path.exists(path_to_models), 'Models folder not found: {}'.format(path
 assert os.path.exists(path_to_figures), 'Figure folder not found: {}'.format(path_to_figures)
 assert os.path.exists(path_to_definitives), 'Def. models folder not found: {}'.format(path_to_definitives)
 
-print('Paths Validated')
-print('---------------')
+print('\n[OK]: Paths Validated Successfully')
 print('Root path: ', root)
 print('Script path: ', scripts)
 print('Results path: ', results)
@@ -135,7 +133,7 @@ paths = {
 # 1 - Import the Dataset
 # ----------------------
 
-print('IMPORTING DATA')
+print('\n\nIMPORTING DATA')
 print('--------------')
 
 from data import create_data_loaders
