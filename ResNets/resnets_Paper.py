@@ -35,7 +35,6 @@ with 2n layers for each feature map size.
 
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 
 
 def flatten(x): 
@@ -210,6 +209,7 @@ if __name__ == '__main__':
     import sys
     sys.path.append('..')
     from utils import count_parameters
+    from torch.autograd import Variable
     from beautifultable import BeautifulTable as BT
 
     resnet20 = ResNet20()
