@@ -39,8 +39,6 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     
     com_iter = False
     com_epoch = True
-    # Every model train mode
-    for m in models: m.train()
             
     # Initialize results
     j = 0 
@@ -70,6 +68,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 
         # Training
         # --------
+        for m in models: 
+            m.train()
+            
         for i, (images, labels) in enumerate(trainloader):
             
             j += 1 # for printing
@@ -157,6 +158,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
         # ----------
         if validate:
             
+            for m in models: 
+                m.eval()
+                
             correct, total = 0, 0
             for k, (images, labels) in enumerate(validloader):
             
