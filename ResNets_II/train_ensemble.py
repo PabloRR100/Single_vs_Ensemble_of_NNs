@@ -5,6 +5,7 @@ import torch
 from datetime import datetime 
 from torch.autograd import Variable
 from results import TrainResults as Results
+from metrics import accuracies, AverageMeter
 
 
 def avoidWarnings():
@@ -34,8 +35,7 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
     print(stats)    
     
     
-def train(dataset, names, models, optimizers, criterion, device, trainloader, validloader,
-          epochs, iters, save, paths, test=True, validate=True):
+def train(names, models, optimizers, criterion, device, trainloader, validloader, epochs, save, paths):
     
     com_iter = False
     com_epoch = True
@@ -49,14 +49,9 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
     avoidWarnings()
     modelpath = paths['models']
 
-    # Testing mode
-    if test:         
-        epochs = 6
-#        print('training in test mode')
-#        from itertools import islice
-#        trainloader = islice(trainloader, 10)
-#        validloader = islice(validloader, 10)
-#        len_ = 2
+#    top1 = AverageMeter()
+#    top5 = AverageMeter()
+    iters = epochs * len(trainloader)    
             
     start = now()
     results.append_time(0)
@@ -102,13 +97,20 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 total += output.size(0)
                 correct += int(sum(predictions == labels)) 
                 accuracy = correct / total
+                
+                # measure accuracy and record loss
+                prec1, prec5 = accuracies(outputs.data, labels.data, topk=(1, 5))
+#                losses.update(loss.data[0], images.size(0))
+#                top1.update(prec1[0], images.size(0))
+#                top5.update(prec5[0], images.size(0))
                                 
                 lss = round(loss.item(), 3)
                 acc = round(accuracy * 100, 2)
             
                 # Store iteration results for this individual
                 results.append_iter_loss(lss, 'train', n+1)
-                results.append_iter_accy(acc, 'train', n+1)
+#                results.append_iter_accy(acc, 'train', n+1)
+                results.append_iter_accy((prec1, prec5), 'train', n+1)
                 
                 if i == len_-1:
                     # Store epoch results for this individual (as last iter)
@@ -129,20 +131,23 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             
             # Calculate loss for ensemble
             loss = criterion(output, labels) 
-            correct, total = 0, 0 
             
             # Calculate accuracy for ensemble
+            correct, total = 0, 0 
             _, preds = output.max(1)
             total += output.size(0)
             correct += int(sum(preds == labels))
             accuracy = correct / total
+            
+            prec1, prec5 = accuracies(output.data, labels.data, topk=(1, 5))
             
             lss = round(loss.item(), 3)
             acc = round(accuracy * 100, 2)
             
             # Store iteration results for Ensemble
             results.append_iter_loss(lss, 'train', None)
-            results.append_iter_accy(acc, 'train', None)
+#            results.append_iter_accy(acc, 'train', None)
+            results.append_iter_accy((prec1, prec5), 'train', None)
             
             # Print results
             if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')
@@ -156,10 +161,10 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             
         # Validation
         # ----------
-        if validate:
+        for m in models: 
+            m.eval()
             
-            for m in models: 
-                m.eval()
+        with torch.no_grad():
                 
             correct, total = 0, 0
             for k, (images, labels) in enumerate(validloader):
@@ -190,11 +195,14 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                         corr += int(sum(predictions == labels)) 
                         accur = corr / tot
                                         
+                        prec1, prec5 = accuracies(output.data, labels.data, topk=(1, 5))
+                        
                         ls = round(loss.item(), 3)
                         ac = round(accur * 100, 2)
                     
                         results.append_loss(ls, 'valid', n+1)
-                        results.append_accy(ac, 'valid', n+1)
+#                        results.append_accy(ac, 'valid', n+1)
+                        results.append_accy((prec1, prec5), 'valid', n+1)
                         
                         if com_epoch: 
                             print_stats(epoch, epochs, j, iters, ls, ac, 'Valid', n+1)
@@ -206,6 +214,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
                 _, preds = output.max(1)
                 total += output.size(0)
                 correct += int(sum(preds == labels))
+                
+                prec1, prec5 = accuracies(output.data, labels.data, topk=(1, 5))
             
             loss = criterion(output, labels) 
             accuracy = correct / total    
@@ -214,7 +224,8 @@ def train(dataset, names, models, optimizers, criterion, device, trainloader, va
             
             # Store epoch results for Ensemble
             results.append_loss(lss, 'valid', None)
-            results.append_accy(acc, 'valid', None)
+#            results.append_accy(acc, 'valid', None)
+            results.append_accy((prec1, prec5), 'valid', None)
             
             # Print results
             if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Valid', None)

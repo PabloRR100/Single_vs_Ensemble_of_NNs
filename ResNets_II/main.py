@@ -222,8 +222,8 @@ from train import train
 print('Starting Single Model Training...' )
 
 n_iters = n_epochs * len(train_loader)
-params = [dataset, name, singleModel, optimizer, criterion, device, train_loader, 
-          valid_loader, n_epochs, n_iters, paths]
+params = [name, singleModel, optimizer, criterion, device, train_loader, 
+          valid_loader, n_epochs, paths]
 
 results = train(*params)
 with open('Results_Single_Models.pkl', 'wb') as object_result:
@@ -237,8 +237,8 @@ results.show()
 from train_ensemble import train as train_ensemble
 print('Starting Ensemble Training...')
 
-params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, paths]
+params = [names, ensemble, optimizers, criterion, device, train_loader,
+          valid_loader, n_epochs, paths]
     
 ens_results = train_ensemble(*params)
 with open('Results_Ensemble_Models.pkl', 'wb') as object_result:

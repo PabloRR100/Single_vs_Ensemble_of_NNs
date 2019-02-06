@@ -35,17 +35,18 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset):
 
 
 def train(name, model, optimizer, criterion, device, trainloader, validloader,
-          epochs, iters, paths):
+          epochs, paths):
     
     j = 0 
     best_acc = 0
     com_iter = False
     com_epoch = True
     results = Results([model])
+    iters = epochs * len(trainloader)
     
-    top1 = AverageMeter()
-    top5 = AverageMeter()
-    losses = AverageMeter()
+#    top1 = AverageMeter()
+#    top5 = AverageMeter()
+#    losses = AverageMeter()
     
     avoidWarnings()
     modelpath = paths['models']
@@ -82,9 +83,9 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader,
         
             # measure accuracy and record loss
             prec1, prec5 = accuracies(outputs.data, labels.data, topk=(1, 5))
-            losses.update(loss.data[0], images.size(0))
-            top1.update(prec1[0], images.size(0))
-            top5.update(prec5[0], images.size(0))
+#            losses.update(loss.data[0], images.size(0))
+#            top1.update(prec1[0], images.size(0))
+#            top5.update(prec5[0], images.size(0))
             scores, predictions = torch.max(outputs.data, 1)
 
             # Compute gradient and do SGD step
@@ -132,9 +133,9 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader,
                 
                  # measure accuracy and record loss
                 prec1, prec5 = accuracies(outputs.data, labels.data, topk=(1, 5))
-                losses.update(loss.data[0], images.size(0))
-                top1.update(prec1[0], images.size(0))
-                top5.update(prec5[0], images.size(0))
+#                losses.update(loss.data[0], images.size(0))
+#                top1.update(prec1[0], images.size(0))
+#                top5.update(prec5[0], images.size(0))
                 _, preds = outputs.max(1)
                 total += outputs.size(0)
                 correct += int(sum(preds == labels))
