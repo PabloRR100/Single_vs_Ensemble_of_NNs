@@ -238,7 +238,7 @@ from train_ensemble import train as train_ensemble
 print('Starting Ensemble Training...')
 
 params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, save, paths, testing]
+          valid_loader, n_epochs, n_iters, save, paths]
     
 ens_results = train_ensemble(*params)
 with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
@@ -256,7 +256,7 @@ print('-------')
 
 from test import test
 
-testresults = test('CIFAR10', name, singleModel, ensemble, device, test_loader, paths, save)
+testresults = test('CIFAR10', name, singleModel, ensemble, device, valid_loader, paths)
 with open('Results_Testing.pkl', 'wb') as object_result:
     pickle.dump(testresults, object_result, pickle.HIGHEST_PROTOCOL)
 

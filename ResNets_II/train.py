@@ -3,8 +3,9 @@ import os
 import glob
 import torch
 from datetime import datetime 
-import torch.backends.cudnn as cudnn
 from torch.autograd import Variable
+import torch.backends.cudnn as cudnn
+from metrics import accuracies, AverageMeter
 from results import TrainResults as Results
 
 def avoidWarnings():
@@ -42,6 +43,10 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader,
     com_epoch = True
     results = Results([model])
     
+    top1 = AverageMeter()
+    top5 = AverageMeter()
+    losses = AverageMeter()
+    
     avoidWarnings()
     modelpath = paths['models']
         
@@ -49,8 +54,8 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader,
     results.name = name
     results.timer.append(0)
     
+    model.to(device)
     if device == 'cuda':
-        model.to(device)
         model = torch.nn.DataParallel(model)
         cudnn.benchmark = True
     
@@ -73,9 +78,16 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader,
             
             model.zero_grad()
             outputs = model(images)
-            scores, predictions = torch.max(outputs.data, 1)
-        
             loss = criterion(outputs, labels)            
+        
+            # measure accuracy and record loss
+            prec1, prec5 = accuracies(outputs.data, labels.data, topk=(1, 5))
+            losses.update(loss.data[0], images.size(0))
+            top1.update(prec1[0], images.size(0))
+            top5.update(prec5[0], images.size(0))
+            scores, predictions = torch.max(outputs.data, 1)
+
+            # Compute gradient and do SGD step
             loss.backward()
             optimizer.step()
 
@@ -89,34 +101,43 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader,
             
             # Stores per iteration results
             results.append_iter_loss(lss, 'train')
-            results.append_iter_accy(acc, 'train')
+#            results.append_iter_accy(acc, 'train')
+            results.append_iter_accy((prec1, prec5), 'train')
           
             if com_iter: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
-            s
+            
         # Stores per-epoch results
         results.append_loss(lss, 'train')
-        results.append_accy(acc, 'train')
+#        results.append_accy(acc, 'train')
+        results.append_accy((prec1, prec5), 'train')
         
         if com_epoch: print_stats(epoch, epochs, j, iters, lss, acc, 'Train')  
         
         # Validation
         model.eval()
         correct, total = 0, 0
-        for k, (images, labels) in enumerate(validloader):
-        
-            images = Variable(images)
-            labels = Variable(labels)
+        with torch.no_grad():
             
-            images = images.to(device)
-            labels = labels.to(device)
+            for k, (images, labels) in enumerate(validloader):
             
-            outputs = model(images)
-            
-            loss = criterion(outputs, labels)  
-            
-            _, preds = outputs.max(1)
-            total += outputs.size(0)
-            correct += int(sum(preds == labels))
+                images = Variable(images)
+                labels = Variable(labels)
+                
+                images = images.to(device)
+                labels = labels.to(device)
+                
+                outputs = model(images)
+                
+                loss = criterion(outputs, labels)  
+                
+                 # measure accuracy and record loss
+                prec1, prec5 = accuracies(outputs.data, labels.data, topk=(1, 5))
+                losses.update(loss.data[0], images.size(0))
+                top1.update(prec1[0], images.size(0))
+                top5.update(prec5[0], images.size(0))
+                _, preds = outputs.max(1)
+                total += outputs.size(0)
+                correct += int(sum(preds == labels))
             
         accuracy = correct / total
     
@@ -137,7 +158,8 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader,
     
             # Store per-epoch results
             results.append_loss(lss, 'valid')
-            results.append_accy(acc, 'valid')
+#            results.append_accy(acc, 'valid')
+            results.append_accy((prec1, prec5), 'valid')
         
         results.append_time(elapsed(start))
         
