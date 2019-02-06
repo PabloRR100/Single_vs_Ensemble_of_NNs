@@ -1,6 +1,7 @@
 # Custom
 experiments/
 results/
+datasets/
 
 .idea/
 .DS_Store
