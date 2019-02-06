@@ -86,8 +86,7 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
             for n, m in enumerate(models):
                 
                 # Scheduler for learning rate        
-#                if (j == 32000 or j == 48000):  
-                if (epoch == 150 or epoch == 225):
+                if (epoch == 100 or epoch == 150):
                     for p in optimizers[n].param_groups: p['lr'] = p['lr'] / 10
 
                 ## Individual forward pass
