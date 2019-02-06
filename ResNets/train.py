@@ -63,6 +63,7 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             print('** Changing LR to {}'.format(p['lr']))
         
         # Training
+        model.train()
         for i, (images, labels) in enumerate(trainloader):
             
             j += 1 # for printing
@@ -141,7 +142,6 @@ def train(dataset, name, model, optimizer, criterion, device, trainloader, valid
             # Store per-epoch results
             results.append_loss(lss, 'valid')
             results.append_accy(acc, 'valid')
-            model.train()
         
         results.append_time(elapsed(start))
         
