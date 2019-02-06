@@ -90,7 +90,7 @@ print('DEFINITION OF PATHS')
 print('-------------------')
 scripts = os.getcwd()
 root = os.path.abspath(os.path.join(scripts, '../'))
-results = os.path.abspath(os.path.join(root, 'results'))
+results = os.path.abspath(os.path.join(root, 'results_II'))
 data_path = os.path.abspath(os.path.join(root, '../datasets'))
 
 path_to_logs = os.path.join(results, 'logs', 'resnets')
