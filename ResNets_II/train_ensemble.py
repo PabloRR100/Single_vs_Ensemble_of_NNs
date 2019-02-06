@@ -36,7 +36,7 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset, n=None):
     print(stats)    
     
     
-def train(names, models, optimizers, criterion, device, trainloader, validloader, epochs, save, paths):
+def train(names, models, optimizers, criterion, device, trainloader, validloader, epochs, paths):
     
     com_iter = False
     com_epoch = True
@@ -58,11 +58,14 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
         for m in models:
             m.to(device)
             m = torch.nn.DataParallel(m)
-        cudnn.benchmark = True
+            
             
     start = now()
     results.append_time(0)
     results.name = names[0][:-2] + '(x' + str(len(names)) + ')'
+    
+    cudnn.benchmark = True
+    print('Starting Ensemble Training...')
     
     for epoch in range(1, epochs+1):
         
@@ -105,7 +108,7 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
                 accuracy = correct / total
                 
                 # measure accuracy and record loss
-                prec1, prec5 = accuracies(outputs.data, labels.data, topk=(1, 5))
+                prec1, prec5 = accuracies(output.data, labels.data, topk=(1, 5))
 #                losses.update(loss.data[0], images.size(0))
 #                top1.update(prec1[0], images.size(0))
 #                top5.update(prec5[0], images.size(0))

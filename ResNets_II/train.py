@@ -34,8 +34,7 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset):
     
 
 
-def train(name, model, optimizer, criterion, device, trainloader, validloader,
-          epochs, paths):
+def train(name, model, optimizer, criterion, device, trainloader, validloader, epochs, paths):
     
     j = 0 
     best_acc = 0
@@ -58,12 +57,14 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader,
     model.to(device)
     if device == 'cuda':
         model = torch.nn.DataParallel(model)
-        cudnn.benchmark = True
     
+    cudnn.benchmark = True
+    print('Starting Single Model Training...' )
     for epoch in range(1, epochs+1):
         
         if (epoch == 100 or epoch == 150):
-            for p in optimizer.param_groups: p['lr'] = p['lr'] / 10
+            for p in optimizer.param_groups: 
+                p['lr'] = p['lr'] / 10
             print('** Changing LR to {}'.format(p['lr']))
         
         # Training

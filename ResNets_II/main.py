@@ -8,7 +8,6 @@ Created on Thu Aug  9 15:31:56 2018
 """
 
 import os
-import glob
 import pickle
 from beautifultable import BeautifulTable as BT
 
@@ -18,14 +17,11 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader
-from torch.utils.data.sampler import SubsetRandomSampler
 
 import sys
 sys.path.append('..')
 sys.path.append('ResNets')
-from utils import load_dataset, count_parameters
-
+from utils import count_parameters
 
 import warnings
 warnings.filterwarnings('always')
@@ -198,11 +194,6 @@ for i in range(ensemble_size):
     names.append(model.name + '_' + str(i+1))
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
     optimizers.append(params)
-    
-    model.to(device)
-    if gpus: model = nn.DataParallel(model)
-    ensemble.append(model)
-
 
 
 # 3 - Train ResNet
@@ -217,11 +208,8 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 # Big Single Model
 
 from train import train
-print('Starting Single Model Training...' )
-
 n_iters = n_epochs * len(train_loader)
-params = [name, singleModel, optimizer, criterion, device, train_loader, 
-          valid_loader, n_epochs, paths]
+params = [name, singleModel, optimizer, criterion, device, train_loader, valid_loader, n_epochs, paths]
 
 results = train(*params)
 with open('Results_Single_Models.pkl', 'wb') as object_result:
@@ -233,10 +221,7 @@ results.show()
 # Ensemble Model
 
 from train_ensemble import train as train_ensemble
-print('Starting Ensemble Training...')
-
-params = [names, ensemble, optimizers, criterion, device, train_loader,
-          valid_loader, n_epochs, paths]
+params = [names, ensemble, optimizers, criterion, device, train_loader, valid_loader, n_epochs, paths]
     
 ens_results = train_ensemble(*params)
 with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
