@@ -4,6 +4,7 @@ import glob
 import torch
 from datetime import datetime 
 from torch.autograd import Variable
+import torch.backends.cudnn as cudnn
 from results import TrainResults as Results
 from metrics import accuracies, AverageMeter
 
@@ -52,6 +53,12 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
 #    top1 = AverageMeter()
 #    top5 = AverageMeter()
     iters = epochs * len(trainloader)    
+    
+    if device == 'cuda':
+        for m in models:
+            m.to(device)
+            m = torch.nn.DataParallel(m)
+        cudnn.benchmark = True
             
     start = now()
     results.append_time(0)
