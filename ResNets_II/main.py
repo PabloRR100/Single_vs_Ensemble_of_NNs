@@ -238,7 +238,7 @@ from train_ensemble import train as train_ensemble
 print('Starting Ensemble Training...')
 
 params = [dataset, names, ensemble, optimizers, criterion, device, train_loader,
-          valid_loader, n_epochs, n_iters, save, paths]
+          valid_loader, n_epochs, n_iters, paths]
     
 ens_results = train_ensemble(*params)
 with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
