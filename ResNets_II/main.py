@@ -18,7 +18,6 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import SubsetRandomSampler
 
@@ -139,20 +138,8 @@ paths = {
 print('IMPORTING DATA')
 print('--------------')
 
-#from data import create_data_loaders
-#train_loader, data_loader = create_data_loaders(batch_size, n_workers)
-train_set, valid_set, test_set = load_dataset(data_path, 'CIFAR10', comments=True)
-
-train_loader = DataLoader(dataset = train_set.dataset, 
-                          sampler=SubsetRandomSampler(train_set.indices),
-                          batch_size = batch_size, num_workers=n_workers, pin_memory = mem)
-
-valid_loader = DataLoader(dataset = valid_set.dataset, 
-                          sampler=SubsetRandomSampler(valid_set.indices),
-                          batch_size = batch_size, num_workers=n_workers, pin_memory = mem)
-
-test_loader = DataLoader(dataset = test_set, batch_size = 128,
-                         shuffle = False, num_workers=n_workers, pin_memory = mem)
+from data import create_data_loaders
+train_loader, valid_loader = create_data_loaders(batch_size, n_workers)
 
 
 # 2 - Import the ResNet
@@ -199,8 +186,6 @@ singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110() # 3:1 vs 6:1
 title = singleModel.name
 
 name = singleModel.name
-singleModel.to(device)
-if gpus: singleModel = nn.DataParallel(singleModel)
 optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
 
@@ -278,37 +263,6 @@ with open('Results_Testing.pkl', 'wb') as object_result:
 
 
 exit()
-
-
-#model = ResNet56()
-#model.load_state_dict(torch.load('../ResNet56-156.pkl', map_location=device))
-#model.eval()
-#control = 0
-#
-#total, correct = (0,0)
-#from torch.autograd import Variable
-#with torch.no_grad():
-#    
-#    for i, (images, labels) in enumerate(test_loader):
-#        
-#        images = Variable(images)
-#        labels = Variable(labels)
-#        
-#        images = images.to(device)
-#        labels = labels.to(device)
-#        
-#        outputs = singleModel(images)
-#        
-#        _, preds = outputs.max(1)
-#        total += outputs.size(0)
-#        correct += int(sum(preds == labels))
-#        
-#        control += 1
-#    
-#print('Single model accuracy {}%'.format(100 * correct / total))
-#print('Control: ', control)
-#
-#
 
 
 
