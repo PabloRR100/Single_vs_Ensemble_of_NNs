@@ -101,14 +101,14 @@ path_to_definitives = os.path.join(path_to_models, 'definitives')
 train_log = os.path.join(path_to_logs, 'train')
 test_log = os.path.join(path_to_logs, 'test')
 
-assert os.path.exists(root), 'Root folder not found'
-assert os.path.exists(scripts), 'Scripts folder not found'
-assert os.path.exists(results), 'Results folder not found'
-assert os.path.exists(data_path), 'Data folder not found'
-assert os.path.exists(path_to_logs), 'Logs folder not found'
-assert os.path.exists(path_to_models), 'Models folder not found'
-assert os.path.exists(path_to_figures), 'Figure folder not found'
-assert os.path.exists(path_to_definitives), 'Def. models folder not found'
+assert os.path.exists(root), 'Root folder not found: {}'.format(root)
+assert os.path.exists(scripts), 'Scripts folder not found: {}'.format(scripts)
+assert os.path.exists(results), 'Results folder not found: {}'.format(results)
+assert os.path.exists(data_path), 'Data folder not found: {}'.format(data_path)
+assert os.path.exists(path_to_logs), 'Logs folder not found: {}'.format(path_to_logs)
+assert os.path.exists(path_to_models), 'Models folder not found: {}'.format(path_to_models)
+assert os.path.exists(path_to_figures), 'Figure folder not found: {}'.format(path_to_figures)
+assert os.path.exists(path_to_definitives), 'Def. models folder not found: {}'.format(path_to_definitives)
 
 print('Paths Validated')
 print('---------------')
