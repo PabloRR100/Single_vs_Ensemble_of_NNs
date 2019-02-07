@@ -7,7 +7,7 @@ import pickle
 path = os.path.abspath('../results_II/logs/resnet56.txt')  
 
 f = open(path, 'r')
-x = f.readlines()[48:-6]
+x = f.readlines()[58:-7]
 x = [t for t in x if t != '\n']
 f.close()
 
@@ -70,7 +70,7 @@ ts_ensemble = ts[2].split('%')[0][-5:]
 # -----
 
 h0, m0 =  x[0].split('Time ')[1].split(':')
-h1, m1 = x[540].split('Time ')[1].split(':')
+h1, m1 = x[640].split('Time ')[1].split(':')
 h0, m0, h1, m1 = int(h0), int(m0), int(h1), int(m1)
 dh_single = (h1 + 24 - h0 if h1 < h0 else h1 - h0) * 60 + (m1+60-m0 if m1 > m0 else m1)
 
@@ -95,7 +95,7 @@ def remove_empty_keys(d):
 # Single Model
 
 res = TrainResults([0])
-res.name = 'ResNet101'
+res.name = 'ResNet56'
 res.train_loss = tr_single_loss
 res.train_accy = tr_single_accy
 res.valid_loss = va_single_loss
@@ -138,7 +138,4 @@ with open('Results_Ensemble_Models.pkl', 'wb') as object_result:
 
 with open('Results_Testing.pkl', 'wb') as object_result:
     pickle.dump(tres, object_result, pickle.HIGHEST_PROTOCOL)
-
-
-
 
