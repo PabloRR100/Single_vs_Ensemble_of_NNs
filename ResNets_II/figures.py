@@ -21,20 +21,20 @@ path_to_single = os.path.join(results_path, 'Results_Single_Models.pkl')
 path_to_ensemble = os.path.join(results_path, 'Results_Ensemble_Models.pkl')
 path_to_testing = os.path.join(results_path, 'Results_Testing.pkl')
 
-try:
+if os.path.exists(path_to_single):
     with open(path_to_single, 'rb') as input:
         res = pickle.load(input)
-except:
+else:
     print('No results for Single Model in {}', path_to_single)
 
-try:
+if os.path.exists(path_to_ensemble):
     with open(path_to_ensemble, 'rb') as input:
         eres = pickle.load(input)
-except:
+else:
     print('No results for Ensemble Model in {}', path_to_ensemble)
 
-try:
+if os.path.exists(path_to_testing):
     with open(path_to_testing, 'rb') as input:
         test = pickle.load(input)
-except:
+else:
     print('No results for Testing in {}', path_to_testing)
