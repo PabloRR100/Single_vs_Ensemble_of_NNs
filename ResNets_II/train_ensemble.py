@@ -253,4 +253,5 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
             
         results.append_time(elapsed(start))
         
+    print('Finished training... Time: ', elapsed(start))
     return results
