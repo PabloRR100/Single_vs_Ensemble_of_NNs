@@ -1,12 +1,10 @@
 # Single_vs_Ensemble_of_NNs
 
-The aim of this project is to understand whether it could be a better approach to go for ensemble learning instead of going deeper in Deep Learning.
-
-There are some dashboards with the results comparing different ResNet architectures on CIFAR10 with an ensemble of smaller ResNets that have the same (or less) paramaters in total.
-This way, we can say that for a fixed network capacity, splitting the parameters into an ensemble of models is more efficient than gathering them into a single deeper structure.
+Training ensembles of deep learning models to understand their advantages in terms of performance.  
+Looking for more efficient distribution of training/computational budgets.  
 
 In this [separated repository][1] can be found Dashboards to explore the results obtained. 
-Some of them already deployed (requires username and password): 
+Some of them already deployed **requires username and password**:
 
 - [ResNets Ensemble][2]
 - [VGGs Ensemble][3]
