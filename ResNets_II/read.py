@@ -14,8 +14,8 @@ f.close()
 MODELS = 1
 
 def get_loss_accy(tr):
-    loss = [t.split(' Loss: ')[1].split(' Acc:')[0] for t in tr]
-    accy = [t.split(' Acc: ')[1].split('%')[0] for t in tr]
+    loss = list(map(float, [t.split(' Loss: ')[1].split(' Acc:')[0] for t in tr]))
+    accy = list(map(float, [t.split(' Acc: ')[1].split('%')[0] for t in tr]))
     return loss, accy
 
 

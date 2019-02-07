@@ -59,13 +59,13 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader, e
         model = torch.nn.DataParallel(model)
     
     cudnn.benchmark = True
-    print('Starting Single Model Training...' )
+    print('\nStarting Single Model Training...' )
     for epoch in range(1, epochs+1):
         
         if (epoch == 100 or epoch == 150):
             for p in optimizer.param_groups: 
                 p['lr'] = p['lr'] / 10
-            print('** Changing LR to {}'.format(p['lr']))
+            print('\n** Changing LR to {} \n'.format(p['lr']))
         
         # Training
         model.train()
@@ -151,7 +151,7 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader, e
         # Save model and delete previous if it is the best
         if acc > best_acc:
             
-            print('Best validation accuracy reached --> Saving model')              
+            # print('Best validation accuracy reached --> Saving model')              
             models = glob.glob(os.path.join(modelpath, '*.pkl'))
             for m in models:
                 os.remove(m)
@@ -165,5 +165,5 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader, e
         
         results.append_time(elapsed(start))
         
-    print('Finished training... Time: ', elapsed(start))
+    print('\nFinished training... Time: ', elapsed(start))
     return results

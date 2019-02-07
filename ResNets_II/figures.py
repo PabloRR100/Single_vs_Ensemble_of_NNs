@@ -8,8 +8,6 @@ Created on Wed Feb  6 16:56:06 2019
 
 import os
 import pickle
-import pandas as pd
-
 
 ## Introduce the correct path ##
 path = 'ResNet56'
@@ -38,3 +36,50 @@ if os.path.exists(path_to_testing):
         test = pickle.load(input)
 else:
     print('No results for Testing in {}', path_to_testing)
+
+
+
+
+data1 = {'single':res.iter_train_accy, 
+        'ensemble': eres.iter_train_accy['ensemble']}
+
+data2 = {'single':res.iter_train_loss, 
+        'ensemble': eres.iter_train_loss['ensemble']}
+
+data3 = {'single':res.train_accy, 
+        'ensemble': eres.train_accy['ensemble']}
+
+data4 = {'single':res.train_loss, 
+        'ensemble': eres.train_loss['ensemble']}
+
+data5 = {'single':res.valid_accy, 
+        'ensemble': eres.valid_accy['ensemble']}
+
+data6 = {'single':res.valid_loss, 
+        'ensemble': eres.valid_loss['ensemble']}
+
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def savefig(data: dict, path: str, title: str):
+    ''' Save the plot from the data '''
+    plt.figure()
+    sns.set_style('darkgrid')
+    df = pd.DataFrame.from_dict(data)
+    sns.lineplot(data=df)
+    plt.savefig(os.path.join(path, title))
+ 
+title = 'ResNet56'
+path_to_figures = '.'
+
+sns.lineplot(data=pd.DataFrame.from_dict(res.valid_loss))
+sns.lineplot(data=pd.DataFrame.from_dict(res.valid_accy))
+
+savefig(data1, path_to_figures, title + '_train_accuracy_per_iter.png')
+savefig(data2, path_to_figures, title + '_train_loss_per_iter.png')
+savefig(data3, path_to_figures, title + '_train_accuracy_per_epoch.png')
+savefig(data4, path_to_figures, title + '_train_loss_per_iter.png')
+savefig(data5, path_to_figures, title + '_valid_accuracy.png')
+savefig(data6, path_to_figures, title + '_valid_loss.png')

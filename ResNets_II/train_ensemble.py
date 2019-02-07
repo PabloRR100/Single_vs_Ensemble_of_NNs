@@ -65,7 +65,7 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
     results.name = names[0][:-2] + '(x' + str(len(names)) + ')'
     
     cudnn.benchmark = True
-    print('Starting Ensemble Training...')
+    print('\nStarting Ensemble Training...')
     
     for epoch in range(1, epochs+1):
         
@@ -91,7 +91,8 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
                 # Scheduler for learning rate        
                 if (epoch == 100 or epoch == 150):
                     for p in optimizers[n].param_groups: p['lr'] = p['lr'] / 10
-
+                    print('\n** Changing LR to {} \n'.format(p['lr']))
+                    
                 ## Individual forward pass
                 
                 # Calculate loss for individual                
@@ -242,7 +243,7 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
             # Save model and delete previous if it is the best
             if acc > best_acc:
                 
-                print('Best validation accuracy reached --> Saving model')
+                # print('Best validation accuracy reached --> Saving model')
                 prev_models = glob.glob(os.path.join(modelpath, names[0][:-2] + '*.pkl'))
                 for p in prev_models:
                     os.remove(p)
@@ -253,5 +254,5 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
             
         results.append_time(elapsed(start))
         
-    print('Finished training... Time: ', elapsed(start))
+    print('\nFinished training... Time: ', elapsed(start))
     return results
