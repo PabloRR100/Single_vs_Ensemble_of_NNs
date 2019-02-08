@@ -93,6 +93,8 @@ Define all the paths to load / save files
 Ensure all those paths are correctly defined before moving on
 '''
 
+folder = 'resnets' if model == 'ResNet' else 'densenets' if model == 'DenseNet' else 'vggs'
+
 print('\n\nDEFINITION OF PATHS')
 print('-------------------')
 scripts = os.getcwd()
@@ -100,9 +102,9 @@ root = os.path.abspath(os.path.join(scripts, '../'))
 results = os.path.abspath(os.path.join(root, 'results'))
 data_path = os.path.abspath(os.path.join(root, '../datasets'))
 
-path_to_logs = os.path.join(results, 'logs', 'resnets')
-path_to_models = os.path.join(results, 'models', 'resnets')
-path_to_figures = os.path.join(results, 'figures', 'resnets')
+path_to_logs = os.path.join(results, 'logs', folder)
+path_to_models = os.path.join(results, 'models', folder)
+path_to_figures = os.path.join(results, 'figures', folder)
 path_to_definitives = os.path.join(path_to_models, 'definitives')
 
 train_log = os.path.join(path_to_logs, 'train')
