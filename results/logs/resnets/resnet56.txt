@@ -1,0 +1,1308 @@
+
+
+CONFIGURATION
+-------------
++-----------------+-------+
+| Python Version  | 3.6.5 |
++-----------------+-------+
+| PyTorch Version | 1.0.0 |
++-----------------+-------+
+|      Cuda       | True  |
++-----------------+-------+
+|     Device      | cuda  |
++-----------------+-------+
+|      Cores      |  64   |
++-----------------+-------+
+|      GPUs       |   4   |
++-----------------+-------+
+|  CUDNN Enabled  | True  |
++-----------------+-------+
+
+
+DEFINITION OF PATHS
+-------------------
+
+[OK]: Paths Validated Successfully
+Root path:  /home/ec2-user/Single_vs_Ensemble_of_NNs
+Script path:  /home/ec2-user/Single_vs_Ensemble_of_NNs/ResNets_II
+Results path:  /home/ec2-user/Single_vs_Ensemble_of_NNs/results_II
+DataFolder path:  /home/ec2-user/datasets
+Models to save path:  /home/ec2-user/Single_vs_Ensemble_of_NNs/results_II/models/resnets
+Models to load path:  /home/ec2-user/Single_vs_Ensemble_of_NNs/results_II/models/resnets/definitives
+
+
+IMPORTING DATA
+--------------
+Files already downloaded and verified
+
+
+LOADING MODELS
+----------------
++------------+-------------+-----------------+
+|   Model    | M. Paramars | % over ResNet20 |
++------------+-------------+-----------------+
+| ResNet 20  |    0.27     |       1.0       |
++------------+-------------+-----------------+
+| ResNet 32  |    0.464    |      1.721      |
++------------+-------------+-----------------+
+| ResNet 44  |    0.659    |      2.442      |
++------------+-------------+-----------------+
+| ResNet 56  |    0.853    |      3.163      |
++------------+-------------+-----------------+
+| ResNet 110 |    1.728    |      6.406      |
++------------+-------------+-----------------+
+
+
+TRAINING
+--------
+Starting Single Model Training...
+
+ ** Time 12:38
+
+ ** Train ** Epoch: [1/200] Iter: [391/78200] Loss: 1.168 Acc: 56.25%
+
+ ** Valid ** Epoch: [1/200] Iter: [391/78200] Loss: 1.495 Acc: 53.98%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:38
+
+ ** Train ** Epoch: [2/200] Iter: [782/78200] Loss: 0.856 Acc: 70.0%
+
+ ** Valid ** Epoch: [2/200] Iter: [782/78200] Loss: 1.325 Acc: 64.61%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:39
+
+ ** Train ** Epoch: [3/200] Iter: [1173/78200] Loss: 0.846 Acc: 68.75%
+
+ ** Valid ** Epoch: [3/200] Iter: [1173/78200] Loss: 0.682 Acc: 70.29%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:40
+
+ ** Train ** Epoch: [4/200] Iter: [1564/78200] Loss: 0.624 Acc: 75.0%
+
+ ** Valid ** Epoch: [4/200] Iter: [1564/78200] Loss: 0.861 Acc: 70.41%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:41
+
+ ** Train ** Epoch: [5/200] Iter: [1955/78200] Loss: 0.642 Acc: 76.25%
+
+ ** Valid ** Epoch: [5/200] Iter: [1955/78200] Loss: 0.667 Acc: 76.59%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:41
+
+ ** Train ** Epoch: [6/200] Iter: [2346/78200] Loss: 0.598 Acc: 78.75%
+
+ ** Valid ** Epoch: [6/200] Iter: [2346/78200] Loss: 0.35 Acc: 79.06%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:42
+
+ ** Train ** Epoch: [7/200] Iter: [2737/78200] Loss: 0.436 Acc: 81.25%
+
+ ** Valid ** Epoch: [7/200] Iter: [2737/78200] Loss: 0.38 Acc: 80.62%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:43
+
+ ** Train ** Epoch: [8/200] Iter: [3128/78200] Loss: 0.546 Acc: 82.5%
+
+ ** Valid ** Epoch: [8/200] Iter: [3128/78200] Loss: 0.579 Acc: 80.23%
+
+ ** Time 12:44
+
+ ** Train ** Epoch: [9/200] Iter: [3519/78200] Loss: 0.526 Acc: 83.75%
+
+ ** Valid ** Epoch: [9/200] Iter: [3519/78200] Loss: 0.371 Acc: 77.21%
+
+ ** Time 12:44
+
+ ** Train ** Epoch: [10/200] Iter: [3910/78200] Loss: 0.618 Acc: 77.5%
+
+ ** Valid ** Epoch: [10/200] Iter: [3910/78200] Loss: 0.513 Acc: 82.98%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:45
+
+ ** Train ** Epoch: [11/200] Iter: [4301/78200] Loss: 0.482 Acc: 78.75%
+
+ ** Valid ** Epoch: [11/200] Iter: [4301/78200] Loss: 0.506 Acc: 81.23%
+
+ ** Time 12:46
+
+ ** Train ** Epoch: [12/200] Iter: [4692/78200] Loss: 0.564 Acc: 80.0%
+
+ ** Valid ** Epoch: [12/200] Iter: [4692/78200] Loss: 0.739 Acc: 83.63%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:47
+
+ ** Train ** Epoch: [13/200] Iter: [5083/78200] Loss: 0.435 Acc: 83.75%
+
+ ** Valid ** Epoch: [13/200] Iter: [5083/78200] Loss: 0.606 Acc: 83.46%
+
+ ** Time 12:47
+
+ ** Train ** Epoch: [14/200] Iter: [5474/78200] Loss: 0.343 Acc: 87.5%
+
+ ** Valid ** Epoch: [14/200] Iter: [5474/78200] Loss: 0.648 Acc: 81.82%
+
+ ** Time 12:48
+
+ ** Train ** Epoch: [15/200] Iter: [5865/78200] Loss: 0.312 Acc: 90.0%
+
+ ** Valid ** Epoch: [15/200] Iter: [5865/78200] Loss: 0.854 Acc: 82.66%
+
+ ** Time 12:49
+
+ ** Train ** Epoch: [16/200] Iter: [6256/78200] Loss: 0.332 Acc: 87.5%
+
+ ** Valid ** Epoch: [16/200] Iter: [6256/78200] Loss: 0.242 Acc: 83.1%
+
+ ** Time 12:50
+
+ ** Train ** Epoch: [17/200] Iter: [6647/78200] Loss: 0.292 Acc: 88.75%
+
+ ** Valid ** Epoch: [17/200] Iter: [6647/78200] Loss: 0.753 Acc: 85.03%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:50
+
+ ** Train ** Epoch: [18/200] Iter: [7038/78200] Loss: 0.321 Acc: 90.0%
+
+ ** Valid ** Epoch: [18/200] Iter: [7038/78200] Loss: 0.883 Acc: 85.71%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:51
+
+ ** Train ** Epoch: [19/200] Iter: [7429/78200] Loss: 0.288 Acc: 90.0%
+
+ ** Valid ** Epoch: [19/200] Iter: [7429/78200] Loss: 0.212 Acc: 85.16%
+
+ ** Time 12:52
+
+ ** Train ** Epoch: [20/200] Iter: [7820/78200] Loss: 0.194 Acc: 93.75%
+
+ ** Valid ** Epoch: [20/200] Iter: [7820/78200] Loss: 0.159 Acc: 86.03%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:53
+
+ ** Train ** Epoch: [21/200] Iter: [8211/78200] Loss: 0.276 Acc: 88.75%
+
+ ** Valid ** Epoch: [21/200] Iter: [8211/78200] Loss: 0.246 Acc: 86.82%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:53
+
+ ** Train ** Epoch: [22/200] Iter: [8602/78200] Loss: 0.261 Acc: 90.0%
+
+ ** Valid ** Epoch: [22/200] Iter: [8602/78200] Loss: 0.703 Acc: 85.78%
+
+ ** Time 12:54
+
+ ** Train ** Epoch: [23/200] Iter: [8993/78200] Loss: 0.243 Acc: 92.5%
+
+ ** Valid ** Epoch: [23/200] Iter: [8993/78200] Loss: 0.334 Acc: 86.33%
+
+ ** Time 12:55
+
+ ** Train ** Epoch: [24/200] Iter: [9384/78200] Loss: 0.196 Acc: 92.5%
+
+ ** Valid ** Epoch: [24/200] Iter: [9384/78200] Loss: 0.828 Acc: 85.91%
+
+ ** Time 12:56
+
+ ** Train ** Epoch: [25/200] Iter: [9775/78200] Loss: 0.354 Acc: 86.25%
+
+ ** Valid ** Epoch: [25/200] Iter: [9775/78200] Loss: 0.447 Acc: 86.22%
+
+ ** Time 12:56
+
+ ** Train ** Epoch: [26/200] Iter: [10166/78200] Loss: 0.209 Acc: 93.75%
+
+ ** Valid ** Epoch: [26/200] Iter: [10166/78200] Loss: 0.587 Acc: 86.97%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:57
+
+ ** Train ** Epoch: [27/200] Iter: [10557/78200] Loss: 0.265 Acc: 91.25%
+
+ ** Valid ** Epoch: [27/200] Iter: [10557/78200] Loss: 0.745 Acc: 87.17%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:58
+
+ ** Train ** Epoch: [28/200] Iter: [10948/78200] Loss: 0.23 Acc: 93.75%
+
+ ** Valid ** Epoch: [28/200] Iter: [10948/78200] Loss: 0.439 Acc: 87.54%
+Best validation accuracy reached --> Saving model
+
+ ** Time 12:59
+
+ ** Train ** Epoch: [29/200] Iter: [11339/78200] Loss: 0.17 Acc: 95.0%
+
+ ** Valid ** Epoch: [29/200] Iter: [11339/78200] Loss: 0.861 Acc: 87.35%
+
+ ** Time 12:59
+
+ ** Train ** Epoch: [30/200] Iter: [11730/78200] Loss: 0.173 Acc: 96.25%
+
+ ** Valid ** Epoch: [30/200] Iter: [11730/78200] Loss: 0.757 Acc: 86.19%
+
+ ** Time 13:0
+
+ ** Train ** Epoch: [31/200] Iter: [12121/78200] Loss: 0.096 Acc: 96.25%
+
+ ** Valid ** Epoch: [31/200] Iter: [12121/78200] Loss: 0.482 Acc: 88.34%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:1
+
+ ** Train ** Epoch: [32/200] Iter: [12512/78200] Loss: 0.448 Acc: 86.25%
+
+ ** Valid ** Epoch: [32/200] Iter: [12512/78200] Loss: 0.669 Acc: 87.48%
+
+ ** Time 13:2
+
+ ** Train ** Epoch: [33/200] Iter: [12903/78200] Loss: 0.287 Acc: 91.25%
+
+ ** Valid ** Epoch: [33/200] Iter: [12903/78200] Loss: 0.513 Acc: 88.18%
+
+ ** Time 13:2
+
+ ** Train ** Epoch: [34/200] Iter: [13294/78200] Loss: 0.223 Acc: 93.75%
+
+ ** Valid ** Epoch: [34/200] Iter: [13294/78200] Loss: 0.169 Acc: 87.84%
+
+ ** Time 13:3
+
+ ** Train ** Epoch: [35/200] Iter: [13685/78200] Loss: 0.277 Acc: 92.5%
+
+ ** Valid ** Epoch: [35/200] Iter: [13685/78200] Loss: 0.438 Acc: 88.99%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:4
+
+ ** Train ** Epoch: [36/200] Iter: [14076/78200] Loss: 0.133 Acc: 96.25%
+
+ ** Valid ** Epoch: [36/200] Iter: [14076/78200] Loss: 0.536 Acc: 88.08%
+
+ ** Time 13:5
+
+ ** Train ** Epoch: [37/200] Iter: [14467/78200] Loss: 0.144 Acc: 93.75%
+
+ ** Valid ** Epoch: [37/200] Iter: [14467/78200] Loss: 0.389 Acc: 86.62%
+
+ ** Time 13:5
+
+ ** Train ** Epoch: [38/200] Iter: [14858/78200] Loss: 0.122 Acc: 95.0%
+
+ ** Valid ** Epoch: [38/200] Iter: [14858/78200] Loss: 0.605 Acc: 88.29%
+
+ ** Time 13:6
+
+ ** Train ** Epoch: [39/200] Iter: [15249/78200] Loss: 0.192 Acc: 93.75%
+
+ ** Valid ** Epoch: [39/200] Iter: [15249/78200] Loss: 0.765 Acc: 87.07%
+
+ ** Time 13:7
+
+ ** Train ** Epoch: [40/200] Iter: [15640/78200] Loss: 0.169 Acc: 93.75%
+
+ ** Valid ** Epoch: [40/200] Iter: [15640/78200] Loss: 0.476 Acc: 88.42%
+
+ ** Time 13:8
+
+ ** Train ** Epoch: [41/200] Iter: [16031/78200] Loss: 0.133 Acc: 92.5%
+
+ ** Valid ** Epoch: [41/200] Iter: [16031/78200] Loss: 0.445 Acc: 87.78%
+
+ ** Time 13:9
+
+ ** Train ** Epoch: [42/200] Iter: [16422/78200] Loss: 0.153 Acc: 95.0%
+
+ ** Valid ** Epoch: [42/200] Iter: [16422/78200] Loss: 0.984 Acc: 87.93%
+
+ ** Time 13:9
+
+ ** Train ** Epoch: [43/200] Iter: [16813/78200] Loss: 0.173 Acc: 91.25%
+
+ ** Valid ** Epoch: [43/200] Iter: [16813/78200] Loss: 0.471 Acc: 88.54%
+
+ ** Time 13:10
+
+ ** Train ** Epoch: [44/200] Iter: [17204/78200] Loss: 0.084 Acc: 97.5%
+
+ ** Valid ** Epoch: [44/200] Iter: [17204/78200] Loss: 0.381 Acc: 87.41%
+
+ ** Time 13:11
+
+ ** Train ** Epoch: [45/200] Iter: [17595/78200] Loss: 0.122 Acc: 95.0%
+
+ ** Valid ** Epoch: [45/200] Iter: [17595/78200] Loss: 0.701 Acc: 88.33%
+
+ ** Time 13:12
+
+ ** Train ** Epoch: [46/200] Iter: [17986/78200] Loss: 0.077 Acc: 97.5%
+
+ ** Valid ** Epoch: [46/200] Iter: [17986/78200] Loss: 0.454 Acc: 88.11%
+
+ ** Time 13:12
+
+ ** Train ** Epoch: [47/200] Iter: [18377/78200] Loss: 0.125 Acc: 95.0%
+
+ ** Valid ** Epoch: [47/200] Iter: [18377/78200] Loss: 0.341 Acc: 87.9%
+
+ ** Time 13:13
+
+ ** Train ** Epoch: [48/200] Iter: [18768/78200] Loss: 0.088 Acc: 97.5%
+
+ ** Valid ** Epoch: [48/200] Iter: [18768/78200] Loss: 0.849 Acc: 88.04%
+
+ ** Time 13:14
+
+ ** Train ** Epoch: [49/200] Iter: [19159/78200] Loss: 0.082 Acc: 97.5%
+
+ ** Valid ** Epoch: [49/200] Iter: [19159/78200] Loss: 0.872 Acc: 88.01%
+
+ ** Time 13:15
+
+ ** Train ** Epoch: [50/200] Iter: [19550/78200] Loss: 0.128 Acc: 93.75%
+
+ ** Valid ** Epoch: [50/200] Iter: [19550/78200] Loss: 0.613 Acc: 88.61%
+
+ ** Time 13:15
+
+ ** Train ** Epoch: [51/200] Iter: [19941/78200] Loss: 0.195 Acc: 95.0%
+
+ ** Valid ** Epoch: [51/200] Iter: [19941/78200] Loss: 0.811 Acc: 87.96%
+
+ ** Time 13:16
+
+ ** Train ** Epoch: [52/200] Iter: [20332/78200] Loss: 0.1 Acc: 97.5%
+
+ ** Valid ** Epoch: [52/200] Iter: [20332/78200] Loss: 0.838 Acc: 88.63%
+
+ ** Time 13:17
+
+ ** Train ** Epoch: [53/200] Iter: [20723/78200] Loss: 0.111 Acc: 97.5%
+
+ ** Valid ** Epoch: [53/200] Iter: [20723/78200] Loss: 1.185 Acc: 87.29%
+
+ ** Time 13:18
+
+ ** Train ** Epoch: [54/200] Iter: [21114/78200] Loss: 0.064 Acc: 97.5%
+
+ ** Valid ** Epoch: [54/200] Iter: [21114/78200] Loss: 0.561 Acc: 89.23%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:18
+
+ ** Train ** Epoch: [55/200] Iter: [21505/78200] Loss: 0.106 Acc: 96.25%
+
+ ** Valid ** Epoch: [55/200] Iter: [21505/78200] Loss: 0.725 Acc: 88.76%
+
+ ** Time 13:19
+
+ ** Train ** Epoch: [56/200] Iter: [21896/78200] Loss: 0.21 Acc: 92.5%
+
+ ** Valid ** Epoch: [56/200] Iter: [21896/78200] Loss: 0.797 Acc: 88.68%
+
+ ** Time 13:20
+
+ ** Train ** Epoch: [57/200] Iter: [22287/78200] Loss: 0.145 Acc: 95.0%
+
+ ** Valid ** Epoch: [57/200] Iter: [22287/78200] Loss: 1.061 Acc: 88.66%
+
+ ** Time 13:21
+
+ ** Train ** Epoch: [58/200] Iter: [22678/78200] Loss: 0.095 Acc: 96.25%
+
+ ** Valid ** Epoch: [58/200] Iter: [22678/78200] Loss: 0.424 Acc: 89.06%
+
+ ** Time 13:22
+
+ ** Train ** Epoch: [59/200] Iter: [23069/78200] Loss: 0.152 Acc: 93.75%
+
+ ** Valid ** Epoch: [59/200] Iter: [23069/78200] Loss: 0.724 Acc: 88.91%
+
+ ** Time 13:22
+
+ ** Train ** Epoch: [60/200] Iter: [23460/78200] Loss: 0.108 Acc: 96.25%
+
+ ** Valid ** Epoch: [60/200] Iter: [23460/78200] Loss: 1.398 Acc: 88.89%
+
+ ** Time 13:23
+
+ ** Train ** Epoch: [61/200] Iter: [23851/78200] Loss: 0.034 Acc: 98.75%
+
+ ** Valid ** Epoch: [61/200] Iter: [23851/78200] Loss: 0.905 Acc: 87.99%
+
+ ** Time 13:24
+
+ ** Train ** Epoch: [62/200] Iter: [24242/78200] Loss: 0.052 Acc: 97.5%
+
+ ** Valid ** Epoch: [62/200] Iter: [24242/78200] Loss: 1.033 Acc: 87.51%
+
+ ** Time 13:25
+
+ ** Train ** Epoch: [63/200] Iter: [24633/78200] Loss: 0.144 Acc: 93.75%
+
+ ** Valid ** Epoch: [63/200] Iter: [24633/78200] Loss: 1.315 Acc: 88.66%
+
+ ** Time 13:25
+
+ ** Train ** Epoch: [64/200] Iter: [25024/78200] Loss: 0.144 Acc: 98.75%
+
+ ** Valid ** Epoch: [64/200] Iter: [25024/78200] Loss: 0.166 Acc: 89.31%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:26
+
+ ** Train ** Epoch: [65/200] Iter: [25415/78200] Loss: 0.091 Acc: 96.25%
+
+ ** Valid ** Epoch: [65/200] Iter: [25415/78200] Loss: 0.806 Acc: 89.13%
+
+ ** Time 13:27
+
+ ** Train ** Epoch: [66/200] Iter: [25806/78200] Loss: 0.059 Acc: 96.25%
+
+ ** Valid ** Epoch: [66/200] Iter: [25806/78200] Loss: 1.188 Acc: 87.77%
+
+ ** Time 13:28
+
+ ** Train ** Epoch: [67/200] Iter: [26197/78200] Loss: 0.042 Acc: 98.75%
+
+ ** Valid ** Epoch: [67/200] Iter: [26197/78200] Loss: 1.271 Acc: 87.28%
+
+ ** Time 13:28
+
+ ** Train ** Epoch: [68/200] Iter: [26588/78200] Loss: 0.041 Acc: 98.75%
+
+ ** Valid ** Epoch: [68/200] Iter: [26588/78200] Loss: 1.054 Acc: 89.56%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:29
+
+ ** Train ** Epoch: [69/200] Iter: [26979/78200] Loss: 0.045 Acc: 98.75%
+
+ ** Valid ** Epoch: [69/200] Iter: [26979/78200] Loss: 1.338 Acc: 88.78%
+
+ ** Time 13:30
+
+ ** Train ** Epoch: [70/200] Iter: [27370/78200] Loss: 0.154 Acc: 93.75%
+
+ ** Valid ** Epoch: [70/200] Iter: [27370/78200] Loss: 1.435 Acc: 89.61%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:31
+
+ ** Train ** Epoch: [71/200] Iter: [27761/78200] Loss: 0.126 Acc: 96.25%
+
+ ** Valid ** Epoch: [71/200] Iter: [27761/78200] Loss: 0.937 Acc: 89.42%
+
+ ** Time 13:31
+
+ ** Train ** Epoch: [72/200] Iter: [28152/78200] Loss: 0.15 Acc: 96.25%
+
+ ** Valid ** Epoch: [72/200] Iter: [28152/78200] Loss: 1.024 Acc: 89.71%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:32
+
+ ** Train ** Epoch: [73/200] Iter: [28543/78200] Loss: 0.211 Acc: 93.75%
+
+ ** Valid ** Epoch: [73/200] Iter: [28543/78200] Loss: 0.938 Acc: 89.5%
+
+ ** Time 13:33
+
+ ** Train ** Epoch: [74/200] Iter: [28934/78200] Loss: 0.098 Acc: 97.5%
+
+ ** Valid ** Epoch: [74/200] Iter: [28934/78200] Loss: 1.347 Acc: 88.36%
+
+ ** Time 13:34
+
+ ** Train ** Epoch: [75/200] Iter: [29325/78200] Loss: 0.086 Acc: 98.75%
+
+ ** Valid ** Epoch: [75/200] Iter: [29325/78200] Loss: 1.271 Acc: 88.87%
+
+ ** Time 13:35
+
+ ** Train ** Epoch: [76/200] Iter: [29716/78200] Loss: 0.11 Acc: 96.25%
+
+ ** Valid ** Epoch: [76/200] Iter: [29716/78200] Loss: 0.977 Acc: 89.56%
+
+ ** Time 13:35
+
+ ** Train ** Epoch: [77/200] Iter: [30107/78200] Loss: 0.081 Acc: 97.5%
+
+ ** Valid ** Epoch: [77/200] Iter: [30107/78200] Loss: 1.156 Acc: 89.53%
+
+ ** Time 13:36
+
+ ** Train ** Epoch: [78/200] Iter: [30498/78200] Loss: 0.024 Acc: 100.0%
+
+ ** Valid ** Epoch: [78/200] Iter: [30498/78200] Loss: 0.855 Acc: 89.68%
+
+ ** Time 13:37
+
+ ** Train ** Epoch: [79/200] Iter: [30889/78200] Loss: 0.042 Acc: 97.5%
+
+ ** Valid ** Epoch: [79/200] Iter: [30889/78200] Loss: 0.927 Acc: 89.03%
+
+ ** Time 13:38
+
+ ** Train ** Epoch: [80/200] Iter: [31280/78200] Loss: 0.079 Acc: 96.25%
+
+ ** Valid ** Epoch: [80/200] Iter: [31280/78200] Loss: 0.907 Acc: 89.79%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:38
+
+ ** Train ** Epoch: [81/200] Iter: [31671/78200] Loss: 0.097 Acc: 97.5%
+
+ ** Valid ** Epoch: [81/200] Iter: [31671/78200] Loss: 0.849 Acc: 89.97%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:39
+
+ ** Train ** Epoch: [82/200] Iter: [32062/78200] Loss: 0.062 Acc: 97.5%
+
+ ** Valid ** Epoch: [82/200] Iter: [32062/78200] Loss: 0.956 Acc: 90.18%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:40
+
+ ** Train ** Epoch: [83/200] Iter: [32453/78200] Loss: 0.049 Acc: 98.75%
+
+ ** Valid ** Epoch: [83/200] Iter: [32453/78200] Loss: 0.936 Acc: 89.64%
+
+ ** Time 13:41
+
+ ** Train ** Epoch: [84/200] Iter: [32844/78200] Loss: 0.033 Acc: 97.5%
+
+ ** Valid ** Epoch: [84/200] Iter: [32844/78200] Loss: 1.133 Acc: 89.63%
+
+ ** Time 13:41
+
+ ** Train ** Epoch: [85/200] Iter: [33235/78200] Loss: 0.184 Acc: 93.75%
+
+ ** Valid ** Epoch: [85/200] Iter: [33235/78200] Loss: 1.341 Acc: 89.82%
+
+ ** Time 13:42
+
+ ** Train ** Epoch: [86/200] Iter: [33626/78200] Loss: 0.014 Acc: 100.0%
+
+ ** Valid ** Epoch: [86/200] Iter: [33626/78200] Loss: 1.031 Acc: 89.75%
+
+ ** Time 13:43
+
+ ** Train ** Epoch: [87/200] Iter: [34017/78200] Loss: 0.034 Acc: 98.75%
+
+ ** Valid ** Epoch: [87/200] Iter: [34017/78200] Loss: 1.166 Acc: 89.52%
+
+ ** Time 13:44
+
+ ** Train ** Epoch: [88/200] Iter: [34408/78200] Loss: 0.108 Acc: 96.25%
+
+ ** Valid ** Epoch: [88/200] Iter: [34408/78200] Loss: 1.473 Acc: 89.58%
+
+ ** Time 13:44
+
+ ** Train ** Epoch: [89/200] Iter: [34799/78200] Loss: 0.047 Acc: 98.75%
+
+ ** Valid ** Epoch: [89/200] Iter: [34799/78200] Loss: 1.777 Acc: 89.07%
+
+ ** Time 13:45
+
+ ** Train ** Epoch: [90/200] Iter: [35190/78200] Loss: 0.068 Acc: 96.25%
+
+ ** Valid ** Epoch: [90/200] Iter: [35190/78200] Loss: 0.987 Acc: 89.74%
+
+ ** Time 13:46
+
+ ** Train ** Epoch: [91/200] Iter: [35581/78200] Loss: 0.027 Acc: 98.75%
+
+ ** Valid ** Epoch: [91/200] Iter: [35581/78200] Loss: 0.538 Acc: 89.59%
+
+ ** Time 13:47
+
+ ** Train ** Epoch: [92/200] Iter: [35972/78200] Loss: 0.126 Acc: 97.5%
+
+ ** Valid ** Epoch: [92/200] Iter: [35972/78200] Loss: 1.022 Acc: 89.63%
+
+ ** Time 13:48
+
+ ** Train ** Epoch: [93/200] Iter: [36363/78200] Loss: 0.094 Acc: 97.5%
+
+ ** Valid ** Epoch: [93/200] Iter: [36363/78200] Loss: 1.52 Acc: 89.77%
+
+ ** Time 13:48
+
+ ** Train ** Epoch: [94/200] Iter: [36754/78200] Loss: 0.02 Acc: 100.0%
+
+ ** Valid ** Epoch: [94/200] Iter: [36754/78200] Loss: 1.69 Acc: 90.09%
+
+ ** Time 13:49
+
+ ** Train ** Epoch: [95/200] Iter: [37145/78200] Loss: 0.03 Acc: 98.75%
+
+ ** Valid ** Epoch: [95/200] Iter: [37145/78200] Loss: 1.734 Acc: 89.79%
+
+ ** Time 13:50
+
+ ** Train ** Epoch: [96/200] Iter: [37536/78200] Loss: 0.03 Acc: 98.75%
+
+ ** Valid ** Epoch: [96/200] Iter: [37536/78200] Loss: 0.808 Acc: 90.16%
+
+ ** Time 13:51
+
+ ** Train ** Epoch: [97/200] Iter: [37927/78200] Loss: 0.106 Acc: 98.75%
+
+ ** Valid ** Epoch: [97/200] Iter: [37927/78200] Loss: 1.058 Acc: 90.44%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:51
+
+ ** Train ** Epoch: [98/200] Iter: [38318/78200] Loss: 0.013 Acc: 100.0%
+
+ ** Valid ** Epoch: [98/200] Iter: [38318/78200] Loss: 0.815 Acc: 89.79%
+
+ ** Time 13:52
+
+ ** Train ** Epoch: [99/200] Iter: [38709/78200] Loss: 0.047 Acc: 98.75%
+
+ ** Valid ** Epoch: [99/200] Iter: [38709/78200] Loss: 1.122 Acc: 89.64%
+** Changing LR to 0.01
+
+ ** Time 13:53
+
+ ** Train ** Epoch: [100/200] Iter: [39100/78200] Loss: 0.048 Acc: 98.75%
+
+ ** Valid ** Epoch: [100/200] Iter: [39100/78200] Loss: 0.944 Acc: 90.77%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:54
+
+ ** Train ** Epoch: [101/200] Iter: [39491/78200] Loss: 0.004 Acc: 100.0%
+
+ ** Valid ** Epoch: [101/200] Iter: [39491/78200] Loss: 0.948 Acc: 91.09%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:54
+
+ ** Train ** Epoch: [102/200] Iter: [39882/78200] Loss: 0.083 Acc: 96.25%
+
+ ** Valid ** Epoch: [102/200] Iter: [39882/78200] Loss: 0.82 Acc: 90.99%
+
+ ** Time 13:55
+
+ ** Train ** Epoch: [103/200] Iter: [40273/78200] Loss: 0.026 Acc: 98.75%
+
+ ** Valid ** Epoch: [103/200] Iter: [40273/78200] Loss: 0.872 Acc: 91.02%
+
+ ** Time 13:56
+
+ ** Train ** Epoch: [104/200] Iter: [40664/78200] Loss: 0.007 Acc: 100.0%
+
+ ** Valid ** Epoch: [104/200] Iter: [40664/78200] Loss: 0.765 Acc: 91.17%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:57
+
+ ** Train ** Epoch: [105/200] Iter: [41055/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [105/200] Iter: [41055/78200] Loss: 0.777 Acc: 91.21%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:57
+
+ ** Train ** Epoch: [106/200] Iter: [41446/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [106/200] Iter: [41446/78200] Loss: 0.799 Acc: 91.3%
+Best validation accuracy reached --> Saving model
+
+ ** Time 13:58
+
+ ** Train ** Epoch: [107/200] Iter: [41837/78200] Loss: 0.012 Acc: 100.0%
+
+ ** Valid ** Epoch: [107/200] Iter: [41837/78200] Loss: 0.855 Acc: 91.14%
+
+ ** Time 13:59
+
+ ** Train ** Epoch: [108/200] Iter: [42228/78200] Loss: 0.019 Acc: 98.75%
+
+ ** Valid ** Epoch: [108/200] Iter: [42228/78200] Loss: 0.794 Acc: 91.25%
+
+ ** Time 14:0
+
+ ** Train ** Epoch: [109/200] Iter: [42619/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [109/200] Iter: [42619/78200] Loss: 0.793 Acc: 91.29%
+
+ ** Time 14:1
+
+ ** Train ** Epoch: [110/200] Iter: [43010/78200] Loss: 0.007 Acc: 100.0%
+
+ ** Valid ** Epoch: [110/200] Iter: [43010/78200] Loss: 0.843 Acc: 91.18%
+
+ ** Time 14:1
+
+ ** Train ** Epoch: [111/200] Iter: [43401/78200] Loss: 0.003 Acc: 100.0%
+
+ ** Valid ** Epoch: [111/200] Iter: [43401/78200] Loss: 0.944 Acc: 91.35%
+Best validation accuracy reached --> Saving model
+
+ ** Time 14:2
+
+ ** Train ** Epoch: [112/200] Iter: [43792/78200] Loss: 0.003 Acc: 100.0%
+
+ ** Valid ** Epoch: [112/200] Iter: [43792/78200] Loss: 0.946 Acc: 91.37%
+Best validation accuracy reached --> Saving model
+
+ ** Time 14:3
+
+ ** Train ** Epoch: [113/200] Iter: [44183/78200] Loss: 0.006 Acc: 100.0%
+
+ ** Valid ** Epoch: [113/200] Iter: [44183/78200] Loss: 0.924 Acc: 91.31%
+
+ ** Time 14:4
+
+ ** Train ** Epoch: [114/200] Iter: [44574/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [114/200] Iter: [44574/78200] Loss: 0.729 Acc: 91.09%
+
+ ** Time 14:4
+
+ ** Train ** Epoch: [115/200] Iter: [44965/78200] Loss: 0.027 Acc: 98.75%
+
+ ** Valid ** Epoch: [115/200] Iter: [44965/78200] Loss: 0.816 Acc: 91.32%
+
+ ** Time 14:5
+
+ ** Train ** Epoch: [116/200] Iter: [45356/78200] Loss: 0.004 Acc: 100.0%
+
+ ** Valid ** Epoch: [116/200] Iter: [45356/78200] Loss: 0.668 Acc: 91.44%
+Best validation accuracy reached --> Saving model
+
+ ** Time 14:6
+
+ ** Train ** Epoch: [117/200] Iter: [45747/78200] Loss: 0.014 Acc: 98.75%
+
+ ** Valid ** Epoch: [117/200] Iter: [45747/78200] Loss: 0.757 Acc: 91.46%
+Best validation accuracy reached --> Saving model
+
+ ** Time 14:7
+
+ ** Train ** Epoch: [118/200] Iter: [46138/78200] Loss: 0.009 Acc: 100.0%
+
+ ** Valid ** Epoch: [118/200] Iter: [46138/78200] Loss: 0.831 Acc: 91.28%
+
+ ** Time 14:7
+
+ ** Train ** Epoch: [119/200] Iter: [46529/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [119/200] Iter: [46529/78200] Loss: 0.747 Acc: 91.48%
+Best validation accuracy reached --> Saving model
+
+ ** Time 14:8
+
+ ** Train ** Epoch: [120/200] Iter: [46920/78200] Loss: 0.019 Acc: 98.75%
+
+ ** Valid ** Epoch: [120/200] Iter: [46920/78200] Loss: 0.872 Acc: 91.39%
+
+ ** Time 14:9
+
+ ** Train ** Epoch: [121/200] Iter: [47311/78200] Loss: 0.008 Acc: 100.0%
+
+ ** Valid ** Epoch: [121/200] Iter: [47311/78200] Loss: 1.029 Acc: 91.42%
+
+ ** Time 14:10
+
+ ** Train ** Epoch: [122/200] Iter: [47702/78200] Loss: 0.003 Acc: 100.0%
+
+ ** Valid ** Epoch: [122/200] Iter: [47702/78200] Loss: 1.107 Acc: 91.34%
+
+ ** Time 14:11
+
+ ** Train ** Epoch: [123/200] Iter: [48093/78200] Loss: 0.03 Acc: 98.75%
+
+ ** Valid ** Epoch: [123/200] Iter: [48093/78200] Loss: 0.92 Acc: 91.38%
+
+ ** Time 14:11
+
+ ** Train ** Epoch: [124/200] Iter: [48484/78200] Loss: 0.059 Acc: 98.75%
+
+ ** Valid ** Epoch: [124/200] Iter: [48484/78200] Loss: 1.041 Acc: 91.45%
+
+ ** Time 14:12
+
+ ** Train ** Epoch: [125/200] Iter: [48875/78200] Loss: 0.048 Acc: 98.75%
+
+ ** Valid ** Epoch: [125/200] Iter: [48875/78200] Loss: 1.021 Acc: 91.51%
+Best validation accuracy reached --> Saving model
+
+ ** Time 14:13
+
+ ** Train ** Epoch: [126/200] Iter: [49266/78200] Loss: 0.024 Acc: 98.75%
+
+ ** Valid ** Epoch: [126/200] Iter: [49266/78200] Loss: 0.875 Acc: 91.35%
+
+ ** Time 14:14
+
+ ** Train ** Epoch: [127/200] Iter: [49657/78200] Loss: 0.003 Acc: 100.0%
+
+ ** Valid ** Epoch: [127/200] Iter: [49657/78200] Loss: 1.036 Acc: 91.55%
+Best validation accuracy reached --> Saving model
+
+ ** Time 14:14
+
+ ** Train ** Epoch: [128/200] Iter: [50048/78200] Loss: 0.049 Acc: 98.75%
+
+ ** Valid ** Epoch: [128/200] Iter: [50048/78200] Loss: 0.925 Acc: 91.63%
+Best validation accuracy reached --> Saving model
+
+ ** Time 14:15
+
+ ** Train ** Epoch: [129/200] Iter: [50439/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [129/200] Iter: [50439/78200] Loss: 1.012 Acc: 91.53%
+
+ ** Time 14:16
+
+ ** Train ** Epoch: [130/200] Iter: [50830/78200] Loss: 0.067 Acc: 98.75%
+
+ ** Valid ** Epoch: [130/200] Iter: [50830/78200] Loss: 0.875 Acc: 91.42%
+
+ ** Time 14:17
+
+ ** Train ** Epoch: [131/200] Iter: [51221/78200] Loss: 0.027 Acc: 100.0%
+
+ ** Valid ** Epoch: [131/200] Iter: [51221/78200] Loss: 1.028 Acc: 91.65%
+Best validation accuracy reached --> Saving model
+
+ ** Time 14:17
+
+ ** Train ** Epoch: [132/200] Iter: [51612/78200] Loss: 0.008 Acc: 100.0%
+
+ ** Valid ** Epoch: [132/200] Iter: [51612/78200] Loss: 0.889 Acc: 91.61%
+
+ ** Time 14:18
+
+ ** Train ** Epoch: [133/200] Iter: [52003/78200] Loss: 0.02 Acc: 98.75%
+
+ ** Valid ** Epoch: [133/200] Iter: [52003/78200] Loss: 0.782 Acc: 91.63%
+
+ ** Time 14:19
+
+ ** Train ** Epoch: [134/200] Iter: [52394/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [134/200] Iter: [52394/78200] Loss: 0.865 Acc: 91.39%
+
+ ** Time 14:20
+
+ ** Train ** Epoch: [135/200] Iter: [52785/78200] Loss: 0.03 Acc: 98.75%
+
+ ** Valid ** Epoch: [135/200] Iter: [52785/78200] Loss: 0.913 Acc: 91.56%
+
+ ** Time 14:21
+
+ ** Train ** Epoch: [136/200] Iter: [53176/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [136/200] Iter: [53176/78200] Loss: 0.951 Acc: 91.53%
+
+ ** Time 14:21
+
+ ** Train ** Epoch: [137/200] Iter: [53567/78200] Loss: 0.006 Acc: 100.0%
+
+ ** Valid ** Epoch: [137/200] Iter: [53567/78200] Loss: 1.026 Acc: 91.59%
+
+ ** Time 14:22
+
+ ** Train ** Epoch: [138/200] Iter: [53958/78200] Loss: 0.006 Acc: 100.0%
+
+ ** Valid ** Epoch: [138/200] Iter: [53958/78200] Loss: 0.919 Acc: 91.53%
+
+ ** Time 14:23
+
+ ** Train ** Epoch: [139/200] Iter: [54349/78200] Loss: 0.054 Acc: 98.75%
+
+ ** Valid ** Epoch: [139/200] Iter: [54349/78200] Loss: 0.992 Acc: 91.5%
+
+ ** Time 14:24
+
+ ** Train ** Epoch: [140/200] Iter: [54740/78200] Loss: 0.016 Acc: 100.0%
+
+ ** Valid ** Epoch: [140/200] Iter: [54740/78200] Loss: 1.023 Acc: 91.32%
+
+ ** Time 14:24
+
+ ** Train ** Epoch: [141/200] Iter: [55131/78200] Loss: 0.0 Acc: 100.0%
+
+ ** Valid ** Epoch: [141/200] Iter: [55131/78200] Loss: 0.988 Acc: 91.36%
+
+ ** Time 14:25
+
+ ** Train ** Epoch: [142/200] Iter: [55522/78200] Loss: 0.004 Acc: 100.0%
+
+ ** Valid ** Epoch: [142/200] Iter: [55522/78200] Loss: 0.977 Acc: 91.44%
+
+ ** Time 14:26
+
+ ** Train ** Epoch: [143/200] Iter: [55913/78200] Loss: 0.022 Acc: 98.75%
+
+ ** Valid ** Epoch: [143/200] Iter: [55913/78200] Loss: 1.041 Acc: 91.36%
+
+ ** Time 14:27
+
+ ** Train ** Epoch: [144/200] Iter: [56304/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [144/200] Iter: [56304/78200] Loss: 1.105 Acc: 91.44%
+
+ ** Time 14:27
+
+ ** Train ** Epoch: [145/200] Iter: [56695/78200] Loss: 0.005 Acc: 100.0%
+
+ ** Valid ** Epoch: [145/200] Iter: [56695/78200] Loss: 1.206 Acc: 91.48%
+
+ ** Time 14:28
+
+ ** Train ** Epoch: [146/200] Iter: [57086/78200] Loss: 0.004 Acc: 100.0%
+
+ ** Valid ** Epoch: [146/200] Iter: [57086/78200] Loss: 1.198 Acc: 91.54%
+
+ ** Time 14:29
+
+ ** Train ** Epoch: [147/200] Iter: [57477/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [147/200] Iter: [57477/78200] Loss: 1.207 Acc: 91.47%
+
+ ** Time 14:30
+
+ ** Train ** Epoch: [148/200] Iter: [57868/78200] Loss: 0.004 Acc: 100.0%
+
+ ** Valid ** Epoch: [148/200] Iter: [57868/78200] Loss: 1.112 Acc: 91.46%
+
+ ** Time 14:30
+
+ ** Train ** Epoch: [149/200] Iter: [58259/78200] Loss: 0.011 Acc: 100.0%
+
+ ** Valid ** Epoch: [149/200] Iter: [58259/78200] Loss: 1.16 Acc: 91.33%
+** Changing LR to 0.001
+
+ ** Time 14:31
+
+ ** Train ** Epoch: [150/200] Iter: [58650/78200] Loss: 0.008 Acc: 100.0%
+
+ ** Valid ** Epoch: [150/200] Iter: [58650/78200] Loss: 1.056 Acc: 91.46%
+
+ ** Time 14:32
+
+ ** Train ** Epoch: [151/200] Iter: [59041/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [151/200] Iter: [59041/78200] Loss: 0.994 Acc: 91.25%
+
+ ** Time 14:33
+
+ ** Train ** Epoch: [152/200] Iter: [59432/78200] Loss: 0.015 Acc: 98.75%
+
+ ** Valid ** Epoch: [152/200] Iter: [59432/78200] Loss: 1.173 Acc: 91.41%
+
+ ** Time 14:34
+
+ ** Train ** Epoch: [153/200] Iter: [59823/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [153/200] Iter: [59823/78200] Loss: 1.092 Acc: 91.48%
+
+ ** Time 14:34
+
+ ** Train ** Epoch: [154/200] Iter: [60214/78200] Loss: 0.0 Acc: 100.0%
+
+ ** Valid ** Epoch: [154/200] Iter: [60214/78200] Loss: 1.086 Acc: 91.46%
+
+ ** Time 14:35
+
+ ** Train ** Epoch: [155/200] Iter: [60605/78200] Loss: 0.017 Acc: 98.75%
+
+ ** Valid ** Epoch: [155/200] Iter: [60605/78200] Loss: 1.029 Acc: 91.41%
+
+ ** Time 14:36
+
+ ** Train ** Epoch: [156/200] Iter: [60996/78200] Loss: 0.02 Acc: 97.5%
+
+ ** Valid ** Epoch: [156/200] Iter: [60996/78200] Loss: 1.076 Acc: 91.4%
+
+ ** Time 14:37
+
+ ** Train ** Epoch: [157/200] Iter: [61387/78200] Loss: 0.003 Acc: 100.0%
+
+ ** Valid ** Epoch: [157/200] Iter: [61387/78200] Loss: 1.058 Acc: 91.48%
+
+ ** Time 14:37
+
+ ** Train ** Epoch: [158/200] Iter: [61778/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [158/200] Iter: [61778/78200] Loss: 1.183 Acc: 91.51%
+
+ ** Time 14:38
+
+ ** Train ** Epoch: [159/200] Iter: [62169/78200] Loss: 0.018 Acc: 98.75%
+
+ ** Valid ** Epoch: [159/200] Iter: [62169/78200] Loss: 1.104 Acc: 91.48%
+
+ ** Time 14:39
+
+ ** Train ** Epoch: [160/200] Iter: [62560/78200] Loss: 0.003 Acc: 100.0%
+
+ ** Valid ** Epoch: [160/200] Iter: [62560/78200] Loss: 1.119 Acc: 91.45%
+
+ ** Time 14:40
+
+ ** Train ** Epoch: [161/200] Iter: [62951/78200] Loss: 0.0 Acc: 100.0%
+
+ ** Valid ** Epoch: [161/200] Iter: [62951/78200] Loss: 1.19 Acc: 91.54%
+
+ ** Time 14:40
+
+ ** Train ** Epoch: [162/200] Iter: [63342/78200] Loss: 0.0 Acc: 100.0%
+
+ ** Valid ** Epoch: [162/200] Iter: [63342/78200] Loss: 1.132 Acc: 91.44%
+
+ ** Time 14:41
+
+ ** Train ** Epoch: [163/200] Iter: [63733/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [163/200] Iter: [63733/78200] Loss: 1.051 Acc: 91.52%
+
+ ** Time 14:42
+
+ ** Train ** Epoch: [164/200] Iter: [64124/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [164/200] Iter: [64124/78200] Loss: 1.15 Acc: 91.51%
+
+ ** Time 14:43
+
+ ** Train ** Epoch: [165/200] Iter: [64515/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [165/200] Iter: [64515/78200] Loss: 1.26 Acc: 91.59%
+
+ ** Time 14:43
+
+ ** Train ** Epoch: [166/200] Iter: [64906/78200] Loss: 0.02 Acc: 98.75%
+
+ ** Valid ** Epoch: [166/200] Iter: [64906/78200] Loss: 1.102 Acc: 91.39%
+
+ ** Time 14:44
+
+ ** Train ** Epoch: [167/200] Iter: [65297/78200] Loss: 0.008 Acc: 100.0%
+
+ ** Valid ** Epoch: [167/200] Iter: [65297/78200] Loss: 1.108 Acc: 91.55%
+
+ ** Time 14:45
+
+ ** Train ** Epoch: [168/200] Iter: [65688/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [168/200] Iter: [65688/78200] Loss: 1.209 Acc: 91.46%
+
+ ** Time 14:46
+
+ ** Train ** Epoch: [169/200] Iter: [66079/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [169/200] Iter: [66079/78200] Loss: 1.165 Acc: 91.54%
+
+ ** Time 14:47
+
+ ** Train ** Epoch: [170/200] Iter: [66470/78200] Loss: 0.003 Acc: 100.0%
+
+ ** Valid ** Epoch: [170/200] Iter: [66470/78200] Loss: 1.061 Acc: 91.46%
+
+ ** Time 14:47
+
+ ** Train ** Epoch: [171/200] Iter: [66861/78200] Loss: 0.007 Acc: 100.0%
+
+ ** Valid ** Epoch: [171/200] Iter: [66861/78200] Loss: 1.141 Acc: 91.51%
+
+ ** Time 14:48
+
+ ** Train ** Epoch: [172/200] Iter: [67252/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [172/200] Iter: [67252/78200] Loss: 1.121 Acc: 91.43%
+
+ ** Time 14:49
+
+ ** Train ** Epoch: [173/200] Iter: [67643/78200] Loss: 0.012 Acc: 100.0%
+
+ ** Valid ** Epoch: [173/200] Iter: [67643/78200] Loss: 1.217 Acc: 91.43%
+
+ ** Time 14:50
+
+ ** Train ** Epoch: [174/200] Iter: [68034/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [174/200] Iter: [68034/78200] Loss: 1.113 Acc: 91.44%
+
+ ** Time 14:50
+
+ ** Train ** Epoch: [175/200] Iter: [68425/78200] Loss: 0.011 Acc: 100.0%
+
+ ** Valid ** Epoch: [175/200] Iter: [68425/78200] Loss: 1.164 Acc: 91.43%
+
+ ** Time 14:51
+
+ ** Train ** Epoch: [176/200] Iter: [68816/78200] Loss: 0.01 Acc: 100.0%
+
+ ** Valid ** Epoch: [176/200] Iter: [68816/78200] Loss: 1.118 Acc: 91.49%
+
+ ** Time 14:52
+
+ ** Train ** Epoch: [177/200] Iter: [69207/78200] Loss: 0.005 Acc: 100.0%
+
+ ** Valid ** Epoch: [177/200] Iter: [69207/78200] Loss: 1.144 Acc: 91.59%
+
+ ** Time 14:53
+
+ ** Train ** Epoch: [178/200] Iter: [69598/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [178/200] Iter: [69598/78200] Loss: 1.224 Acc: 91.52%
+
+ ** Time 14:53
+
+ ** Train ** Epoch: [179/200] Iter: [69989/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [179/200] Iter: [69989/78200] Loss: 1.145 Acc: 91.44%
+
+ ** Time 14:54
+
+ ** Train ** Epoch: [180/200] Iter: [70380/78200] Loss: 0.004 Acc: 100.0%
+
+ ** Valid ** Epoch: [180/200] Iter: [70380/78200] Loss: 1.104 Acc: 91.55%
+
+ ** Time 14:55
+
+ ** Train ** Epoch: [181/200] Iter: [70771/78200] Loss: 0.003 Acc: 100.0%
+
+ ** Valid ** Epoch: [181/200] Iter: [70771/78200] Loss: 1.081 Acc: 91.55%
+
+ ** Time 14:56
+
+ ** Train ** Epoch: [182/200] Iter: [71162/78200] Loss: 0.011 Acc: 98.75%
+
+ ** Valid ** Epoch: [182/200] Iter: [71162/78200] Loss: 1.149 Acc: 91.49%
+
+ ** Time 14:57
+
+ ** Train ** Epoch: [183/200] Iter: [71553/78200] Loss: 0.0 Acc: 100.0%
+
+ ** Valid ** Epoch: [183/200] Iter: [71553/78200] Loss: 1.161 Acc: 91.52%
+
+ ** Time 14:57
+
+ ** Train ** Epoch: [184/200] Iter: [71944/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [184/200] Iter: [71944/78200] Loss: 1.069 Acc: 91.53%
+
+ ** Time 14:58
+
+ ** Train ** Epoch: [185/200] Iter: [72335/78200] Loss: 0.0 Acc: 100.0%
+
+ ** Valid ** Epoch: [185/200] Iter: [72335/78200] Loss: 1.111 Acc: 91.5%
+
+ ** Time 14:59
+
+ ** Train ** Epoch: [186/200] Iter: [72726/78200] Loss: 0.011 Acc: 100.0%
+
+ ** Valid ** Epoch: [186/200] Iter: [72726/78200] Loss: 1.098 Acc: 91.53%
+
+ ** Time 15:0
+
+ ** Train ** Epoch: [187/200] Iter: [73117/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [187/200] Iter: [73117/78200] Loss: 1.085 Acc: 91.49%
+
+ ** Time 15:0
+
+ ** Train ** Epoch: [188/200] Iter: [73508/78200] Loss: 0.004 Acc: 100.0%
+
+ ** Valid ** Epoch: [188/200] Iter: [73508/78200] Loss: 1.153 Acc: 91.55%
+
+ ** Time 15:1
+
+ ** Train ** Epoch: [189/200] Iter: [73899/78200] Loss: 0.005 Acc: 100.0%
+
+ ** Valid ** Epoch: [189/200] Iter: [73899/78200] Loss: 1.119 Acc: 91.46%
+
+ ** Time 15:2
+
+ ** Train ** Epoch: [190/200] Iter: [74290/78200] Loss: 0.003 Acc: 100.0%
+
+ ** Valid ** Epoch: [190/200] Iter: [74290/78200] Loss: 1.16 Acc: 91.52%
+
+ ** Time 15:3
+
+ ** Train ** Epoch: [191/200] Iter: [74681/78200] Loss: 0.018 Acc: 98.75%
+
+ ** Valid ** Epoch: [191/200] Iter: [74681/78200] Loss: 1.113 Acc: 91.48%
+
+ ** Time 15:4
+
+ ** Train ** Epoch: [192/200] Iter: [75072/78200] Loss: 0.035 Acc: 98.75%
+
+ ** Valid ** Epoch: [192/200] Iter: [75072/78200] Loss: 1.11 Acc: 91.5%
+
+ ** Time 15:4
+
+ ** Train ** Epoch: [193/200] Iter: [75463/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [193/200] Iter: [75463/78200] Loss: 1.155 Acc: 91.53%
+
+ ** Time 15:5
+
+ ** Train ** Epoch: [194/200] Iter: [75854/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [194/200] Iter: [75854/78200] Loss: 1.108 Acc: 91.63%
+
+ ** Time 15:6
+
+ ** Train ** Epoch: [195/200] Iter: [76245/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [195/200] Iter: [76245/78200] Loss: 1.167 Acc: 91.55%
+
+ ** Time 15:7
+
+ ** Train ** Epoch: [196/200] Iter: [76636/78200] Loss: 0.016 Acc: 100.0%
+
+ ** Valid ** Epoch: [196/200] Iter: [76636/78200] Loss: 1.117 Acc: 91.53%
+
+ ** Time 15:7
+
+ ** Train ** Epoch: [197/200] Iter: [77027/78200] Loss: 0.013 Acc: 98.75%
+
+ ** Valid ** Epoch: [197/200] Iter: [77027/78200] Loss: 1.043 Acc: 91.52%
+
+ ** Time 15:8
+
+ ** Train ** Epoch: [198/200] Iter: [77418/78200] Loss: 0.002 Acc: 100.0%
+
+ ** Valid ** Epoch: [198/200] Iter: [77418/78200] Loss: 1.078 Acc: 91.51%
+
+ ** Time 15:9
+
+ ** Train ** Epoch: [199/200] Iter: [77809/78200] Loss: 0.012 Acc: 98.75%
+
+ ** Valid ** Epoch: [199/200] Iter: [77809/78200] Loss: 1.102 Acc: 91.55%
+
+ ** Time 15:10
+
+ ** Train ** Epoch: [200/200] Iter: [78200/78200] Loss: 0.001 Acc: 100.0%
+
+ ** Valid ** Epoch: [200/200] Iter: [78200/78200] Loss: 1.099 Acc: 91.63%
+Lenght of results collected
++-------------+-------------+-------------+------------+
+|    Model    | Epoch Train | Epoch Valid | Iter Train |
++-------------+-------------+-------------+------------+
+| Single Deep |     200     |     41      |   78200    |
++-------------+-------------+-------------+------------+
+Starting Ensemble Training...
