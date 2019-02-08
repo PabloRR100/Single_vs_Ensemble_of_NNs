@@ -151,7 +151,7 @@ from data import create_data_loaders
 train_loader, valid_loader = create_data_loaders(batch_size, n_workers)
 
 
-# 2 - Import the ResNet
+# 2 - Import the Models
 # ---------------------
 
 print('\n\nLOADING MODELS')
