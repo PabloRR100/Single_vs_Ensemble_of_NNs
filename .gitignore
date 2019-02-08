@@ -1,6 +1,7 @@
 # Custom
 experiments/
-results/models # --> uncomment to insert placeholder and them comment back
+results/models/ 
+# --> uncomment to insert placeholder and them comment back
 datasets/
 
 .idea/

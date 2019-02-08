@@ -50,7 +50,7 @@ if model == 'ResNet':
 
 elif model == 'DenseNet':
     n_epochs = 300
-    batch_size = 256
+    batch_size = 64 # 256 breaks
     efficient = True
     
 elif model == 'VGG':
