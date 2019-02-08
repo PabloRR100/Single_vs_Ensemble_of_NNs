@@ -162,14 +162,14 @@ class DenseNet(nn.Module):
         return out
 
 
-def denseNetBC_100_12():
-    return DenseNet('DenseNet-BC_12_100', 12, (16,16,16), 0.5, 16, 4, 0, 10)
+def denseNetBC_100_12(eff = False):
+    return DenseNet('DenseNet-BC_12_100', 12, (16,16,16), 0.5, 16, 4, 0, 10, efficient=eff)
 
-def denseNetBC_250_24():
-    return DenseNet('DenseNet-BC_24_250', 24, (41, 41, 41), 0.5, 16, 4, 0, 10)
+def denseNetBC_250_24(eff = False):
+    return DenseNet('DenseNet-BC_24_250', 24, (41, 41, 41), 0.5, 16, 4, 0, 10, efficient=eff)
 
-def denseNetBC_190_40():
-    return DenseNet('DenseNet-BC_40_190', 40, (31,31,31), 0.5, 16, 4, 0, 10)
+def denseNetBC_190_40(eff = False):
+    return DenseNet('DenseNet-BC_40_190', 40, (31,31,31), 0.5, 16, 4, 0, 10, efficient=eff)
 
 
 if __name__ == '__main__':

@@ -50,7 +50,8 @@ if model == 'ResNet':
 
 elif model == 'DenseNet':
     n_epochs = 300
-    batch_size = 64
+    batch_size = 256
+    efficient = True
     
 elif model == 'VGG':
     n_epochs = 350
@@ -185,15 +186,15 @@ elif model == 'DenseNet':
     
     from models.densenets import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
     
-    densenetBC_100_12 = simple = denseNetBC_100_12() 
-    densenetBC_250_24 = denseNetBC_250_24()
-    densenetBC_190_40 = denseNetBC_190_40()
+    densenetBC_100_12 = simple = denseNetBC_100_12(efficient) 
+    densenetBC_250_24 = denseNetBC_250_24(efficient)
+    densenetBC_190_40 = denseNetBC_190_40(efficient)
         
     table = BT()
     table.append_row(['Model', 'k', 'L', 'M. of Params', '% Over simplest'])
-    table.append_row(['DenseNet-BC', 12, 100, *parameters(densenetBC_100_12, simple, 'BC')])
-    table.append_row(['DenseNet-BC', 24, 250, *parameters(densenetBC_250_24, simple, 'BC')])
-    table.append_row(['DenseNet-BC', 40, 190, *parameters(densenetBC_190_40, simple, 'BC')])
+    table.append_row(['DenseNet-BC', 12, 100, *parameters(densenetBC_100_12, simple)])
+    table.append_row(['DenseNet-BC', 24, 250, *parameters(densenetBC_250_24, simple)])
+    table.append_row(['DenseNet-BC', 40, 190, *parameters(densenetBC_190_40, simple)])
     if comments: print(table)
 
 elif model == 'VGG':
