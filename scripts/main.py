@@ -51,7 +51,7 @@ if model == 'ResNet':
 elif model == 'DenseNet':
     n_epochs = 300
     batch_size = 64 # 256 breaks
-    efficient = True
+    efficient = False
     
 elif model == 'VGG':
     n_epochs = 350
@@ -249,6 +249,10 @@ for i in range(ensemble_size):
     names.append(model.name + '_' + str(i+1))
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
     optimizers.append(params)
+
+
+#print('Existing - just for debuging on the cloud purpose')
+#exit()
 
 
 # 3 - Train ResNet
