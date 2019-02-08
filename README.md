@@ -1,18 +1,20 @@
-# Single_vs_Ensemble_of_NNs
+# Single vs Ensemble
 
 Training ensembles of deep learning models to understand their advantages in terms of performance.  
 Looking for more efficient distribution of training/computational budgets.  
 
-In this [separated repository][1] can be found Dashboards to explore the results obtained. 
-Some of them already deployed **requires username and password**:
+### Folders
 
-- [ResNets Ensemble][2]
-- [VGGs Ensemble][3]
+- scripts
+- results
+- datasets
 
-<embed src="https://resnet110.herokuapp.com/">
+### Files
 
+- ```main.py```         Run the entire training and testing for all the models defined
+- ```read_logs.py```    Text to Pandas Dataframe to plot the logs of the training 
+- ```results.py```      Class Results to store the results in Dicts during training 
+- ```train.py```
+- ```train_ensemble.py```
+- ```test.py```         Measure the performance of all the models in the test set
 
-
-[1]: https://github.com/PabloRR100/Single_vs_Ensemble_Dashboards
-[2]: https://resnet-ensembles.herokuapp.com/
-[3]: https://vgg-ensembles.herokuapp.com/
