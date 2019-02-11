@@ -21,7 +21,6 @@ import torch.optim as optim
 
 import sys
 sys.path.append('..')
-sys.path.append('ResNets')
 from utils import count_parameters
 
 import warnings
@@ -47,15 +46,17 @@ ensemble_type = 'Big'       # Single model big
 if model == 'ResNet':
     n_epochs = 200
     batch_size = 128
+    milestones = [100, 150]
 
 elif model == 'DenseNet':
-    n_epochs = 300
-    batch_size = 64 # 256 breaks
-    efficient = False
+    n_epochs = 350
+    batch_size = 256
+    milestones = [150, 250]
     
 elif model == 'VGG':
     n_epochs = 350
     batch_size = 128
+    milestones = [150, 250]
 
 momentum = 0.9
 learning_rate = 0.1
@@ -66,14 +67,14 @@ cuda = torch.cuda.is_available()
 n_workers = torch.multiprocessing.cpu_count()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 gpus = True if torch.cuda.device_count() > 1 else False
+device_name = torch.cuda.get_device_name(0) if device == 'cuda' else 'CPUs'
 mem = False if device == 'cpu' else True
 
 
 table = BT()
 table.append_row(['Python Version', sys.version[:5]])
 table.append_row(['PyTorch Version', torch.__version__])
-table.append_row(['Cuda', str(cuda)])
-table.append_row(['Device', str(device)])
+table.append_row(['Device', str(device_name)])
 table.append_row(['Cores', str(n_workers)])
 table.append_row(['GPUs', str(torch.cuda.device_count())])
 table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
@@ -184,17 +185,22 @@ if model == 'ResNet':
 
 elif model == 'DenseNet':
     
-    from models.densenets import denseNetBC_100_12, denseNetBC_250_24, denseNetBC_190_40
+    from models.densenets_k import (
+            DenseNet121, DenseNet169, DenseNet201, DenseNet161, densenet_cifar)
     
-    densenetBC_100_12 = simple = denseNetBC_100_12(efficient) 
-    densenetBC_250_24 = denseNetBC_250_24(efficient)
-    densenetBC_190_40 = denseNetBC_190_40(efficient)
-        
+    dense_cifar = simple = densenet_cifar() 
+    densenet121 = DenseNet121()
+    densenet169 = DenseNet169()
+    densenet201 = DenseNet201()
+    densenet161 = DenseNet161()
+
     table = BT()
-    table.append_row(['Model', 'k', 'L', 'M. of Params', '% Over simplest'])
-    table.append_row(['DenseNet-BC', 12, 100, *parameters(densenetBC_100_12, simple)])
-    table.append_row(['DenseNet-BC', 24, 250, *parameters(densenetBC_250_24, simple)])
-    table.append_row(['DenseNet-BC', 40, 190, *parameters(densenetBC_190_40, simple)])
+    table.append_row(['Model', 'M. of Params'])
+    table.append_row(['DenseNet CIFAR', count_parameters(dense_cifar)*1e-6])
+    table.append_row(['DenseNet 121', count_parameters(densenet121)*1e-6])
+    table.append_row(['DenseNet 169', count_parameters(densenet169)*1e-6])
+    table.append_row(['DenseNet 201', count_parameters(densenet201)*1e-6])
+    table.append_row(['DenseNet 161', count_parameters(densenet161)*1e-6])
     if comments: print(table)
 
 elif model == 'VGG':
@@ -225,7 +231,7 @@ if model == 'ResNet':  # 3:1 vs 6:1
     singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110()   
 
 elif model == 'DenseNet':  # 19:1 vs 33:1
-    singleModel = denseNetBC_250_24() if ensemble_type == 'Big' else denseNetBC_190_40()
+    singleModel = DenseNet121() if ensemble_type == 'Big' else DenseNet169()
     
 elif model == 'VGGs':  # 3:1 vs 5:1 vs 7:1
     singleModel = VGG('VGG13') if ensemble_type == 'Big' else VGG('VGG16') \

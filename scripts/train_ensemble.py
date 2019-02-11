@@ -59,7 +59,6 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
             m.to(device)
             m = torch.nn.DataParallel(m)
             
-            
     start = now()
     results.append_time(0)
     results.name = names[0][:-2] + '(x' + str(len(names)) + ')'

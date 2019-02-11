@@ -15,9 +15,9 @@ normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                      std=[0.229, 0.224, 0.225])
 
 def create_data_loaders(batch_size, workers):
-
+    
     train_loader = torch.utils.data.DataLoader(
-        datasets.CIFAR10(root='../datasets/CIFAR10/', train=True, transform=transforms.Compose([
+        datasets.CIFAR10(root='../../datasets/CIFAR10/', train=True, transform=transforms.Compose([
             transforms.RandomHorizontalFlip(),
             transforms.RandomCrop(32, 4),
             transforms.ToTensor(),
@@ -27,7 +27,7 @@ def create_data_loaders(batch_size, workers):
         num_workers=workers, pin_memory=True)
     
     test_loader = torch.utils.data.DataLoader(
-        datasets.CIFAR10(root='../datasets/CIFAR10/', train=False, transform=transforms.Compose([
+        datasets.CIFAR10(root='../../datasets/CIFAR10/', train=False, transform=transforms.Compose([
             transforms.ToTensor(),
             normalize,
         ])),
