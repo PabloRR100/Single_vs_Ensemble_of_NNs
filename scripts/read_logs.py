@@ -4,14 +4,16 @@ import pickle
 
 
 ## Introduce the correct path ##
-path = os.path.abspath('../results_II/logs/resnet56.txt')  
+#path = os.path.abspath('../results_II/logs/resnet56.txt')  
+#path = os.path.abspath('../results/logs/vggs/vgg13.txt')  
+path = os.path.abspath('../results/logs/vggs/vgg19.txt')  
 
 f = open(path, 'r')
 x = f.readlines()[58:-7]
 x = [t for t in x if t != '\n']
 f.close()
 
-MODELS = 1
+MODELS = 3
 
 def get_loss_accy(tr):
     loss = list(map(float, [t.split(' Loss: ')[1].split(' Acc:')[0] for t in tr]))
@@ -27,10 +29,12 @@ tr = [t for t in x if 'Train' in t and 'Loss' in t]
 # Single Model
 tr_single = [t for t in tr if 'Ensemble' not in t]
 tr_single_loss, tr_single_accy = get_loss_accy(tr_single)
+tr_single_accy_max = max(tr_single_accy)
 
 # Ensemble Model
 tr_ensemble = [t for t in tr if 'Ensemble' in t]
 tr_ensemble_loss, tr_ensemble_accy = get_loss_accy(tr_ensemble)
+tr_ensemble_accy_max = max(tr_ensemble_accy)
 
 # Each learner
 ## NO INFORMATION RECORDED IN THE LOG FOR THIS
@@ -54,6 +58,10 @@ va_ensemble = [t for t in va if 'Ensemble' in t]
 va_singles_loss = [get_loss_accy(v)[0] for v in va_singles]
 va_singles_accy = [get_loss_accy(v)[1] for v in va_singles]
 va_ensemble_loss, va_ensemble_accy = get_loss_accy(va_ensemble)
+
+va_single_accy_max = max(va_single_accy)
+va_ensemble_accy_max = max(va_ensemble_accy)
+va_ensemble_individual_accy_max = max([max(va_ensemble)])
 
 
 
