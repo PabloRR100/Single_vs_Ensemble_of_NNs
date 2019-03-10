@@ -316,7 +316,7 @@ exit()
 ### 
 ## TEST LOSS AND ACCY EVOLUTION
 
-## RESNET 56
+### RESNET 56
 #E = 3
 #lab_ind = 'ResNet20'
 #label_single = 'ResNet56'
@@ -324,7 +324,7 @@ exit()
 #path = '../results/dicts/resnets/definitives/ResNet56/Results_Ensemble_Models.pkl'
 
 
-## RESNET 110
+### RESNET 110
 #E = 6
 #lab_ind = 'ResNet20'
 #label_single = 'ResNet110'
@@ -332,12 +332,37 @@ exit()
 #path = '../results/dicts/resnets/definitives/ResNet110/Results_Ensemble_Models.pkl'
 
 
-## VGG 13
-E = 3
-lab_ind = 'VGG 9'
-label_single = 'VGG 13'
-path_ = '../results/dicts/vggs/definitives/VGG13/Results_Single_Models.pkl'
-path = '../results/dicts/vggs/definitives/VGG13/Results_Ensemble_Models.pkl'
+### VGG 13
+#E = 3
+#lab_ind = 'VGG 9'
+#label_single = 'VGG 13'
+#path_ = '../results/dicts/vggs/definitives/VGG13/Results_Single_Models.pkl'
+#path = '../results/dicts/vggs/definitives/VGG13/Results_Ensemble_Models.pkl'
+
+
+### VGG 19
+#E = 7
+#lab_ind = 'VGG 9'
+#label_single = 'VGG 19'
+#path_ = '../results/dicts/vggs/definitives/VGG19/Results_Single_Models.pkl'
+#path = '../results/dicts/vggs/definitives/VGG19/Results_Ensemble_Models.pkl'
+
+
+## DENSENET 121
+E = 6
+lab_ind = 'Little DenseNet'
+label_single = 'DenseNet 121'
+path_ = '../results/dicts/densenets/definitives/DenseNet121/Results_Single_Models.pkl'
+path = '../results/dicts/densenets/definitives/DenseNet121/Results_Ensemble_Models.pkl'
+
+
+### DENSENET 169
+#E = 9
+#lab_ind = 'Little DenseNet'
+#label_single = 'DenseNet 169'
+#path_ = '../results/dicts/densenets/definitives/DenseNet169/Results_Single_Models.pkl'
+#path = '../results/dicts/densenets/definitives/DenseNet169/Results_Ensemble_Models.pkl'
+
 
 
 
@@ -348,10 +373,10 @@ with open(path, 'rb') as input: results = pickle.load(input)
 import matplotlib.pyplot as plt
 
 psm = True
-num_epochs = 181
+num_epochs = 350
 
 
-c = [0, 'pink', 'blue', 'green', 'yellow', 'purple', 'brown']
+c = [0, 'pink', 'blue', 'green', 'yellow', 'purple', 'brown', 'orange']
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
 for m in range(1,1+E):
     ax1.plot(range(num_epochs), results.train_loss['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
