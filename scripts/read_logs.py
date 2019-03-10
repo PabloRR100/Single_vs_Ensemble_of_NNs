@@ -6,7 +6,8 @@ import pickle
 ## Introduce the correct path ##
 #path = os.path.abspath('../results_II/logs/resnet56.txt')  
 #path = os.path.abspath('../results/logs/vggs/vgg13.txt')  
-path = os.path.abspath('../results/logs/vggs/vgg19.txt')  
+#path = os.path.abspath('../results/logs/vggs/vgg19.txt')  
+path = os.path.abspath('../results/logs/resnets/resnet56.txt')  
 
 f = open(path, 'r')
 x = f.readlines()[58:-7]
