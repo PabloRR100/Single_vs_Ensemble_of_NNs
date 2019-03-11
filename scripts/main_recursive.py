@@ -257,7 +257,7 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 # Ensemble Model
 
 from train_ensemble import train as train_ensemble
-params = [names, ensemble, optimizers, criterion, device, train_loader, valid_loader, n_epochs, paths]
+params = [names, ensemble, optimizers, criterion, device, train_loader, valid_loader, n_epochs, paths, milestones]
     
 # Start Training
 import click
