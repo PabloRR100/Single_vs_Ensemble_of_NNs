@@ -40,15 +40,16 @@ print('-------------')
 
 comments = True                         # Log erbosity
 dataset = 'CIFAR10'                     # Choose dataset
+model = 'Ensemble_Recursive'            # Choose architecture
 model = 'Ensemble_Non_Recursive'        # Choose architecture
     
-if model == 'Ensemble_Non_Recursive':
+if model in ['Ensemble_Recursive', 'Ensemble_Non_Recursive']:
     n_epochs = 500
     batch_size = 128
+    learning_rate = 0.001
     milestones = [150, 300, 400]
 
 momentum = 0.9
-learning_rate = 0.1
 weight_decay = 1e-4
 load_trained_models = False
 
@@ -186,7 +187,7 @@ elif model == 'Ensemble_Non_Recursive':
     for n in range(1,1+E):
         ensemble['net_{}'.format(n)] = Conv_Net('net_{}'.format(n), L, M)
 
-elif model == 'Ensemble_Non_Recursive':
+elif model == 'Ensemble_Recursive':
     
     from models.recursives import Conv_Recusive_Net
     net = Conv_Recusive_Net('recursive_net', L, M)
@@ -213,8 +214,8 @@ optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_
 
 
 ### SPECIFIC 
-n_epochs = 50
-learning_rate = 0.001
+#n_epochs = 50
+#learning_rate = 0.001
 
 names = []
 ensemble = []
