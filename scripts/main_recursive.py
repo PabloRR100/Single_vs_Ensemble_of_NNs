@@ -295,7 +295,7 @@ exit()
 ## TEST LOSS AND ACCY EVOLUTION
 
 
-## DENSENET 121
+## ENSEMBLE NON RECURSIVE
 E = 3
 lab_ind = 'Conv_Net'
 label_single = ''

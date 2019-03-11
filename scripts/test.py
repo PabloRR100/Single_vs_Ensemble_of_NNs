@@ -11,7 +11,7 @@ def avoidWarnings():
     warnings.filterwarnings('ignore', 'DeprecationWarning')    
     
 
-def test(dataset, name, singleModel, ensemble, device, dataloader, paths, save):
+def test(dataset, name, singleModel, ensemble, device, dataloader, paths):
             
     # Single Network Performance
     avoidWarnings()
