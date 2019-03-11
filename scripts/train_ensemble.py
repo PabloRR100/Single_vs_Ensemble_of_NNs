@@ -88,13 +88,10 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
             for n, m in enumerate(models):
                 
 #                # Scheduler for learning rate        
-#                done = lambda x,y: round(x/y,2)
-#                if (done(epoch, epochs) == 0.50 or done(epoch, epochs) == 0.75):
-#                    for p in optimizers[n].param_groups: p['lr'] = p['lr'] / 10
-#                    print('\n** Changing LR to {} \n'.format(p['lr']))
-                if epoch in milestones:
-                    for p in optimizers[n].param_groups: p['lr'] = p['lr'] / 10
-                    print('\n** Changing LR to {} \n'.format(p['lr']))
+                if epoch in milestones and i == 0:
+                    for p in optimizers[n].param_groups: 
+                        p['lr'] = p['lr'] / 10
+                    if n == 0: print('\n** Changing LR to {} \n'.format(p['lr']))
                 
                 ## Individual forward pass
                 

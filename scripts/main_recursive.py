@@ -8,7 +8,6 @@ Created on Thu Aug  9 15:31:56 2018
 """
 
 import os
-import math
 import pickle
 from beautifultable import BeautifulTable as BT
 
@@ -38,7 +37,7 @@ print('\n\nCONFIGURATION')
 print('-------------')
 
 
-comments = True                         # Log erbosity
+comments = True                         # Log verbosity
 dataset = 'CIFAR10'                     # Choose dataset
 model = 'Ensemble_Recursive'            # Choose architecture
 model = 'Ensemble_Non_Recursive'        # Choose architecture
@@ -47,7 +46,7 @@ if model in ['Ensemble_Recursive', 'Ensemble_Non_Recursive']:
     n_epochs = 500
     batch_size = 128
     learning_rate = 0.001
-    milestones = [150, 300, 400]
+    milestones = [1, 150, 300, 400]
 
 momentum = 0.9
 weight_decay = 1e-4
@@ -148,6 +147,7 @@ train_loader, valid_loader = create_data_loaders(batch_size, n_workers)
 print('\n\nLOADING MODELS')
 print('----------------')
 
+from models import *
 from collections import OrderedDict
 
 E = 3
@@ -156,7 +156,7 @@ M = 32
     
 if model == 'Single_Non_Recursive':
 
-    from models.recursives import Conv_Net
+#    from models.recursives import Conv_Net
     net = Conv_Net('net', layers=L, filters=M, normalize=False)
     
     print('Regular net')
@@ -166,7 +166,7 @@ if model == 'Single_Non_Recursive':
 
 elif model == 'Single_Recursive':
     
-    from models.recursives import Conv_Recusive_Net
+#    from models.recursives import Conv_Recusive_Net
     net = Conv_Recusive_Net('recursive_net', L, M)
     
     print('Recursive ConvNet')
@@ -176,7 +176,7 @@ elif model == 'Single_Recursive':
 
 elif model == 'Ensemble_Non_Recursive':
     
-    from models.recursives import Conv_Net    
+#    from models.recursives import Conv_Net    
     net = Conv_Net('Convnet', L, M)
     
     print('Non Recursive ConvNet')
@@ -189,7 +189,7 @@ elif model == 'Ensemble_Non_Recursive':
 
 elif model == 'Ensemble_Recursive':
     
-    from models.recursives import Conv_Recusive_Net
+#    from models.recursives import Conv_Recusive_Net
     net = Conv_Recusive_Net('recursive_net', L, M)
 
     print('Recursive ConvNet')
