@@ -1,0 +1,152 @@
+
+
+CONFIGURATION
+-------------
++-----------------+------------------------+
+| Python Version  |         3.6.5          |
++-----------------+------------------------+
+| PyTorch Version |         1.0.0          |
++-----------------+------------------------+
+|     Device      |  Tesla V100-SXM2-16GB  |
++-----------------+------------------------+
+|      Cores      |           8            |
++-----------------+------------------------+
+|      GPUs       |           1            |
++-----------------+------------------------+
+|  CUDNN Enabled  |          True          |
++-----------------+------------------------+
+|  Architecture   | Ensemble_Non_Recursive |
++-----------------+------------------------+
+|     Dataset     |        CIFAR10         |
++-----------------+------------------------+
+|     Epochs      |          500           |
++-----------------+------------------------+
+|   Batch Size    |          128           |
++-----------------+------------------------+
+
+
+DEFINITION OF PATHS
+-------------------
+
+[OK]: Paths Validated Successfully
+Root path:  /home/ec2-user/Single_vs_Ensemble_of_NNs
+Script path:  /home/ec2-user/Single_vs_Ensemble_of_NNs/scripts
+Results path:  /home/ec2-user/Single_vs_Ensemble_of_NNs/results
+DataFolder path:  /home/ec2-user/datasets
+Models to save path:  /home/ec2-user/Single_vs_Ensemble_of_NNs/results/models/recursives/ensemble_non_recursives
+Models to load path:  /home/ec2-user/Single_vs_Ensemble_of_NNs/results/models/recursives/ensemble_non_recursives/definitives
+
+
+IMPORTING DATA
+--------------
+Files already downloaded and verified
+
+
+LOADING MODELS
+----------------
+Non Recursive ConvNet
+Conv_Net(
+  (act): ReLU(inplace)
+  (V): Conv2d(3, 32, kernel_size=(8, 8), stride=(1, 1), padding=(3, 3))
+  (P): MaxPool2d(kernel_size=4, stride=4, padding=2, dilation=1, ceil_mode=False)
+  (W): ModuleList(
+    (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (5): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (6): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (7): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (9): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (10): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (12): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (14): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (15): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (C): Linear(in_features=2048, out_features=10, bias=True)
+)
+
+
+		Parameters: 0.174634M
+
+
+TRAINING
+--------
+Current set up
+[ALERT]: Path to results (this may overwrite /home/ec2-user/Single_vs_Ensemble_of_NNs/results
+[ALERT]: Path to checkpoint (this may overwrite None
+Do you want to continue? [Y/n]: [OK]: Starting Training of Recursive Ensemble Model
+
+Starting Ensemble Training...
+
+ Train Ensemble: Epoch: [1/5] Iter: [391/1955] Loss: 1.815 Acc: 30.0%
+
+ Valid Model 1: Epoch: [1/5] Iter: [391/1955] Loss: 1.737 Acc: 35.16%
+
+ Valid Model 2: Epoch: [1/5] Iter: [391/1955] Loss: 1.889 Acc: 34.38%
+
+ Valid Model 3: Epoch: [1/5] Iter: [391/1955] Loss: 1.742 Acc: 38.28%
+
+ Valid Ensemble: Epoch: [1/5] Iter: [391/1955] Loss: 1.639 Acc: 34.86%
+
+ Train Ensemble: Epoch: [2/5] Iter: [782/1955] Loss: 1.618 Acc: 41.25%
+
+ Valid Model 1: Epoch: [2/5] Iter: [782/1955] Loss: 1.588 Acc: 40.62%
+
+ Valid Model 2: Epoch: [2/5] Iter: [782/1955] Loss: 1.639 Acc: 42.19%
+
+ Valid Model 3: Epoch: [2/5] Iter: [782/1955] Loss: 1.635 Acc: 44.53%
+
+ Valid Ensemble: Epoch: [2/5] Iter: [782/1955] Loss: 1.281 Acc: 44.72%
+
+ Train Ensemble: Epoch: [3/5] Iter: [1173/1955] Loss: 1.472 Acc: 43.75%
+
+ Valid Model 1: Epoch: [3/5] Iter: [1173/1955] Loss: 1.41 Acc: 48.44%
+
+ Valid Model 2: Epoch: [3/5] Iter: [1173/1955] Loss: 1.461 Acc: 47.66%
+
+ Valid Model 3: Epoch: [3/5] Iter: [1173/1955] Loss: 1.348 Acc: 57.03%
+
+ Valid Ensemble: Epoch: [3/5] Iter: [1173/1955] Loss: 1.199 Acc: 49.5%
+
+ Train Ensemble: Epoch: [4/5] Iter: [1564/1955] Loss: 1.423 Acc: 52.5%
+
+ Valid Model 1: Epoch: [4/5] Iter: [1564/1955] Loss: 1.414 Acc: 48.44%
+
+ Valid Model 2: Epoch: [4/5] Iter: [1564/1955] Loss: 1.423 Acc: 50.0%
+
+ Valid Model 3: Epoch: [4/5] Iter: [1564/1955] Loss: 1.251 Acc: 56.25%
+
+ Valid Ensemble: Epoch: [4/5] Iter: [1564/1955] Loss: 1.253 Acc: 52.95%
+
+ Train Ensemble: Epoch: [5/5] Iter: [1955/1955] Loss: 1.265 Acc: 58.75%
+
+ Valid Model 1: Epoch: [5/5] Iter: [1955/1955] Loss: 1.223 Acc: 53.91%
+
+ Valid Model 2: Epoch: [5/5] Iter: [1955/1955] Loss: 1.29 Acc: 54.69%
+
+ Valid Model 3: Epoch: [5/5] Iter: [1955/1955] Loss: 1.218 Acc: 57.03%
+
+ Valid Ensemble: Epoch: [5/5] Iter: [1955/1955] Loss: 1.044 Acc: 56.15%
+
+Finished training... Time:  1.15
+Lenght of results collected
++--------------+-------------+-------------+------------+
+|    Model     | Epoch Train | Epoch Valid | Iter Train |
++--------------+-------------+-------------+------------+
+| Individual 1 |      5      |      5      |    1955    |
++--------------+-------------+-------------+------------+
+| Individual 2 |      5      |      5      |    1955    |
++--------------+-------------+-------------+------------+
+| Individual 3 |      5      |      5      |    1955    |
++--------------+-------------+-------------+------------+
+|   Ensemble   |      5      |      5      |    1955    |
++--------------+-------------+-------------+------------+
+
+
+TESTING
+-------
