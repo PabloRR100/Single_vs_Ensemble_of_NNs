@@ -46,7 +46,7 @@ if model in ['Ensemble_Recursive', 'Ensemble_Non_Recursive']:
     n_epochs = 500
     batch_size = 128
     learning_rate = 0.001
-    milestones = [1, 150, 300, 400]
+    milestones = [150, 300, 400]
 
 momentum = 0.9
 weight_decay = 1e-4
