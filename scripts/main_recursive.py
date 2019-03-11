@@ -213,7 +213,7 @@ optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_
 
 
 ### SPECIFIC 
-n_epochs = 5
+n_epochs = 50
 learning_rate = 0.001
 
 names = []
@@ -294,53 +294,13 @@ exit()
 ### 
 ## TEST LOSS AND ACCY EVOLUTION
 
-### RESNET 56
-#E = 3
-#lab_ind = 'ResNet20'
-#label_single = 'ResNet56'
-#path_ = '../results/dicts/resnets/definitives/ResNet56/Results_Single_Models.pkl'
-#path = '../results/dicts/resnets/definitives/ResNet56/Results_Ensemble_Models.pkl'
-
-
-### RESNET 110
-#E = 6
-#lab_ind = 'ResNet20'
-#label_single = 'ResNet110'
-#path_ = '../results/dicts/resnets/definitives/ResNet110/Results_Single_Models.pkl'
-#path = '../results/dicts/resnets/definitives/ResNet110/Results_Ensemble_Models.pkl'
-
-
-### VGG 13
-#E = 3
-#lab_ind = 'VGG 9'
-#label_single = 'VGG 13'
-#path_ = '../results/dicts/vggs/definitives/VGG13/Results_Single_Models.pkl'
-#path = '../results/dicts/vggs/definitives/VGG13/Results_Ensemble_Models.pkl'
-
-
-### VGG 19
-#E = 7
-#lab_ind = 'VGG 9'
-#label_single = 'VGG 19'
-#path_ = '../results/dicts/vggs/definitives/VGG19/Results_Single_Models.pkl'
-#path = '../results/dicts/vggs/definitives/VGG19/Results_Ensemble_Models.pkl'
-
 
 ## DENSENET 121
-E = 6
-lab_ind = 'Little DenseNet'
-label_single = 'DenseNet 121'
-path_ = '../results/dicts/densenets/definitives/densenet121/Results_Single.pkl'
-path = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
-
-
-### DENSENET 169
-#E = 9
-#lab_ind = 'Little DenseNet'
-#label_single = 'DenseNet 169'
-#path_ = '../results/dicts/densenets/definitives/densenet169/Results_Single_Models.pkl'
-#path = '../results/dicts/densenets/definitives/densenet169/Results_Ensemble_Models.pkl'
-
+E = 3
+lab_ind = 'Conv_Net'
+label_single = ''
+path_ = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
+path = '../results/dicts/recursives/ensemble_non_recursives/Convnet_Results_Ensemble_Models.pkl'
 
 
 
@@ -350,8 +310,8 @@ with open(path, 'rb') as input: results = pickle.load(input)
 
 import matplotlib.pyplot as plt
 
-psm = True
-num_epochs = 350
+psm = False
+num_epochs = 50
 
 
 c = [0, 'pink', 'blue', 'green', 'yellow', 'purple', 'brown', 'orange']
