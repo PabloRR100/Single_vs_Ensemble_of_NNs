@@ -352,16 +352,16 @@ exit()
 E = 6
 lab_ind = 'Little DenseNet'
 label_single = 'DenseNet 121'
-path_ = '../results/dicts/densenets/definitives/DenseNet121/Results_Single_Models.pkl'
-path = '../results/dicts/densenets/definitives/DenseNet121/Results_Ensemble_Models.pkl'
+path_ = '../results/dicts/densenets/definitives/densenet121/Results_Single.pkl'
+path = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
 
 
 ### DENSENET 169
 #E = 9
 #lab_ind = 'Little DenseNet'
 #label_single = 'DenseNet 169'
-#path_ = '../results/dicts/densenets/definitives/DenseNet169/Results_Single_Models.pkl'
-#path = '../results/dicts/densenets/definitives/DenseNet169/Results_Ensemble_Models.pkl'
+#path_ = '../results/dicts/densenets/definitives/densenet169/Results_Single_Models.pkl'
+#path = '../results/dicts/densenets/definitives/densenet169/Results_Ensemble_Models.pkl'
 
 
 
