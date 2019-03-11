@@ -84,10 +84,10 @@ Define all the paths to load / save files
 Ensure all those paths are correctly defined before moving on
 '''
 
-#folder = 'single_non_recursive'
-#folder = 'single_recursive'
-folder = 'ensemble_non_recursives'
-#folder = 'ensemble_recursives'
+#folder = 'recursives/single_non_recursive'
+#folder = 'recursives/single_recursive'
+folder = 'recursives/ensemble_non_recursives'
+#folder = 'recursives/ensemble_recursives'
 
 print('\n\nDEFINITION OF PATHS')
 print('-------------------')
@@ -122,7 +122,7 @@ paths = {
     'root': root, 
     'script': scripts,
     'data': data_path,
-    'resulsts': results,
+    'results': results,
     'logs': path_to_logs, 
     'models': path_to_models,
     'definitives': path_to_definitives,
@@ -216,7 +216,8 @@ ensemble = []
 optimizers = []
 for i in range(E):
     
-    model = net
+    model = Conv_Net('Convnet', L, M) 
+    ensemble.append(model)
     names.append(model.name + '_' + str(i+1))
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
     optimizers.append(params)
@@ -250,15 +251,23 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Ensemble Model
 
+n_epochs = 5
 from train_ensemble import train as train_ensemble
 params = [names, ensemble, optimizers, criterion, device, train_loader, valid_loader, n_epochs, paths]
     
-ens_results = train_ensemble(*params)
-with open(name + '_Results_Ensemble_Models.pkl', 'wb') as object_result:
-    pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
+# Start Training
+import click
+print('Current set up')
+print('[ALERT]: Path to results (this may overwrite', paths['results'])
+print('[ALERT]: Path to checkpoint (this may overwrite', None)
+if click.confirm('Do you want to continue?', default=True):
 
+    print('[OK]: Starting Training of Recursive Ensemble Model')
+    ens_results = train_ensemble(*params)
+    with open(name + '_Results_Ensemble_Models.pkl', 'wb') as object_result:
+        pickle.dump(ens_results, object_result, pickle.HIGHEST_PROTOCOL)
+    
 ens_results.show()
-
 
 
 # 4 - Evaluate Models
