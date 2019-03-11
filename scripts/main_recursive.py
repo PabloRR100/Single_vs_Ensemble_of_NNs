@@ -211,6 +211,11 @@ optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_
 
 # Construct the ensemble
 
+
+### SPECIFIC 
+n_epochs = 5
+learning_rate = 0.001
+
 names = []
 ensemble = []
 optimizers = []
@@ -251,7 +256,6 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 # Ensemble Model
 
-n_epochs = 5
 from train_ensemble import train as train_ensemble
 params = [names, ensemble, optimizers, criterion, device, train_loader, valid_loader, n_epochs, paths]
     
