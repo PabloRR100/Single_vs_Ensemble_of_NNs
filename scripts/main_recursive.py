@@ -155,7 +155,7 @@ M = 32
     
 if model == 'Single_Non_Recursive':
 
-    from models import Conv_Net
+    from models.recursives import Conv_Net
     net = Conv_Net('net', layers=L, filters=M, normalize=False)
     
     print('Regular net')
@@ -165,7 +165,7 @@ if model == 'Single_Non_Recursive':
 
 elif model == 'Single_Recursive':
     
-    from models import Conv_Recusive_Net
+    from models.recursives import Conv_Recusive_Net
     net = Conv_Recusive_Net('recursive_net', L, M)
     
     print('Recursive ConvNet')
@@ -175,7 +175,7 @@ elif model == 'Single_Recursive':
 
 elif model == 'Ensemble_Non_Recursive':
     
-    from models import Conv_Net    
+    from models.recursives import Conv_Net    
     net = Conv_Net('Convnet', L, M)
     
     print('Non Recursive ConvNet')
@@ -188,7 +188,7 @@ elif model == 'Ensemble_Non_Recursive':
 
 elif model == 'Ensemble_Non_Recursive':
     
-    from models import Conv_Recusive_Net
+    from models.recursives import Conv_Recusive_Net
     net = Conv_Recusive_Net('recursive_net', L, M)
 
     print('Recursive ConvNet')
