@@ -40,7 +40,7 @@ print('-------------')
 comments = True                         # Log verbosity
 dataset = 'CIFAR10'                     # Choose dataset
 model = 'Ensemble_Recursive'            # Choose architecture
-model = 'Ensemble_Non_Recursive'        # Choose architecture
+#model = 'Ensemble_Non_Recursive'        # Choose architecture
     
 if model in ['Ensemble_Recursive', 'Ensemble_Non_Recursive']:
     n_epochs = 500
@@ -86,8 +86,8 @@ Ensure all those paths are correctly defined before moving on
 
 #folder = 'recursives/single_non_recursive'
 #folder = 'recursives/single_recursive'
-folder = 'recursives/ensemble_non_recursives'
-#folder = 'recursives/ensemble_recursives'
+#folder = 'recursives/ensemble_non_recursives'
+folder = 'recursives/ensemble_recursives'
 
 print('\n\nDEFINITION OF PATHS')
 print('-------------------')
@@ -205,7 +205,7 @@ else:
 
 # Apply constraint - Parameters constant
 
-singleModel = Conv_Net('Convnet', L, M) 
+singleModel = Conv_Recusive_Net('Recursive_Convnet', L, M) 
 name = title = singleModel.name
 optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
@@ -222,7 +222,7 @@ ensemble = []
 optimizers = []
 for i in range(E):
     
-    model = Conv_Net('Convnet', L, M) 
+    model = Conv_Recusive_Net('Recursive_Convnet', L, M) 
     ensemble.append(model)
     names.append(model.name + '_' + str(i+1))
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
@@ -300,19 +300,19 @@ exit()
 E = 3
 lab_ind = 'Conv_Net'
 label_single = ''
-path_ = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
+#path_ = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
 path = '../results/dicts/recursives/ensemble_non_recursives/Convnet_Results_Ensemble_Models.pkl'
 
 
 
 import pickle
-with open(path_, 'rb') as input: results_ = pickle.load(input)
+#with open(path_, 'rb') as input: results_ = pickle.load(input)
 with open(path, 'rb') as input: results = pickle.load(input)
 
 import matplotlib.pyplot as plt
 
 psm = False
-num_epochs = 50
+num_epochs = 500
 
 
 c = [0, 'pink', 'blue', 'green', 'yellow', 'purple', 'brown', 'orange']
