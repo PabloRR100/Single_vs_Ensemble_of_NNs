@@ -224,7 +224,7 @@ ensemble = []
 optimizers = []
 for i in range(E):
     
-    model = Conv_Recusive_Net('Non_Recursive_Convnet', L, M) 
+    model = Conv_Net('Convnet', L, M, normalize=True) 
     ensemble.append(model)
     names.append(model.name + '_' + str(i+1))
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
