@@ -88,11 +88,10 @@ class Conv_Net(nn.Module):
         
         else:
         
-            x = self.act(self.bn1(self.V(x)))           # Out: 32x32xM  
-            x = self.d1(x)
+            x = self.bn1(self.act(self.V(x)))           # Out: 32x32xM  
             x = self.P(x)                               # Out: 8x8xM  
             for w in self.W:
-                x = self.d1(self.act(self.bn2((w(x))))) # Out: 8x8xM  
+                x = self.bn2(self.act(w(x))) # Out: 8x8xM  
             x = x.view(x.size(0), -1)                   # Out: 64*M  (M = 32 -> 2048)
             return self.C(x)
 
@@ -122,7 +121,6 @@ class Conv_Recusive_Net(nn.Module):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
                 m.weight.data.normal_(0, math.sqrt(2. / n))
                 if m.bias is not None:
-#                    m.bias.data.zero_()
                     m.bias.data.fill_(0.01)
             elif isinstance(m, nn.Linear):
                 m.weight.data.normal_(0, 0.01)
