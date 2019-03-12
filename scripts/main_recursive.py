@@ -75,6 +75,7 @@ table.append_row(['Dataset', dataset])
 table.append_row(['Epochs', str(n_epochs)])
 table.append_row(['Batch Size', str(batch_size)])
 table.append_row(['Initial LR', str(learning_rate)])
+table.append_row(['LR Schedules', str(milestones)])
 
 print(table)
 
