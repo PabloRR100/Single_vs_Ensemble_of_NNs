@@ -47,8 +47,8 @@ model2 = 'Ensemble_Non_Recursive'
 if model2 in ['Ensemble_Recursive', 'Ensemble_Non_Recursive']:
     n_epochs = 500
     batch_size = 128
-    learning_rate = 0.01                ## TODO: Hope doesnt explode
-    milestones = [150, 300, 400]
+    learning_rate = 0.1                ## TODO: Hope doesnt explode
+    milestones = [250, 350, 450]
 
 momentum = 0.9
 weight_decay = 1e-5
@@ -385,7 +385,8 @@ plot()
 
 aaa = [results_]
 
-
+plt.plot(range(500), results_.train_loss)
+plt.plot(range(500), results_.train_accy)
 
 
 
