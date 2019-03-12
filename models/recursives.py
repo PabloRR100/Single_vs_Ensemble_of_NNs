@@ -37,10 +37,10 @@ class Conv_Net(nn.Module):
         self.M = M
         self.name = name
         self.normalize = normalize
-        self.act = nn.ReLU(inplace=True)    
         
-        self.d1 = nn.Dropout2d(p=0.1, inplace=True)
-        self.d2 = nn.Dropout2d(p=0.5, inplace=True)
+        self.act = nn.ReLU()    
+        self.d1 = nn.Dropout2d(p=0.1)
+        self.d2 = nn.Dropout2d(p=0.5)
         self.bn1 = nn.BatchNorm2d(num_features=self.M)
         self.bn2 = nn.BatchNorm2d(num_features=self.M)
         
