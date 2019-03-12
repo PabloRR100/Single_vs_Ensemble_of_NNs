@@ -34,7 +34,7 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset):
     
 
 
-def train(name, model, optimizer, criterion, device, trainloader, validloader, epochs, paths):
+def train(name, model, optimizer, criterion, device, trainloader, validloader, epochs, paths, milestones):
     
     j = 0 
     best_acc = 0
@@ -61,9 +61,8 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader, e
     cudnn.benchmark = True
     print('\nStarting Single Model Training...' )
     for epoch in range(1, epochs+1):
-        
-        done = lambda x,y: round(x/y,2)
-        if (done(epoch, epochs) == 0.50 or done(epoch, epochs) == 0.75):
+
+        if epoch in milestones:
             for p in optimizer.param_groups: 
                 p['lr'] = p['lr'] / 10
             print('\n** Changing LR to {} \n'.format(p['lr']))

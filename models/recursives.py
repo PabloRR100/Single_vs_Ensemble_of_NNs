@@ -3,18 +3,46 @@ import math
 import torch
 from torch import nn
 
+
+"""
+Paper initialization
+====================
+
+for name, param in self.named_parameters():
+            
+    # Vm has zero mean and 0.1 std (0.01 var)
+    if 'V' in name and 'weight' in name:
+        param.data.normal_(0, 0.1)
+    
+    # W are initialized with the identity matrix - Kronecker delta
+    elif 'W' in name and 'weight' in name:
+        param.data.fill_(0)
+        for i in range(32):
+            param.data[i][0][0][0].fill_(1)
+            
+                ## TODO: C is not specified in the paper
+    elif 'fc' in name and 'bias' in name:
+        param.data.fill_(0)
+"""
+
     
 # Convolutional Networks
         
 class Conv_Net(nn.Module):
     
-    def __init__(self, name:str, L:int, M:int=32):
+    def __init__(self, name:str, L:int, M:int=32, normalize:bool=False):
         super(Conv_Net, self).__init__()
         
         self.L = L
         self.M = M
         self.name = name
+        self.normalize = normalize
         self.act = nn.ReLU(inplace=True)    
+        
+        self.d1 = nn.Dropout2d(p=0.1, inplace=True)
+        self.d2 = nn.Dropout2d(p=0.5, inplace=True)
+        self.bn1 = nn.BatchNorm2d(num_features=self.M)
+        self.bn2 = nn.BatchNorm2d(num_features=self.M)
         
         self.V = nn.Conv2d(3, self.M, 8, stride=1, padding=3)
         self.P = nn.MaxPool2d(4, stride=4, padding=2)           
@@ -35,26 +63,37 @@ class Conv_Net(nn.Module):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
                 m.weight.data.normal_(0, math.sqrt(2. / n))
                 if m.bias is not None:
-#                    m.bias.data.zero_() ## Notes (1)
                     m.bias.data.fill_(0.01)
                     
             elif isinstance(m, nn.BatchNorm2d):
                 m.weight.data.fill_(1)
-#                m.bias.data.zero_() 
                 m.bias.data.fill_(0.01)
                 
             elif isinstance(m, nn.Linear):
                 m.weight.data.normal_(0, 0.01)
-                m.bias.data.zero_()
-                                
+                m.bias.data.fill_(0.01)
+               
+
     def forward(self, x):
+            
+        if not self.normalize:
+            x = self.act(self.V(x))         # Out: 32x32xM  
+            x = self.P(x)                   # Out: 8x8xM  
+            for w in self.W:
+                x = self.act(w(x))          # Out: 8x8xM  
+            x = x.view(x.size(0), -1)       # Out: 64*M  (M = 32 -> 2048)
+            return self.C(x)
         
-        x = self.act(self.V(x))         # Out: 32x32xM  
-        x = self.P(x)                   # Out: 8x8xM  
-        for w in self.W:
-            x = self.act(w(x))          # Out: 8x8xM  
-        x = x.view(x.size(0), -1)       # Out: 64*M  (M = 32 -> 2048)
-        return self.C(x)
+        else:
+        
+            x = self.act(self.bn1(self.V(x)))           # Out: 32x32xM  
+            x = self.d1(x)
+            x = self.P(x)                               # Out: 8x8xM  
+            for w in self.W:
+                x = self.d1(self.act(self.bn2((w(x))))) # Out: 8x8xM  
+            x = x.view(x.size(0), -1)                   # Out: 64*M  (M = 32 -> 2048)
+            return self.C(x)
+
 
 
 
@@ -191,8 +230,9 @@ class Conv_K_Recusive_Net(nn.Module):
 
 
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
     
+    print('Testing')
     from torch.autograd import Variable
     def test(net):
         y = net(Variable(torch.randn(1,3,32,32)))
@@ -200,15 +240,17 @@ if '__name__' == '__main__':
     
     L = 16
     M = 32
-    K = 2
+    K = 4
     F = 16
     
     convnet = Conv_Net('ConvNet', L, M)
+    convnet_n = Conv_Net('ConvNet', L, M, normalize=True)
     r_convnet = Conv_Recusive_Net('RecursiveConvNet', L, M)
     r_convnet_k = Conv_K_Recusive_Net('Custom_Recursive_ConvNet', L, M, K)
     r_convnet_c = Conv_Custom_Recusive_Net('Custom_Recursive_ConvNet', L, M, F)
 
     test(convnet)
+    test(convnet_n)
     test(r_convnet)
     test(r_convnet_k)
     test(r_convnet_c)    

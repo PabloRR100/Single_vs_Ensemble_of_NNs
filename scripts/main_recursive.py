@@ -39,17 +39,19 @@ print('-------------')
 
 comments = True                         # Log verbosity
 dataset = 'CIFAR10'                     # Choose dataset
-model = 'Ensemble_Recursive'            # Choose architecture
-#model = 'Ensemble_Non_Recursive'        # Choose architecture
+model1 = 'Single_Non_Recursive'         # Choose architecture
+model2 = 'Ensemble_Non_Recursive'
+#model1 = 'Single_Recursive'
+#model2 = 'Ensemble_Recursive'
     
-if model in ['Ensemble_Recursive', 'Ensemble_Non_Recursive']:
+if model2 in ['Ensemble_Recursive', 'Ensemble_Non_Recursive']:
     n_epochs = 500
     batch_size = 128
-    learning_rate = 0.001
+    learning_rate = 0.01                ## TODO: Hope doesnt explode
     milestones = [150, 300, 400]
 
 momentum = 0.9
-weight_decay = 1e-4
+weight_decay = 1e-5
 load_trained_models = False
 
 cuda = torch.cuda.is_available()
@@ -67,13 +69,14 @@ table.append_row(['Device', str(device_name)])
 table.append_row(['Cores', str(n_workers)])
 table.append_row(['GPUs', str(torch.cuda.device_count())])
 table.append_row(['CUDNN Enabled', str(torch.backends.cudnn.enabled)])
-table.append_row(['Architecture', model])
+table.append_row(['Single Net', model1])
+table.append_row(['Ensemble Nets', model2])
 table.append_row(['Dataset', dataset])
 table.append_row(['Epochs', str(n_epochs)])
 table.append_row(['Batch Size', str(batch_size)])
+table.append_row(['Initial LR', str(learning_rate)])
 
 print(table)
-
 
 
 
@@ -150,21 +153,22 @@ print('----------------')
 #from models import *
 from collections import OrderedDict
 
-E = 3
+E = 5
 L = 16
 M = 32
+norm = True
     
-if model == 'Single_Non_Recursive':
+if model1 == 'Single_Non_Recursive':
 
     from models.recursives import Conv_Net
-    net = Conv_Net('net', layers=L, filters=M, normalize=False)
+    net = Conv_Net('net', L, M, normalize=True)
     
     print('Regular net')
     if comments: print(net)
     print('\n\n\t\tParameters: {}M'.format(count_parameters(net)/1e6))
 
 
-elif model == 'Single_Recursive':
+elif model1 == 'Single_Recursive':
     
     from models.recursives import Conv_Recusive_Net
     net = Conv_Recusive_Net('recursive_net', L, M)
@@ -174,7 +178,7 @@ elif model == 'Single_Recursive':
     print('\n\n\t\tParameters: {}M'.format(count_parameters(net)/1e6))
         
 
-elif model == 'Ensemble_Non_Recursive':
+if model2 == 'Ensemble_Non_Recursive':
     
     from models.recursives import Conv_Net    
     net = Conv_Net('Convnet', L, M)
@@ -187,7 +191,7 @@ elif model == 'Ensemble_Non_Recursive':
     for n in range(1,1+E):
         ensemble['net_{}'.format(n)] = Conv_Net('net_{}'.format(n), L, M)
 
-elif model == 'Ensemble_Recursive':
+elif model2 == 'Ensemble_Recursive':
     
     from models.recursives import Conv_Recusive_Net
     net = Conv_Recusive_Net('recursive_net', L, M)
@@ -200,12 +204,10 @@ elif model == 'Ensemble_Recursive':
     for n in range(1,1+E):
         ensemble['net_{}'.format(n)] = Conv_Recusive_Net('net_{}'.format(n), L, M)    
 
-else:
-    print('Model chosen not valid')
 
 # Apply constraint - Parameters constant
 
-singleModel = Conv_Recusive_Net('Recursive_Convnet', L, M) 
+singleModel = Conv_Recusive_Net('Convnet', L, M, normalize=True) 
 name = title = singleModel.name
 optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
@@ -222,7 +224,7 @@ ensemble = []
 optimizers = []
 for i in range(E):
     
-    model = Conv_Recusive_Net('Recursive_Convnet', L, M) 
+    model = Conv_Recusive_Net('Non_Recursive_Convnet', L, M) 
     ensemble.append(model)
     names.append(model.name + '_' + str(i+1))
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
@@ -242,20 +244,30 @@ print('--------')
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 
-## Single Model
-#
-#from train import train
-#n_iters = n_epochs * len(train_loader)
-#params = [name, singleModel, optimizer, criterion, device, train_loader, valid_loader, n_epochs, paths]
-#
-#results = train(*params)
-#with open(name + '_Results_Single_Models.pkl', 'wb') as object_result:
-#    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-#
-#results.show()
+# Single Model
+# -----
+
+from train import train
+n_iters = n_epochs * len(train_loader)
+params = [name, singleModel, optimizer, criterion, device, train_loader, valid_loader, n_epochs, paths, milestones]
+
+# Start Training
+import click
+print('Current set up')
+print('[ALERT]: Path to results (this may overwrite', paths['results'])
+print('[ALERT]: Path to checkpoint (this may overwrite', None)
+if click.confirm('Do you want to continue?', default=True):
+
+    print('[OK]: Starting Training of Recursive Ensemble Model')
+    results = train(*params)
+    with open(name + '_Results_Single_Models.pkl', 'wb') as object_result:
+        pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+
+results.show()
 
 
 # Ensemble Model
+# -----
 
 from train_ensemble import train as train_ensemble
 params = [names, ensemble, optimizers, criterion, device, train_loader, valid_loader, n_epochs, paths, milestones]
@@ -289,6 +301,9 @@ with open(name + '_Results_Testing.pkl', 'wb') as object_result:
 
 print('\n\n[OK]: Finished Script')
 
+
+
+exit()
 exit()
 
 
@@ -298,10 +313,12 @@ exit()
 
 ## ENSEMBLE NON RECURSIVE
 E = 3
-lab_ind = 'Conv_Net'
+lab_ind = 'Recursive_Conv_Net'
 label_single = ''
 #path_ = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
-path = '../results/dicts/recursives/ensemble_non_recursives/Convnet_Results_Ensemble_Models.pkl'
+#path = '../results/dicts/recursives/ensemble_non_recursives/Convnet_Results_Ensemble_Models.pkl'
+path = '../results/dicts/recursives/ensemble_recursives/Recursive_Convnet_Results_Ensemble_Models.pkl'
+
 
 
 
