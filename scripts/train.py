@@ -158,11 +158,10 @@ def train(name, model, optimizer, criterion, device, trainloader, validloader, e
             torch.save(model.state_dict(), os.path.join(modelpath, '%s-%d.pkl' % (name, epoch))) 
             best_acc = acc
     
-            # Store per-epoch results
-            results.append_loss(lss, 'valid')
-            results.append_accy(acc, 'valid')
-#            results.append_accy((prec1, prec5), 'valid')
-        
+        # Store per-epoch results
+        results.append_loss(lss, 'valid')
+        results.append_accy(acc, 'valid')
+#        results.append_accy((prec1, prec5), 'valid')
         results.append_time(elapsed(start))
         
     print('\nFinished training... Time: ', elapsed(start))

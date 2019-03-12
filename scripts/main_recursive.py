@@ -313,63 +313,77 @@ exit()
 
 ## ENSEMBLE NON RECURSIVE
 E = 3
-lab_ind = 'Recursive_Conv_Net'
+lab_ind = 'Non_Recursive_Conv_Net_BN'
 label_single = ''
+path, path_, result, results_ = None, None, None, None
+
 #path_ = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
 #path = '../results/dicts/recursives/ensemble_non_recursives/Convnet_Results_Ensemble_Models.pkl'
-path = '../results/dicts/recursives/ensemble_recursives/Recursive_Convnet_Results_Ensemble_Models.pkl'
-
-
+#path = '../results/dicts/recursives/ensemble_recursives/Recursive_Convnet_Results_Ensemble_Models.pkl'
+path_ = '../results/dicts/recursives/single_non_recursive/Convnet_Results_Single_Models.pkl'
 
 
 import pickle
-#with open(path_, 'rb') as input: results_ = pickle.load(input)
-with open(path, 'rb') as input: results = pickle.load(input)
+
+if path_ is not None: 
+    with open(path_, 'rb') as input: 
+        results_ = pickle.load(input)
+
+if path is not None: 
+    with open(path, 'rb') as input: 
+        results = pickle.load(input)
 
 import matplotlib.pyplot as plt
 
-psm = False
+psm = True # Include single in plot
+pem = False # Include ensemble in plot
 num_epochs = 500
 
+def plot():
+    
+    global psm, pem, results, results_
+    
+    c = [0, 'pink', 'blue', 'green', 'yellow', 'purple', 'brown', 'orange']
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
+    
+    if psm: 
+        ax1.plot(range(num_epochs), results_.train_loss, label=label_single, color='red', alpha=1, linewidth=0.5)
+        ax2.plot(range(num_epochs), results_.valid_loss, label=label_single, color='red', alpha=1, linewidth=0.5)
+        ax3.plot(range(num_epochs), results_.train_accy, label=label_single, color='red', alpha=1, linewidth=0.5)
+        ax4.plot(range(num_epochs), results_.valid_accy, label=label_single, color='red', alpha=1, linewidth=0.5)
+    
+    if pem:
+        for m in range(1,1+E):
+            ax1.plot(range(num_epochs), results.train_loss['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
+        ax1.plot(range(num_epochs), results.train_loss['ensemble'], label='Ensemble', color='black', alpha=1)
+        
+        for m in range(1,1+E):
+            ax2.plot(range(num_epochs), results.valid_loss['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
+        ax2.plot(range(num_epochs), results.valid_loss['ensemble'], label='Ensemble', color='black', alpha=1)
+        
+        for m in range(1,1+E):
+            ax3.plot(range(num_epochs), results.train_accy['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
+        ax3.plot(range(num_epochs), results.train_accy['ensemble'], label='Ensemble', color='black', alpha=1)
+        
+        for m in range(1,1+E):
+            ax4.plot(range(num_epochs), results.valid_accy['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
+        ax4.plot(range(num_epochs), results.valid_accy['ensemble'], label='Ensemble', color='black', alpha=1)
+    
+    ax1.set_title('Trianing Loss')
+    ax1.grid(True)
+    ax2.set_title('Validation Loss')
+    ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax2.grid(True)
+    ax3.set_title('Training Accuracy')
+    ax3.grid(True)
+    ax4.set_title('Validation Accuracy')
+    ax4.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax4.grid(True)
+    plt.show()
 
-c = [0, 'pink', 'blue', 'green', 'yellow', 'purple', 'brown', 'orange']
-fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
-for m in range(1,1+E):
-    ax1.plot(range(num_epochs), results.train_loss['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
-ax1.plot(range(num_epochs), results.train_loss['ensemble'], label='Ensemble', color='black', alpha=1)
-if psm: ax1.plot(range(num_epochs), results_.train_loss, label=label_single, color='red', alpha=1, linewidth=0.5)
-ax1.set_title('Trianing Loss')
-ax1.grid(True)
+plot()
 
-for m in range(1,1+E):
-    ax2.plot(range(num_epochs), results.valid_loss['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
-ax2.plot(range(num_epochs), results.valid_loss['ensemble'], label='Ensemble', color='black', alpha=1)
-if psm: ax2.plot(range(num_epochs), results_.valid_loss, label=label_single, color='red', alpha=1, linewidth=0.5)
-ax2.set_title('Validation Loss')
-ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-ax2.grid(True)
-
-for m in range(1,1+E):
-    ax3.plot(range(num_epochs), results.train_accy['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
-ax3.plot(range(num_epochs), results.train_accy['ensemble'], label='Ensemble', color='black', alpha=1)
-if psm: ax3.plot(range(num_epochs), results_.train_accy, label=label_single, color='red', alpha=1, linewidth=0.5)
-ax3.set_title('Training Accuracy')
-ax3.grid(True)
-
-for m in range(1,1+E):
-    ax4.plot(range(num_epochs), results.valid_accy['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
-ax4.plot(range(num_epochs), results.valid_accy['ensemble'], label='Ensemble', color='black', alpha=1)
-if psm: ax4.plot(range(num_epochs), results_.valid_accy, label=label_single, color='red', alpha=1, linewidth=0.5)
-ax4.set_title('Validation Accuracy')
-ax4.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-ax4.grid(True)
-plt.show()
-
-
-
-
-
-
+aaa = [results_]
 
 
 

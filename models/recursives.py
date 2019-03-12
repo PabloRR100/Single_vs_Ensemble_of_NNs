@@ -39,10 +39,12 @@ class Conv_Net(nn.Module):
         self.normalize = normalize
         
         self.act = nn.ReLU()    
-        self.d1 = nn.Dropout2d(p=0.1)
-        self.d2 = nn.Dropout2d(p=0.5)
-        self.bn1 = nn.BatchNorm2d(num_features=self.M)
-        self.bn2 = nn.BatchNorm2d(num_features=self.M)
+        
+        if normalize:
+            self.d1 = nn.Dropout2d(p=0.1)
+            self.d2 = nn.Dropout2d(p=0.5)
+            self.bn1 = nn.BatchNorm2d(num_features=self.M)
+            self.bn2 = nn.BatchNorm2d(num_features=self.M)
         
         self.V = nn.Conv2d(3, self.M, 8, stride=1, padding=3)
         self.P = nn.MaxPool2d(4, stride=4, padding=2)           
@@ -256,6 +258,17 @@ if __name__ == '__main__':
     test(r_convnet_c)    
     
     exit()
+    
+    import numpy as np
+    a = list(convnet_n.parameters())
+    aa = convnet_n.state_dict()
+    
+    pars = 0
+    aaa = []
+    for name, param in aa.items():
+        aaa.append(param)
+        pars += np.sum(param.shape.numel())
+    
     
     
 ## Fully Connected Networks
