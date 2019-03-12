@@ -207,7 +207,7 @@ elif model2 == 'Ensemble_Recursive':
 
 # Apply constraint - Parameters constant
 
-singleModel = Conv_Recusive_Net('Convnet', L, M, normalize=True) 
+singleModel = Conv_Net('Convnet', L, M, normalize=True) 
 name = title = singleModel.name
 optimizer = optim.SGD(singleModel.parameters(), learning_rate, momentum, weight_decay)
 
