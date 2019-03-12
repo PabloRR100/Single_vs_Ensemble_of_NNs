@@ -47,7 +47,7 @@ model2 = 'Ensemble_Non_Recursive'
 if model2 in ['Ensemble_Recursive', 'Ensemble_Non_Recursive']:
     n_epochs = 500
     batch_size = 128
-    learning_rate = 0.1                ## TODO: Hope doesnt explode
+    learning_rate = 0.01                ## TODO: Hope doesnt explode
     milestones = [250, 350, 450]
 
 momentum = 0.9
