@@ -42,21 +42,23 @@ def create_data_loaders_SVHN(batch_size, workers):
     normalize = transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
     
     train_loader = torch.utils.data.DataLoader(
-        datasets.SVHN(root='../../datasets/SVHN/', split='train', download=True,  transform=transforms.Compose([
-            transforms.RandomHorizontalFlip(),
-            transforms.RandomCrop(32, 4),
-            transforms.ToTensor(),
-            normalize,
-        ]), download=True),
-        batch_size=batch_size, shuffle=True,
-        num_workers=workers, pin_memory=True)
+        datasets.SVHN(root='../../datasets/SVHN/', split='train', download=True, 
+            transform=transforms.Compose([
+                transforms.RandomHorizontalFlip(),
+                transforms.RandomCrop(32, 4),
+                transforms.ToTensor(),
+                normalize,
+                ])),
+            batch_size=batch_size, shuffle=True,
+            num_workers=workers, pin_memory=True)
     
     test_loader = torch.utils.data.DataLoader(
-        datasets.SVHN(root='../../datasets/SVHN/', split='test', download=True, transform=transforms.Compose([
-            transforms.ToTensor(),
-            normalize,
-        ])),
-        batch_size=128, shuffle=False,
-        num_workers=workers, pin_memory=True)
+        datasets.SVHN(root='../../datasets/SVHN/', split='test', download=True,
+            transform=transforms.Compose([
+                    transforms.ToTensor(),
+                normalize,
+            ])),
+            batch_size=128, shuffle=False,
+            num_workers=workers, pin_memory=True)
     
     return train_loader, test_loader
