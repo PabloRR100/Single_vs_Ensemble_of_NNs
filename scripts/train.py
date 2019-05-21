@@ -34,7 +34,7 @@ def print_stats(epoch, epochs, j, iters, lss, acc, subset):
     
 
 
-def train(name, model, optimizer, criterion, device, trainloader, validloader, epochs, paths, milestones):
+def train(name, model, optimizer, criterion, device, trainloader, validloader, epochs, paths, milestones=None):
     
     j = 0 
     best_acc = 0

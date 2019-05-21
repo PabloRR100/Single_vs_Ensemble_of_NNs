@@ -40,7 +40,7 @@ print('-------------')
 
 comments = True             # Log erbosity
 dataset = 'CIFAR10'         # Choose dataset
-model = 'ResNet'          # Choose architecture
+model = 'ResNet'            # Choose architecture
 ensemble_type = 'Big'       # Single model big 
 
 if model == 'ResNet':
@@ -275,7 +275,7 @@ criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 from train import train
 n_iters = n_epochs * len(train_loader)
-params = [name, singleModel, optimizer, criterion, device, train_loader, valid_loader, n_epochs, paths]
+params = [name, singleModel, optimizer, criterion, device, train_loader, valid_loader, n_epochs, paths, milestones]
 
 results = train(*params)
 with open(name + '_Results_Single_Models.pkl', 'wb') as object_result:
@@ -287,7 +287,7 @@ results.show()
 # Ensemble Model
 
 from train_ensemble import train as train_ensemble
-params = [names, ensemble, optimizers, criterion, device, train_loader, valid_loader, n_epochs, paths]
+params = [names, ensemble, optimizers, criterion, device, train_loader, valid_loader, n_epochs, paths, milestones]
     
 ens_results = train_ensemble(*params)
 with open(name + '_Results_Ensemble_Models.pkl', 'wb') as object_result:
