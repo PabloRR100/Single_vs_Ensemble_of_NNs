@@ -135,7 +135,7 @@ def train(names, models, optimizers, criterion, device, trainloader, validloader
                 optimizers[n].step()        
                 
                 
-            ## Ensemble foward pass
+            ## Ensemble forward pass
             
             output = torch.mean(torch.stack(outs), dim=0)
             

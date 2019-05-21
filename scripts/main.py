@@ -40,7 +40,7 @@ print('-------------')
 
 comments = True             # Log erbosity
 dataset = 'CIFAR10'         # Choose dataset
-model = 'DenseNet'          # Choose architecture
+model = 'ResNet'          # Choose architecture
 ensemble_type = 'Big'       # Single model big 
 
 if model == 'ResNet':
@@ -148,8 +148,9 @@ paths = {
 print('\n\nIMPORTING DATA')
 print('--------------')
 
-from data import create_data_loaders
-train_loader, valid_loader = create_data_loaders(batch_size, n_workers)
+from data import create_data_loaders, create_data_loaders_SVHN
+#train_loader, valid_loader = create_data_loaders(batch_size, n_workers)
+train_loader, valid_loader = create_data_loaders_SVHN(batch_size, n_workers)
 
 
 # 2 - Import the Models
@@ -348,12 +349,12 @@ exit()
 #path = '../results/dicts/vggs/definitives/VGG19/Results_Ensemble_Models.pkl'
 
 
-## DENSENET 121
-E = 6
-lab_ind = 'Little DenseNet'
-label_single = 'DenseNet 121'
-path_ = '../results/dicts/densenets/definitives/densenet121/Results_Single.pkl'
-path = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
+### DENSENET 121
+#E = 6
+#lab_ind = 'Little DenseNet'
+#label_single = 'DenseNet 121'
+#path_ = '../results/dicts/densenets/definitives/densenet121/Results_Single.pkl'
+#path = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
 
 
 ### DENSENET 169
@@ -366,50 +367,50 @@ path = '../results/dicts/densenets/definitives/densenet121/Results_Ensemble.pkl'
 
 
 
-import pickle
-with open(path_, 'rb') as input: results_ = pickle.load(input)
-with open(path, 'rb') as input: results = pickle.load(input)
-
-import matplotlib.pyplot as plt
-
-psm = True
-num_epochs = 350
-
-
-c = [0, 'pink', 'blue', 'green', 'yellow', 'purple', 'brown', 'orange']
-fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
-for m in range(1,1+E):
-    ax1.plot(range(num_epochs), results.train_loss['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
-ax1.plot(range(num_epochs), results.train_loss['ensemble'], label='Ensemble', color='black', alpha=1)
-if psm: ax1.plot(range(num_epochs), results_.train_loss, label=label_single, color='red', alpha=1, linewidth=0.5)
-ax1.set_title('Trianing Loss')
-ax1.grid(True)
-
-for m in range(1,1+E):
-    ax2.plot(range(num_epochs), results.valid_loss['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
-ax2.plot(range(num_epochs), results.valid_loss['ensemble'], label='Ensemble', color='black', alpha=1)
-if psm: ax2.plot(range(num_epochs), results_.valid_loss, label=label_single, color='red', alpha=1, linewidth=0.5)
-ax2.set_title('Validation Loss')
-ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-ax2.grid(True)
-
-for m in range(1,1+E):
-    ax3.plot(range(num_epochs), results.train_accy['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
-ax3.plot(range(num_epochs), results.train_accy['ensemble'], label='Ensemble', color='black', alpha=1)
-if psm: ax3.plot(range(num_epochs), results_.train_accy, label=label_single, color='red', alpha=1, linewidth=0.5)
-ax3.set_title('Training Accuracy')
-ax3.grid(True)
-
-for m in range(1,1+E):
-    ax4.plot(range(num_epochs), results.valid_accy['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
-ax4.plot(range(num_epochs), results.valid_accy['ensemble'], label='Ensemble', color='black', alpha=1)
-if psm: ax4.plot(range(num_epochs), results_.valid_accy, label=label_single, color='red', alpha=1, linewidth=0.5)
-ax4.set_title('Validation Accuracy')
-ax4.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-ax4.grid(True)
-plt.show()
-
-
+#import pickle
+#with open(path_, 'rb') as input: results_ = pickle.load(input)
+#with open(path, 'rb') as input: results = pickle.load(input)
+#
+#import matplotlib.pyplot as plt
+#
+#psm = True
+#num_epochs = 350
+#
+#
+#c = [0, 'pink', 'blue', 'green', 'yellow', 'purple', 'brown', 'orange']
+#fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
+#for m in range(1,1+E):
+#    ax1.plot(range(num_epochs), results.train_loss['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
+#ax1.plot(range(num_epochs), results.train_loss['ensemble'], label='Ensemble', color='black', alpha=1)
+#if psm: ax1.plot(range(num_epochs), results_.train_loss, label=label_single, color='red', alpha=1, linewidth=0.5)
+#ax1.set_title('Trianing Loss')
+#ax1.grid(True)
+#
+#for m in range(1,1+E):
+#    ax2.plot(range(num_epochs), results.valid_loss['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
+#ax2.plot(range(num_epochs), results.valid_loss['ensemble'], label='Ensemble', color='black', alpha=1)
+#if psm: ax2.plot(range(num_epochs), results_.valid_loss, label=label_single, color='red', alpha=1, linewidth=0.5)
+#ax2.set_title('Validation Loss')
+#ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+#ax2.grid(True)
+#
+#for m in range(1,1+E):
+#    ax3.plot(range(num_epochs), results.train_accy['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
+#ax3.plot(range(num_epochs), results.train_accy['ensemble'], label='Ensemble', color='black', alpha=1)
+#if psm: ax3.plot(range(num_epochs), results_.train_accy, label=label_single, color='red', alpha=1, linewidth=0.5)
+#ax3.set_title('Training Accuracy')
+#ax3.grid(True)
+#
+#for m in range(1,1+E):
+#    ax4.plot(range(num_epochs), results.valid_accy['m{}'.format(m)], label='{}_{}'.format(lab_ind, m), color=c[m], alpha=0.4)
+#ax4.plot(range(num_epochs), results.valid_accy['ensemble'], label='Ensemble', color='black', alpha=1)
+#if psm: ax4.plot(range(num_epochs), results_.valid_accy, label=label_single, color='red', alpha=1, linewidth=0.5)
+#ax4.set_title('Validation Accuracy')
+#ax4.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+#ax4.grid(True)
+#plt.show()
+#
+#
 
 
 
