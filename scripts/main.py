@@ -119,7 +119,7 @@ assert os.path.exists(data_path), 'Data folder not found: {}'.format(data_path)
 assert os.path.exists(path_to_logs), 'Logs folder not found: {}'.format(path_to_logs)
 assert os.path.exists(path_to_models), 'Models folder not found: {}'.format(path_to_models)
 assert os.path.exists(path_to_figures), 'Figure folder not found: {}'.format(path_to_figures)
-assert os.path.exists(path_to_definitives), 'Def. models folder not found: {}'.format(path_to_definitives)
+#assert os.path.exists(path_to_definitives), 'Def. models folder not found: {}'.format(path_to_definitives)
 
 print('\n[OK]: Paths Validated Successfully')
 print('Root path: ', root)
@@ -127,7 +127,7 @@ print('Script path: ', scripts)
 print('Results path: ', results)
 print('DataFolder path: ', data_path)
 print('Models to save path: ', path_to_models)
-print('Models to load path: ', path_to_definitives)
+#print('Models to load path: ', path_to_definitives)
 
 paths = {
     'root': root, 
