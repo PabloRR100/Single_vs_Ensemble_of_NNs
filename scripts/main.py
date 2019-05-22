@@ -169,7 +169,8 @@ if model == 'ResNet':
 
     from models.resnets import ResNet20, ResNet32, ResNet44, ResNet56, ResNet110
     
-    resnet20 = simple = ResNet20()
+    simple = ResNet20
+    resnet20 = ResNet20()
     resnet32 = ResNet32()
     resnet44 = ResNet44()
     resnet56 = ResNet56()
@@ -177,11 +178,11 @@ if model == 'ResNet':
         
     table = BT()
     table.append_row(['Model', 'M. Paramars', '% over ResNet20'])
-    table.append_row(['ResNet 20', *parameters(resnet20, simple)])
-    table.append_row(['ResNet 32', *parameters(resnet32, simple)])
-    table.append_row(['ResNet 44', *parameters(resnet44, simple)])
-    table.append_row(['ResNet 56', *parameters(resnet56, simple)])
-    table.append_row(['ResNet 110', *parameters(resnet110, simple)])
+    table.append_row(['ResNet 20', *parameters(resnet20, simple())])
+    table.append_row(['ResNet 32', *parameters(resnet32, simple())])
+    table.append_row(['ResNet 44', *parameters(resnet44, simple())])
+    table.append_row(['ResNet 56', *parameters(resnet56, simple())])
+    table.append_row(['ResNet 110', *parameters(resnet110, simple())])
     if comments: print(table)
 
 elif model == 'DenseNet':
@@ -189,7 +190,8 @@ elif model == 'DenseNet':
     from models.densenets_k import (
             DenseNet121, DenseNet169, DenseNet201, DenseNet161, densenet_cifar)
     
-    dense_cifar = simple = densenet_cifar() 
+    simple = densenet_cifar
+    dense_cifar = densenet_cifar() 
     densenet121 = DenseNet121()
     densenet169 = DenseNet169()
     densenet201 = DenseNet201()
@@ -208,7 +210,8 @@ elif model == 'VGG':
     
     from models.vggs import VGG
 
-    vgg9 = simple = VGG('VGG9')
+    simple = VGG
+    vgg9 = VGG('VGG9')
     vgg11 = VGG('VGG11')
     vgg13 = VGG('VGG13')
     vgg16 = VGG('VGG16')
@@ -216,17 +219,17 @@ elif model == 'VGG':
     
     table = BT()
     table.append_row(['Model', 'M. Paramars', '% over VGG9'])
-    table.append_row(['VGG9', *parameters(vgg9, simple)])
-    table.append_row(['VGG11', *parameters(vgg11, simple)])
-    table.append_row(['VGG13', *parameters(vgg13, simple)])
-    table.append_row(['VGG16', *parameters(vgg16, simple)])
-    table.append_row(['VGG19', *parameters(vgg19, simple)])
+    table.append_row(['VGG9', *parameters(vgg9, simple())])
+    table.append_row(['VGG11', *parameters(vgg11, simple())])
+    table.append_row(['VGG13', *parameters(vgg13, simple())])
+    table.append_row(['VGG16', *parameters(vgg16, simple())])
+    table.append_row(['VGG19', *parameters(vgg19, simple())])
     print(table)
 
 
 # Apply constraint - Parameters constant
 
-small = count_parameters(simple)  
+small = count_parameters(simple())  
 
 if model == 'ResNet':  # 3:1 vs 6:1
     singleModel = ResNet56() if ensemble_type == 'Big' else ResNet110()   
@@ -252,8 +255,10 @@ ensemble = []
 optimizers = []
 for i in range(ensemble_size):
     
-    model = simple
+    if not model == 'VGG':
+        model = simple()
     names.append(model.name + '_' + str(i+1))
+    ensemble.append(model)
     params = optim.SGD(model.parameters(), learning_rate, momentum, weight_decay)
     optimizers.append(params)
 
@@ -271,17 +276,17 @@ print('--------')
 criterion = nn.CrossEntropyLoss().cuda() if cuda else nn.CrossEntropyLoss()
 
 
-# Single Model
-
-from train import train
-n_iters = n_epochs * len(train_loader)
-params = [name, singleModel, optimizer, criterion, device, train_loader, valid_loader, n_epochs, paths, milestones]
-
-results = train(*params)
-with open(name + '_Results_Single_Models.pkl', 'wb') as object_result:
-    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
-
-results.show()
+## Single Model
+#
+#from train import train
+#n_iters = n_epochs * len(train_loader)
+#params = [name, singleModel, optimizer, criterion, device, train_loader, valid_loader, n_epochs, paths, milestones]
+#
+#results = train(*params)
+#with open(name + '_Results_Single_Models.pkl', 'wb') as object_result:
+#    pickle.dump(results, object_result, pickle.HIGHEST_PROTOCOL)
+#
+#results.show()
 
 
 # Ensemble Model
